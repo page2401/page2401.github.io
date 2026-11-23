@@ -56,6 +56,7 @@ export interface SiteHighlights {
 
 export interface SiteEntry {
   id: string
+  isMaster?: boolean
   family: string
   versionSeries: string
   primaryPackage: string

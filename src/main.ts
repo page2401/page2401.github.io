@@ -512,12 +512,10 @@ function renderAppShell(): void {
           <p class="intro-eyebrow mono">Git Submodule · Exact Version Pinning · Similar *.md Suite</p>
           <h1 class="intro-title">同一套语义基准，并排检验不同大版本 SSG 的真实边界</h1>
           <p class="intro-desc">
-            每种静态网站生成器对目录组织结构、元数据校验、提示块标注（Callouts）、Mermaid 流程图与 LaTeX 公式的支持方式及大版本插件生态均存在取舍。本平台将每个带版本号的生成器封装为独立的 Git 子模块仓库（<code>main</code> 存纯源码，<code>page</code> 发静态产物），实时扫描物理目录树并提取真实 <code>*.md</code> 原文进行同源分屏比对。
+            本仓库自身在 <code>docs/*.md</code> 中维护唯一一套<strong>标准 GitHub Flavored Markdown（GFM）原始母版</strong>；下方所有独立子模块仓库中的文档均由该母版按各框架大版本的专有语法<strong>派生适配</strong>而来。通过并排对比母版与各派生版，即可精确量化每个框架带来的语法改造代价与渲染差异。
           </p>
         </div>
-        <div class="submodule-strip">
-          ${renderSubmoduleCards()}
-        </div>
+        ${renderSubmoduleCards()}
       </section>
 
       <section class="workbench-section" id="workbench" aria-label="双栏对比工作台">
@@ -542,15 +540,15 @@ function renderAppShell(): void {
           </div>
 
           <div class="preset-bar" aria-label="快捷对比组合">
+            <span class="preset-label">母版 ↔ 派生对照：</span>
+            <button type="button" class="preset-pill" data-preset-left="master" data-preset-right="vitepress-v1">★ 母版 ↔ VitePress v1</button>
+            <button type="button" class="preset-pill" data-preset-left="master" data-preset-right="astro7-starlight">★ 母版 ↔ Astro 7 Starlight</button>
+            <button type="button" class="preset-pill" data-preset-left="master" data-preset-right="docsify-v5">★ 母版 ↔ Docsify v5</button>
+            <span class="nav-divider" role="separator"></span>
             <span class="preset-label">同门跨大版本：</span>
             <button type="button" class="preset-pill" data-preset-left="vitepress-v1" data-preset-right="vitepress-v2">VitePress v1 ↔ v2</button>
             <button type="button" class="preset-pill" data-preset-left="vuepress-v1" data-preset-right="vuepress-v2">VuePress v1 ↔ v2</button>
             <button type="button" class="preset-pill" data-preset-left="docsify-v4" data-preset-right="docsify-v5">Docsify v4 ↔ v5</button>
-            <span class="nav-divider" role="separator"></span>
-            <span class="preset-label">跨派系焦点：</span>
-            <button type="button" class="preset-pill" data-preset-left="vitepress-v1" data-preset-right="astro7-starlight">VitePress v1 ↔ Astro 7 Starlight</button>
-            <button type="button" class="preset-pill" data-preset-left="vuepress-v2" data-preset-right="vitepress-v2">VuePress v2 ↔ VitePress v2</button>
-            <button type="button" class="preset-pill" data-preset-left="vitepress-v1" data-preset-right="docsify-v5">预编译 SSG ↔ 运行时 Docsify v5</button>
           </div>
 
           <div class="chapter-bar">

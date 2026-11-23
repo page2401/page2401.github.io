@@ -38,6 +38,62 @@
   ],
   "sites": [
     {
+      "id": "master",
+      "isMaster": true,
+      "family": "★ 本站母版 (Pure GFM)",
+      "versionSeries": "Canonical Source",
+      "tagline": "本仓库 docs/*.md 原始中立 GitHub Flavored Markdown 母版（所有子模块均由此派生）",
+      "repo": "page2401/page2401.github.io",
+      "basePath": "/master/",
+      "submoduleDir": ".",
+      "distDir": "dist/master",
+      "routeStyle": "clean",
+      "primaryPackage": "marked",
+      "trackedPackages": [
+        "marked",
+        "katex",
+        "mermaid"
+      ],
+      "configFiles": [
+        "scripts/build-master-docs.mjs",
+        "sites.config.json"
+      ],
+      "directoryProfile": {
+        "contentRoot": "docs/ (纯正无污染 Markdown 母版目录)",
+        "contentPrefix": "docs/",
+        "excludedContentFiles": [],
+        "orderingMechanism": "01- 文件名前缀 + 纯相对路径 .md 互链",
+        "sidebarMechanism": "零侧栏配置文件（纯文件系统自然层级）",
+        "pros": [
+          "100% 平台中立：无任何框架私有 ::: 或 MDX 语法，在 GitHub / Obsidian / VS Code 中均可原生阅读",
+          "离线相对链接完好：文档间使用 ./nested/01-order-and-url.md 纯相对路径，编辑器点击直接跳转",
+          "作为派生标尺：与任意子模块并排对比源码时，高亮行即为该框架强加的方言改造成本"
+        ],
+        "cons": [
+          "本身仅是内容源：不具备完整文档站点的自动多级侧边栏、全文搜索索引与导航框架",
+          "派生不可避免：一旦迁入具体 SSG，就必须在 Frontmatter、提示框方言和目录约定上做出妥协"
+        ]
+      },
+      "highlights": {
+        "dirIsolation": "docs/ 纯净母版目录（零框架配置混入，所有子模块均由此派生改造）",
+        "dirRoutingSidebar": "纯自然目录树 + 相对 .md 链接（作为衡量各框架目录侵入性的基准原点）",
+        "frontmatter": "仅保留最基础的 title 与 description 两个通用 YAML 字段",
+        "callouts": "不绑定任何 ::: 方言，统一采用标准 GitHub > [!NOTE] 五类引用警报",
+        "details": "标准 HTML <details><summary> 折叠块",
+        "gfmAlerts": "母版原生标准语法（检验各派生框架是否支持零改造直通的试金石）",
+        "mermaid": "标准 ```mermaid 围栏代码块（GitHub 网页端原生渲染，本站用 mermaid@12 参考预览）",
+        "math": "标准 $...$ 与 $$...$$ 定界符（GitHub 网页端原生渲染，本站用 KaTeX 0.19 参考预览）",
+        "buildArtifact": "由 scripts/build-master-docs.mjs 编译至 /master/ 作为中立参考视图"
+      },
+      "docs": {
+        "index": { "route": "", "file": "docs/index.md" },
+        "01-annotations": { "route": "01-annotations", "file": "docs/01-annotations.md" },
+        "02-diagrams": { "route": "02-diagrams", "file": "docs/02-diagrams.md" },
+        "03-math": { "route": "03-math", "file": "docs/03-math.md" },
+        "04-directory": { "route": "04-directory/", "file": "docs/04-directory/index.md" }
+      }
+    },
+    {
       "id": "vitepress-v1",
       "family": "VitePress",
       "versionSeries": "v1",

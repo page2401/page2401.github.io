@@ -69,6 +69,7 @@ function scanSubmoduleTree(submoduleAbs, site) {
     const entries = fs.readdirSync(absDir, { withFileTypes: true }).filter((ent) => {
       if (IGNORED_NAMES.has(ent.name)) return false
       const rel = currentRel ? `${currentRel}/${ent.name}` : ent.name
+      if (site.isMaster && depth === 0 && ent.name !== 'docs') return false
       if (
         rel === '.vitepress/dist' ||
         rel === '.vitepress/cache' ||
@@ -192,9 +193,11 @@ const enrichedSites = rawConfig.sites.map((site) => {
     const content = fs.readFileSync(fileAbs, 'utf-8')
     const lines = content.split('\n').length
     const bytes = Buffer.byteLength(content, 'utf-8')
+    const displayFile =
+      site.submoduleDir === '.' ? docEntry.file : `${site.submoduleDir}/${docEntry.file}`
     docs[chapterId] = {
       route: docEntry.route,
-      file: `${site.submoduleDir}/${docEntry.file}`,
+      file: displayFile,
       shortFile: docEntry.file,
       content,
       lines,
@@ -205,8 +208,9 @@ const enrichedSites = rawConfig.sites.map((site) => {
   const configs = site.configFiles.map((relPath) => {
     const cfgAbs = path.join(submoduleAbs, relPath)
     const content = fs.readFileSync(cfgAbs, 'utf-8')
+    const displayPath = site.submoduleDir === '.' ? relPath : `${site.submoduleDir}/${relPath}`
     return {
-      path: `${site.submoduleDir}/${relPath}`,
+      path: displayPath,
       shortPath: relPath,
       content,
       lines: content.split('\n').length
@@ -217,6 +221,7 @@ const enrichedSites = rawConfig.sites.map((site) => {
 
   return {
     id: site.id,
+    isMaster: Boolean(site.isMaster),
     family: site.family,
     versionSeries: site.versionSeries,
     primaryPackage: site.primaryPackage,

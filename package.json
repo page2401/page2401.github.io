@@ -9,11 +9,15 @@
     "dev": "vite",
     "prebuild": "node scripts/generate-comparison-data.mjs",
     "build": "vite build",
+    "postbuild": "node scripts/build-master-docs.mjs",
     "preview": "vite preview",
     "build:all": "npm --prefix sites/vitepress-v1 run build && npm --prefix sites/vitepress-v2 run build && npm --prefix sites/vuepress-v1 run build && npm --prefix sites/vuepress-v2 run build && npm --prefix sites/docsify-v4 run build && npm --prefix sites/docsify-v5 run build && npm --prefix sites/astro7-starlight run build && npm run build",
     "preview:all": "node scripts/preview-all.mjs"
   },
   "devDependencies": {
+    "katex": "0.19.1",
+    "marked": "18.2.1",
+    "mermaid": "12.3.0",
     "vite": "8.3.8"
   }
 }
