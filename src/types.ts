@@ -84,6 +84,7 @@ export interface SiteEntry {
 
 export interface LandscapeRow {
   id: string
+  sitePath: string
   name: string
   versionNote: string
   lifecycle: string
@@ -91,6 +92,11 @@ export interface LandscapeRow {
   ecosystem: string
   mounted: boolean
   subsiteUrl?: string
+  upstreamRepo: string
+  upstreamUrl: string
+  stars: number
+  totalCommits: number
+  commits2026: number
   tagline: string
   stack: string
   directoryModel: string
@@ -100,11 +106,36 @@ export interface LandscapeRow {
   profileRoute: string
 }
 
+export interface GitHubRepoActivity {
+  repo: string
+  url: string
+  role: string
+  siteIds: string[]
+  ecosystem: string
+  mounted: boolean
+  createdAt: string
+  createdYear: number
+  pushedAt: string
+  stars: number
+  totalCommits: number
+  peakYear: number
+  peakCommits: number
+  pre2016Commits: number
+  yearlyCommits: Record<string, number>
+}
+
+export interface GitHubActivityPayload {
+  fetchedAt: string
+  displayYears: number[]
+  repos: GitHubRepoActivity[]
+}
+
 export interface ComparisonDataset {
   generatedAt: string
   chapters: ChapterMeta[]
   sites: SiteEntry[]
   landscapeRows: LandscapeRow[]
+  githubActivity: GitHubActivityPayload
 }
 
 export type WorkbenchMode = 'render' | 'tree' | 'source' | 'config'

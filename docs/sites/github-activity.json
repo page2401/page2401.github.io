@@ -1,0 +1,1242 @@
+{
+  "schemaVersion": 1,
+  "fetchedAt": "2026-11-23T08:53:28.818Z",
+  "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
+  "yearRange": [
+    2008,
+    2026
+  ],
+  "years": [
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "repositories": {
+    "vuejs/vitepress": {
+      "repo": "vuejs/vitepress",
+      "url": "https://github.com/vuejs/vitepress",
+      "role": "VitePress 核心与默认主题仓库",
+      "siteIds": [
+        "vitepress-v1",
+        "vitepress-v2"
+      ],
+      "description": "Vite & Vue powered static site generator.",
+      "createdAt": "2020-04-30T23:16:17Z",
+      "createdYear": 2020,
+      "pushedAt": "2026-11-12T11:19:50Z",
+      "updatedAt": "2026-11-23T04:10:29Z",
+      "isArchived": false,
+      "stars": 18521,
+      "forks": 2764,
+      "openIssues": 235,
+      "license": "MIT",
+      "primaryLanguage": "TypeScript",
+      "defaultBranch": "main",
+      "totalCommits": 2958,
+      "peakYear": 2023,
+      "peakCommits": 824,
+      "latestRelease": {
+        "tagName": "v2.0.0-alpha.21",
+        "publishedAt": "2026-10-25T12:58:44Z",
+        "isPrerelease": false
+      },
+      "recentReleases": [
+        {
+          "tagName": "v2.0.0-alpha.21",
+          "publishedAt": "2026-10-25T12:58:44Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v2.0.0-alpha.20",
+          "publishedAt": "2026-09-04T10:59:16Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v2.0.0-alpha.19",
+          "publishedAt": "2026-08-02T00:44:09Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v2.0.0-alpha.18",
+          "publishedAt": "2026-07-06T19:31:45Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v2.0.0-alpha.17",
+          "publishedAt": "2026-03-19T17:06:52Z",
+          "isPrerelease": false
+        }
+      ],
+      "yearlyCommits": {
+        "2008": 0,
+        "2009": 0,
+        "2010": 0,
+        "2011": 0,
+        "2012": 0,
+        "2013": 0,
+        "2014": 0,
+        "2015": 0,
+        "2016": 0,
+        "2017": 0,
+        "2018": 0,
+        "2019": 0,
+        "2020": 334,
+        "2021": 260,
+        "2022": 554,
+        "2023": 824,
+        "2024": 369,
+        "2025": 255,
+        "2026": 362
+      }
+    },
+    "vuejs/vuepress": {
+      "repo": "vuejs/vuepress",
+      "url": "https://github.com/vuejs/vuepress",
+      "role": "VuePress v1 (Vue 2 + Webpack 4) 历史仓库",
+      "siteIds": [
+        "vuepress-v1"
+      ],
+      "description": "📝 Minimalistic Vue-powered static site generator",
+      "createdAt": "2018-04-05T16:58:38Z",
+      "createdYear": 2018,
+      "pushedAt": "2024-08-07T10:06:47Z",
+      "updatedAt": "2026-11-22T15:14:56Z",
+      "isArchived": false,
+      "stars": 22714,
+      "forks": 4600,
+      "openIssues": 538,
+      "license": "MIT",
+      "primaryLanguage": "JavaScript",
+      "defaultBranch": "master",
+      "totalCommits": 2152,
+      "peakYear": 2018,
+      "peakCommits": 1297,
+      "latestRelease": {
+        "tagName": "v1.9.10",
+        "publishedAt": "2023-08-14T08:09:07Z",
+        "isPrerelease": false
+      },
+      "recentReleases": [
+        {
+          "tagName": "v1.9.10",
+          "publishedAt": "2023-08-14T08:09:07Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v1.9.2",
+          "publishedAt": "2021-12-23T19:56:03Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v1.9.0",
+          "publishedAt": "2021-12-22T20:40:13Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v1.8.3",
+          "publishedAt": "2021-12-20T19:54:45Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v1.8.2",
+          "publishedAt": "2021-02-18T16:16:00Z",
+          "isPrerelease": false
+        }
+      ],
+      "yearlyCommits": {
+        "2008": 0,
+        "2009": 0,
+        "2010": 0,
+        "2011": 0,
+        "2012": 0,
+        "2013": 0,
+        "2014": 0,
+        "2015": 0,
+        "2016": 0,
+        "2017": 0,
+        "2018": 1297,
+        "2019": 521,
+        "2020": 202,
+        "2021": 92,
+        "2022": 16,
+        "2023": 23,
+        "2024": 1,
+        "2025": 0,
+        "2026": 0
+      }
+    },
+    "vuepress/core": {
+      "repo": "vuepress/core",
+      "url": "https://github.com/vuepress/core",
+      "role": "VuePress v2 核心引擎仓库",
+      "siteIds": [
+        "vuepress-v2"
+      ],
+      "description": "Vue-Powered Static Site Generator",
+      "createdAt": "2020-05-06T13:00:22Z",
+      "createdYear": 2020,
+      "pushedAt": "2026-11-23T07:21:18Z",
+      "updatedAt": "2026-11-20T08:37:40Z",
+      "isArchived": false,
+      "stars": 2833,
+      "forks": 884,
+      "openIssues": 11,
+      "license": "MIT",
+      "primaryLanguage": "TypeScript",
+      "defaultBranch": "main",
+      "totalCommits": 2071,
+      "peakYear": 2021,
+      "peakCommits": 705,
+      "latestRelease": null,
+      "recentReleases": [
+        {
+          "tagName": "v2.0.0-rc.32",
+          "publishedAt": "2026-11-12T03:59:44Z",
+          "isPrerelease": true
+        },
+        {
+          "tagName": "v2.0.0-rc.31",
+          "publishedAt": "2026-07-24T09:21:08Z",
+          "isPrerelease": true
+        },
+        {
+          "tagName": "v2.0.0-rc.30",
+          "publishedAt": "2026-05-14T08:47:33Z",
+          "isPrerelease": true
+        },
+        {
+          "tagName": "v2.0.0-rc.29",
+          "publishedAt": "2026-05-08T06:14:11Z",
+          "isPrerelease": true
+        },
+        {
+          "tagName": "v2.0.0-rc.28",
+          "publishedAt": "2026-04-01T06:14:00Z",
+          "isPrerelease": true
+        }
+      ],
+      "yearlyCommits": {
+        "2008": 0,
+        "2009": 0,
+        "2010": 0,
+        "2011": 0,
+        "2012": 0,
+        "2013": 0,
+        "2014": 0,
+        "2015": 0,
+        "2016": 0,
+        "2017": 0,
+        "2018": 0,
+        "2019": 0,
+        "2020": 510,
+        "2021": 705,
+        "2022": 375,
+        "2023": 150,
+        "2024": 217,
+        "2025": 47,
+        "2026": 67
+      }
+    },
+    "vuepress/ecosystem": {
+      "repo": "vuepress/ecosystem",
+      "url": "https://github.com/vuepress/ecosystem",
+      "role": "VuePress v2 官方默认主题与插件矩阵仓库（2023-09 拆分独立）",
+      "siteIds": [
+        "vuepress-v2"
+      ],
+      "description": "Official plugins and themes for VuePress2",
+      "createdAt": "2023-09-05T16:57:31Z",
+      "createdYear": 2023,
+      "pushedAt": "2026-11-23T08:39:01Z",
+      "updatedAt": "2026-11-09T15:05:36Z",
+      "isArchived": false,
+      "stars": 61,
+      "forks": 90,
+      "openIssues": 17,
+      "license": "MIT",
+      "primaryLanguage": "TypeScript",
+      "defaultBranch": "main",
+      "totalCommits": 1511,
+      "peakYear": 2024,
+      "peakCommits": 674,
+      "latestRelease": null,
+      "recentReleases": [
+        {
+          "tagName": "v2.0.0-rc.141",
+          "publishedAt": "2026-11-23T01:15:09Z",
+          "isPrerelease": true
+        },
+        {
+          "tagName": "v2.0.0-rc.140",
+          "publishedAt": "2026-11-22T02:35:09Z",
+          "isPrerelease": true
+        },
+        {
+          "tagName": "v2.0.0-rc.139",
+          "publishedAt": "2026-11-21T07:42:32Z",
+          "isPrerelease": true
+        },
+        {
+          "tagName": "v2.0.0-rc.138",
+          "publishedAt": "2026-11-13T08:03:00Z",
+          "isPrerelease": true
+        },
+        {
+          "tagName": "v2.0.0-rc.137",
+          "publishedAt": "2026-09-28T05:03:28Z",
+          "isPrerelease": true
+        }
+      ],
+      "yearlyCommits": {
+        "2008": 0,
+        "2009": 0,
+        "2010": 0,
+        "2011": 0,
+        "2012": 0,
+        "2013": 0,
+        "2014": 0,
+        "2015": 0,
+        "2016": 0,
+        "2017": 0,
+        "2018": 0,
+        "2019": 0,
+        "2020": 0,
+        "2021": 0,
+        "2022": 0,
+        "2023": 7,
+        "2024": 674,
+        "2025": 466,
+        "2026": 364
+      }
+    },
+    "docsifyjs/docsify": {
+      "repo": "docsifyjs/docsify",
+      "url": "https://github.com/docsifyjs/docsify",
+      "role": "Docsify 零预编译运行时引擎仓库",
+      "siteIds": [
+        "docsify-v4",
+        "docsify-v5"
+      ],
+      "description": "🃏 A magical documentation site generator.",
+      "createdAt": "2016-11-20T07:55:43Z",
+      "createdYear": 2016,
+      "pushedAt": "2026-11-14T09:41:35Z",
+      "updatedAt": "2026-11-23T06:48:51Z",
+      "isArchived": false,
+      "stars": 31609,
+      "forks": 5779,
+      "openIssues": 61,
+      "license": "MIT",
+      "primaryLanguage": "JavaScript",
+      "defaultBranch": "develop",
+      "totalCommits": 2025,
+      "peakYear": 2017,
+      "peakCommits": 657,
+      "latestRelease": {
+        "tagName": "v5.1.0",
+        "publishedAt": "2026-10-30T04:17:06Z",
+        "isPrerelease": false
+      },
+      "recentReleases": [
+        {
+          "tagName": "v5.1.0",
+          "publishedAt": "2026-10-30T04:17:06Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v5.0.0",
+          "publishedAt": "2026-07-23T04:03:07Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v5.0.0-rc.4",
+          "publishedAt": "2026-03-11T04:00:32Z",
+          "isPrerelease": true
+        },
+        {
+          "tagName": "v5.0.0-rc.3",
+          "publishedAt": "2025-09-05T04:32:19Z",
+          "isPrerelease": true
+        },
+        {
+          "tagName": "v5.0.0-rc.1",
+          "publishedAt": "2025-05-27T02:43:19Z",
+          "isPrerelease": true
+        }
+      ],
+      "yearlyCommits": {
+        "2008": 0,
+        "2009": 0,
+        "2010": 0,
+        "2011": 0,
+        "2012": 0,
+        "2013": 0,
+        "2014": 0,
+        "2015": 0,
+        "2016": 175,
+        "2017": 657,
+        "2018": 208,
+        "2019": 135,
+        "2020": 299,
+        "2021": 102,
+        "2022": 68,
+        "2023": 132,
+        "2024": 54,
+        "2025": 87,
+        "2026": 108
+      }
+    },
+    "withastro/starlight": {
+      "repo": "withastro/starlight",
+      "url": "https://github.com/withastro/starlight",
+      "role": "Astro Starlight 官方文档主题框架仓库",
+      "siteIds": [
+        "astro7-starlight"
+      ],
+      "description": "🌟 Build beautiful, accessible, high-performance documentation websites with Astro",
+      "createdAt": "2023-03-16T15:55:33Z",
+      "createdYear": 2023,
+      "pushedAt": "2026-11-21T14:15:02Z",
+      "updatedAt": "2026-11-23T04:27:30Z",
+      "isArchived": false,
+      "stars": 9640,
+      "forks": 1096,
+      "openIssues": 11,
+      "license": "MIT",
+      "primaryLanguage": "TypeScript",
+      "defaultBranch": "main",
+      "totalCommits": 3942,
+      "peakYear": 2023,
+      "peakCommits": 1336,
+      "latestRelease": {
+        "tagName": "@astrojs/starlight@0.43.1",
+        "publishedAt": "2026-11-13T20:43:02Z",
+        "isPrerelease": false
+      },
+      "recentReleases": [
+        {
+          "tagName": "@astrojs/starlight@0.43.1",
+          "publishedAt": "2026-11-13T20:43:02Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "@astrojs/starlight@0.43.0",
+          "publishedAt": "2026-11-13T17:16:14Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "@astrojs/starlight-docsearch@0.8.2",
+          "publishedAt": "2026-11-12T14:03:08Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "@astrojs/starlight@0.42.11",
+          "publishedAt": "2026-11-12T14:03:05Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "@astrojs/starlight-docsearch@0.8.1",
+          "publishedAt": "2026-11-06T18:13:21Z",
+          "isPrerelease": false
+        }
+      ],
+      "yearlyCommits": {
+        "2008": 0,
+        "2009": 0,
+        "2010": 0,
+        "2011": 0,
+        "2012": 0,
+        "2013": 0,
+        "2014": 0,
+        "2015": 0,
+        "2016": 0,
+        "2017": 0,
+        "2018": 0,
+        "2019": 0,
+        "2020": 0,
+        "2021": 0,
+        "2022": 0,
+        "2023": 1336,
+        "2024": 1272,
+        "2025": 706,
+        "2026": 628
+      }
+    },
+    "withastro/astro": {
+      "repo": "withastro/astro",
+      "url": "https://github.com/withastro/astro",
+      "role": "Astro 底层内容层与构建引擎仓库",
+      "siteIds": [
+        "astro7-starlight"
+      ],
+      "description": "The web framework for content-driven websites.",
+      "createdAt": "2021-03-15T17:19:47Z",
+      "createdYear": 2021,
+      "pushedAt": "2026-11-23T03:35:10Z",
+      "updatedAt": "2026-11-23T08:43:41Z",
+      "isArchived": false,
+      "stars": 64144,
+      "forks": 3914,
+      "openIssues": 25,
+      "license": "NOASSERTION",
+      "primaryLanguage": "TypeScript",
+      "defaultBranch": "main",
+      "totalCommits": 15467,
+      "peakYear": 2023,
+      "peakCommits": 3622,
+      "latestRelease": {
+        "tagName": "@astrojs/node@11.1.14",
+        "publishedAt": "2026-11-18T17:33:50Z",
+        "isPrerelease": false
+      },
+      "recentReleases": [
+        {
+          "tagName": "@astrojs/node@11.1.14",
+          "publishedAt": "2026-11-18T17:33:50Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "@astrojs/cloudflare@14.4.9",
+          "publishedAt": "2026-11-18T17:33:47Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "astro@7.4.13",
+          "publishedAt": "2026-11-18T17:33:44Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "@astrojs/runtime@0.1.2",
+          "publishedAt": "2026-11-18T17:33:41Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "@astrojs/markdown-remark@7.3.10",
+          "publishedAt": "2026-11-18T17:33:38Z",
+          "isPrerelease": false
+        }
+      ],
+      "yearlyCommits": {
+        "2008": 0,
+        "2009": 0,
+        "2010": 0,
+        "2011": 0,
+        "2012": 0,
+        "2013": 0,
+        "2014": 0,
+        "2015": 0,
+        "2016": 0,
+        "2017": 0,
+        "2018": 0,
+        "2019": 0,
+        "2020": 0,
+        "2021": 1991,
+        "2022": 3461,
+        "2023": 3622,
+        "2024": 2797,
+        "2025": 1373,
+        "2026": 2223
+      }
+    },
+    "facebook/docusaurus": {
+      "repo": "meta/docusaurus",
+      "url": "https://github.com/meta/docusaurus",
+      "role": "Docusaurus 官方 Monorepo 仓库",
+      "siteIds": [
+        "docusaurus-v3"
+      ],
+      "description": "Easy to maintain open source documentation websites.",
+      "createdAt": "2017-06-20T16:13:53Z",
+      "createdYear": 2017,
+      "pushedAt": "2026-11-20T20:40:55Z",
+      "updatedAt": "2026-11-23T08:51:16Z",
+      "isArchived": false,
+      "stars": 66787,
+      "forks": 10129,
+      "openIssues": 269,
+      "license": "MIT",
+      "primaryLanguage": "TypeScript",
+      "defaultBranch": "main",
+      "totalCommits": 7118,
+      "peakYear": 2021,
+      "peakCommits": 1139,
+      "latestRelease": {
+        "tagName": "v3.10.2",
+        "publishedAt": "2026-07-10T18:31:27Z",
+        "isPrerelease": false
+      },
+      "recentReleases": [
+        {
+          "tagName": "v3.10.2",
+          "publishedAt": "2026-07-10T18:31:27Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v3.10.1",
+          "publishedAt": "2026-04-30T12:57:25Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v3.10.0",
+          "publishedAt": "2026-04-07T14:28:14Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v3.9.2",
+          "publishedAt": "2025-10-17T15:01:46Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v3.9.1",
+          "publishedAt": "2025-09-26T13:16:35Z",
+          "isPrerelease": false
+        }
+      ],
+      "yearlyCommits": {
+        "2008": 0,
+        "2009": 0,
+        "2010": 0,
+        "2011": 0,
+        "2012": 0,
+        "2013": 0,
+        "2014": 0,
+        "2015": 0,
+        "2016": 0,
+        "2017": 556,
+        "2018": 693,
+        "2019": 879,
+        "2020": 1084,
+        "2021": 1139,
+        "2022": 1085,
+        "2023": 350,
+        "2024": 400,
+        "2025": 290,
+        "2026": 642
+      }
+    },
+    "web-infra-dev/rspress": {
+      "repo": "web-infra-dev/rspress",
+      "url": "https://github.com/web-infra-dev/rspress",
+      "role": "Rspress (Rspack + MDX RS) 官方仓库",
+      "siteIds": [
+        "rspress"
+      ],
+      "description": "🦀 A fast Rsbuild-based static site generator.",
+      "createdAt": "2023-06-27T06:37:44Z",
+      "createdYear": 2023,
+      "pushedAt": "2026-11-23T08:45:29Z",
+      "updatedAt": "2026-11-19T22:59:18Z",
+      "isArchived": false,
+      "stars": 2360,
+      "forks": 239,
+      "openIssues": 35,
+      "license": "MIT",
+      "primaryLanguage": "TypeScript",
+      "defaultBranch": "main",
+      "totalCommits": 2937,
+      "peakYear": 2025,
+      "peakCommits": 875,
+      "latestRelease": {
+        "tagName": "v2.1.4",
+        "publishedAt": "2026-11-19T17:09:33Z",
+        "isPrerelease": false
+      },
+      "recentReleases": [
+        {
+          "tagName": "v2.1.4",
+          "publishedAt": "2026-11-19T17:09:33Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v2.1.3",
+          "publishedAt": "2026-11-12T08:31:33Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v2.1.2",
+          "publishedAt": "2026-11-11T10:59:37Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v2.1.1",
+          "publishedAt": "2026-11-06T05:34:59Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v2.1.0",
+          "publishedAt": "2026-11-02T11:45:12Z",
+          "isPrerelease": false
+        }
+      ],
+      "yearlyCommits": {
+        "2008": 0,
+        "2009": 0,
+        "2010": 0,
+        "2011": 0,
+        "2012": 0,
+        "2013": 0,
+        "2014": 0,
+        "2015": 0,
+        "2016": 0,
+        "2017": 0,
+        "2018": 0,
+        "2019": 0,
+        "2020": 0,
+        "2021": 0,
+        "2022": 0,
+        "2023": 534,
+        "2024": 782,
+        "2025": 875,
+        "2026": 746
+      }
+    },
+    "shuding/nextra": {
+      "repo": "shuding/nextra",
+      "url": "https://github.com/shuding/nextra",
+      "role": "Nextra (Next.js 文档框架) 官方仓库",
+      "siteIds": [
+        "nextra"
+      ],
+      "description": "Simple, powerful and flexible site generation framework with everything you love from Next.js.",
+      "createdAt": "2020-06-15T16:39:34Z",
+      "createdYear": 2020,
+      "pushedAt": "2026-07-31T20:39:04Z",
+      "updatedAt": "2026-11-23T04:53:55Z",
+      "isArchived": false,
+      "stars": 13955,
+      "forks": 1404,
+      "openIssues": 271,
+      "license": "MIT",
+      "primaryLanguage": "TypeScript",
+      "defaultBranch": "main",
+      "totalCommits": 2332,
+      "peakYear": 2023,
+      "peakCommits": 578,
+      "latestRelease": {
+        "tagName": "nextra-theme-docs@4.6.1",
+        "publishedAt": "2025-12-04T10:30:15Z",
+        "isPrerelease": false
+      },
+      "recentReleases": [
+        {
+          "tagName": "nextra-theme-docs@4.6.1",
+          "publishedAt": "2025-12-04T10:30:15Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "nextra@4.6.1",
+          "publishedAt": "2025-12-04T10:30:12Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "nextra-theme-blog@4.6.1",
+          "publishedAt": "2025-12-04T10:30:10Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "nextra@4.6.0",
+          "publishedAt": "2025-10-02T14:50:10Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "nextra-theme-docs@4.6.0",
+          "publishedAt": "2025-10-02T14:50:07Z",
+          "isPrerelease": false
+        }
+      ],
+      "yearlyCommits": {
+        "2008": 0,
+        "2009": 0,
+        "2010": 0,
+        "2011": 0,
+        "2012": 0,
+        "2013": 0,
+        "2014": 0,
+        "2015": 0,
+        "2016": 0,
+        "2017": 0,
+        "2018": 0,
+        "2019": 0,
+        "2020": 93,
+        "2021": 221,
+        "2022": 577,
+        "2023": 578,
+        "2024": 300,
+        "2025": 553,
+        "2026": 10
+      }
+    },
+    "gohugoio/hugo": {
+      "repo": "gohugoio/hugo",
+      "url": "https://github.com/gohugoio/hugo",
+      "role": "Hugo (Go 单二进制引擎) 官方仓库",
+      "siteIds": [
+        "hugo"
+      ],
+      "description": "The world’s fastest framework for building websites.",
+      "createdAt": "2013-07-04T15:26:26Z",
+      "createdYear": 2013,
+      "pushedAt": "2026-11-19T17:42:51Z",
+      "updatedAt": "2026-11-23T08:34:14Z",
+      "isArchived": false,
+      "stars": 90550,
+      "forks": 8527,
+      "openIssues": 188,
+      "license": "Apache-2.0",
+      "primaryLanguage": "Go",
+      "defaultBranch": "master",
+      "totalCommits": 10107,
+      "peakYear": 2016,
+      "peakCommits": 1057,
+      "latestRelease": {
+        "tagName": "v0.170.1",
+        "publishedAt": "2026-11-17T17:08:14Z",
+        "isPrerelease": false
+      },
+      "recentReleases": [
+        {
+          "tagName": "v0.170.1",
+          "publishedAt": "2026-11-17T17:08:14Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v0.170.0",
+          "publishedAt": "2026-11-13T16:09:01Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v0.169.0",
+          "publishedAt": "2026-10-27T16:24:46Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v0.168.0",
+          "publishedAt": "2026-10-13T17:24:15Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v0.167.0",
+          "publishedAt": "2026-09-28T15:20:52Z",
+          "isPrerelease": false
+        }
+      ],
+      "yearlyCommits": {
+        "2008": 0,
+        "2009": 0,
+        "2010": 0,
+        "2011": 0,
+        "2012": 0,
+        "2013": 346,
+        "2014": 487,
+        "2015": 987,
+        "2016": 1057,
+        "2017": 986,
+        "2018": 1025,
+        "2019": 567,
+        "2020": 703,
+        "2021": 575,
+        "2022": 633,
+        "2023": 658,
+        "2024": 730,
+        "2025": 652,
+        "2026": 701
+      }
+    },
+    "getzola/zola": {
+      "repo": "getzola/zola",
+      "url": "https://github.com/getzola/zola",
+      "role": "Zola (Rust 单二进制引擎) 官方仓库",
+      "siteIds": [
+        "zola"
+      ],
+      "description": "A fast static site generator in a single binary with everything built-in. https://www.getzola.org",
+      "createdAt": "2016-12-06T02:57:25Z",
+      "createdYear": 2016,
+      "pushedAt": "2026-11-23T07:46:28Z",
+      "updatedAt": "2026-11-22T17:52:27Z",
+      "isArchived": false,
+      "stars": 17619,
+      "forks": 1242,
+      "openIssues": 191,
+      "license": "EUPL-1.2",
+      "primaryLanguage": "Rust",
+      "defaultBranch": "master",
+      "totalCommits": 2625,
+      "peakYear": 2018,
+      "peakCommits": 521,
+      "latestRelease": {
+        "tagName": "v0.23.6",
+        "publishedAt": "2026-09-12T22:06:53Z",
+        "isPrerelease": false
+      },
+      "recentReleases": [
+        {
+          "tagName": "v0.23.6",
+          "publishedAt": "2026-09-12T22:06:53Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v0.23.5",
+          "publishedAt": "2026-09-11T22:02:23Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v0.23.4",
+          "publishedAt": "2026-08-20T16:35:44Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v0.23.3",
+          "publishedAt": "2026-08-11T13:37:38Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v0.23.2",
+          "publishedAt": "2026-08-07T09:49:31Z",
+          "isPrerelease": false
+        }
+      ],
+      "yearlyCommits": {
+        "2008": 0,
+        "2009": 0,
+        "2010": 0,
+        "2011": 0,
+        "2012": 0,
+        "2013": 0,
+        "2014": 0,
+        "2015": 0,
+        "2016": 11,
+        "2017": 366,
+        "2018": 521,
+        "2019": 286,
+        "2020": 296,
+        "2021": 271,
+        "2022": 170,
+        "2023": 204,
+        "2024": 120,
+        "2025": 154,
+        "2026": 226
+      }
+    },
+    "rust-lang/mdBook": {
+      "repo": "rust-lang/mdBook",
+      "url": "https://github.com/rust-lang/mdBook",
+      "role": "mdBook (Rust 官方电子书引擎) 仓库",
+      "siteIds": [
+        "mdbook"
+      ],
+      "description": "Create book from markdown files. Like Gitbook but implemented in Rust",
+      "createdAt": "2015-07-07T00:57:25Z",
+      "createdYear": 2015,
+      "pushedAt": "2026-11-22T20:49:04Z",
+      "updatedAt": "2026-11-23T01:28:54Z",
+      "isArchived": false,
+      "stars": 22321,
+      "forks": 1921,
+      "openIssues": 548,
+      "license": "MPL-2.0",
+      "primaryLanguage": "Rust",
+      "defaultBranch": "main",
+      "totalCommits": 3375,
+      "peakYear": 2025,
+      "peakCommits": 688,
+      "latestRelease": {
+        "tagName": "v0.5.4",
+        "publishedAt": "2026-07-06T15:28:05Z",
+        "isPrerelease": false
+      },
+      "recentReleases": [
+        {
+          "tagName": "v0.5.4",
+          "publishedAt": "2026-07-06T15:28:05Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v0.5.3",
+          "publishedAt": "2026-05-19T23:03:26Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v0.5.2",
+          "publishedAt": "2025-12-11T21:16:14Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v0.5.1",
+          "publishedAt": "2025-11-20T02:53:56Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v0.5.0",
+          "publishedAt": "2025-11-17T23:41:11Z",
+          "isPrerelease": false
+        }
+      ],
+      "yearlyCommits": {
+        "2008": 0,
+        "2009": 0,
+        "2010": 0,
+        "2011": 0,
+        "2012": 0,
+        "2013": 0,
+        "2014": 0,
+        "2015": 205,
+        "2016": 154,
+        "2017": 438,
+        "2018": 324,
+        "2019": 252,
+        "2020": 219,
+        "2021": 244,
+        "2022": 200,
+        "2023": 230,
+        "2024": 146,
+        "2025": 688,
+        "2026": 275
+      }
+    },
+    "squidfunk/mkdocs-material": {
+      "repo": "squidfunk/mkdocs-material",
+      "url": "https://github.com/squidfunk/mkdocs-material",
+      "role": "Material for MkDocs (Python) 官方仓库",
+      "siteIds": [
+        "mkdocs-material"
+      ],
+      "description": "Documentation that simply works",
+      "createdAt": "2016-01-28T22:09:23Z",
+      "createdYear": 2016,
+      "pushedAt": "2026-11-19T19:51:06Z",
+      "updatedAt": "2026-11-23T08:14:43Z",
+      "isArchived": false,
+      "stars": 27642,
+      "forks": 4151,
+      "openIssues": 1,
+      "license": "MIT",
+      "primaryLanguage": "Python",
+      "defaultBranch": "master",
+      "totalCommits": 6794,
+      "peakYear": 2020,
+      "peakCommits": 1321,
+      "latestRelease": {
+        "tagName": "9.8.2",
+        "publishedAt": "2026-11-19T19:51:06Z",
+        "isPrerelease": false
+      },
+      "recentReleases": [
+        {
+          "tagName": "9.8.2",
+          "publishedAt": "2026-11-19T19:51:06Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "9.8.1",
+          "publishedAt": "2026-11-07T13:04:28Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "9.8.0",
+          "publishedAt": "2026-10-24T09:49:34Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "9.7.7",
+          "publishedAt": "2026-07-17T16:20:51Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "9.7.6",
+          "publishedAt": "2026-03-19T15:41:17Z",
+          "isPrerelease": false
+        }
+      ],
+      "yearlyCommits": {
+        "2008": 0,
+        "2009": 0,
+        "2010": 0,
+        "2011": 0,
+        "2012": 0,
+        "2013": 0,
+        "2014": 0,
+        "2015": 0,
+        "2016": 240,
+        "2017": 656,
+        "2018": 195,
+        "2019": 502,
+        "2020": 1321,
+        "2021": 1004,
+        "2022": 882,
+        "2023": 1171,
+        "2024": 484,
+        "2025": 250,
+        "2026": 89
+      }
+    },
+    "hexojs/hexo": {
+      "repo": "hexojs/hexo",
+      "url": "https://github.com/hexojs/hexo",
+      "role": "Hexo 静态博客框架官方仓库",
+      "siteIds": [
+        "hexo"
+      ],
+      "description": "A fast, simple & powerful blog framework, powered by Node.js.",
+      "createdAt": "2012-09-23T15:17:08Z",
+      "createdYear": 2012,
+      "pushedAt": "2026-10-26T23:52:47Z",
+      "updatedAt": "2026-11-22T13:00:43Z",
+      "isArchived": false,
+      "stars": 41783,
+      "forks": 59,
+      "openIssues": 45,
+      "license": "MIT",
+      "primaryLanguage": "TypeScript",
+      "defaultBranch": "master",
+      "totalCommits": 3769,
+      "peakYear": 2013,
+      "peakCommits": 1136,
+      "latestRelease": {
+        "tagName": "v8.1.2",
+        "publishedAt": "2026-05-06T13:24:24Z",
+        "isPrerelease": false
+      },
+      "recentReleases": [
+        {
+          "tagName": "v8.1.2",
+          "publishedAt": "2026-05-06T13:24:24Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v8.1.1",
+          "publishedAt": "2025-10-31T12:03:47Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v8.1.0",
+          "publishedAt": "2025-10-26T11:58:21Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v8.0.0",
+          "publishedAt": "2025-09-15T14:57:06Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v7.3.0",
+          "publishedAt": "2024-07-01T14:41:17Z",
+          "isPrerelease": false
+        }
+      ],
+      "yearlyCommits": {
+        "2008": 0,
+        "2009": 0,
+        "2010": 0,
+        "2011": 0,
+        "2012": 451,
+        "2013": 1136,
+        "2014": 395,
+        "2015": 265,
+        "2016": 86,
+        "2017": 120,
+        "2018": 204,
+        "2019": 462,
+        "2020": 333,
+        "2021": 43,
+        "2022": 90,
+        "2023": 44,
+        "2024": 45,
+        "2025": 51,
+        "2026": 44
+      }
+    },
+    "jekyll/jekyll": {
+      "repo": "jekyll/jekyll",
+      "url": "https://github.com/jekyll/jekyll",
+      "role": "Jekyll (Ruby / GitHub Pages 鼻祖) 官方仓库",
+      "siteIds": [
+        "jekyll"
+      ],
+      "description": ":globe_with_meridians: Jekyll is a blog-aware static site generator in Ruby",
+      "createdAt": "2008-10-20T06:29:03Z",
+      "createdYear": 2008,
+      "pushedAt": "2026-10-13T18:44:40Z",
+      "updatedAt": "2026-11-23T08:24:21Z",
+      "isArchived": false,
+      "stars": 51793,
+      "forks": 10306,
+      "openIssues": 132,
+      "license": "MIT",
+      "primaryLanguage": "Ruby",
+      "defaultBranch": "master",
+      "totalCommits": 11881,
+      "peakYear": 2014,
+      "peakCommits": 2144,
+      "latestRelease": {
+        "tagName": "v4.4.1",
+        "publishedAt": "2025-01-29T12:47:41Z",
+        "isPrerelease": false
+      },
+      "recentReleases": [
+        {
+          "tagName": "v4.4.1",
+          "publishedAt": "2025-01-29T12:47:41Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v4.4.0",
+          "publishedAt": "2025-01-27T15:28:23Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v4.3.4",
+          "publishedAt": "2024-09-16T16:24:42Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v3.9.4",
+          "publishedAt": "2023-12-28T22:51:37Z",
+          "isPrerelease": false
+        },
+        {
+          "tagName": "v4.3.3",
+          "publishedAt": "2023-12-27T19:20:38Z",
+          "isPrerelease": false
+        }
+      ],
+      "yearlyCommits": {
+        "2008": 183,
+        "2009": 232,
+        "2010": 172,
+        "2011": 137,
+        "2012": 128,
+        "2013": 2126,
+        "2014": 2144,
+        "2015": 1247,
+        "2016": 2106,
+        "2017": 1044,
+        "2018": 743,
+        "2019": 452,
+        "2020": 517,
+        "2021": 202,
+        "2022": 163,
+        "2023": 109,
+        "2024": 97,
+        "2025": 55,
+        "2026": 24
+      }
+    }
+  }
+}

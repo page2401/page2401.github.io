@@ -181,25 +181,37 @@ function renderSubmoduleCards(): string {
   return `${masterBannerHtml}<div class="submodule-strip">${cardsHtml}</div>`
 }
 
-function filterLandscapeRows(): LandscapeRow[] {
+function matchesEcosystemFilter(ecosystem: string, mounted: boolean): boolean {
+  if (state.matrixFilter === 'mounted' && !mounted) return false
+  if (state.matrixFilter === 'catalog' && mounted) return false
+  if (state.matrixFilter === 'vue' && ecosystem !== 'vue') return false
+  if (state.matrixFilter === 'react-astro' && ecosystem !== 'react-astro') return false
+  if (state.matrixFilter === 'native' && ecosystem !== 'native') return false
+  if (
+    state.matrixFilter === 'other' &&
+    ecosystem !== 'runtime' &&
+    ecosystem !== 'python-classic'
+  ) {
+    return false
+  }
+  return true
+}
+
+function formatCompactNum(n: number): string {
+  if (n >= 1000) return `${(n / 1000).toFixed(1)}k`
+  return String(n)
+}
+
+function filterLandscapeRows() {
   const q = state.matrixQuery.trim().toLowerCase()
   return dataset.landscapeRows.filter((row) => {
-    if (state.matrixFilter === 'mounted' && !row.mounted) return false
-    if (state.matrixFilter === 'catalog' && row.mounted) return false
-    if (state.matrixFilter === 'vue' && row.ecosystem !== 'vue') return false
-    if (state.matrixFilter === 'react-astro' && row.ecosystem !== 'react-astro') return false
-    if (state.matrixFilter === 'native' && row.ecosystem !== 'native') return false
-    if (
-      state.matrixFilter === 'other' &&
-      row.ecosystem !== 'runtime' &&
-      row.ecosystem !== 'python-classic'
-    ) {
-      return false
-    }
-
+    if (!matchesEcosystemFilter(row.ecosystem, row.mounted)) return false
     if (!q) return true
     const haystack = [
       row.id,
+      row.sitePath,
+      row.profileDoc,
+      row.upstreamRepo,
       row.name,
       row.versionNote,
       row.lifecycle,
@@ -215,6 +227,78 @@ function filterLandscapeRows(): LandscapeRow[] {
   })
 }
 
+function filterGitHubRepos() {
+  const q = state.matrixQuery.trim().toLowerCase()
+  return dataset.githubActivity.repos.filter((r) => {
+    if (!matchesEcosystemFilter(r.ecosystem, r.mounted)) return false
+    if (!q) return true
+    const haystack = [r.repo, r.role, r.createdAt, ...r.siteIds].join(' ').toLowerCase()
+    return haystack.includes(q)
+  })
+}
+
+function heatLevelClass(count: number, isBeforeCreation: boolean): string {
+  if (isBeforeCreation) return 'heat-none'
+  if (count === 0) return 'heat-zero'
+  if (count >= 600) return 'heat-4'
+  if (count >= 200) return 'heat-3'
+  if (count >= 50) return 'heat-2'
+  return 'heat-1'
+}
+
+function renderGitHubHeatmapRowsHtml(): string {
+  const repos = filterGitHubRepos()
+  const colSpan = 5 + dataset.githubActivity.displayYears.length
+  if (repos.length === 0) {
+    return `<tr><td colspan="${colSpan}" style="text-align:center;padding:1.5rem;color:var(--text-muted);">未找到匹配的上游 GitHub 仓库记录。</td></tr>`
+  }
+
+  return repos
+    .map((r) => {
+      const preBefore = r.createdYear >= 2016
+      const preCls = heatLevelClass(r.pre2016Commits, preBefore)
+      const preText = preBefore ? '·' : r.pre2016Commits.toLocaleString('en-US')
+
+      const yearCells = dataset.githubActivity.displayYears
+        .map((y) => {
+          const before = y < r.createdYear
+          const count = r.yearlyCommits[String(y)] ?? 0
+          const cls = heatLevelClass(count, before)
+          const peakCls = !before && y === r.peakYear && count > 0 ? ' is-peak' : ''
+          const text = before ? '·' : String(count)
+          const title = before
+            ? `${r.repo} 于 ${r.createdAt} 立项，${y} 年尚未创建`
+            : `${r.repo} · ${y} 年主分支提交 ${count} 次${y === r.peakYear ? '（历史最高峰）' : ''}`
+          return `<td class="heat-cell mono ${cls}${peakCls}" title="${escapeHtml(title)}">${escapeHtml(text)}</td>`
+        })
+        .join('')
+
+      const siteLinks = r.siteIds
+        .map(
+          (id) =>
+            `<a class="gh-site-chip mono" href="/master/sites/${escapeHtml(id)}" target="_blank" rel="noopener">${escapeHtml(id)}</a>`
+        )
+        .join('')
+
+      return `
+        <tr>
+          <td class="gh-repo-cell">
+            <div class="gh-repo-line">
+              <a href="${escapeHtml(r.url)}" target="_blank" rel="noopener" class="mono gh-repo-link">${escapeHtml(r.repo)} ↗</a>
+              <span class="gh-site-chips">${siteLinks}</span>
+            </div>
+            <div class="gh-repo-meta mono">立项 ${escapeHtml(r.createdAt)} · 最近推送 ${escapeHtml(r.pushedAt)}</div>
+          </td>
+          <td class="mono num-cell">★ ${formatCompactNum(r.stars)}</td>
+          <td class="mono num-cell">${r.totalCommits.toLocaleString('en-US')}</td>
+          <td class="heat-cell mono ${preCls}" title="2008–2015 年累计主分支提交数">${preText}</td>
+          ${yearCells}
+        </tr>
+      `
+    })
+    .join('')
+}
+
 function renderLandscapeRowsHtml(): string {
   const rows = filterLandscapeRows()
   if (rows.length === 0) {
@@ -224,14 +308,17 @@ function renderLandscapeRowsHtml(): string {
   return rows
     .map((row) => {
       const statusBadge = row.mounted
-        ? `<span class="status-badge mounted">★ 已实测</span>`
-        : `<span class="status-badge catalog">图鉴收录</span>`
+        ? `<span class="status-badge mounted">★ sites/${escapeHtml(row.id)}</span>`
+        : `<span class="status-badge catalog">预留 sites/${escapeHtml(row.id)}</span>`
 
       const loadWorkbenchBtn = row.mounted
         ? `<button type="button" class="row-action-btn primary" data-load-workbench="${escapeHtml(row.id)}">⇄ 调入工作台</button>`
         : ''
 
       const lifecycleColor = row.isEol ? 'var(--accent-copper)' : 'var(--accent-teal)'
+      const ghStatLine = row.upstreamRepo
+        ? `<span class="gen-ver mono">★ ${formatCompactNum(row.stars)} · 总提交 ${row.totalCommits.toLocaleString('en-US')} · 26年 ${row.commits2026}次</span>`
+        : ''
 
       return `
         <tr>
@@ -242,6 +329,7 @@ function renderLandscapeRowsHtml(): string {
             </div>
             <span class="gen-ver mono">${escapeHtml(row.versionNote)}</span>
             <span class="gen-ver mono" style="color:${lifecycleColor};font-weight:600;">⏱ ${escapeHtml(row.lifecycle)}</span>
+            ${ghStatLine}
             <p class="gen-tagline">${escapeHtml(row.tagline)}</p>
           </td>
           <td class="mono" style="font-size:0.77rem;max-width:210px;">${escapeHtml(row.stack)}</td>
@@ -251,7 +339,7 @@ function renderLandscapeRowsHtml(): string {
           <td class="action-cell">
             <div class="row-actions">
               ${loadWorkbenchBtn}
-              <a class="row-action-btn" href="${escapeHtml(row.profileRoute)}" target="_blank" rel="noopener">📖 特色档案 ↗</a>
+              <a class="row-action-btn mono" href="${escapeHtml(row.profileRoute)}" target="_blank" rel="noopener">📖 docs/sites/${escapeHtml(row.id)} ↗</a>
             </div>
           </td>
         </tr>
@@ -263,6 +351,8 @@ function renderLandscapeRowsHtml(): string {
 function updateMatrixDom(): void {
   const tbody = document.getElementById('landscape-matrix-tbody')
   if (tbody) tbody.innerHTML = renderLandscapeRowsHtml()
+  const ghTbody = document.getElementById('github-commits-tbody')
+  if (ghTbody) ghTbody.innerHTML = renderGitHubHeatmapRowsHtml()
   document.querySelectorAll<HTMLButtonElement>('[data-matrix-filter]').forEach((btn) => {
     btn.classList.toggle('active', btn.dataset.matrixFilter === state.matrixFilter)
   })
@@ -722,20 +812,21 @@ function renderAppShell(): void {
       <section class="section-block" id="matrix">
         <div class="dialects-header-bar">
           <div>
-            <h2 class="section-heading">静态网站生成器（SSG）纵向全景对比图鉴（${dataset.landscapeRows.length} 款）</h2>
-            <p class="section-sub" style="margin-bottom:0;">采用「每行一款生成器/版本 × 固定核心维度列」纵向可扩展结构，同时收录已挂载实测子模块与主流生态方案，特色详情均归档于主库 <code>docs/generators/*.md</code>。</p>
+            <h2 class="section-heading">静态网站生成器（SSG）1:1 站点图鉴与 GitHub 活跃度矩阵（${dataset.landscapeRows.length} 款）</h2>
+            <p class="section-sub" style="margin-bottom:0;">主库档案目录 <code>docs/sites/&lt;id&gt;.md</code> 与子模块挂载目录 <code>sites/&lt;id&gt;</code> 严格 1:1 对齐；下方同步展示持久化的 GitHub GraphQL API 历年提交记录快照。</p>
           </div>
           <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
-            <a class="open-subsite-btn mono" href="/master/generators/" target="_blank" rel="noopener">浏览全部生成器特色档案 (/master/generators/) ↗</a>
-            <a class="open-subsite-btn mono" href="https://github.com/page2401/page2401.github.io/tree/main/docs/generators" target="_blank" rel="noopener">GitHub docs/generators/ ↗</a>
+            <a class="open-subsite-btn mono" href="/master/sites/" target="_blank" rel="noopener">浏览站点与活跃度总览 (/master/sites/) ↗</a>
+            <a class="open-subsite-btn mono" href="/master/sites/github-activity.json" target="_blank" rel="noopener">GitHub API 快照 JSON ↗</a>
+            <a class="open-subsite-btn mono" href="https://github.com/page2401/page2401.github.io/tree/main/docs/sites" target="_blank" rel="noopener">GitHub docs/sites/ ↗</a>
           </div>
         </div>
 
         <div class="matrix-toolbar">
           <div class="matrix-filters" role="tablist" aria-label="生成器流派筛选">
             <button type="button" class="preset-pill active" data-matrix-filter="all">全部 (${dataset.landscapeRows.length})</button>
-            <button type="button" class="preset-pill" data-matrix-filter="mounted">★ 已挂载实测 (${mountedCount})</button>
-            <button type="button" class="preset-pill" data-matrix-filter="catalog">图鉴待扩展 (${catalogCount})</button>
+            <button type="button" class="preset-pill" data-matrix-filter="mounted">★ 已挂载 sites/* (${mountedCount})</button>
+            <button type="button" class="preset-pill" data-matrix-filter="catalog">预留扩展 sites/* (${catalogCount})</button>
             <button type="button" class="preset-pill" data-matrix-filter="vue">Vue 生态</button>
             <button type="button" class="preset-pill" data-matrix-filter="react-astro">React / Astro / MDX</button>
             <button type="button" class="preset-pill" data-matrix-filter="native">Go / Rust 极速流</button>
@@ -745,7 +836,7 @@ function renderAppShell(): void {
             type="search"
             id="matrix-search-input"
             class="matrix-search"
-            placeholder="搜索名称或特性 (如 _index.md / Rspack / 缩进)..."
+            placeholder="搜索 ID、仓库或特性 (如 vuepress / EOL / _index.md)..."
             aria-label="搜索静态网站生成器"
           />
         </div>
@@ -754,18 +845,53 @@ function renderAppShell(): void {
           <table class="matrix-table">
             <thead>
               <tr>
-                <th>生成器 / 版本</th>
+                <th>生成器 / 1:1 站点标识</th>
                 <th>底层技术栈</th>
                 <th>目录与侧边栏流派</th>
                 <th>标注方言与 GFM 兼容</th>
                 <th>流程图与公式方案</th>
-                <th>档案与实测</th>
+                <th>1:1 档案与实测</th>
               </tr>
             </thead>
             <tbody id="landscape-matrix-tbody">
               ${renderLandscapeRowsHtml()}
             </tbody>
           </table>
+        </div>
+
+        <div class="gh-heatmap-panel" id="github-activity">
+          <div class="gh-heatmap-header">
+            <div>
+              <h3 class="gh-heatmap-title">📊 上游 GitHub 官方仓库历年提交活跃度热力表（2008–2026）</h3>
+              <p class="gh-heatmap-sub">数据持久化于 <code>docs/sites/github-activity.json</code>（采样日期：<code>${escapeHtml(dataset.githubActivity.fetchedAt)}</code>，可通过 <code>npm run sync:github</code> 一键刷新）。带 ★ 边框为该仓单年历史峰值，铜色 <code>0</code> 标识已完全停止提交。</p>
+            </div>
+            <div class="gh-legend mono">
+              <span class="heat-legend-chip heat-none">· 未立项</span>
+              <span class="heat-legend-chip heat-zero">0 停滞</span>
+              <span class="heat-legend-chip heat-1">1–49</span>
+              <span class="heat-legend-chip heat-2">50–199</span>
+              <span class="heat-legend-chip heat-3">200–599</span>
+              <span class="heat-legend-chip heat-4">600+ 高频</span>
+            </div>
+          </div>
+          <div class="matrix-wrap">
+            <table class="matrix-table gh-heatmap-table">
+              <thead>
+                <tr>
+                  <th>上游 GitHub 仓库 &amp; 1:1 关联站点</th>
+                  <th style="text-align:right;">Stars</th>
+                  <th style="text-align:right;">总提交</th>
+                  <th style="text-align:right;">08–15累计</th>
+                  ${dataset.githubActivity.displayYears
+                    .map((y) => `<th style="text-align:right;" class="mono">${String(y).slice(2)}年</th>`)
+                    .join('')}
+                </tr>
+              </thead>
+              <tbody id="github-commits-tbody">
+                ${renderGitHubHeatmapRowsHtml()}
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
 

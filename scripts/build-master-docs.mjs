@@ -174,7 +174,7 @@ function buildHtmlShell(title, relDepthPrefix, contentHtml, activeRel) {
       .topbar-nav a { color: var(--muted); text-decoration: none; font-weight: 500; }
       .topbar-nav a:hover, .topbar-nav a.active { color: var(--link); }
       main {
-        max-width: 860px;
+        max-width: 1080px;
         margin: 0 auto;
         padding: 1.75rem 1.5rem 3rem;
       }
@@ -198,9 +198,10 @@ function buildHtmlShell(title, relDepthPrefix, contentHtml, activeRel) {
         overflow-x: auto;
       }
       pre code { background: none; padding: 0; font-size: 13px; }
-      table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 14px; }
-      th, td { border: 1px solid var(--border); padding: 0.5rem 0.75rem; text-align: left; }
-      th { background: var(--bg-nav); }
+      .table-wrap { width: 100%; overflow-x: auto; margin: 1rem 0; }
+      table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+      th, td { border: 1px solid var(--border); padding: 0.45rem 0.65rem; text-align: left; white-space: normal; }
+      th { background: var(--bg-nav); white-space: nowrap; }
       blockquote {
         margin: 1rem 0;
         padding: 0.2rem 1rem;
@@ -256,7 +257,7 @@ function buildHtmlShell(title, relDepthPrefix, contentHtml, activeRel) {
       <nav class="topbar-nav">
         <a href="/master/">母版首页</a>
         <a href="/master/00-dialects">方言谱系</a>
-        <a href="/master/generators/">生成器特色图鉴</a>
+        <a href="/master/sites/">站点档案与活跃度 (docs/sites/)</a>
         <a href="/master/benchmark-spec">接入规范</a>
         <a href="/master/01-annotations">01. 标注</a>
         <a href="/master/02-diagrams">02. 流程图</a>
@@ -300,11 +301,18 @@ function walkDocs(relDir) {
     const relPath = relDir ? `${relDir}/${ent.name}` : ent.name
     if (ent.isDirectory()) {
       walkDocs(relPath)
+    } else if (ent.name.endsWith('.json')) {
+      const outJson = path.join(outRoot, relPath)
+      fs.mkdirSync(path.dirname(outJson), { recursive: true })
+      fs.copyFileSync(path.join(docsDir, relPath), outJson)
     } else if (ent.name.endsWith('.md')) {
       const raw = fs.readFileSync(path.join(docsDir, relPath), 'utf-8')
       const { meta, body } = parseFrontmatter(raw)
       const mathReady = preprocessMath(body)
-      const htmlContent = marked.parse(mathReady)
+      const htmlContent = marked
+        .parse(mathReady)
+        .replace(/<table>/g, '<div class="table-wrap"><table>')
+        .replace(/<\/table>/g, '</table></div>')
 
       const depth = relPath.split('/').length - 1
       const relPrefix = depth === 0 ? './' : '../'.repeat(depth)
@@ -329,4 +337,4 @@ function walkDocs(relDir) {
 }
 
 walkDocs('')
-console.log('[build-master-docs] Compiled canonical docs/*.md -> dist/master/')
+console.log('[build-master-docs] Compiled canonical docs/*.md + JSON snapshots -> dist/master/')
