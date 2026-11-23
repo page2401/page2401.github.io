@@ -62,6 +62,7 @@ export interface SiteEntry {
   isEol?: boolean
   profileDoc: string
   profileRoute: string
+  jsonRoute?: string | null
   family: string
   versionSeries: string
   primaryPackage: string
@@ -82,26 +83,61 @@ export interface SiteEntry {
   configs: ConfigFileEntry[]
 }
 
+export interface SiteLibsDetail {
+  runtime: string
+  bundler: string
+  uiFramework: string
+  markdownEngine: string
+  codeHighlight: string
+  searchEngine: string
+  mathLib: string
+  diagramLib: string
+  coreLibs: string[]
+  pinnedPackages?: Record<string, string> | null
+}
+
+export interface SiteLifecycleDetail {
+  startedAt: string
+  activePeriod: string
+  deprecatedAt: string | null
+  isEol: boolean
+  summary: string
+}
+
 export interface LandscapeRow {
   id: string
+  order: number
   sitePath: string
   name: string
   versionNote: string
   lifecycle: string
+  lifecycleDetail: SiteLifecycleDetail
   isEol?: boolean
   ecosystem: string
   mounted: boolean
   subsiteUrl?: string
+  subsiteRepoUrl?: string
   websiteUrl: string
   githubUrl: string
+  companionGithubUrls: string[]
   packageUrl: string
   tags: string[]
+  libs: SiteLibsDetail
   coreLibs: string[]
   markdownEngine: string
   upstreamRepo: string
+  createdYear: number
+  createdAt: string
+  pushedAt: string
+  primaryLanguage: string
+  license: string
   stars: number
+  forks: number
+  openIssues: number
+  latestReleaseTag: string | null
   totalCommits: number
   commits2026: number
+  yearlyCommits: Record<string, number>
   tagline: string
   stack: string
   directoryModel: string
@@ -147,11 +183,23 @@ export interface ComparisonDataset {
 export type WorkbenchMode = 'render' | 'tree' | 'source' | 'config'
 export type ViewportPreset = 'fluid' | 'tablet' | 'mobile'
 export type FocusedPane = 'both' | 'left' | 'right'
-export type MatrixFilter =
+export type DirectoryFilter =
   | 'all'
   | 'mounted'
   | 'catalog'
+  | 'active'
+  | 'eol'
   | 'vue'
   | 'react-astro'
   | 'native'
-  | 'other'
+  | 'runtime'
+  | 'python-classic'
+export type DirectorySort =
+  | 'recommended'
+  | 'stars-desc'
+  | 'commits2026-desc'
+  | 'total-commits-desc'
+  | 'newest'
+  | 'oldest'
+export type DirectoryView = 'grid' | 'list'
+export type ObservatoryTab = 'heatmap' | 'matrix' | 'dialects'

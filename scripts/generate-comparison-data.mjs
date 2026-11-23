@@ -282,34 +282,54 @@ const enrichedById = Object.fromEntries(enrichedSites.map((s) => [s.id, s]))
 const landscapeRows = siteJsonDocs.map((doc) => {
   const gh = doc.github
   const companions = gh.companionRepos || []
-  const commits2026 =
-    (gh.yearlyCommits['2026'] ?? 0) +
-    companions.reduce((acc, c) => acc + (c.yearlyCommits['2026'] ?? 0), 0)
+  const combinedYearly = {}
+  for (const [yr, cnt] of Object.entries(gh.yearlyCommits || {})) {
+    combinedYearly[yr] =
+      cnt + companions.reduce((acc, c) => acc + (c.yearlyCommits?.[yr] ?? 0), 0)
+  }
+
+  const commits2026 = combinedYearly['2026'] ?? 0
   const totalCommits =
     gh.totalCommits + companions.reduce((acc, c) => acc + (c.totalCommits ?? 0), 0)
 
   const mountedSite = doc.mounted ? enrichedById[doc.id] : null
+  const latestRel =
+    gh.latestRelease?.tagName || gh.recentReleases?.[0]?.tagName || null
 
   return {
     id: doc.id,
+    order: doc.order ?? 99,
     sitePath: doc.sitePath,
     name: doc.name,
     versionNote: mountedSite ? `${mountedSite.versionSeries} (${mountedSite.primaryVersion})` : doc.versionNote,
     lifecycle: doc.lifecycle.summary,
+    lifecycleDetail: doc.lifecycle,
     isEol: Boolean(doc.lifecycle.isEol),
     ecosystem: doc.ecosystem,
     mounted: Boolean(doc.mounted),
     subsiteUrl: mountedSite ? mountedSite.basePath : undefined,
+    subsiteRepoUrl: doc.subsiteRepoUrl || undefined,
     websiteUrl: doc.websiteUrl,
     githubUrl: doc.githubUrl,
+    companionGithubUrls: doc.companionGithubUrls || [],
     packageUrl: doc.packageUrl,
     tags: doc.tags || [],
+    libs: doc.libs,
     coreLibs: doc.libs?.coreLibs || [],
     markdownEngine: doc.libs?.markdownEngine || '',
     upstreamRepo: companions.length > 0 ? `${gh.repo} + ${companions.map((c) => c.repo).join(' + ')}` : gh.repo,
+    createdYear: gh.createdYear,
+    createdAt: gh.createdAt.slice(0, 10),
+    pushedAt: gh.pushedAt.slice(0, 10),
+    primaryLanguage: gh.primaryLanguage || '',
+    license: gh.license || 'MIT',
     stars: gh.stars,
+    forks: gh.forks || 0,
+    openIssues: gh.openIssues || 0,
+    latestReleaseTag: latestRel,
     totalCommits,
     commits2026,
+    yearlyCommits: combinedYearly,
     tagline: mountedSite ? mountedSite.tagline : doc.matrix.tagline,
     stack: mountedSite
       ? Object.entries(mountedSite.packages)
