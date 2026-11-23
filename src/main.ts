@@ -519,6 +519,7 @@ function renderAppShell(): void {
           <span class="brand-sub">多版本静态站点生成器 (SSG) 实测对比</span>
         </a>
         <nav class="nav-links" aria-label="主导航">
+          <a class="nav-link" href="#dialects">MD 方言谱系</a>
           <a class="nav-link" href="#workbench">分屏工作台</a>
           <a class="nav-link" href="#matrix">特性矩阵</a>
           <a class="nav-link" href="#architecture">子模块架构</a>
@@ -540,6 +541,73 @@ function renderAppShell(): void {
           </p>
         </div>
         ${renderSubmoduleCards()}
+      </section>
+
+      <section class="dialects-section" id="dialects" aria-label="Markdown 方言谱系导览">
+        <div class="dialects-header-bar">
+          <div>
+            <h2 class="section-heading">为什么同叫 <code>*.md</code> 却必须派生？—— Markdown 五大方言谱系</h2>
+            <p class="section-sub" style="margin-bottom:0;">初代 Markdown 仅定义了基础散文排版，现代文档必需的提示框、公式、图表与组件均由各生态独立扩展，演化出互不兼容的语法方言（同一句“升级警告”写法对比如下）：</p>
+          </div>
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+            <a class="open-subsite-btn mono" href="/master/00-dialects" target="_blank" rel="noopener">阅读完整方言谱系导览 ↗</a>
+            <a class="open-subsite-btn mono" href="https://github.com/page2401/page2401.github.io/blob/main/docs/00-dialects.md" target="_blank" rel="noopener">docs/00-dialects.md ↗</a>
+          </div>
+        </div>
+
+        <div class="dialect-grid">
+          <article class="dialect-card">
+            <div>
+              <span class="dialect-layer-tag mono">Layer 1 · 基础内核</span>
+              <h3 class="dialect-name">初代 Markdown / CommonMark</h3>
+              <p class="dialect-desc">2004 初代与 2014 严格化标准。仅含标题、列表、链接、代码块；<strong>无表格、无公式、无 Frontmatter、无提示块</strong>，任何扩展语义只能退化为粗体引用。</p>
+            </div>
+            <pre class="dialect-snippet mono">&gt; **升级注意**：请先备份配置。</pre>
+          </article>
+
+          <article class="dialect-card is-canonical">
+            <div>
+              <span class="dialect-layer-tag mono">Layer 2 · ★ 本站母版基准</span>
+              <h3 class="dialect-name">GitHub Flavored (GFM)</h3>
+              <p class="dialect-desc">事实上的通用超集：扩展表格与任务列表，并在 GitHub 平台层支持 <code>[!NOTE]</code> 五类警报、<code>mermaid</code> 代码块与 <code>$...$</code> 公式——但多数 SSG 默认并不全兼容。</p>
+            </div>
+            <pre class="dialect-snippet mono">&gt; [!WARNING]
+&gt; **升级注意**：请先备份配置。</pre>
+          </article>
+
+          <article class="dialect-card">
+            <div>
+              <span class="dialect-layer-tag mono">Layer 3A · markdown-it 派</span>
+              <h3 class="dialect-name">三冒号空格容器 + Vue SFC</h3>
+              <p class="dialect-desc">代表：<strong>VuePress / VitePress</strong>。整篇文档编译为 Vue 组件（可直接写 <code>&lt;Badge/&gt;</code>，但裸写泛型 <code>&lt;T&gt;</code> 易报错），标题跟在空格后。</p>
+            </div>
+            <pre class="dialect-snippet mono">::: warning 升级注意
+请先备份配置。
+:::</pre>
+          </article>
+
+          <article class="dialect-card">
+            <div>
+              <span class="dialect-layer-tag mono">Layer 3B · remark + MDX 派</span>
+              <h3 class="dialect-name">指令方括号容器 + JSX</h3>
+              <p class="dialect-desc">代表：<strong>Astro Starlight / Docusaurus</strong>。遵循 <code>remark-directive</code>，无空格且标题<strong>必须放方括号内</strong>；MDX 下裸写 <code>{var}</code> 或 HTML 注释会触发编译报错。</p>
+            </div>
+            <pre class="dialect-snippet mono">:::caution[升级注意]
+请先备份配置。
+:::</pre>
+          </article>
+
+          <article class="dialect-card">
+            <div>
+              <span class="dialect-layer-tag mono">Layer 4 · 其它生态专有派</span>
+              <h3 class="dialect-name">Docsify / MkDocs / Hugo</h3>
+              <p class="dialect-desc">各成一派：Docsify 用 <code>?&gt;</code> / <code>!&gt;</code>（v5 新增 GFM 兼容）；MkDocs 用 <code>!!!</code> 加 4 空格缩进免闭合；Hugo 用 Go 模板 Shortcode。</p>
+            </div>
+            <pre class="dialect-snippet mono">!&gt; **升级注意**：请先备份配置。
+!!! warning "升级注意"
+{{&lt; callout "warning" &gt;}}</pre>
+          </article>
+        </div>
       </section>
 
       <section class="workbench-section" id="workbench" aria-label="双栏对比工作台">

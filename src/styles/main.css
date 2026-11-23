@@ -1136,3 +1136,77 @@ select {
   color: var(--text-muted);
   margin: 0.25rem 0 0.65rem;
 }
+
+/* Markdown Dialects Genealogy Section */
+.dialects-section {
+  padding-block: 0.25rem 2rem;
+}
+
+.dialects-header-bar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.dialect-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 0.85rem;
+}
+
+.dialect-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.7rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.dialect-card.is-canonical {
+  border-color: var(--accent-teal);
+}
+
+.dialect-layer-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.dialect-card.is-canonical .dialect-layer-tag {
+  color: var(--accent-teal);
+}
+
+.dialect-name {
+  margin: 0.2rem 0 0.35rem;
+  font-size: 0.96rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.dialect-desc {
+  margin: 0;
+  font-size: 0.81rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.dialect-snippet {
+  margin: 0;
+  padding: 0.6rem 0.75rem;
+  border-radius: 6px;
+  background-color: var(--bg-code);
+  border: 1px solid var(--border-subtle);
+  font-size: 11.8px;
+  line-height: 1.5;
+  overflow-x: auto;
+  color: var(--text-primary);
+}

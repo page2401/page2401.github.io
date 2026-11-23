@@ -6,6 +6,8 @@
 
 ## 核心理念：母版（Master） ──派生适配──▶ 各框架子模块（Derived）
 
+0. **先看懂 `*.md` 的方言分裂（[`docs/00-dialects.md`](./docs/00-dialects.md)）**：
+   - 从初代 Markdown / CommonMark、GitHub GFM 到 `markdown-it` 容器派、`remark-directive` + MDX 派以及 Docsify / MkDocs / Hugo 专有语法，详见完整方言演进导览 [`docs/00-dialects.md`](./docs/00-dialects.md)（线上阅读：[`/master/00-dialects`](https://page.2401.xyz/master/00-dialects)）。
 1. **本站维护唯一原始母版（[`docs/`](./docs/)）**：
    - 本仓库 `docs/` 目录下保存不绑定任何特定生成器的 **标准 GitHub Flavored Markdown（GFM）母版文档集**（包含基础 YAML Frontmatter、`> [!NOTE]` 五类警报、原生 `<details>`、```` ```mermaid ```` 流程图与 `$...$` / `$$...$$` 公式，在 GitHub 网页端可直接原生渲染）。
    - 构建时同时通过 [`scripts/build-master-docs.mjs`](./scripts/build-master-docs.mjs) 编译为 [`https://page.2401.xyz/master/`](https://page.2401.xyz/master/) 作为标准 GFM 视觉参考基准。

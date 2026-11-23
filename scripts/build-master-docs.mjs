@@ -254,7 +254,8 @@ function buildHtmlShell(title, relDepthPrefix, contentHtml, activeRel) {
         <span class="gfm-badge">Pure GFM 参考基准</span>
       </div>
       <nav class="topbar-nav">
-        <a href="/master/">00. 母版概览</a>
+        <a href="/master/">母版首页</a>
+        <a href="/master/00-dialects">方言谱系导览</a>
         <a href="/master/01-annotations">01. 标注</a>
         <a href="/master/02-diagrams">02. 流程图</a>
         <a href="/master/03-math">03. 公式</a>
