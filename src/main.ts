@@ -109,7 +109,29 @@ function updateThemeButtonLabel(): void {
 }
 
 function renderSubmoduleCards(): string {
-  return dataset.sites
+  const masterSite = dataset.sites.find((s) => s.isMaster)
+  const derivedSites = dataset.sites.filter((s) => !s.isMaster)
+
+  const masterBannerHtml = masterSite
+    ? `
+      <div class="master-banner" id="master-baseline-card">
+        <div class="master-banner-info">
+          <div class="master-banner-title">
+            <span>${escapeHtml(masterSite.family)}</span>
+            <span class="series-tag mono">Single Source of Truth · 本仓 docs/*.md</span>
+          </div>
+          <p class="site-card-tagline" style="margin:0;">${escapeHtml(masterSite.tagline)}</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;">
+          <a class="open-subsite-btn mono" href="https://github.com/page2401/page2401.github.io/tree/main/docs" target="_blank" rel="noopener">GitHub docs/ 母版源码 ↗</a>
+          <a class="open-subsite-btn mono" href="${escapeHtml(masterSite.basePath)}" target="_blank" rel="noopener">${escapeHtml(masterSite.basePath)} 参考预览 ↗</a>
+        </div>
+      </div>
+      <div class="derived-heading mono">▼ 由母版派生适配的 ${derivedSites.length} 个独立版本子模块 (sites/*)</div>
+    `
+    : ''
+
+  const cardsHtml = derivedSites
     .map((site, idx) => {
       const accent = idx % 2 === 0 ? 'teal' : 'copper'
       const pkgChips = Object.entries(site.packages)
@@ -148,6 +170,8 @@ function renderSubmoduleCards(): string {
       `
     })
     .join('')
+
+  return `${masterBannerHtml}<div class="submodule-strip">${cardsHtml}</div>`
 }
 
 function renderMatrixRows(): string {
