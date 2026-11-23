@@ -22,7 +22,29 @@ export interface ConfigFileEntry {
   lines: number
 }
 
+export interface DirectoryProfile {
+  contentRoot: string
+  contentPrefix: string
+  excludedContentFiles: string[]
+  orderingMechanism: string
+  sidebarMechanism: string
+  pros: string[]
+  cons: string[]
+}
+
+export interface TreeNode {
+  name: string
+  relPath: string
+  depth: number
+  kind: 'dir' | 'file'
+  category: 'folder' | 'content' | 'excluded' | 'config' | 'plugin' | 'infra'
+  route: string | null
+  note: string | null
+}
+
 export interface SiteHighlights {
+  dirIsolation: string
+  dirRoutingSidebar: string
   frontmatter: string
   callouts: string
   details: string
@@ -47,6 +69,8 @@ export interface SiteEntry {
   submoduleDir: string
   packages: Record<string, string>
   packageJsonRaw: string
+  directoryProfile: DirectoryProfile
+  treeNodes: TreeNode[]
   highlights: SiteHighlights
   docs: Record<string, DocEntry>
   configs: ConfigFileEntry[]
@@ -58,6 +82,6 @@ export interface ComparisonDataset {
   sites: SiteEntry[]
 }
 
-export type WorkbenchMode = 'render' | 'source' | 'config'
+export type WorkbenchMode = 'render' | 'tree' | 'source' | 'config'
 export type ViewportPreset = 'fluid' | 'tablet' | 'mobile'
 export type FocusedPane = 'both' | 'left' | 'right'

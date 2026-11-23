@@ -26,7 +26,14 @@
       "code": "03",
       "title": "数学公式排版 (LaTeX)",
       "shortTitle": "03. 数学公式",
-      "summary": "编译产物路线对比：VitePress v1 内置开关配合 markdown-it-mathjax3@4（尚不兼容 v5）在构建期生成零字体依赖的内联 SVG；Starlight 组合 remark-math + rehype-katex 生成紧凑的 HTML + Webfont 结构。"
+      "summary": "编译产物路线对比：VitePress v1 内置开关配合 markdown-it-mathjax3@4（尚不兼容 v5）在构建期生成零字体依赖的内联 SVG；Starlight 组合 remark-math + rehype-katex（Astro 7 须显式安装 @astrojs/markdown-remark）生成 HTML + Webfont。"
+    },
+    {
+      "id": "04-directory",
+      "code": "04",
+      "title": "目录结构与路由取舍",
+      "shortTitle": "04. 目录结构",
+      "summary": "没有十全十美的目录方案：VitePress 平铺零层级但混杂工程文件（需 srcExclude 排除 README.md）且无原生自动侧边栏；Starlight 强制 3 层深 src/content/docs/ 边界干净且支持 autogenerate + order 干净 URL，但本地文件字母乱序且子目录直接暴露英文名 nested。"
     }
   ],
   "sites": [
@@ -49,7 +56,26 @@
       "configFiles": [
         ".vitepress/config.mts"
       ],
+      "directoryProfile": {
+        "contentRoot": "/ (仓库根目录直接平铺)",
+        "contentPrefix": "",
+        "excludedContentFiles": ["README.md"],
+        "orderingMechanism": "文件名前缀排序 (01-xxx.md)",
+        "sidebarMechanism": "全手写 .vitepress/config.mts 嵌套数组",
+        "pros": [
+          "零前置目录深度：现有纯 Markdown 文件夹几乎无需搬迁即可直接渲染",
+          "编辑器顺序直观：靠 01-、02- 文件名前缀，IDE 与 GitHub 文件树天然按阅读顺序排列",
+          "分组命名自由：手写 config.mts 可为英文子目录 nested/ 任意指定中文折叠标题"
+        ],
+        "cons": [
+          "工程与内容混杂：仓库 README.md 与 index.md 同处根目录，不配 srcExclude 就会被误编译成网页",
+          "URL 被序号污染：01- 前缀直接进入线上 URL，中间插队改名会导致旧链接 404（除非额外维护 rewrites）",
+          "无内置自动侧边栏：新建 .md 若忘改 config.mts 会沦为无入口“孤岛页”"
+        ]
+      },
       "highlights": {
+        "dirIsolation": "根目录平铺（零层级低门槛，但内容与配置混放，需配 srcExclude: ['README.md'] 防误编译）",
+        "dirRoutingSidebar": "无原生 autogenerate（需手改 config.mts 防孤岛页）；靠 01- 前缀保本地顺序但污染 URL",
         "frontmatter": "宽松 YAML（任意自定义字段免声明）",
         "callouts": "::: info / tip / warning / danger（空格后接标题）",
         "details": "原生 ::: details 折叠容器",
@@ -74,6 +100,10 @@
         "03-math": {
           "route": "03-math",
           "file": "03-math.md"
+        },
+        "04-directory": {
+          "route": "04-directory/",
+          "file": "04-directory/index.md"
         }
       }
     },
@@ -102,7 +132,26 @@
         "src/plugins/remark-mermaid.mjs",
         "src/components/Head.astro"
       ],
+      "directoryProfile": {
+        "contentRoot": "src/content/docs/ (强制 3 层前置目录)",
+        "contentPrefix": "src/content/docs/",
+        "excludedContentFiles": [],
+        "orderingMechanism": "Frontmatter sidebar.order 数值权重",
+        "sidebarMechanism": "原生 autogenerate: { directory } 自动扫描",
+        "pros": [
+          "物理边界绝对干净：工程配置、仓库 README.md 与正文文档彻底隔离，零误编译风险",
+          "URL 干净且持久：无需 01- 文件名前缀，zeta-first.md 可靠 order: 1 置顶且改序不破链接",
+          "防孤岛页自动化：开启 autogenerate 后在子目录新建文档即自动挂载至侧边栏"
+        ],
+        "cons": [
+          "目录层级过深：写一篇子目录文档深达 5 层路径，对直接挂载现成纯笔记库（如 Obsidian）侵入性强",
+          "本地文件树乱序：IDE 按字母将 alpha-second.md 排在 zeta-first.md 前，与实际阅读顺序相反",
+          "自动分组命名受限：autogenerate 缺少目录级元数据文件，子目录分组标题直接生硬显示英文名 nested"
+        ]
+      },
       "highlights": {
+        "dirIsolation": "强制深埋 src/content/docs/（工程边界极干净，但前置 3 层目录对纯笔记库侵入性高）",
+        "dirRoutingSidebar": "原生 autogenerate + sidebar.order（URL 干净，但本地文件字母乱序，且子目录暴露英文名 nested）",
         "frontmatter": "Astro 7 Content Layer Zod 强类型构建期校验",
         "callouts": ":::note / tip[标题] / caution / danger（方括号传参）",
         "details": "使用语义化 HTML <details><summary> 标签",
@@ -127,6 +176,10 @@
         "03-math": {
           "route": "03-math",
           "file": "src/content/docs/03-math.md"
+        },
+        "04-directory": {
+          "route": "04-directory",
+          "file": "src/content/docs/04-directory/index.md"
         }
       }
     }

@@ -31,6 +31,7 @@
 | `01-annotations` | `/01-annotations` | Frontmatter 说明、Info/Tip(自定义标题)/Warning(Caution)/Danger 四类提示块、折叠块、原始 `> [!NOTE]` GFM Alert 兼容性实测 |
 | `02-diagrams` | `/02-diagrams` | `flowchart TD`（含 `subgraph` 与中文标签）、`sequenceDiagram`（含 `alt` 与生命线激活）、`stateDiagram-v2` |
 | `03-math` | `/03-math` | 行内公式中英文混排基线、`aligned` 多行高斯积分推导、`bmatrix` 注意力与雅可比矩阵、`cases` 分段函数、字面量 `\$` 转义 |
+| `04-directory` | `/04-directory/` | 根目录隔离度 vs 目录深度、本地文件名前缀排序 vs Frontmatter `order` 干净 URL、`nested/` 多级子目录与自动侧边栏（`autogenerate` vs 手写配置）实测 |
 
 ---
 

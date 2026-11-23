@@ -21,6 +21,8 @@ interface AppState {
   leftConfigIndex: number
   rightConfigIndex: number
   highlightDiff: boolean
+  customLeftUrl: string | null
+  customRightUrl: string | null
 }
 
 function getSiteById(id: string): SiteEntry {
@@ -41,12 +43,17 @@ function loadInitialState(): AppState {
     leftSiteId: dataset.sites.some((s) => s.id === leftParam) ? leftParam! : defaultLeft,
     rightSiteId: dataset.sites.some((s) => s.id === rightParam) ? rightParam! : defaultRight,
     chapterId: dataset.chapters.some((c) => c.id === docParam) ? docParam! : '01-annotations',
-    mode: modeParam && ['render', 'source', 'config'].includes(modeParam) ? modeParam : 'render',
+    mode:
+      modeParam && ['render', 'tree', 'source', 'config'].includes(modeParam)
+        ? modeParam
+        : 'render',
     viewport: 'fluid',
     focus: 'both',
     leftConfigIndex: 0,
     rightConfigIndex: 0,
-    highlightDiff: true
+    highlightDiff: true,
+    customLeftUrl: null,
+    customRightUrl: null
   }
 }
 
@@ -146,6 +153,8 @@ function renderSubmoduleCards(): string {
 function renderMatrixRows(): string {
   const rows: Array<{ label: string; key: keyof SiteEntry['highlights'] | 'versions' }> = [
     { label: '核心精确锁定版本', key: 'versions' },
+    { label: '目录层级与工程隔离度', key: 'dirIsolation' },
+    { label: '多级目录排序与侧边栏维护', key: 'dirRoutingSidebar' },
     { label: 'Frontmatter 校验机制', key: 'frontmatter' },
     { label: '提示块 (Callouts) 语法', key: 'callouts' },
     { label: '可折叠详情块语法', key: 'details' },
@@ -172,22 +181,115 @@ function renderMatrixRows(): string {
     .join('')
 }
 
+function renderTreeInspectorHtml(side: 'left' | 'right', site: SiteEntry): string {
+  const prof = site.directoryProfile
+  const prosHtml = prof.pros.map((p) => `<li>${escapeHtml(p)}</li>`).join('')
+  const consHtml = prof.cons.map((c) => `<li>${escapeHtml(c)}</li>`).join('')
+
+  const treeRowsHtml = site.treeNodes
+    .map((node) => {
+      const indentPx = 12 + node.depth * 18
+      const icon =
+        node.kind === 'dir'
+          ? '▸'
+          : node.category === 'content'
+            ? '📄'
+            : node.category === 'excluded'
+              ? '⊘'
+              : node.category === 'config'
+                ? '⚙'
+                : '·'
+
+      const badges: string[] = []
+      if (node.note) {
+        const isWarn =
+          node.category === 'excluded' ||
+          node.note.includes('暴露') ||
+          node.note.includes('手写')
+        badges.push(
+          `<span class="tree-pill${isWarn ? ' warn' : ''} mono">${escapeHtml(node.note)}</span>`
+        )
+      }
+      if (node.route) {
+        badges.push(
+          `<span class="tree-pill route mono" title="点击在实测分屏中打开此路由">→ ${escapeHtml(node.route)}</span>`
+        )
+      }
+
+      const clickableAttr = node.route
+        ? ` data-tree-route="${escapeHtml(node.route)}" data-tree-side="${side}"`
+        : ''
+
+      return `
+        <div class="tree-row kind-${node.kind} cat-${node.category}${node.route ? ' is-clickable' : ''}" style="padding-left:${indentPx}px"${clickableAttr}>
+          <div class="tree-left mono">
+            <span class="tree-icon">${icon}</span>
+            <span class="tree-name">${escapeHtml(node.name)}${node.kind === 'dir' ? '/' : ''}</span>
+          </div>
+          <div class="tree-badges">${badges.join('')}</div>
+        </div>
+      `
+    })
+    .join('')
+
+  const contentCount = site.treeNodes.filter((n) => n.category === 'content').length
+
+  return `
+    <div class="tree-inspector">
+      <div class="tradeoff-panel">
+        <div class="profile-kv-grid">
+          <div class="profile-kv">
+            <span class="profile-kv-label">内容根路径</span>
+            <span class="profile-kv-val mono">${escapeHtml(prof.contentRoot)}</span>
+          </div>
+          <div class="profile-kv">
+            <span class="profile-kv-label">章节排序策略</span>
+            <span class="profile-kv-val">${escapeHtml(prof.orderingMechanism)}</span>
+          </div>
+          <div class="profile-kv">
+            <span class="profile-kv-label">多级侧边栏维护</span>
+            <span class="profile-kv-val">${escapeHtml(prof.sidebarMechanism)}</span>
+          </div>
+        </div>
+        <div class="pros-cons-grid">
+          <div class="pc-box pros">
+            <div class="pc-title">✓ 该目录模型优势</div>
+            <ul class="pc-list">${prosHtml}</ul>
+          </div>
+          <div class="pc-box cons">
+            <div class="pc-title">✕ 无法回避的妥协与痛点</div>
+            <ul class="pc-list">${consHtml}</ul>
+          </div>
+        </div>
+      </div>
+      <div class="tree-list-header mono">
+        <span>物理目录树 (${escapeHtml(site.submoduleDir)} · 按编辑器字母序排列)</span>
+        <span>${contentCount} 篇路由文档 · 点击带路由行可预览</span>
+      </div>
+      <div class="tree-list">${treeRowsHtml}</div>
+    </div>
+  `
+}
+
 function renderPaneContent(
   side: 'left' | 'right',
   site: SiteEntry,
   counterpart: SiteEntry
 ): string {
-  const routeUrl = buildSubsiteRouteUrl(site, state.chapterId)
+  const customUrl = side === 'left' ? state.customLeftUrl : state.customRightUrl
+  const routeUrl = customUrl || buildSubsiteRouteUrl(site, state.chapterId)
   const focusTarget: FocusedPane = state.focus === side ? 'both' : side
   const focusLabel = state.focus === side ? '恢复双栏' : '单栏展开'
 
   const headerPath =
     state.mode === 'render'
       ? routeUrl
-      : state.mode === 'source'
-        ? site.docs[state.chapterId]?.file || ''
-        : site.configs[side === 'left' ? state.leftConfigIndex : state.rightConfigIndex]?.path ||
-          `${site.submoduleDir}/package.json`
+      : state.mode === 'tree'
+        ? `${site.submoduleDir}/`
+        : state.mode === 'source'
+          ? site.docs[state.chapterId]?.file || ''
+          : site.configs[side === 'left' ? state.leftConfigIndex : state.rightConfigIndex]?.path ||
+            `${site.submoduleDir}/package.json`
 
   let bodyHtml = ''
 
@@ -203,6 +305,8 @@ function renderPaneContent(
         ></iframe>
       </div>
     `
+  } else if (state.mode === 'tree') {
+    bodyHtml = renderTreeInspectorHtml(side, site)
   } else if (state.mode === 'source') {
     const doc = site.docs[state.chapterId]
     const otherDoc = counterpart.docs[state.chapterId]
@@ -304,6 +408,8 @@ function updateWorkbenchDom(): void {
         <button type="button" class="mini-btn${state.viewport === 'mobile' ? ' active' : ''}" data-viewport-btn="mobile" id="vp-mobile-btn">手机 390px</button>
         <button type="button" class="mini-btn" id="reload-iframes-btn">↻ 刷新分屏</button>
       `
+    } else if (state.mode === 'tree') {
+      extraControls.innerHTML = `<span class="mono" style="font-size:0.75rem;color:var(--text-muted);">真实扫描自各子模块物理目录树 · 揭示不同目录约定的两难取舍</span>`
     } else if (state.mode === 'source') {
       extraControls.innerHTML = `
         <button type="button" class="mini-btn${state.highlightDiff ? ' active' : ''}" id="toggle-diff-btn">
@@ -317,7 +423,10 @@ function updateWorkbenchDom(): void {
 
   const takeawayEl = document.getElementById('chapter-takeaway-text')
   if (takeawayEl) {
-    takeawayEl.textContent = activeChapter.summary
+    takeawayEl.textContent =
+      state.mode === 'tree'
+        ? '工程目录不可能三角：VitePress 零层级平铺易上手但混放 README.md 且需手写侧栏；Starlight 强制 3 层 src/content/docs/ 隔离干净且支持 order 干净 URL，但本地文件字母乱序（alpha 在 zeta 前）且自动子目录生硬暴露英文名 nested。'
+        : activeChapter.summary
   }
 
   const splitGrid = document.getElementById('workbench-split-grid')
@@ -391,7 +500,7 @@ function renderAppShell(): void {
           <p class="intro-eyebrow mono">Git Submodule · Exact Version Pinning · Similar *.md Suite</p>
           <h1 class="intro-title">同一套语义基准，并排检验不同大版本 SSG 的真实边界</h1>
           <p class="intro-desc">
-            每种静态网站生成器对元数据校验、提示块标注（Callouts）、Mermaid 流程图与 LaTeX 公式的支持方式及大版本插件生态均存在差异。本平台将每个带版本号的生成器封装为独立的 Git 子模块仓库（<code>main</code> 存纯源码，<code>page</code> 发静态产物），并实时提取真实 <code>*.md</code> 原文进行同源分屏与差异比对。
+            每种静态网站生成器对目录组织结构、元数据校验、提示块标注（Callouts）、Mermaid 流程图与 LaTeX 公式的支持方式及大版本插件生态均存在取舍。本平台将每个带版本号的生成器封装为独立的 Git 子模块仓库（<code>main</code> 存纯源码，<code>page</code> 发静态产物），实时扫描物理目录树并提取真实 <code>*.md</code> 原文进行同源分屏比对。
           </p>
         </div>
         <div class="submodule-strip">
@@ -414,8 +523,9 @@ function renderAppShell(): void {
 
             <div class="segmented-tabs" role="tablist" aria-label="对比视图切换">
               <button type="button" class="seg-btn" data-mode="render" id="mode-render-btn">实测渲染分屏</button>
+              <button type="button" class="seg-btn" data-mode="tree" id="mode-tree-btn">工程目录树对比</button>
               <button type="button" class="seg-btn" data-mode="source" id="mode-source-btn">相似 *.md 源码对比</button>
-              <button type="button" class="seg-btn" data-mode="config" id="mode-config-btn">工程配置与依赖对比</button>
+              <button type="button" class="seg-btn" data-mode="config" id="mode-config-btn">工程配置对比</button>
             </div>
           </div>
 
@@ -437,7 +547,7 @@ function renderAppShell(): void {
 
       <section class="section-block" id="matrix">
         <h2 class="section-heading">多版本实测特性与工程成本对比矩阵</h2>
-        <p class="section-sub">所有版本号与结论均来自当前挂载子模块的实际构建验证，而非仅凭文档宣传。</p>
+        <p class="section-sub">涵盖目录结构不可能三角、标记语法方言与大版本插件边界，所有结论均来自当前子模块实测。</p>
         <div class="matrix-wrap">
           <table class="matrix-table">
             <thead>
@@ -466,7 +576,7 @@ function renderAppShell(): void {
           </div>
           <div class="arch-card">
             <h3>2. 主仓库 Submodule 实时抽取</h3>
-            <p>主仓库通过 <code>.gitmodules</code> 跟踪各子模块的 <code>main</code> 分支；构建时自动读取各子模块的 <code>package.json</code> 锁定版本号、<code>*.md</code> 原文与配置文件，杜绝手工复制失真。</p>
+            <p>主仓库通过 <code>.gitmodules</code> 跟踪各子模块的 <code>main</code> 分支；构建时自动扫描物理目录树、读取 <code>package.json</code> 精确版本号与 <code>*.md</code> 原文，杜绝手工复制失真。</p>
             <pre class="arch-pre mono">git clone --recurse-submodules \\
   https://github.com/page2401/page2401.github.io.git</pre>
           </div>
@@ -502,12 +612,14 @@ function bindEvents(): void {
   document.getElementById('select-left-site')?.addEventListener('change', (e) => {
     state.leftSiteId = (e.target as HTMLSelectElement).value
     state.leftConfigIndex = 0
+    state.customLeftUrl = null
     updateWorkbenchDom()
   })
 
   document.getElementById('select-right-site')?.addEventListener('change', (e) => {
     state.rightSiteId = (e.target as HTMLSelectElement).value
     state.rightConfigIndex = 0
+    state.customRightUrl = null
     updateWorkbenchDom()
   })
 
@@ -518,6 +630,9 @@ function bindEvents(): void {
     const tmpCfg = state.leftConfigIndex
     state.leftConfigIndex = state.rightConfigIndex
     state.rightConfigIndex = tmpCfg
+    const tmpUrl = state.customLeftUrl
+    state.customLeftUrl = state.customRightUrl
+    state.customRightUrl = tmpUrl
     updateWorkbenchDom()
   })
 
@@ -536,12 +651,31 @@ function bindEvents(): void {
       const ch = btn.dataset.chapter
       if (ch) {
         state.chapterId = ch
+        state.customLeftUrl = null
+        state.customRightUrl = null
+        if (state.mode === 'tree') {
+          state.mode = 'render'
+        }
         updateWorkbenchDom()
       }
     })
   })
 
   document.getElementById('workbench')?.addEventListener('click', (e) => {
+    const treeRow = (e.target as HTMLElement).closest<HTMLElement>('[data-tree-route]')
+    if (treeRow && treeRow.dataset.treeRoute) {
+      const route = treeRow.dataset.treeRoute
+      if (treeRow.dataset.treeSide === 'left') {
+        state.customLeftUrl = route
+      } else {
+        state.customRightUrl = route
+      }
+      state.chapterId = '04-directory'
+      state.mode = 'render'
+      updateWorkbenchDom()
+      return
+    }
+
     const target = (e.target as HTMLElement).closest<HTMLElement>('button')
     if (!target) return
 
