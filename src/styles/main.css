@@ -1010,6 +1010,8 @@ select {
 
 .tree-name {
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .tree-row.kind-dir .tree-name {

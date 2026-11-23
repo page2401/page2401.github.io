@@ -211,8 +211,13 @@ function renderTreeInspectorHtml(side: 'left' | 'right', site: SiteEntry): strin
         )
       }
       if (node.route) {
+        const baseTrimmed = site.basePath.replace(/\/$/, '')
+        const shortRoute =
+          baseTrimmed && node.route.startsWith(baseTrimmed)
+            ? node.route.slice(baseTrimmed.length) || '/'
+            : node.route
         badges.push(
-          `<span class="tree-pill route mono" title="点击在实测分屏中打开此路由">→ ${escapeHtml(node.route)}</span>`
+          `<span class="tree-pill route mono" title="点击在实测分屏中打开 ${escapeHtml(node.route)}">→ ${escapeHtml(shortRoute)}</span>`
         )
       }
 
