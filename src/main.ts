@@ -3,6 +3,8 @@ import rawDataset from './generated/comparison-data.json'
 import type {
   ComparisonDataset,
   FocusedPane,
+  LandscapeRow,
+  MatrixFilter,
   SiteEntry,
   ViewportPreset,
   WorkbenchMode
@@ -23,6 +25,8 @@ interface AppState {
   highlightDiff: boolean
   customLeftUrl: string | null
   customRightUrl: string | null
+  matrixFilter: MatrixFilter
+  matrixQuery: string
 }
 
 function getSiteById(id: string): SiteEntry {
@@ -31,8 +35,9 @@ function getSiteById(id: string): SiteEntry {
 
 function loadInitialState(): AppState {
   const params = new URLSearchParams(window.location.search)
-  const defaultLeft = dataset.sites[0]?.id || 'vitepress-v1'
-  const defaultRight = dataset.sites[1]?.id || defaultLeft
+  const defaultLeft = 'master'
+  const defaultRight =
+    dataset.sites.find((s) => !s.isMaster)?.id || dataset.sites[0]?.id || 'vitepress-v1'
 
   const leftParam = params.get('left')
   const rightParam = params.get('right')
@@ -53,7 +58,9 @@ function loadInitialState(): AppState {
     rightConfigIndex: 0,
     highlightDiff: true,
     customLeftUrl: null,
-    customRightUrl: null
+    customRightUrl: null,
+    matrixFilter: 'all',
+    matrixQuery: ''
   }
 }
 
@@ -158,11 +165,11 @@ function renderSubmoduleCards(): string {
           <div class="pkg-list">${pkgChips}</div>
           <div class="site-card-links">
             <div class="branch-links mono">
-              <a href="${escapeHtml(site.repoUrl)}" target="_blank" rel="noopener">${escapeHtml(site.repo)}</a>
+              <a href="${escapeHtml(site.profileRoute)}" target="_blank" rel="noopener" style="color:var(--accent-teal);font-weight:600;">特色档案</a>
               <span>·</span>
-              <a href="${escapeHtml(site.mainBranchUrl)}" target="_blank" rel="noopener">main (源码)</a>
+              <a href="${escapeHtml(site.mainBranchUrl)}" target="_blank" rel="noopener">main</a>
               <span>·</span>
-              <a href="${escapeHtml(site.pageBranchUrl)}" target="_blank" rel="noopener">page (产物)</a>
+              <a href="${escapeHtml(site.pageBranchUrl)}" target="_blank" rel="noopener">page</a>
             </div>
             <span class="mono" style="color: var(--text-muted); font-size: 0.74rem;">${escapeHtml(site.submoduleDir)}</span>
           </div>
@@ -174,35 +181,87 @@ function renderSubmoduleCards(): string {
   return `${masterBannerHtml}<div class="submodule-strip">${cardsHtml}</div>`
 }
 
-function renderMatrixRows(): string {
-  const rows: Array<{ label: string; key: keyof SiteEntry['highlights'] | 'versions' }> = [
-    { label: '核心精确锁定版本', key: 'versions' },
-    { label: '目录层级与工程隔离度', key: 'dirIsolation' },
-    { label: '多级目录排序与侧边栏维护', key: 'dirRoutingSidebar' },
-    { label: 'Frontmatter 校验机制', key: 'frontmatter' },
-    { label: '提示块 (Callouts) 语法', key: 'callouts' },
-    { label: '可折叠详情块语法', key: 'details' },
-    { label: 'GitHub > [!NOTE] 兼容性', key: 'gfmAlerts' },
-    { label: 'Mermaid 流程图接入与版本边界', key: 'mermaid' },
-    { label: 'LaTeX 公式引擎与编译产物', key: 'math' },
-    { label: '构建产物与 Pages 托管要点', key: 'buildArtifact' }
-  ]
+function filterLandscapeRows(): LandscapeRow[] {
+  const q = state.matrixQuery.trim().toLowerCase()
+  return dataset.landscapeRows.filter((row) => {
+    if (state.matrixFilter === 'mounted' && !row.mounted) return false
+    if (state.matrixFilter === 'catalog' && row.mounted) return false
+    if (state.matrixFilter === 'vue' && row.ecosystem !== 'vue') return false
+    if (state.matrixFilter === 'react-astro' && row.ecosystem !== 'react-astro') return false
+    if (state.matrixFilter === 'native' && row.ecosystem !== 'native') return false
+    if (
+      state.matrixFilter === 'other' &&
+      row.ecosystem !== 'runtime' &&
+      row.ecosystem !== 'python-classic'
+    ) {
+      return false
+    }
+
+    if (!q) return true
+    const haystack = [
+      row.id,
+      row.name,
+      row.versionNote,
+      row.tagline,
+      row.stack,
+      row.directoryModel,
+      row.calloutDialect,
+      row.diagramAndMath
+    ]
+      .join(' ')
+      .toLowerCase()
+    return haystack.includes(q)
+  })
+}
+
+function renderLandscapeRowsHtml(): string {
+  const rows = filterLandscapeRows()
+  if (rows.length === 0) {
+    return `<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--text-muted);">未找到匹配的静态网站生成器，请尝试切换筛选流派或清空搜索词。</td></tr>`
+  }
 
   return rows
     .map((row) => {
-      const cells = dataset.sites
-        .map((site) => {
-          if (row.key === 'versions') {
-            return `<td class="mono" style="font-size: 0.79rem;">${Object.entries(site.packages)
-              .map(([k, v]) => `${escapeHtml(k)}@${escapeHtml(v)}`)
-              .join('<br/>')}</td>`
-          }
-          return `<td>${escapeHtml(site.highlights[row.key])}</td>`
-        })
-        .join('')
-      return `<tr><td class="dim-cell">${escapeHtml(row.label)}</td>${cells}</tr>`
+      const statusBadge = row.mounted
+        ? `<span class="status-badge mounted">★ 已实测</span>`
+        : `<span class="status-badge catalog">图鉴收录</span>`
+
+      const loadWorkbenchBtn = row.mounted
+        ? `<button type="button" class="row-action-btn primary" data-load-workbench="${escapeHtml(row.id)}">⇄ 调入工作台</button>`
+        : ''
+
+      return `
+        <tr>
+          <td class="gen-cell">
+            <div class="gen-name-line">
+              <span>${escapeHtml(row.name)}</span>
+              ${statusBadge}
+            </div>
+            <span class="gen-ver mono">${escapeHtml(row.versionNote)}</span>
+            <p class="gen-tagline">${escapeHtml(row.tagline)}</p>
+          </td>
+          <td class="mono" style="font-size:0.77rem;max-width:210px;">${escapeHtml(row.stack)}</td>
+          <td>${escapeHtml(row.directoryModel)}</td>
+          <td>${escapeHtml(row.calloutDialect)}</td>
+          <td>${escapeHtml(row.diagramAndMath)}</td>
+          <td class="action-cell">
+            <div class="row-actions">
+              ${loadWorkbenchBtn}
+              <a class="row-action-btn" href="${escapeHtml(row.profileRoute)}" target="_blank" rel="noopener">📖 特色档案 ↗</a>
+            </div>
+          </td>
+        </tr>
+      `
     })
     .join('')
+}
+
+function updateMatrixDom(): void {
+  const tbody = document.getElementById('landscape-matrix-tbody')
+  if (tbody) tbody.innerHTML = renderLandscapeRowsHtml()
+  document.querySelectorAll<HTMLButtonElement>('[data-matrix-filter]').forEach((btn) => {
+    btn.classList.toggle('active', btn.dataset.matrixFilter === state.matrixFilter)
+  })
 }
 
 function renderTreeInspectorHtml(side: 'left' | 'right', site: SiteEntry): string {
@@ -497,14 +556,11 @@ function renderAppShell(): void {
     )
     .join('')
 
-  const matrixHeadersHtml = dataset.sites
-    .map(
-      (s) =>
-        `<th>${escapeHtml(s.family)} <span class="mono" style="font-weight:500;color:var(--text-muted);">(${escapeHtml(s.id)})</span></th>`
-    )
-    .join('')
+  const mountedCount = dataset.landscapeRows.filter((r) => r.mounted).length
+  const catalogCount = dataset.landscapeRows.filter((r) => !r.mounted).length
 
   const subsiteNavLinks = dataset.sites
+    .filter((s) => !s.isMaster)
     .map(
       (s) =>
         `<a class="nav-link mono" href="${escapeHtml(s.basePath)}" target="_blank" rel="noopener">${escapeHtml(s.id)} ↗</a>`
@@ -660,18 +716,50 @@ function renderAppShell(): void {
       </section>
 
       <section class="section-block" id="matrix">
-        <h2 class="section-heading">多版本实测特性与工程成本对比矩阵</h2>
-        <p class="section-sub">涵盖目录结构不可能三角、标记语法方言与大版本插件边界，所有结论均来自当前子模块实测。</p>
+        <div class="dialects-header-bar">
+          <div>
+            <h2 class="section-heading">静态网站生成器（SSG）纵向全景对比图鉴（${dataset.landscapeRows.length} 款）</h2>
+            <p class="section-sub" style="margin-bottom:0;">采用「每行一款生成器/版本 × 固定核心维度列」纵向可扩展结构，同时收录已挂载实测子模块与主流生态方案，特色详情均归档于主库 <code>docs/generators/*.md</code>。</p>
+          </div>
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+            <a class="open-subsite-btn mono" href="/master/generators/" target="_blank" rel="noopener">浏览全部生成器特色档案 (/master/generators/) ↗</a>
+            <a class="open-subsite-btn mono" href="https://github.com/page2401/page2401.github.io/tree/main/docs/generators" target="_blank" rel="noopener">GitHub docs/generators/ ↗</a>
+          </div>
+        </div>
+
+        <div class="matrix-toolbar">
+          <div class="matrix-filters" role="tablist" aria-label="生成器流派筛选">
+            <button type="button" class="preset-pill active" data-matrix-filter="all">全部 (${dataset.landscapeRows.length})</button>
+            <button type="button" class="preset-pill" data-matrix-filter="mounted">★ 已挂载实测 (${mountedCount})</button>
+            <button type="button" class="preset-pill" data-matrix-filter="catalog">图鉴待扩展 (${catalogCount})</button>
+            <button type="button" class="preset-pill" data-matrix-filter="vue">Vue 生态</button>
+            <button type="button" class="preset-pill" data-matrix-filter="react-astro">React / Astro / MDX</button>
+            <button type="button" class="preset-pill" data-matrix-filter="native">Go / Rust 极速流</button>
+            <button type="button" class="preset-pill" data-matrix-filter="other">Python / 运行时 / 经典</button>
+          </div>
+          <input
+            type="search"
+            id="matrix-search-input"
+            class="matrix-search"
+            placeholder="搜索名称或特性 (如 _index.md / Rspack / 缩进)..."
+            aria-label="搜索静态网站生成器"
+          />
+        </div>
+
         <div class="matrix-wrap">
           <table class="matrix-table">
             <thead>
               <tr>
-                <th>对比维度</th>
-                ${matrixHeadersHtml}
+                <th>生成器 / 版本</th>
+                <th>底层技术栈</th>
+                <th>目录与侧边栏流派</th>
+                <th>标注方言与 GFM 兼容</th>
+                <th>流程图与公式方案</th>
+                <th>档案与实测</th>
               </tr>
             </thead>
-            <tbody>
-              ${renderMatrixRows()}
+            <tbody id="landscape-matrix-tbody">
+              ${renderLandscapeRowsHtml()}
             </tbody>
           </table>
         </div>
@@ -722,6 +810,32 @@ function renderAppShell(): void {
 
 function bindEvents(): void {
   document.getElementById('theme-toggle-btn')?.addEventListener('click', toggleTheme)
+
+  document.getElementById('matrix')?.addEventListener('click', (e) => {
+    const filterBtn = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-matrix-filter]')
+    if (filterBtn && filterBtn.dataset.matrixFilter) {
+      state.matrixFilter = filterBtn.dataset.matrixFilter as MatrixFilter
+      updateMatrixDom()
+      return
+    }
+
+    const loadBtn = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-load-workbench]')
+    if (loadBtn && loadBtn.dataset.loadWorkbench) {
+      state.leftSiteId = 'master'
+      state.rightSiteId = loadBtn.dataset.loadWorkbench
+      state.leftConfigIndex = 0
+      state.rightConfigIndex = 0
+      state.customLeftUrl = null
+      state.customRightUrl = null
+      updateWorkbenchDom()
+      document.getElementById('workbench')?.scrollIntoView({ behavior: 'smooth' })
+    }
+  })
+
+  document.getElementById('matrix-search-input')?.addEventListener('input', (e) => {
+    state.matrixQuery = (e.target as HTMLInputElement).value
+    updateMatrixDom()
+  })
 
   document.getElementById('select-left-site')?.addEventListener('change', (e) => {
     state.leftSiteId = (e.target as HTMLSelectElement).value

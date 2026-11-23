@@ -57,6 +57,9 @@ export interface SiteHighlights {
 export interface SiteEntry {
   id: string
   isMaster?: boolean
+  ecosystem: string
+  profileDoc: string
+  profileRoute: string
   family: string
   versionSeries: string
   primaryPackage: string
@@ -77,12 +80,37 @@ export interface SiteEntry {
   configs: ConfigFileEntry[]
 }
 
+export interface LandscapeRow {
+  id: string
+  name: string
+  versionNote: string
+  ecosystem: string
+  mounted: boolean
+  subsiteUrl?: string
+  tagline: string
+  stack: string
+  directoryModel: string
+  calloutDialect: string
+  diagramAndMath: string
+  profileDoc: string
+  profileRoute: string
+}
+
 export interface ComparisonDataset {
   generatedAt: string
   chapters: ChapterMeta[]
   sites: SiteEntry[]
+  landscapeRows: LandscapeRow[]
 }
 
 export type WorkbenchMode = 'render' | 'tree' | 'source' | 'config'
 export type ViewportPreset = 'fluid' | 'tablet' | 'mobile'
 export type FocusedPane = 'both' | 'left' | 'right'
+export type MatrixFilter =
+  | 'all'
+  | 'mounted'
+  | 'catalog'
+  | 'vue'
+  | 'react-astro'
+  | 'native'
+  | 'other'
