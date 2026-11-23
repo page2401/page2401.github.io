@@ -1,0 +1,19 @@
+{
+  "name": "@page2401/ssg-benchmark-portal",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Modular Static Site Generator (SSG) Multi-Version Comparison Workbench — page.2401.xyz",
+  "scripts": {
+    "predev": "node scripts/generate-comparison-data.mjs",
+    "dev": "vite",
+    "prebuild": "node scripts/generate-comparison-data.mjs",
+    "build": "vite build",
+    "preview": "vite preview",
+    "build:all": "npm --prefix sites/vitepress-v1 run build && npm --prefix sites/astro7-starlight run build && npm run build",
+    "preview:all": "node scripts/preview-all.mjs"
+  },
+  "devDependencies": {
+    "vite": "8.3.8"
+  }
+}

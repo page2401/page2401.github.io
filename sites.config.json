@@ -1,0 +1,134 @@
+{
+  "chapters": [
+    {
+      "id": "index",
+      "code": "00",
+      "title": "概览与版本档案",
+      "shortTitle": "00. 概览",
+      "summary": "对比各框架版本的首页声明式配置方式（YAML Hero Layout vs MDX Splash 组件树）及精确锁定的依赖栈版本约束。"
+    },
+    {
+      "id": "01-annotations",
+      "code": "01",
+      "title": "专属标注与元数据",
+      "shortTitle": "01. 专属标注",
+      "summary": "实测核心语法分歧：VitePress 采用宽松 Frontmatter、空格分隔 ::: warning 自定义标题且原生解析 GitHub > [!NOTE]；Starlight 采用 Zod 强类型校验、紧邻方括号 :::caution[标题] 且不原生转换 GFM Alerts。"
+    },
+    {
+      "id": "02-diagrams",
+      "code": "02",
+      "title": "流程图与时序图 (Mermaid)",
+      "shortTitle": "02. 流程图",
+      "summary": "两者开箱均不直接渲染 Mermaid：VitePress v1 通过插件封装但受 peerDependency 限制停留在 mermaid@11；Astro 7 Starlight 需在 Expressive Code 前置拦截 AST，可直接打包最新 mermaid@12。"
+    },
+    {
+      "id": "03-math",
+      "code": "03",
+      "title": "数学公式排版 (LaTeX)",
+      "shortTitle": "03. 数学公式",
+      "summary": "编译产物路线对比：VitePress v1 内置开关配合 markdown-it-mathjax3@4（尚不兼容 v5）在构建期生成零字体依赖的内联 SVG；Starlight 组合 remark-math + rehype-katex 生成紧凑的 HTML + Webfont 结构。"
+    }
+  ],
+  "sites": [
+    {
+      "id": "vitepress-v1",
+      "family": "VitePress",
+      "versionSeries": "v1",
+      "tagline": "Vue 3 + markdown-it 轻量文档生成器",
+      "repo": "page2401/vitepress-v1",
+      "basePath": "/vitepress-v1/",
+      "submoduleDir": "sites/vitepress-v1",
+      "distDir": "sites/vitepress-v1/.vitepress/dist",
+      "primaryPackage": "vitepress",
+      "trackedPackages": [
+        "vitepress",
+        "markdown-it-mathjax3",
+        "vitepress-plugin-mermaid",
+        "mermaid"
+      ],
+      "configFiles": [
+        ".vitepress/config.mts"
+      ],
+      "highlights": {
+        "frontmatter": "宽松 YAML（任意自定义字段免声明）",
+        "callouts": "::: info / tip / warning / danger（空格后接标题）",
+        "details": "原生 ::: details 折叠容器",
+        "gfmAlerts": "原生支持 > [!NOTE] / [!WARNING] 等 5 类警报",
+        "mermaid": "插件 vitepress-plugin-mermaid（受限于 mermaid@11）",
+        "math": "内置开关 + MathJax 3 构建期输出内联矢量 SVG",
+        "buildArtifact": "HTML 内嵌 SVG 公式，体积略大但零字体请求"
+      },
+      "docs": {
+        "index": {
+          "route": "",
+          "file": "index.md"
+        },
+        "01-annotations": {
+          "route": "01-annotations",
+          "file": "01-annotations.md"
+        },
+        "02-diagrams": {
+          "route": "02-diagrams",
+          "file": "02-diagrams.md"
+        },
+        "03-math": {
+          "route": "03-math",
+          "file": "03-math.md"
+        }
+      }
+    },
+    {
+      "id": "astro7-starlight",
+      "family": "Astro Starlight",
+      "versionSeries": "Astro 7 / SL 0.43",
+      "tagline": "Astro 7 Content Layer + Starlight 全功能文档框架",
+      "repo": "page2401/astro7-starlight",
+      "basePath": "/astro7-starlight/",
+      "submoduleDir": "sites/astro7-starlight",
+      "distDir": "sites/astro7-starlight/dist",
+      "primaryPackage": "astro",
+      "trackedPackages": [
+        "astro",
+        "@astrojs/starlight",
+        "@astrojs/markdown-remark",
+        "remark-math",
+        "rehype-katex",
+        "katex",
+        "mermaid"
+      ],
+      "configFiles": [
+        "astro.config.mjs",
+        "src/content.config.ts",
+        "src/plugins/remark-mermaid.mjs",
+        "src/components/Head.astro"
+      ],
+      "highlights": {
+        "frontmatter": "Astro 7 Content Layer Zod 强类型构建期校验",
+        "callouts": ":::note / tip[标题] / caution / danger（方括号传参）",
+        "details": "使用语义化 HTML <details><summary> 标签",
+        "gfmAlerts": "默认不转换（保留为普通引用块与 [!NOTE] 文本）",
+        "mermaid": "前置 remark AST 转换 + Vite 打包最新 mermaid@12",
+        "math": "remark-math + rehype-katex 构建期输出 HTML + Webfont",
+        "buildArtifact": "必须携带 .nojekyll，否则 GitHub Pages 拦截 /_astro/"
+      },
+      "docs": {
+        "index": {
+          "route": "",
+          "file": "src/content/docs/index.mdx"
+        },
+        "01-annotations": {
+          "route": "01-annotations",
+          "file": "src/content/docs/01-annotations.md"
+        },
+        "02-diagrams": {
+          "route": "02-diagrams",
+          "file": "src/content/docs/02-diagrams.md"
+        },
+        "03-math": {
+          "route": "03-math",
+          "file": "src/content/docs/03-math.md"
+        }
+      }
+    }
+  ]
+}

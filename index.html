@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>page.2401.xyz — 静态网站生成器 (SSG) 多版本实测对比平台</title>
+    <meta
+      name="description"
+      content="基于相似 *.md 基准套件与独立 Git Submodule (main/page 双分支) 的多版本静态网站生成器实测对比平台：对比 VitePress v1 与 Astro 7 Starlight 的标注语法、Mermaid 流程图与 LaTeX 数学公式渲染。"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      ;(function () {
+        const saved = localStorage.getItem('page2401-theme')
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+        const theme = saved === 'dark' || saved === 'light' ? saved : prefersDark ? 'dark' : 'light'
+        document.documentElement.setAttribute('data-theme', theme)
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

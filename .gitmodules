@@ -1,0 +1,8 @@
+[submodule "sites/vitepress-v1"]
+	path = sites/vitepress-v1
+	url = https://github.com/page2401/vitepress-v1.git
+	branch = main
+[submodule "sites/astro7-starlight"]
+	path = sites/astro7-starlight
+	url = https://github.com/page2401/astro7-starlight.git
+	branch = main
