@@ -1,11 +1,20 @@
 ---
-title: "MkDocs Material 特色档案"
-description: "Python 生态科研与工程文档天花板：pymdownx 四空格缩进方言与顶配学术排版支持。"
+title: "MkDocs Material 特色与生命周期档案"
+description: "Python 生态科研与工程文档天花板：2016 至今十年演进时间线与 pymdownx 四空格缩进方言。"
 ---
 
 # MkDocs Material 特色剖析（图鉴收录 · Python 科研工程流）
 
+- **上游仓库**：`squidfunk/mkdocs-material`（母引擎为 `mkdocs/mkdocs`）
 - **底层技术栈**：Python + `MkDocs` + `Material for MkDocs` + `pymdown-extensions`
+
+## 生命周期档案
+
+| 阶段指标 | 时间节点与状态 |
+| :--- | :--- |
+| **开始时间** | 母引擎 MkDocs 始于 `2014` 年；**Material for MkDocs 于 `2016-01-28` 创立开源** |
+| **活跃时间** | **`2016–至今` 持续统治 Python、AI 科研与硬件工程文档领域**（最近提交 `2026-11-19`） |
+| **废弃 / 演进时间** | **`v8` 及更早分支已停止维护**；当前 **`v9.x` 处于成熟稳定维护期**（注：底层母项目 `mkdocs` 核心近年更新较缓，Material 作者团队已同步开启新架构探索） |
 
 ## 1. 不可替代的杀手锏特色
 

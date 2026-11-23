@@ -202,6 +202,7 @@ function filterLandscapeRows(): LandscapeRow[] {
       row.id,
       row.name,
       row.versionNote,
+      row.lifecycle,
       row.tagline,
       row.stack,
       row.directoryModel,
@@ -230,6 +231,8 @@ function renderLandscapeRowsHtml(): string {
         ? `<button type="button" class="row-action-btn primary" data-load-workbench="${escapeHtml(row.id)}">⇄ 调入工作台</button>`
         : ''
 
+      const lifecycleColor = row.isEol ? 'var(--accent-copper)' : 'var(--accent-teal)'
+
       return `
         <tr>
           <td class="gen-cell">
@@ -238,6 +241,7 @@ function renderLandscapeRowsHtml(): string {
               ${statusBadge}
             </div>
             <span class="gen-ver mono">${escapeHtml(row.versionNote)}</span>
+            <span class="gen-ver mono" style="color:${lifecycleColor};font-weight:600;">⏱ ${escapeHtml(row.lifecycle)}</span>
             <p class="gen-tagline">${escapeHtml(row.tagline)}</p>
           </td>
           <td class="mono" style="font-size:0.77rem;max-width:210px;">${escapeHtml(row.stack)}</td>

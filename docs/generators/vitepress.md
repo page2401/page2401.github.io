@@ -1,12 +1,21 @@
 ---
-title: "VitePress 特色档案 (v1 & v2)"
-description: "Vue 3 生态轻量技术文档标杆：双轨标注、编译期 MathJax 3 SVG 与 v2 Rolldown 极速构建。"
+title: "VitePress 特色与生命周期档案 (v1 & v2)"
+description: "Vue 3 生态轻量技术文档标杆：生命周期时间线、双轨标注、编译期 MathJax 3 SVG 与 v2 Rolldown 极速构建。"
 ---
 
 # VitePress 特色剖析（已挂载：`vitepress-v1` / `vitepress-v2`）
 
 - **实测子站**：[vitepress-v1 (`1.6.4`)](/vitepress-v1/) · [vitepress-v2 (`2.0.0-alpha.21`)](/vitepress-v2/)
+- **上游仓库**：`vuejs/vitepress`
 - **底层技术栈**：Node.js + Vite（v1 基于 Rollup，v2 基于 Vite 8 Rolldown）+ Vue 3 + `markdown-it`
+
+## 生命周期档案
+
+| 阶段指标 | `vitepress-v1` 分支 | `vitepress-v2` 分支 |
+| :--- | :--- | :--- |
+| **开始时间** | `2020-04-30` 立项开源；`2024-03` 发布 `v1.0.0` 正式版 | `2025` 启动 v2 架构演进 |
+| **活跃时间** | `2022–2025` 为绝对主力稳定版（当前锁定 `1.6.4`） | `2025–至今` 高频迭代中（`2.0.0-alpha.21` 发布于 `2026-10-25`，最近提交 `2026-11`） |
+| **废弃 / 演进时间** | **未废弃（当前生产稳定推荐）**；待 `2.0` 转正后将转入安全维护 | **无（下一代官方演进主线）** |
 
 ## 1. 最核心的差异化特色
 

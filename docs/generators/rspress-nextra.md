@@ -1,9 +1,19 @@
 ---
-title: "Rspress & Nextra 特色档案"
-description: "现代前端新锐：基于 Rust Rspack 极速编译的 Rspress 与基于 Next.js App Router 的 Nextra。"
+title: "Rspress & Nextra 特色与生命周期档案"
+description: "现代前端新锐：Rspress (2023–至今极度活跃) 与 Nextra (2020–至今) 的生命周期对比与特色剖析。"
 ---
 
 # Rspress & Nextra 特色剖析（图鉴收录 · 新锐 React/Rust 文档框架）
+
+## 生命周期档案对照
+
+| 阶段指标 | Rspress (`web-infra-dev/rspress`) | Nextra (`shuding/nextra`) |
+| :--- | :--- | :--- |
+| **开始时间** | **`2023-06-27`** 由字节跳动 Web Infra 团队开源 | **`2020-06-15`** 由 Shu Ding（Vercel 核心成员）开源 |
+| **活跃时间** | **`2023–至今` 极高频迭代上升期**（`v2.1.4` 发布于 `2026-11-19`，最近提交 `2026-11-23`） | `2021–2025` 为 React/Vercel 社区爆款；**`2026` 转入低频平缓维护期**（最近提交 `2026-07-31`） |
+| **废弃 / 演进时间** | `v1` 已平滑升级至 **`v2.x`（当前极度活跃，无废弃风险）** | **Nextra v1/v2 (Pages Router) 已进入历史淘汰阶段**；v3/v4 (App Router) 维护放缓，部分 Vercel/Next.js 新文档站开始分流至 Fumadocs 或 Starlight |
+
+---
 
 ## 1. Rspress（字节跳动出品 · Rust Rspack + MDX RS）
 

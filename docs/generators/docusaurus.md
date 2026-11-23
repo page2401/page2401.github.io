@@ -1,11 +1,20 @@
 ---
-title: "Docusaurus 特色档案 (v3)"
-description: "Meta 开源 React 旗舰文档生成器：原生多版本文档快照与 _category_.json 目录元数据流派。"
+title: "Docusaurus 特色与生命周期档案 (v1–v3)"
+description: "Meta 开源 React 旗舰文档生成器：2017 至今三代生命周期、原生多版本文档快照与 _category_.json 流派。"
 ---
 
 # Docusaurus 特色剖析（图鉴收录 · React + MDX 3）
 
+- **上游仓库**：`facebook/docusaurus`
 - **底层技术栈**：Node.js + React 18/19 + Webpack / Rspack (`@docusaurus/faster`) + MDX 3
+
+## 生命周期档案
+
+| 阶段指标 | 时间节点与状态 |
+| :--- | :--- |
+| **开始时间** | **`2017-06-20`** 由 Meta（原 Facebook）开源团队创立；`2022-08` 正式发布历时四年重写的 React 架构 `v2.0`；`2023-10` 发布 MDX 3 架构 `v3.0` |
+| **活跃时间** | **`2018–至今` 持续稳健维护**（最新 `v3.10.2` 发布于 `2026-07-10`，最近代码提交 `2026-11-20`） |
+| **废弃 / 演进时间** | **Docusaurus v1 已于 `2022` 正式废弃 EOL**；**v2 (MDX 1) 已停止新特性开发**；**`v3.x` 当前主力活跃维护中** |
 
 ## 1. 不可替代的杀手锏特色
 

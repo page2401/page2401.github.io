@@ -1,9 +1,19 @@
 ---
-title: "Zola & mdBook 特色档案"
-description: "Rust 生态双星：Zola 全能单二进制构建与 mdBook 经典的 SUMMARY.md 图书目录流派。"
+title: "Zola & mdBook 特色与生命周期档案"
+description: "Rust 生态双星：Zola (2016–至今) 与 mdBook (2015–至今) 生命周期及 SUMMARY.md 图书目录流派。"
 ---
 
 # Zola & mdBook 特色剖析（图鉴收录 · Rust 零依赖流）
+
+## 生命周期档案对照
+
+| 阶段指标 | Zola (`getzola/zola`) | mdBook (`rust-lang/mdBook`) |
+| :--- | :--- | :--- |
+| **开始时间** | **`2016-12-06`**（最初名为 Gutenberg，`2018` 正式更名 Zola） | **`2015-07-07`**（作为 Rust 官方书籍构建工具诞生） |
+| **活跃时间** | **`2017–至今` 持续稳步迭代**（最近提交 `2026-11-23`） | **`2016–至今` 长期稳健维护**（最近提交 `2026-11-22`） |
+| **废弃 / 演进时间** | **无（持续活跃）** | **无（Rust 语言官方基础设施，无废弃风险）** |
+
+---
 
 ## 1. Zola（Rust 版“人性化 Hugo”）
 

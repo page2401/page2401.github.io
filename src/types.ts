@@ -58,6 +58,8 @@ export interface SiteEntry {
   id: string
   isMaster?: boolean
   ecosystem: string
+  lifecycle: string
+  isEol?: boolean
   profileDoc: string
   profileRoute: string
   family: string
@@ -84,6 +86,8 @@ export interface LandscapeRow {
   id: string
   name: string
   versionNote: string
+  lifecycle: string
+  isEol?: boolean
   ecosystem: string
   mounted: boolean
   subsiteUrl?: string
