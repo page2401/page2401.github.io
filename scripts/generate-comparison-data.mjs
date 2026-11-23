@@ -14,6 +14,8 @@ const IGNORED_NAMES = new Set([
   'dist',
   '.astro',
   'cache',
+  '.temp',
+  '.cache',
   'package-lock.json',
   '.DS_Store'
 ])
@@ -24,23 +26,62 @@ function extractSidebarOrderNote(content) {
   return null
 }
 
+function computeContentRoute(site, innerRel) {
+  const base = site.basePath.endsWith('/') ? site.basePath : `${site.basePath}/`
+  const rewrites = site.rewrites || {}
+  const effectiveRel = rewrites[innerRel] || innerRel
+  const style = site.routeStyle || 'clean'
+  const withoutExt = effectiveRel.replace(/\.(md|mdx)$/, '')
+
+  if (style === 'hash') {
+    if (withoutExt === 'README' || withoutExt === 'index') return `${base}#/`
+    if (withoutExt.endsWith('/README') || withoutExt.endsWith('/index')) {
+      return `${base}#/${withoutExt.replace(/\/(README|index)$/, '')}/`
+    }
+    return `${base}#/${withoutExt}`
+  }
+
+  if (style === 'html') {
+    if (withoutExt === 'README' || withoutExt === 'index') return base
+    if (withoutExt.endsWith('/README') || withoutExt.endsWith('/index')) {
+      return `${base}${withoutExt.replace(/\/(README|index)$/, '')}/`
+    }
+    return `${base}${withoutExt}.html`
+  }
+
+  // cleanUrls
+  if (withoutExt === 'index') return base
+  if (withoutExt.endsWith('/index')) {
+    return `${base}${withoutExt.slice(0, -'index'.length)}`
+  }
+  return `${base}${withoutExt}`
+}
+
 function scanSubmoduleTree(submoduleAbs, site) {
   const nodes = []
   const contentPrefix = site.directoryProfile?.contentPrefix || ''
   const excludedSet = new Set(site.directoryProfile?.excludedContentFiles || [])
   const configSet = new Set(site.configFiles || [])
-  const base = site.basePath.endsWith('/') ? site.basePath : `${site.basePath}/`
+  const rewrites = site.rewrites || {}
 
   function walk(currentRel, depth) {
     const absDir = path.join(submoduleAbs, currentRel)
     const entries = fs.readdirSync(absDir, { withFileTypes: true }).filter((ent) => {
       if (IGNORED_NAMES.has(ent.name)) return false
       const rel = currentRel ? `${currentRel}/${ent.name}` : ent.name
-      if (rel === '.vitepress/dist' || rel === '.vitepress/cache') return false
+      if (
+        rel === '.vitepress/dist' ||
+        rel === '.vitepress/cache' ||
+        rel === 'docs/.vuepress/dist' ||
+        rel === 'docs/.vuepress/.temp' ||
+        rel === 'docs/.vuepress/.cache' ||
+        rel === 'docs/.vuepress/public/vendor'
+      ) {
+        return false
+      }
       return true
     })
 
-    // Sort just like VS Code / GitHub file explorer: directories first, then alphabetical
     entries.sort((a, b) => {
       if (a.isDirectory() !== b.isDirectory()) return a.isDirectory() ? -1 : 1
       return a.name.localeCompare(b.name, 'en')
@@ -52,11 +93,14 @@ function scanSubmoduleTree(submoduleAbs, site) {
         let dirNote = null
         if (contentPrefix && contentPrefix.replace(/\/$/, '') === relPath) {
           dirNote = '内容文档根 (Content Root)'
+        } else if (relPath === 'docs/public') {
+          dirNote = '受 srcDir 影响迁入 docs/ 内'
+        } else if (relPath.endsWith('/components') && site.id === 'vuepress-v1') {
+          dirNote = 'VuePress v1 自动全局注册目录'
         } else if (relPath.endsWith('/nested')) {
-          dirNote =
-            site.id === 'astro7-starlight'
-              ? 'autogenerate 直接暴露英文分组名 nested'
-              : '需在 config.mts 手写注册子分组'
+          if (site.id === 'astro7-starlight') dirNote = 'autogenerate 直接暴露英文分组名 nested'
+          else if (site.routeStyle === 'hash') dirNote = '由 _sidebar.md 控制分组'
+          else dirNote = '需在配置文件手写注册子分组'
         }
         nodes.push({
           name: ent.name,
@@ -77,27 +121,35 @@ function scanSubmoduleTree(submoduleAbs, site) {
         if (excludedSet.has(relPath)) {
           category = 'excluded'
           note = '仓库说明 (靠 srcExclude 排除编译)'
+        } else if (ent.name === '_sidebar.md') {
+          category = 'excluded'
+          note = '下划线控制文件 (无 .nojekyll 会 404)'
+        } else if (contentPrefix && relPath === 'README.md') {
+          category = 'infra'
+          note = '仓库根说明 (天然与 docs/ 隔离)'
         } else if (configSet.has(relPath) || ent.name === 'package.json') {
-          category = relPath.includes('plugins/') || relPath.includes('components/') ? 'plugin' : 'config'
+          category =
+            relPath.includes('plugins/') ||
+            relPath.includes('components/') ||
+            relPath.includes('theme/')
+              ? 'plugin'
+              : 'config'
         } else if (isMarkdown && (!contentPrefix || relPath.startsWith(contentPrefix))) {
           category = 'content'
           const innerRel = contentPrefix ? relPath.slice(contentPrefix.length) : relPath
-          const withoutExt = innerRel.replace(/\.(md|mdx)$/, '')
-          if (withoutExt === 'index') {
-            route = base
-          } else if (withoutExt.endsWith('/index')) {
-            route = `${base}${withoutExt.slice(0, -'index'.length)}`
-          } else {
-            route = `${base}${withoutExt}`
-          }
+          route = computeContentRoute(site, innerRel)
           const fileText = fs.readFileSync(path.join(submoduleAbs, relPath), 'utf-8')
           const orderNote = extractSidebarOrderNote(fileText)
-          if (orderNote) {
+          if (rewrites[innerRel]) {
+            note = '经 rewrites 抹除序号'
+          } else if (orderNote) {
             note = `Frontmatter ${orderNote}`
+          } else if (ent.name === 'README.md') {
+            note = 'README 映射为目录首页'
           } else if (/\/\d{2}-/.test(`/${innerRel}`)) {
             note = '靠文件名前缀排序'
           }
-        } else if (relPath.startsWith('src/')) {
+        } else if (relPath.startsWith('src/') || relPath.startsWith('scripts/')) {
           category = 'plugin'
         }
 
@@ -180,6 +232,7 @@ const enrichedSites = rawConfig.sites.map((site) => {
     packageJsonRaw: JSON.stringify(
       {
         name: pkgJson.name,
+        scripts: pkgJson.scripts,
         dependencies: pkgJson.dependencies,
         devDependencies: pkgJson.devDependencies
       },

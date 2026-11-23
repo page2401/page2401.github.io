@@ -6,3 +6,23 @@
 	path = sites/astro7-starlight
 	url = https://github.com/page2401/astro7-starlight.git
 	branch = main
+[submodule "sites/vitepress-v2"]
+	path = sites/vitepress-v2
+	url = https://github.com/page2401/vitepress-v2.git
+	branch = main
+[submodule "sites/vuepress-v1"]
+	path = sites/vuepress-v1
+	url = https://github.com/page2401/vuepress-v1.git
+	branch = main
+[submodule "sites/vuepress-v2"]
+	path = sites/vuepress-v2
+	url = https://github.com/page2401/vuepress-v2.git
+	branch = main
+[submodule "sites/docsify-v4"]
+	path = sites/docsify-v4
+	url = https://github.com/page2401/docsify-v4.git
+	branch = main
+[submodule "sites/docsify-v5"]
+	path = sites/docsify-v5
+	url = https://github.com/page2401/docsify-v5.git
+	branch = main

@@ -5,35 +5,35 @@
       "code": "00",
       "title": "概览与版本档案",
       "shortTitle": "00. 概览",
-      "summary": "对比各框架版本的首页声明式配置方式（YAML Hero Layout vs MDX Splash 组件树）及精确锁定的依赖栈版本约束。"
+      "summary": "横向对比编译型 SSG（VitePress / VuePress / Astro Starlight）与零编译运行时引擎（Docsify v4 / v5）的定位及精确锁定的依赖版本。"
     },
     {
       "id": "01-annotations",
       "code": "01",
       "title": "专属标注与元数据",
       "shortTitle": "01. 专属标注",
-      "summary": "实测核心语法分歧：VitePress 采用宽松 Frontmatter、空格分隔 ::: warning 自定义标题且原生解析 GitHub > [!NOTE]；Starlight 采用 Zod 强类型校验、紧邻方括号 :::caution[标题] 且不原生转换 GFM Alerts。"
+      "summary": "跨代与跨框架语法全景：VuePress v1 缺 info 与 GFM Alert -> VuePress v2 / VitePress 双轨支持；Docsify v4 靠三方插件仍缺 CAUTION -> Docsify v5 内核零插件原生解析 GFM Callouts；Starlight 采用方括号 :::caution[标题]。"
     },
     {
       "id": "02-diagrams",
       "code": "02",
       "title": "流程图与时序图 (Mermaid)",
       "shortTitle": "02. 流程图",
-      "summary": "两者开箱均不直接渲染 Mermaid：VitePress v1 通过插件封装但受 peerDependency 限制停留在 mermaid@11；Astro 7 Starlight 需在 Expressive Code 前置拦截 AST，可直接打包最新 mermaid@12。"
+      "summary": "大版本插件边界实测：VuePress v1 受 Webpack 4 限制困在 UMD mermaid@10；VitePress v1 受插件限制停在 mermaid@11，v2 改用原生组件升上 v12；Docsify v5 因升级 marked 导致 renderer.code 入参变为 ({ text, lang })。"
     },
     {
       "id": "03-math",
       "code": "03",
       "title": "数学公式排版 (LaTeX)",
       "shortTitle": "03. 数学公式",
-      "summary": "编译产物路线对比：VitePress v1 内置开关配合 markdown-it-mathjax3@4（尚不兼容 v5）在构建期生成零字体依赖的内联 SVG；Starlight 组合 remark-math + rehype-katex（Astro 7 须显式安装 @astrojs/markdown-remark）生成 HTML + Webfont。"
+      "summary": "三大技术路线：VitePress (v1/v2) 构建期输出内联 MathJax 3 SVG；Starlight 与 VuePress (v1/v2) 构建期输出 KaTeX HTML + Webfont；Docsify (v4/v5) 在客户端钩子实时解析（须前置拦截防 marked 吞噬双反斜杠）。"
     },
     {
       "id": "04-directory",
       "code": "04",
       "title": "目录结构与路由取舍",
       "shortTitle": "04. 目录结构",
-      "summary": "没有十全十美的目录方案：VitePress 平铺零层级但混杂工程文件（需 srcExclude 排除 README.md）且无原生自动侧边栏；Starlight 强制 3 层深 src/content/docs/ 边界干净且支持 autogenerate + order 干净 URL，但本地文件字母乱序且子目录直接暴露英文名 nested。"
+      "summary": "五大目录流派均无银弹：平铺根需 srcExclude (VP v1) vs srcDir 导致 public 搬家 (VP v2) vs 3 层深目录 + 英文分组名暴露 (Starlight) vs README 即首页 + .html 后缀 (VuePress) vs _sidebar.md 强绑 .nojekyll + Hash 路由 (Docsify)。"
     }
   ],
   "sites": [
@@ -41,11 +41,12 @@
       "id": "vitepress-v1",
       "family": "VitePress",
       "versionSeries": "v1",
-      "tagline": "Vue 3 + markdown-it 轻量文档生成器",
+      "tagline": "Vue 3 + Rollup 稳定版轻量文档生成器",
       "repo": "page2401/vitepress-v1",
       "basePath": "/vitepress-v1/",
       "submoduleDir": "sites/vitepress-v1",
       "distDir": "sites/vitepress-v1/.vitepress/dist",
+      "routeStyle": "clean",
       "primaryPackage": "vitepress",
       "trackedPackages": [
         "vitepress",
@@ -69,53 +70,333 @@
         ],
         "cons": [
           "工程与内容混杂：仓库 README.md 与 index.md 同处根目录，不配 srcExclude 就会被误编译成网页",
-          "URL 被序号污染：01- 前缀直接进入线上 URL，中间插队改名会导致旧链接 404（除非额外维护 rewrites）",
+          "URL 被序号污染：01- 前缀直接进入线上 URL，插队改名会导致旧链接 404",
           "无内置自动侧边栏：新建 .md 若忘改 config.mts 会沦为无入口“孤岛页”"
         ]
       },
       "highlights": {
-        "dirIsolation": "根目录平铺（零层级低门槛，但内容与配置混放，需配 srcExclude: ['README.md'] 防误编译）",
-        "dirRoutingSidebar": "无原生 autogenerate（需手改 config.mts 防孤岛页）；靠 01- 前缀保本地顺序但污染 URL",
+        "dirIsolation": "根目录平铺（零层级，但需配 srcExclude: ['README.md'] 防误编译）",
+        "dirRoutingSidebar": "cleanUrls 无后缀；无原生 autogenerate，靠 01- 前缀保本地顺序但污染 URL",
         "frontmatter": "宽松 YAML（任意自定义字段免声明）",
         "callouts": "::: info / tip / warning / danger（空格后接标题）",
         "details": "原生 ::: details 折叠容器",
-        "gfmAlerts": "原生支持 > [!NOTE] / [!WARNING] 等 5 类警报",
-        "mermaid": "插件 vitepress-plugin-mermaid（受限于 mermaid@11）",
-        "math": "内置开关 + MathJax 3 构建期输出内联矢量 SVG",
-        "buildArtifact": "HTML 内嵌 SVG 公式，体积略大但零字体请求"
+        "gfmAlerts": "原生支持 > [!NOTE] / [!CAUTION] 等全部 5 类警报",
+        "mermaid": "社区插件 vitepress-plugin-mermaid（受 peer 限制锁在 mermaid@11）",
+        "math": "内置开关 + markdown-it-mathjax3@4（不兼容 v5）构建期输出 SVG",
+        "buildArtifact": "Rollup 构建约 28s；HTML 内嵌矢量 SVG 公式"
       },
       "docs": {
-        "index": {
-          "route": "",
-          "file": "index.md"
-        },
-        "01-annotations": {
-          "route": "01-annotations",
-          "file": "01-annotations.md"
-        },
-        "02-diagrams": {
-          "route": "02-diagrams",
-          "file": "02-diagrams.md"
-        },
-        "03-math": {
-          "route": "03-math",
-          "file": "03-math.md"
-        },
-        "04-directory": {
-          "route": "04-directory/",
-          "file": "04-directory/index.md"
-        }
+        "index": { "route": "", "file": "index.md" },
+        "01-annotations": { "route": "01-annotations", "file": "01-annotations.md" },
+        "02-diagrams": { "route": "02-diagrams", "file": "02-diagrams.md" },
+        "03-math": { "route": "03-math", "file": "03-math.md" },
+        "04-directory": { "route": "04-directory/", "file": "04-directory/index.md" }
+      }
+    },
+    {
+      "id": "vitepress-v2",
+      "family": "VitePress",
+      "versionSeries": "v2 Alpha",
+      "tagline": "Vite 8 Rolldown 极速构建 + srcDir 隔离预览版",
+      "repo": "page2401/vitepress-v2",
+      "basePath": "/vitepress-v2/",
+      "submoduleDir": "sites/vitepress-v2",
+      "distDir": "sites/vitepress-v2/.vitepress/dist",
+      "routeStyle": "clean",
+      "rewrites": {
+        "04-directory/nested/01-clean-prefix.md": "04-directory/nested/clean-prefix.md",
+        "04-directory/nested/02-public-trap.md": "04-directory/nested/public-trap.md"
+      },
+      "primaryPackage": "vitepress",
+      "trackedPackages": [
+        "vitepress",
+        "vue",
+        "markdown-it-mathjax3",
+        "mermaid"
+      ],
+      "configFiles": [
+        ".vitepress/config.mts",
+        ".vitepress/theme/index.ts",
+        ".vitepress/theme/MermaidBlock.vue"
+      ],
+      "directoryProfile": {
+        "contentRoot": "docs/ (srcDir 单层隔离)",
+        "contentPrefix": "docs/",
+        "excludedContentFiles": [],
+        "orderingMechanism": "01- 文件名前缀 + config rewrites 抹除序号",
+        "sidebarMechanism": "手写 sidebar + rewrites 双处同步维护",
+        "pros": [
+          "隔离根 README.md：设置 srcDir: 'docs' 后无需再配置 srcExclude",
+          "兼顾本地有序与干净 URL：通过 rewrites 将 01-clean-prefix.md 映射为 /clean-prefix",
+          "构建极速提升 3.4 倍：升级 Vite 8 Rolldown 后全站编译从 28.4s 降至 8.2s"
+        ],
+        "cons": [
+          "public 目录隐式搬家陷阱：静态资源必须迁入 docs/public/，放在根 public/ 会被静默忽略",
+          "离线链接断裂：内部链接须写重写后的路径，在 VS Code 或 GitHub 中点击无法跳转原文件",
+          "三方插件断层：旧版 vitepress-plugin-mermaid 因 peer 锁死 ^1.0 无法直接安装"
+        ]
+      },
+      "highlights": {
+        "dirIsolation": "srcDir: 'docs' 单层隔离（免 srcExclude，但 public/ 被迫迁入 docs/public/）",
+        "dirRoutingSidebar": "启用 rewrites 净化 01- 前缀 URL，但需同时维护 sidebar 与 rewrites 且破坏离线相对链接",
+        "frontmatter": "宽松 YAML（与 v1 正文 100% 兼容）",
+        "callouts": "::: info / tip / warning / danger（与 v1 完全一致）",
+        "details": "原生 ::: details 折叠容器",
+        "gfmAlerts": "原生支持 > [!NOTE] / [!CAUTION] 等全部 5 类警报",
+        "mermaid": "v1 三方插件 peer 报错；改由 35 行原生主题扩展直连最新 mermaid@12.3",
+        "math": "peerOptional 仍限定 markdown-it-mathjax3@^4（构建期输出 SVG）",
+        "buildArtifact": "基于 Vite 8 Rolldown 构建仅需 8.2s（比 v1 快 3.4 倍）"
+      },
+      "docs": {
+        "index": { "route": "", "file": "docs/index.md" },
+        "01-annotations": { "route": "01-annotations", "file": "docs/01-annotations.md" },
+        "02-diagrams": { "route": "02-diagrams", "file": "docs/02-diagrams.md" },
+        "03-math": { "route": "03-math", "file": "docs/03-math.md" },
+        "04-directory": { "route": "04-directory/", "file": "docs/04-directory/index.md" }
+      }
+    },
+    {
+      "id": "vuepress-v1",
+      "family": "VuePress",
+      "versionSeries": "v1 Legacy",
+      "tagline": "Vue 2 + Webpack 4 初代经典静态文档生成器",
+      "repo": "page2401/vuepress-v1",
+      "basePath": "/vuepress-v1/",
+      "submoduleDir": "sites/vuepress-v1",
+      "distDir": "sites/vuepress-v1/docs/.vuepress/dist",
+      "routeStyle": "html",
+      "primaryPackage": "vuepress",
+      "trackedPackages": [
+        "vuepress",
+        "katex",
+        "mermaid"
+      ],
+      "configFiles": [
+        "docs/.vuepress/config.js",
+        "docs/.vuepress/components/MermaidLegacy.vue",
+        "scripts/copy-vendor.js"
+      ],
+      "directoryProfile": {
+        "contentRoot": "docs/ (强制 README.md 作为目录首页)",
+        "contentPrefix": "docs/",
+        "excludedContentFiles": [],
+        "orderingMechanism": "文件名前缀 + 二维元组手写侧栏",
+        "sidebarMechanism": "手写 config.js (collapsable 元组语法)",
+        "pros": [
+          "GitHub 原生阅读友好：每个子目录的 README.md 既是 GitHub 文件夹导读又是编译后的 index.html",
+          "components 自动全局注册：放入 docs/.vuepress/components/ 的 Vue 组件免注册全局可用",
+          "显式 .html 后缀路由：在任何纯静态服务器或本地文件系统中均不依赖 cleanUrls 重写"
+        ],
+        "cons": [
+          "Node 22 OpenSSL 3 崩溃：Webpack 4 使用旧版 MD4 哈希，必须注入 NODE_OPTIONS=--openssl-legacy-provider",
+          "依赖树庞大且老化：安装多达 1,507 个子包，Webpack 4 无法解析现代 ES2022 语法包",
+          "README 与 index 语义倒置：迁移至 VitePress / Starlight 时须批量将 README.md 改名为 index.md"
+        ]
+      },
+      "highlights": {
+        "dirIsolation": "docs/ + 内部 .vuepress/（约定 docs/README.md 为根首页，components/ 自动全局注册）",
+        "dirRoutingSidebar": "默认带 .html 后缀路由；手写二维数组侧边栏（拼写为 collapsable）",
+        "frontmatter": "宽松 YAML（首页仅支持单按钮 actionText/actionLink，Badge 危险态名为 error）",
+        "callouts": "仅内置 ::: tip / warning / danger（原生不支持 ::: info，直接裸露原文！）",
+        "details": "支持 ::: details 折叠容器",
+        "gfmAlerts": "完全不支持（> [!NOTE] 全部退化为普通引用块）",
+        "mermaid": "Webpack 4 遇到 ES2022 崩溃；只能锁定最后带 UMD 的 mermaid@10.9.8 静态注入",
+        "math": "旧社区插件失修；通过 extendMarkdown 自定义 35 行规则直连 katex@0.19.1",
+        "buildArtifact": "1,507 个 npm 子包；Node 22 必须开启 --openssl-legacy-provider"
+      },
+      "docs": {
+        "index": { "route": "", "file": "docs/README.md" },
+        "01-annotations": { "route": "01-annotations.html", "file": "docs/01-annotations.md" },
+        "02-diagrams": { "route": "02-diagrams.html", "file": "docs/02-diagrams.md" },
+        "03-math": { "route": "03-math.html", "file": "docs/03-math.md" },
+        "04-directory": { "route": "04-directory/", "file": "docs/04-directory/README.md" }
+      }
+    },
+    {
+      "id": "vuepress-v2",
+      "family": "VuePress",
+      "versionSeries": "v2 RC",
+      "tagline": "Vue 3 + Vite 重构版 + 官方一等公民插件矩阵",
+      "repo": "page2401/vuepress-v2",
+      "basePath": "/vuepress-v2/",
+      "submoduleDir": "sites/vuepress-v2",
+      "distDir": "sites/vuepress-v2/docs/.vuepress/dist",
+      "routeStyle": "html",
+      "primaryPackage": "vuepress",
+      "trackedPackages": [
+        "vuepress",
+        "@vuepress/bundler-vite",
+        "@vuepress/theme-default",
+        "@vuepress/plugin-markdown-hint",
+        "@vuepress/plugin-markdown-math",
+        "@vuepress/plugin-markdown-chart",
+        "katex",
+        "mermaid"
+      ],
+      "configFiles": [
+        "docs/.vuepress/config.js"
+      ],
+      "directoryProfile": {
+        "contentRoot": "docs/ (沿袭 README.md 即目录首页)",
+        "contentPrefix": "docs/",
+        "excludedContentFiles": [],
+        "orderingMechanism": "文件名前缀 + children 对象数组",
+        "sidebarMechanism": "手写 docs/.vuepress/config.js 嵌套 children",
+        "pros": [
+          "延续 GitHub 目录导读传统：docs/README.md 自动编译为首页，从 v1 迁移目录结构成本低",
+          "移除隐式组件污染：废弃 v1 隐式 components/ 扫描，配置全收拢在 docs/.vuepress/config.js",
+          ".html 显式路由高兼容：部署在子路径静态托管时零歧义"
+        ],
+        "cons": [
+          "默认主题仍无 autogenerate：多级目录需手写嵌套 children（除非换用重型三方主题）",
+          "RC 阶段 API 偶有调整：例如 @vuepress/theme-default@rc.141 将导出名从 defaultTheme 改为 themeDefault",
+          "子包颗粒度极碎：核心、打包器、主题与各语法插件版本号须严格对齐"
+        ]
+      },
+      "highlights": {
+        "dirIsolation": "docs/ + 内部 .vuepress/（保持 README.md 映射为目录首页）",
+        "dirRoutingSidebar": "默认 .html 后缀路由；默认主题无 autogenerate，需手写嵌套 children",
+        "frontmatter": "宽松 YAML（升级支持多按钮 actions 数组）",
+        "callouts": "默认主题内置 plugin-markdown-hint，完整支持 info/note/tip/important/warning/caution",
+        "details": "原生支持 ::: details 折叠容器",
+        "gfmAlerts": "开启 alert: true 后官方原生支持 > [!NOTE] 等全部 GFM 警报",
+        "mermaid": "最大亮点：官方一等公民 @vuepress/plugin-markdown-chart 原生直连 mermaid@12.3",
+        "math": "官方 @vuepress/plugin-markdown-math 一键切换 KaTeX 0.19 或 MathJax 4（自动注样式）",
+        "buildArtifact": "426 个包（0 漏洞），Vite 编译耗时 9.8s，彻底告别 OpenSSL 旧版限制"
+      },
+      "docs": {
+        "index": { "route": "", "file": "docs/README.md" },
+        "01-annotations": { "route": "01-annotations.html", "file": "docs/01-annotations.md" },
+        "02-diagrams": { "route": "02-diagrams.html", "file": "docs/02-diagrams.md" },
+        "03-math": { "route": "03-math.html", "file": "docs/03-math.md" },
+        "04-directory": { "route": "04-directory/", "file": "docs/04-directory/README.md" }
+      }
+    },
+    {
+      "id": "docsify-v4",
+      "family": "Docsify",
+      "versionSeries": "v4",
+      "tagline": "经典零预编译客户端运行时 Markdown 渲染器",
+      "repo": "page2401/docsify-v4",
+      "basePath": "/docsify-v4/",
+      "submoduleDir": "sites/docsify-v4",
+      "distDir": "sites/docsify-v4/dist",
+      "routeStyle": "hash",
+      "primaryPackage": "docsify",
+      "trackedPackages": [
+        "docsify",
+        "docsify-plugin-flexible-alerts",
+        "katex",
+        "mermaid"
+      ],
+      "configFiles": [
+        "docs/index.html",
+        "docs/_sidebar.md",
+        "scripts/build-static.mjs"
+      ],
+      "directoryProfile": {
+        "contentRoot": "docs/ (原样静态托管 *.md + _sidebar.md)",
+        "contentPrefix": "docs/",
+        "excludedContentFiles": [],
+        "orderingMechanism": "纯 Markdown 列表文件 _sidebar.md 控制顺序",
+        "sidebarMechanism": "手写 _sidebar.md 缩进列表（未配 alias 时子目录向上冒泡请求）",
+        "pros": [
+          "真正零编译：无论 10 篇还是 5,000 篇文档，无需预渲染 HTML，打包耗时接近 0 秒",
+          "侧栏编辑门槛最低：_sidebar.md 就是普通 Markdown 列表，非研发人员也能直接维护",
+          "Hash 路由零 404：/#/01-annotations 在任意静态目录托管下刷新永不报服务端 404"
+        ],
+        "cons": [
+          "致命 .nojekyll 依赖：_sidebar.md 以下划线开头，GitHub Pages 漏放 .nojekyll 会导致侧栏全部 404",
+          "SEO 与首屏瀑布流弱势：每次翻页需动态 XHR 拉取 .md，爬虫只能看到空壳 index.html",
+          "多级目录冒泡 404 请求：访问深层子目录时会先探测同级 _sidebar.md 产生额外 404 请求"
+        ]
+      },
+      "highlights": {
+        "dirIsolation": "单壳 index.html + 原始 *.md 同目录托管（包资源在旧版 lib/ 下）",
+        "dirRoutingSidebar": "_sidebar.md 纯列表控制 + #/ Hash 路由（强依赖 .nojekyll 保住下划线文件）",
+        "frontmatter": "默认不识别！必须加载 front-matter.min.js 否则 YAML 原样印在页面顶部",
+        "callouts": "不支持 ::: 容器（裸露原文）；独有 ?> 一般提示 与 !> 重点强调 语法",
+        "details": "使用原生 HTML <details><summary> 标签",
+        "gfmAlerts": "内核不支持；靠 flexible-alerts@1.3 插件仅能识别 NOTE/TIP/WARNING，[!CAUTION] 失效",
+        "mermaid": "在 index.html 覆写 renderer.code(code, lang) + doneEach 钩子客户端绘图",
+        "math": "须在 beforeEach 先调 katex.renderToString，否则内置 marked 会吞掉矩阵换行 \\\\",
+        "buildArtifact": "零 HTML 预编译；采用旧版单体 vue.css，无官方原生暗黑变量体系"
+      },
+      "docs": {
+        "index": { "route": "#/", "file": "docs/README.md" },
+        "01-annotations": { "route": "#/01-annotations", "file": "docs/01-annotations.md" },
+        "02-diagrams": { "route": "#/02-diagrams", "file": "docs/02-diagrams.md" },
+        "03-math": { "route": "#/03-math", "file": "docs/03-math.md" },
+        "04-directory": { "route": "#/04-directory/", "file": "docs/04-directory/README.md" }
+      }
+    },
+    {
+      "id": "docsify-v5",
+      "family": "Docsify",
+      "versionSeries": "v5",
+      "tagline": "新一代原生 Callout + 模块化暗色主题运行时引擎",
+      "repo": "page2401/docsify-v5",
+      "basePath": "/docsify-v5/",
+      "submoduleDir": "sites/docsify-v5",
+      "distDir": "sites/docsify-v5/dist",
+      "routeStyle": "hash",
+      "primaryPackage": "docsify",
+      "trackedPackages": [
+        "docsify",
+        "katex",
+        "mermaid"
+      ],
+      "configFiles": [
+        "docs/index.html",
+        "docs/_sidebar.md",
+        "scripts/build-static.mjs"
+      ],
+      "directoryProfile": {
+        "contentRoot": "docs/ (原样静态托管 *.md + _sidebar.md)",
+        "contentPrefix": "docs/",
+        "excludedContentFiles": [],
+        "orderingMechanism": "纯 Markdown 列表文件 _sidebar.md 控制顺序",
+        "sidebarMechanism": "手写 _sidebar.md 缩进列表（与 v4 目录约定完全兼容）",
+        "pros": [
+          "保持零编译极速体验：文档目录结构从 Docsify v4 升级至 v5 零迁移成本",
+          "减少三方插件文件依赖：内核自带 GFM Callouts 与 core-dark.min.css 暗色主题附加层",
+          "包目录现代化：npm 包由旧版 lib/ 全面迁移至 dist/ 并支持标准 ESM 导出"
+        ],
+        "cons": [
+          "仍受限于 _sidebar.md 下划线机制：GitHub Pages 依然必须携带 .nojekyll",
+          "升级破坏旧版自定义渲染器：renderer.code 入参由 (code, lang) 变为 ({ text, lang })",
+          "SPA 运行时本质未变：独立子页 SEO 与动态拉取瀑布流取舍依然存在"
+        ]
+      },
+      "highlights": {
+        "dirIsolation": "单壳 index.html + 原始 *.md 托管（包产物由 lib/ 重构迁移至 dist/）",
+        "dirRoutingSidebar": "_sidebar.md 纯列表 + #/ Hash 路由（强依赖 .nojekyll 防下划线屏蔽）",
+        "frontmatter": "仍需加载 dist/plugins/front-matter.min.js 剥离顶部 YAML",
+        "callouts": "向下兼容 ?> / !>，不支持 ::: 容器，官方全面转向标准 GFM Callouts",
+        "details": "使用原生 HTML <details><summary> 标签",
+        "gfmAlerts": "重大跨代升级：零插件内核原生解析 [!NOTE] / [!IMPORTANT] / [!CAUTION] 全部警报！",
+        "mermaid": "破坏性变更：marked 升级导致 renderer.code 改为接收对象 ({ text, lang })；接入 mermaid@12.3",
+        "math": "客户端 beforeEach 钩子调用 katex@0.19.1 实时渲染",
+        "buildArtifact": "全新 core.min.css + addons/core-dark.min.css 原生支持深浅色主题切换（0 漏洞）"
+      },
+      "docs": {
+        "index": { "route": "#/", "file": "docs/README.md" },
+        "01-annotations": { "route": "#/01-annotations", "file": "docs/01-annotations.md" },
+        "02-diagrams": { "route": "#/02-diagrams", "file": "docs/02-diagrams.md" },
+        "03-math": { "route": "#/03-math", "file": "docs/03-math.md" },
+        "04-directory": { "route": "#/04-directory/", "file": "docs/04-directory/README.md" }
       }
     },
     {
       "id": "astro7-starlight",
       "family": "Astro Starlight",
       "versionSeries": "Astro 7 / SL 0.43",
-      "tagline": "Astro 7 Content Layer + Starlight 全功能文档框架",
+      "tagline": "Astro 7 Content Layer + Starlight 强类型全功能文档框架",
       "repo": "page2401/astro7-starlight",
       "basePath": "/astro7-starlight/",
       "submoduleDir": "sites/astro7-starlight",
       "distDir": "sites/astro7-starlight/dist",
+      "routeStyle": "clean",
       "primaryPackage": "astro",
       "trackedPackages": [
         "astro",
@@ -137,14 +418,14 @@
         "contentPrefix": "src/content/docs/",
         "excludedContentFiles": [],
         "orderingMechanism": "Frontmatter sidebar.order 数值权重",
-        "sidebarMechanism": "原生 autogenerate: { directory } 自动扫描",
+        "sidebarMechanism": "原生 items: [{ autogenerate }] 自动扫描",
         "pros": [
           "物理边界绝对干净：工程配置、仓库 README.md 与正文文档彻底隔离，零误编译风险",
           "URL 干净且持久：无需 01- 文件名前缀，zeta-first.md 可靠 order: 1 置顶且改序不破链接",
           "防孤岛页自动化：开启 autogenerate 后在子目录新建文档即自动挂载至侧边栏"
         ],
         "cons": [
-          "目录层级过深：写一篇子目录文档深达 5 层路径，对直接挂载现成纯笔记库（如 Obsidian）侵入性强",
+          "目录层级过深：写一篇子目录文档深达 5 层路径，对直接挂载现成纯笔记库侵入性强",
           "本地文件树乱序：IDE 按字母将 alpha-second.md 排在 zeta-first.md 前，与实际阅读顺序相反",
           "自动分组命名受限：autogenerate 缺少目录级元数据文件，子目录分组标题直接生硬显示英文名 nested"
         ]
@@ -156,31 +437,16 @@
         "callouts": ":::note / tip[标题] / caution / danger（方括号传参）",
         "details": "使用语义化 HTML <details><summary> 标签",
         "gfmAlerts": "默认不转换（保留为普通引用块与 [!NOTE] 文本）",
-        "mermaid": "前置 remark AST 转换 + Vite 打包最新 mermaid@12",
-        "math": "remark-math + rehype-katex 构建期输出 HTML + Webfont",
-        "buildArtifact": "必须携带 .nojekyll，否则 GitHub Pages 拦截 /_astro/"
+        "mermaid": "前置 remark AST 转换 + Vite 打包最新 mermaid@12.3",
+        "math": "Astro 7 默认改用 Sätteri，须显式装 @astrojs/markdown-remark 跑 rehype-katex",
+        "buildArtifact": "自带 Pagefind 中文全文检索索引；必须携带 .nojekyll 防拦截 /_astro/"
       },
       "docs": {
-        "index": {
-          "route": "",
-          "file": "src/content/docs/index.mdx"
-        },
-        "01-annotations": {
-          "route": "01-annotations",
-          "file": "src/content/docs/01-annotations.md"
-        },
-        "02-diagrams": {
-          "route": "02-diagrams",
-          "file": "src/content/docs/02-diagrams.md"
-        },
-        "03-math": {
-          "route": "03-math",
-          "file": "src/content/docs/03-math.md"
-        },
-        "04-directory": {
-          "route": "04-directory",
-          "file": "src/content/docs/04-directory/index.md"
-        }
+        "index": { "route": "", "file": "src/content/docs/index.mdx" },
+        "01-annotations": { "route": "01-annotations", "file": "src/content/docs/01-annotations.md" },
+        "02-diagrams": { "route": "02-diagrams", "file": "src/content/docs/02-diagrams.md" },
+        "03-math": { "route": "03-math", "file": "src/content/docs/03-math.md" },
+        "04-directory": { "route": "04-directory", "file": "src/content/docs/04-directory/index.md" }
       }
     }
   ]

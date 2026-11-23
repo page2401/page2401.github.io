@@ -1055,3 +1055,45 @@ select {
     grid-template-columns: 1fr;
   }
 }
+
+/* Quick Preset Bar */
+.preset-bar {
+  padding: 0.52rem 1.1rem;
+  background-color: var(--bg-canvas);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  font-size: 0.76rem;
+}
+
+.preset-label {
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-right: 0.15rem;
+}
+
+.preset-pill {
+  border: 1px solid var(--border-subtle);
+  background-color: var(--bg-surface);
+  padding: 0.2rem 0.58rem;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.preset-pill:hover {
+  border-color: var(--border-strong);
+  color: var(--text-primary);
+}
+
+.preset-pill.active {
+  border-color: var(--accent-teal);
+  background-color: var(--accent-teal-soft);
+  color: var(--accent-teal);
+  font-weight: 600;
+}

@@ -10,7 +10,7 @@
     "prebuild": "node scripts/generate-comparison-data.mjs",
     "build": "vite build",
     "preview": "vite preview",
-    "build:all": "npm --prefix sites/vitepress-v1 run build && npm --prefix sites/astro7-starlight run build && npm run build",
+    "build:all": "npm --prefix sites/vitepress-v1 run build && npm --prefix sites/vitepress-v2 run build && npm --prefix sites/vuepress-v1 run build && npm --prefix sites/vuepress-v2 run build && npm --prefix sites/docsify-v4 run build && npm --prefix sites/docsify-v5 run build && npm --prefix sites/astro7-starlight run build && npm run build",
     "preview:all": "node scripts/preview-all.mjs"
   },
   "devDependencies": {

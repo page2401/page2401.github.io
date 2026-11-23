@@ -404,6 +404,13 @@ function updateWorkbenchDom(): void {
     btn.classList.toggle('active', btn.dataset.chapter === state.chapterId)
   })
 
+  document.querySelectorAll<HTMLButtonElement>('[data-preset-left]').forEach((btn) => {
+    const isMatch =
+      btn.dataset.presetLeft === state.leftSiteId &&
+      btn.dataset.presetRight === state.rightSiteId
+    btn.classList.toggle('active', isMatch)
+  })
+
   const extraControls = document.getElementById('workbench-extra-controls')
   if (extraControls) {
     if (state.mode === 'render') {
@@ -532,6 +539,18 @@ function renderAppShell(): void {
               <button type="button" class="seg-btn" data-mode="source" id="mode-source-btn">相似 *.md 源码对比</button>
               <button type="button" class="seg-btn" data-mode="config" id="mode-config-btn">工程配置对比</button>
             </div>
+          </div>
+
+          <div class="preset-bar" aria-label="快捷对比组合">
+            <span class="preset-label">同门跨大版本：</span>
+            <button type="button" class="preset-pill" data-preset-left="vitepress-v1" data-preset-right="vitepress-v2">VitePress v1 ↔ v2</button>
+            <button type="button" class="preset-pill" data-preset-left="vuepress-v1" data-preset-right="vuepress-v2">VuePress v1 ↔ v2</button>
+            <button type="button" class="preset-pill" data-preset-left="docsify-v4" data-preset-right="docsify-v5">Docsify v4 ↔ v5</button>
+            <span class="nav-divider" role="separator"></span>
+            <span class="preset-label">跨派系焦点：</span>
+            <button type="button" class="preset-pill" data-preset-left="vitepress-v1" data-preset-right="astro7-starlight">VitePress v1 ↔ Astro 7 Starlight</button>
+            <button type="button" class="preset-pill" data-preset-left="vuepress-v2" data-preset-right="vitepress-v2">VuePress v2 ↔ VitePress v2</button>
+            <button type="button" class="preset-pill" data-preset-left="vitepress-v1" data-preset-right="docsify-v5">预编译 SSG ↔ 运行时 Docsify v5</button>
           </div>
 
           <div class="chapter-bar">
@@ -683,6 +702,17 @@ function bindEvents(): void {
 
     const target = (e.target as HTMLElement).closest<HTMLElement>('button')
     if (!target) return
+
+    if (target.dataset.presetLeft && target.dataset.presetRight) {
+      state.leftSiteId = target.dataset.presetLeft
+      state.rightSiteId = target.dataset.presetRight
+      state.leftConfigIndex = 0
+      state.rightConfigIndex = 0
+      state.customLeftUrl = null
+      state.customRightUrl = null
+      updateWorkbenchDom()
+      return
+    }
 
     if (target.dataset.viewportBtn) {
       state.viewport = target.dataset.viewportBtn as ViewportPreset
