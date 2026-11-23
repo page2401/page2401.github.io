@@ -53,7 +53,7 @@
     }
   },
   "github": {
-    "fetchedAt": "2026-11-23T08:53:28.818Z",
+    "fetchedAt": "2026-11-23T11:47:11.123Z",
     "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
     "repo": "vuejs/vuepress",
     "url": "https://github.com/vuejs/vuepress",
@@ -66,9 +66,9 @@
     "createdAt": "2018-04-05T16:58:38Z",
     "createdYear": 2018,
     "pushedAt": "2024-08-07T10:06:47Z",
-    "updatedAt": "2026-11-22T15:14:56Z",
-    "stars": 22714,
-    "forks": 4600,
+    "updatedAt": "2026-11-23T09:39:05Z",
+    "stars": 22715,
+    "forks": 4599,
     "openIssues": 538,
     "totalCommits": 2152,
     "peakYear": 2018,

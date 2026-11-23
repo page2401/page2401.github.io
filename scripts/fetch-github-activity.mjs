@@ -122,10 +122,28 @@ function queryGitHubRepo(ghUrl, existingRole = '') {
 function syncPinnedPackages(siteId) {
   const entry = sitesConfig.sites.find((s) => s.id === siteId)
   if (!entry || entry.isMaster) return null
-  const pkgJson = JSON.parse(
-    fs.readFileSync(path.join(rootDir, entry.submoduleDir, 'package.json'), 'utf-8')
-  )
-  const all = { ...(pkgJson.dependencies || {}), ...(pkgJson.devDependencies || {}) }
+  const subAbs = path.join(rootDir, entry.submoduleDir)
+  const manifestType = entry.manifestType || 'npm'
+
+  let all = {}
+  if (manifestType === 'python') {
+    const reqFile = path.join(subAbs, 'requirements.txt')
+    if (!fs.existsSync(reqFile)) return null
+    for (const line of fs.readFileSync(reqFile, 'utf-8').split('\n')) {
+      const m = line.trim().match(/^([a-zA-Z0-9_.-]+)==([^\s#]+)/)
+      if (m) all[m[1]] = m[2]
+    }
+  } else if (manifestType === 'binary') {
+    const lockFile = path.join(subAbs, 'ssg-lock.json')
+    if (!fs.existsSync(lockFile)) return null
+    all = JSON.parse(fs.readFileSync(lockFile, 'utf-8')).packages || {}
+  } else {
+    const pkgFile = path.join(subAbs, 'package.json')
+    if (!fs.existsSync(pkgFile)) return null
+    const pkgJson = JSON.parse(fs.readFileSync(pkgFile, 'utf-8'))
+    all = { ...(pkgJson.dependencies || {}), ...(pkgJson.devDependencies || {}) }
+  }
+
   const out = {}
   for (const k of entry.trackedPackages) {
     if (all[k]) out[k] = all[k]

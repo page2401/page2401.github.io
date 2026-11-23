@@ -26,3 +26,27 @@
 	path = sites/docsify-v5
 	url = https://github.com/page2401/docsify-v5.git
 	branch = main
+[submodule "sites/docusaurus-v3"]
+	path = sites/docusaurus-v3
+	url = https://github.com/page2401/docusaurus-v3.git
+	branch = main
+[submodule "sites/rspress"]
+	path = sites/rspress
+	url = https://github.com/page2401/rspress.git
+	branch = main
+[submodule "sites/hugo"]
+	path = sites/hugo
+	url = https://github.com/page2401/hugo.git
+	branch = main
+[submodule "sites/mkdocs-material"]
+	path = sites/mkdocs-material
+	url = https://github.com/page2401/mkdocs-material.git
+	branch = main
+[submodule "sites/mdbook"]
+	path = sites/mdbook
+	url = https://github.com/page2401/mdbook.git
+	branch = main
+[submodule "sites/zola"]
+	path = sites/zola
+	url = https://github.com/page2401/zola.git
+	branch = main

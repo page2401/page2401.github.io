@@ -40,7 +40,7 @@ description: "预留扩展位 sites/nextra：Vercel 生态 Next.js 文档框架�
 
 | 官方仓库 | 创建日期 | 最近推送 | Stars | 默认分支总提交 | 峰值年份 (提交数) | 最新 Release |
 | :--- | :--- | :--- | ---: | ---: | :--- | :--- |
-| [`shuding/nextra`](https://github.com/shuding/nextra) | `2020-06-15` | `2026-07-31` | ★ 13,955 | 2,332 | `2023` (578) | `nextra-theme-docs@4.6.1` (2025-12-04) |
+| [`shuding/nextra`](https://github.com/shuding/nextra) | `2020-06-15` | `2026-07-31` | ★ 13,956 | 2,332 | `2023` (578) | `nextra-theme-docs@4.6.1` (2025-12-04) |
 
 ### GitHub 主分支历年提交活跃度表（`2020–2026`）
 

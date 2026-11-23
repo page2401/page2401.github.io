@@ -1,0 +1,207 @@
+{
+  "$schema": "https://page.2401.xyz/schemas/site-metadata-v1.json",
+  "id": "sphinx",
+  "order": 24,
+  "name": "Sphinx (MyST)",
+  "versionNote": "v8.x + MyST-Parser",
+  "mounted": false,
+  "sitePath": "sites/sphinx",
+  "websiteUrl": "https://www.sphinx-doc.org/",
+  "githubUrl": "https://github.com/sphinx-doc/sphinx",
+  "companionGithubUrls": [
+    "https://github.com/executablebooks/MyST-Parser"
+  ],
+  "packageUrl": "https://pypi.org/project/Sphinx/",
+  "ecosystem": "python-classic",
+  "tags": [
+    "ssg",
+    "python",
+    "scientific-publishing",
+    "myst-markdown",
+    "restructuredtext",
+    "cross-reference",
+    "latex-pdf"
+  ],
+  "lifecycle": {
+    "startedAt": "2008-03-21",
+    "activePeriod": "2008–至今（Python 官方、Linux 内核、PyTorch 与 Jupyter 生态核心文档基石）",
+    "deprecatedAt": null,
+    "isEol": false,
+    "summary": "始于 2008 · Python 与科学计算界不朽基石（经 MyST 全面拥抱 Markdown）"
+  },
+  "libs": {
+    "runtime": "Python >= 3.10",
+    "bundler": "Sphinx Builder（同时输出 HTML / LaTeX PDF / ePub / Manpage）",
+    "uiFramework": "Jinja2 + Furo / PyData Sphinx Theme",
+    "markdownEngine": "Docutils + MyST-Parser (markdown-it-py)",
+    "codeHighlight": "Pygments",
+    "searchEngine": "Sphinx 内置静态语言分词全文索引",
+    "mathLib": "sphinx.ext.mathjax（原生内置 amsmath 编号与公式交叉引用！）",
+    "diagramLib": "sphinxcontrib-mermaid",
+    "coreLibs": [
+      "sphinx",
+      "docutils",
+      "myst-parser",
+      "markdown-it-py",
+      "pygments",
+      "jinja2"
+    ]
+  },
+  "matrix": {
+    "tagline": "Python 官方与 Linux 内核同款工业级出版系统：拥有全行业最严谨的跨文档符号交叉引用、API 自动抽取与原生 LaTeX PDF 排版",
+    "stack": "Python + Sphinx 8 + Docutils + MyST-Parser + Furo / PyData 主题",
+    "directoryModel": "显式 `{toctree}` 指令树（每层 index.md 通过 toctree 代码块精确声明子章节顺序与最大展开深度）",
+    "calloutDialect": "MyST 围栏指令语法：```{warning} 标题 ... ``` 或冒号指令 ::::{note}（支持任意层级嵌套与编号引用）",
+    "diagramAndMath": "学术级天花板：原生内置公式自动编号 `(1.1)` 与 `{eq}` 跨章公式引用 + sphinxcontrib-mermaid"
+  },
+  "github": {
+    "fetchedAt": "2026-11-23T11:47:11.123Z",
+    "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
+    "repo": "sphinx-doc/sphinx",
+    "url": "https://github.com/sphinx-doc/sphinx",
+    "role": "Sphinx (MyST) 官方源码仓库",
+    "description": "The Sphinx documentation generator",
+    "primaryLanguage": "Python",
+    "license": "NOASSERTION",
+    "defaultBranch": "master",
+    "isArchived": false,
+    "createdAt": "2015-01-02T10:53:28Z",
+    "createdYear": 2015,
+    "pushedAt": "2026-11-23T03:01:19Z",
+    "updatedAt": "2026-11-22T21:27:46Z",
+    "stars": 8104,
+    "forks": 2641,
+    "openIssues": 1048,
+    "totalCommits": 22461,
+    "peakYear": 2018,
+    "peakCommits": 2633,
+    "latestRelease": {
+      "tagName": "v9.2.0",
+      "publishedAt": "2026-10-21T00:05:26Z",
+      "isPrerelease": false
+    },
+    "recentReleases": [
+      {
+        "tagName": "v9.2.0",
+        "publishedAt": "2026-10-21T00:05:26Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v9.1.1",
+        "publishedAt": "2026-10-20T00:40:48Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v9.1.0",
+        "publishedAt": "2025-12-31T15:08:45Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v9.1.0rc2",
+        "publishedAt": "2025-12-27T03:17:14Z",
+        "isPrerelease": true
+      },
+      {
+        "tagName": "v9.1.0rc1",
+        "publishedAt": "2025-12-19T23:30:08Z",
+        "isPrerelease": true
+      }
+    ],
+    "yearlyCommits": {
+      "2008": 781,
+      "2009": 644,
+      "2010": 1284,
+      "2011": 439,
+      "2012": 301,
+      "2013": 526,
+      "2014": 801,
+      "2015": 694,
+      "2016": 1757,
+      "2017": 2010,
+      "2018": 2633,
+      "2019": 1729,
+      "2020": 2582,
+      "2021": 2059,
+      "2022": 1117,
+      "2023": 692,
+      "2024": 1146,
+      "2025": 775,
+      "2026": 62
+    },
+    "companionRepos": [
+      {
+        "repo": "executablebooks/MyST-Parser",
+        "url": "https://github.com/executablebooks/MyST-Parser",
+        "role": "",
+        "description": "An extended commonmark compliant parser, with bridges to docutils/sphinx",
+        "primaryLanguage": "Python",
+        "license": "MIT",
+        "defaultBranch": "master",
+        "isArchived": false,
+        "createdAt": "2020-02-13T01:23:01Z",
+        "createdYear": 2020,
+        "pushedAt": "2026-11-16T16:43:46Z",
+        "updatedAt": "2026-11-21T12:44:10Z",
+        "stars": 904,
+        "forks": 257,
+        "openIssues": 80,
+        "totalCommits": 594,
+        "peakYear": 2020,
+        "peakCommits": 209,
+        "latestRelease": {
+          "tagName": "v5.2.0",
+          "publishedAt": "2026-11-10T19:53:55Z",
+          "isPrerelease": false
+        },
+        "recentReleases": [
+          {
+            "tagName": "v5.2.0",
+            "publishedAt": "2026-11-10T19:53:55Z",
+            "isPrerelease": false
+          },
+          {
+            "tagName": "v5.1.0",
+            "publishedAt": "2026-05-13T09:35:55Z",
+            "isPrerelease": false
+          },
+          {
+            "tagName": "v5.0.0",
+            "publishedAt": "2026-01-15T09:06:30Z",
+            "isPrerelease": false
+          },
+          {
+            "tagName": "v4.0.1",
+            "publishedAt": "2025-02-12T10:50:42Z",
+            "isPrerelease": false
+          },
+          {
+            "tagName": "v4.0.0",
+            "publishedAt": "2024-08-05T14:00:56Z",
+            "isPrerelease": false
+          }
+        ],
+        "yearlyCommits": {
+          "2008": 0,
+          "2009": 0,
+          "2010": 0,
+          "2011": 0,
+          "2012": 0,
+          "2013": 0,
+          "2014": 0,
+          "2015": 0,
+          "2016": 0,
+          "2017": 0,
+          "2018": 0,
+          "2019": 0,
+          "2020": 209,
+          "2021": 95,
+          "2022": 64,
+          "2023": 95,
+          "2024": 49,
+          "2025": 17,
+          "2026": 65
+        }
+      }
+    ]
+  }
+}

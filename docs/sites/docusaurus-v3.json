@@ -4,7 +4,7 @@
   "order": 8,
   "name": "Docusaurus",
   "versionNote": "v3 (MDX 3)",
-  "mounted": false,
+  "mounted": true,
   "sitePath": "sites/docusaurus-v3",
   "websiteUrl": "https://docusaurus.io/",
   "githubUrl": "https://github.com/facebook/docusaurus",
@@ -43,7 +43,18 @@
       "@mdx-js/react",
       "react",
       "prism-react-renderer"
-    ]
+    ],
+    "pinnedPackages": {
+      "@docusaurus/core": "3.10.2",
+      "@docusaurus/preset-classic": "3.10.2",
+      "@docusaurus/theme-mermaid": "3.10.2",
+      "@mdx-js/react": "3.1.1",
+      "react": "19.3.1",
+      "remark-math": "6.0.0",
+      "rehype-katex": "7.0.1",
+      "katex": "0.19.1",
+      "mermaid": "12.3.0"
+    }
   },
   "matrix": {
     "tagline": "Meta 开源 React 旗舰，原生多版本文档快照（Versioning）无可替代",
@@ -53,7 +64,7 @@
     "diagramAndMath": "官方 @docusaurus/theme-mermaid + remark-math / rehype-katex"
   },
   "github": {
-    "fetchedAt": "2026-11-23T08:53:28.818Z",
+    "fetchedAt": "2026-11-23T11:47:11.123Z",
     "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
     "repo": "meta/docusaurus",
     "url": "https://github.com/meta/docusaurus",
@@ -66,9 +77,9 @@
     "createdAt": "2017-06-20T16:13:53Z",
     "createdYear": 2017,
     "pushedAt": "2026-11-20T20:40:55Z",
-    "updatedAt": "2026-11-23T08:51:16Z",
-    "stars": 66787,
-    "forks": 10129,
+    "updatedAt": "2026-11-23T09:28:50Z",
+    "stars": 66788,
+    "forks": 10130,
     "openIssues": 269,
     "totalCommits": 7118,
     "peakYear": 2021,
@@ -126,5 +137,7 @@
       "2025": 290,
       "2026": 642
     }
-  }
+  },
+  "subsiteRepoUrl": "https://github.com/page2401/docusaurus-v3",
+  "previewUrl": "https://page.2401.xyz/docusaurus-v3/"
 }

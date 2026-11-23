@@ -11,7 +11,7 @@
     "build": "vite build",
     "postbuild": "node scripts/build-master-docs.mjs",
     "preview": "vite preview",
-    "build:all": "npm --prefix sites/vitepress-v1 run build && npm --prefix sites/vitepress-v2 run build && npm --prefix sites/vuepress-v1 run build && npm --prefix sites/vuepress-v2 run build && npm --prefix sites/docsify-v4 run build && npm --prefix sites/docsify-v5 run build && npm --prefix sites/astro7-starlight run build && npm run build",
+    "build:all": "node scripts/build-all.mjs",
     "preview:all": "node scripts/preview-all.mjs",
     "sync:github": "node scripts/fetch-github-activity.mjs && node scripts/sync-github-tables.mjs"
   },

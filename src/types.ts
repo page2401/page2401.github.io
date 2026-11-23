@@ -76,6 +76,7 @@ export interface SiteEntry {
   submoduleDir: string
   packages: Record<string, string>
   packageJsonRaw: string
+  manifestShortPath?: string
   directoryProfile: DirectoryProfile
   treeNodes: TreeNode[]
   highlights: SiteHighlights

@@ -4,7 +4,7 @@
   "order": 11,
   "name": "Rspress",
   "versionNote": "v2.x (Rspack)",
-  "mounted": false,
+  "mounted": true,
   "sitePath": "sites/rspress",
   "websiteUrl": "https://rspress.rs/",
   "githubUrl": "https://github.com/web-infra-dev/rspress",
@@ -35,7 +35,7 @@
     "markdownEngine": "@rspress/mdx-rs（Rust MDX 编译器）",
     "codeHighlight": "Shiki",
     "searchEngine": "内置本地搜索索引 / Algolia",
-    "mathLib": "@rspress/plugin-katex",
+    "mathLib": "rspress-plugin-katex@1.0.1",
     "diagramLib": "rspress-plugin-mermaid",
     "coreLibs": [
       "@rspress/core",
@@ -43,7 +43,15 @@
       "@rspress/mdx-rs",
       "react",
       "shiki"
-    ]
+    ],
+    "pinnedPackages": {
+      "@rspress/core": "2.1.4",
+      "rspress-plugin-katex": "1.0.1",
+      "rspress-plugin-mermaid": "2.0.0",
+      "react": "19.3.1",
+      "katex": "0.19.1",
+      "mermaid": "12.3.0"
+    }
   },
   "matrix": {
     "tagline": "字节跳动出品，Rust Rspack + mdx-rs 驱动的超高速 React 文档框架",
@@ -53,7 +61,7 @@
     "diagramAndMath": "@rspress/plugin-katex + Mermaid 插件支持"
   },
   "github": {
-    "fetchedAt": "2026-11-23T08:53:28.818Z",
+    "fetchedAt": "2026-11-23T11:47:11.123Z",
     "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
     "repo": "web-infra-dev/rspress",
     "url": "https://github.com/web-infra-dev/rspress",
@@ -65,9 +73,9 @@
     "isArchived": false,
     "createdAt": "2023-06-27T06:37:44Z",
     "createdYear": 2023,
-    "pushedAt": "2026-11-23T08:45:29Z",
-    "updatedAt": "2026-11-19T22:59:18Z",
-    "stars": 2360,
+    "pushedAt": "2026-11-23T10:12:39Z",
+    "updatedAt": "2026-11-23T10:58:38Z",
+    "stars": 2361,
     "forks": 239,
     "openIssues": 35,
     "totalCommits": 2937,
@@ -126,5 +134,7 @@
       "2025": 875,
       "2026": 746
     }
-  }
+  },
+  "subsiteRepoUrl": "https://github.com/page2401/rspress",
+  "previewUrl": "https://page.2401.xyz/rspress/"
 }

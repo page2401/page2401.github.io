@@ -1,0 +1,131 @@
+{
+  "$schema": "https://page.2401.xyz/schemas/site-metadata-v1.json",
+  "id": "quartz",
+  "order": 19,
+  "name": "Quartz",
+  "versionNote": "v4 (Digital Garden)",
+  "mounted": false,
+  "sitePath": "sites/quartz",
+  "websiteUrl": "https://quartz.jzhao.xyz/",
+  "githubUrl": "https://github.com/jackyzha0/quartz",
+  "packageUrl": "https://github.com/jackyzha0/quartz",
+  "ecosystem": "react-astro",
+  "tags": [
+    "ssg",
+    "digital-garden",
+    "obsidian",
+    "wikilinks",
+    "backlinks",
+    "knowledge-graph",
+    "preact",
+    "remark"
+  ],
+  "lifecycle": {
+    "startedAt": "2021-07-18",
+    "activePeriod": "2023-08 发布 v4 重写版至今持续高频活跃",
+    "deprecatedAt": "Quartz v3 (基于 Hugo) 已于 2023 被 v4 自研引擎取代",
+    "isEol": false,
+    "summary": "始于 2021-07 · v4 自研引擎统治 Obsidian 数字花园发布"
+  },
+  "libs": {
+    "runtime": "Node.js >= 20",
+    "bundler": "esbuild + Quartz Custom Worker Pool（多线程并发编译）",
+    "uiFramework": "Preact（构建期 JSX 静态化，零运行时膨胀）",
+    "markdownEngine": "unified + remark + rehype + Obsidian Flavored Markdown 插件链",
+    "codeHighlight": "rehype-pretty-code (Shiki)",
+    "searchEngine": "FlexSearch（支持全文与标签即时检索）",
+    "mathLib": "remark-math + rehype-katex / mathjax",
+    "diagramLib": "原生内置 Mermaid 代码块与 Obsidian Callouts 解析",
+    "coreLibs": [
+      "preact",
+      "esbuild",
+      "unified",
+      "remark-parse",
+      "rehype-katex",
+      "flexsearch",
+      "d3"
+    ]
+  },
+  "matrix": {
+    "tagline": "Obsidian 笔记库一键发布首选：原生支持 [[双向链接]]、反向链接面板、悬浮预览卡片与 D3 知识关系图谱",
+    "stack": "Node.js Worker 多线程 + Preact 静态 JSX + unified/remark + D3.js 图谱",
+    "directoryModel": "content/ 放入任意 Obsidian 笔记库（天然扁平或深层皆可，按文件链接网状游走而非强依赖固定侧边栏）",
+    "calloutDialect": "100% 原生兼容 Obsidian / GFM > [!NOTE]（含 > [!note]+ 默认展开与 > [!note]- 默认折叠扩展语法！）",
+    "diagramAndMath": "开箱内置 KaTeX 公式与 Mermaid 图表支持，零额外插件配置"
+  },
+  "github": {
+    "fetchedAt": "2026-11-23T11:47:11.123Z",
+    "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
+    "repo": "jackyzha0/quartz",
+    "url": "https://github.com/jackyzha0/quartz",
+    "role": "Quartz 官方源码仓库",
+    "description": "🌱 a fast, batteries-included static-site generator that transforms Markdown content into fully functional websites",
+    "primaryLanguage": "TypeScript",
+    "license": "MIT",
+    "defaultBranch": "v5",
+    "isArchived": false,
+    "createdAt": "2021-07-18T15:52:52Z",
+    "createdYear": 2021,
+    "pushedAt": "2026-11-22T22:48:48Z",
+    "updatedAt": "2026-11-23T09:05:42Z",
+    "stars": 13619,
+    "forks": 4149,
+    "openIssues": 22,
+    "totalCommits": 2141,
+    "peakYear": 2024,
+    "peakCommits": 539,
+    "latestRelease": {
+      "tagName": "v5.2.2",
+      "publishedAt": "2026-11-22T22:48:55Z",
+      "isPrerelease": false
+    },
+    "recentReleases": [
+      {
+        "tagName": "v5.2.2",
+        "publishedAt": "2026-11-22T22:48:55Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v5.2.1",
+        "publishedAt": "2026-11-22T20:54:28Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v5.2.0",
+        "publishedAt": "2026-11-22T00:16:28Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v5.1.0",
+        "publishedAt": "2026-11-09T22:53:02Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v4.0.8",
+        "publishedAt": "2023-08-21T00:09:41Z",
+        "isPrerelease": false
+      }
+    ],
+    "yearlyCommits": {
+      "2008": 0,
+      "2009": 0,
+      "2010": 0,
+      "2011": 0,
+      "2012": 0,
+      "2013": 0,
+      "2014": 0,
+      "2015": 0,
+      "2016": 0,
+      "2017": 0,
+      "2018": 0,
+      "2019": 0,
+      "2020": 0,
+      "2021": 82,
+      "2022": 297,
+      "2023": 462,
+      "2024": 539,
+      "2025": 232,
+      "2026": 529
+    }
+  }
+}

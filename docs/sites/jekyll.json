@@ -53,7 +53,7 @@
     "diagramAndMath": "Kramdown MathJax 输出 + 客户端脚本加载 Mermaid"
   },
   "github": {
-    "fetchedAt": "2026-11-23T08:53:28.818Z",
+    "fetchedAt": "2026-11-23T11:47:11.123Z",
     "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
     "repo": "jekyll/jekyll",
     "url": "https://github.com/jekyll/jekyll",
@@ -68,7 +68,7 @@
     "pushedAt": "2026-10-13T18:44:40Z",
     "updatedAt": "2026-11-23T08:24:21Z",
     "stars": 51793,
-    "forks": 10306,
+    "forks": 10305,
     "openIssues": 132,
     "totalCommits": 11881,
     "peakYear": 2014,

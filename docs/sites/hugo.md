@@ -1,11 +1,11 @@
 ---
 title: "hugo 站点与生命周期档案 (Hugo)"
-description: "预留扩展位 sites/hugo：Go 单二进制编译极速之王、十三年常青 GitHub 提交曲线与 _index.md 机制。"
+description: "对应实测子模块 sites/hugo：Go 单二进制编译极速之王、十三年常青 GitHub 提交曲线与 _index.md 机制。"
 ---
 
-# `hugo` 站点档案（Hugo · 图鉴扩展位）
+# `hugo` 站点档案（Hugo · ★ 已挂载实测）
 
-- **预留子模块路径**：`sites/hugo`（与本档案 `docs/sites/hugo.md` 严格 1:1 对应）
+- **本地子模块路径**：`sites/hugo` · **独立子站仓库**：[`page2401/hugo`](https://github.com/page2401/hugo) · **线上实测**：[`/hugo/`](/hugo/)（与本档案 `docs/sites/hugo.md` 严格 1:1 对应）
 - **上游官方仓库**：[`gohugoio/hugo`](https://github.com/gohugoio/hugo)
 - **底层技术栈**：Go 语言单二进制（Extended）+ Goldmark 解析器 + Go `html/template`
 
@@ -35,12 +35,13 @@ description: "预留扩展位 sites/hugo：Go 单二进制编译极速之王、�
 | **高亮与全文检索** | alecthomas/chroma（Go 原生高亮） · Pagefind / Fuse.js / Algolia（主题集成） |
 | **数学公式与流程图库** | Goldmark passthrough + KaTeX / MathJax ； render-codeblock-mermaid.html 渲染钩子 |
 | **核心依赖库 (Core Libs)** | `yuin/goldmark`、`alecthomas/chroma`、`evanw/esbuild`、`tdewolff/minify`、`spf13/cobra` |
+| **本子站实测锁定版本** | `hugo@0.170.1` · `goldmark@builtin` · `katex@0.19.1` · `mermaid@12.3.0` |
 
 ### GitHub 仓库 API 指标快照
 
 | 官方仓库 | 创建日期 | 最近推送 | Stars | 默认分支总提交 | 峰值年份 (提交数) | 最新 Release |
 | :--- | :--- | :--- | ---: | ---: | :--- | :--- |
-| [`gohugoio/hugo`](https://github.com/gohugoio/hugo) | `2013-07-04` | `2026-11-19` | ★ 90,550 | 10,107 | `2016` (1,057) | `v0.170.1` (2026-11-17) |
+| [`gohugoio/hugo`](https://github.com/gohugoio/hugo) | `2013-07-04` | `2026-11-19` | ★ 90,552 | 10,107 | `2016` (1,057) | `v0.170.1` (2026-11-17) |
 
 ### GitHub 主分支历年提交活跃度表（`2013–2026`）
 

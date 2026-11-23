@@ -938,6 +938,7 @@ function renderPaneContent(
   const focusTarget: FocusedPane = state.focus === side ? 'both' : side
   const focusLabel = state.focus === side ? '恢复双栏' : '单栏展开'
 
+  const manifestFile = site.manifestShortPath || 'package.json'
   const headerPath =
     state.mode === 'render'
       ? routeUrl
@@ -946,7 +947,7 @@ function renderPaneContent(
         : state.mode === 'source'
           ? site.docs[state.chapterId]?.file || ''
           : site.configs[side === 'left' ? state.leftConfigIndex : state.rightConfigIndex]?.path ||
-            `${site.submoduleDir}/package.json`
+            `${site.submoduleDir === '.' ? '' : `${site.submoduleDir}/`}${manifestFile}`
 
   let bodyHtml = ''
 
@@ -988,8 +989,8 @@ function renderPaneContent(
     const allConfigs = [
       ...site.configs,
       {
-        path: `${site.submoduleDir}/package.json`,
-        shortPath: 'package.json',
+        path: `${site.submoduleDir === '.' ? '' : `${site.submoduleDir}/`}${manifestFile}`,
+        shortPath: manifestFile,
         content: site.packageJsonRaw,
         lines: site.packageJsonRaw.split('\n').length
       }

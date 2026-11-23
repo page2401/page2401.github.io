@@ -54,7 +54,7 @@
     "diagramAndMath": "内置 KaTeX 数学公式开关与构建期/客户端 Mermaid 支持"
   },
   "github": {
-    "fetchedAt": "2026-11-23T08:53:28.818Z",
+    "fetchedAt": "2026-11-23T11:47:11.123Z",
     "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
     "repo": "shuding/nextra",
     "url": "https://github.com/shuding/nextra",
@@ -67,8 +67,8 @@
     "createdAt": "2020-06-15T16:39:34Z",
     "createdYear": 2020,
     "pushedAt": "2026-07-31T20:39:04Z",
-    "updatedAt": "2026-11-23T04:53:55Z",
-    "stars": 13955,
+    "updatedAt": "2026-11-23T11:20:51Z",
+    "stars": 13956,
     "forks": 1404,
     "openIssues": 271,
     "totalCommits": 2332,

@@ -63,7 +63,7 @@
     }
   },
   "github": {
-    "fetchedAt": "2026-11-23T08:53:28.818Z",
+    "fetchedAt": "2026-11-23T11:47:11.123Z",
     "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
     "repo": "vuepress/core",
     "url": "https://github.com/vuepress/core",
@@ -75,7 +75,7 @@
     "isArchived": false,
     "createdAt": "2020-05-06T13:00:22Z",
     "createdYear": 2020,
-    "pushedAt": "2026-11-23T07:21:18Z",
+    "pushedAt": "2026-11-23T10:01:59Z",
     "updatedAt": "2026-11-20T08:37:40Z",
     "stars": 2833,
     "forks": 884,
@@ -144,7 +144,7 @@
         "isArchived": false,
         "createdAt": "2023-09-05T16:57:31Z",
         "createdYear": 2023,
-        "pushedAt": "2026-11-23T08:39:01Z",
+        "pushedAt": "2026-11-23T09:06:20Z",
         "updatedAt": "2026-11-09T15:05:36Z",
         "stars": 61,
         "forks": 90,

@@ -55,7 +55,7 @@
     }
   },
   "github": {
-    "fetchedAt": "2026-11-23T08:53:28.818Z",
+    "fetchedAt": "2026-11-23T11:47:11.123Z",
     "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
     "repo": "vuejs/vitepress",
     "url": "https://github.com/vuejs/vitepress",
@@ -70,7 +70,7 @@
     "pushedAt": "2026-11-12T11:19:50Z",
     "updatedAt": "2026-11-23T04:10:29Z",
     "stars": 18521,
-    "forks": 2764,
+    "forks": 2763,
     "openIssues": 235,
     "totalCommits": 2958,
     "peakYear": 2023,

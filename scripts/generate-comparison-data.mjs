@@ -20,18 +20,96 @@ const rawConfig = JSON.parse(fs.readFileSync(configPath, 'utf-8'))
 const IGNORED_NAMES = new Set([
   '.git',
   'node_modules',
-  'dist',
+  '.venv',
+  '__pycache__',
   '.astro',
+  '.docusaurus',
+  'doc_build',
+  '.next',
   'cache',
   '.temp',
   '.cache',
   'package-lock.json',
-  '.DS_Store'
+  '.DS_Store',
+  '.hugo_build.lock'
 ])
+
+// Polyglot manifest reader supporting npm (package.json), python (requirements.txt), ruby (Gemfile), and binary (ssg-lock.json)
+function readSubmoduleManifest(submoduleAbs, site) {
+  const manifestType = site.manifestType || 'npm'
+
+  if (manifestType === 'python') {
+    const reqPath = path.join(submoduleAbs, 'requirements.txt')
+    const raw = fs.readFileSync(reqPath, 'utf-8')
+    const deps = {}
+    for (const line of raw.split('\n')) {
+      const clean = line.trim()
+      if (!clean || clean.startsWith('#')) continue
+      const m = clean.match(/^([a-zA-Z0-9_.-]+)==([^\s#]+)/)
+      if (m) deps[m[1]] = m[2]
+    }
+    return {
+      allDeps: deps,
+      manifestShortPath: 'requirements.txt',
+      manifestRaw: raw
+    }
+  }
+
+  if (manifestType === 'binary') {
+    const lockPath = path.join(submoduleAbs, 'ssg-lock.json')
+    const raw = fs.readFileSync(lockPath, 'utf-8')
+    const parsed = JSON.parse(raw)
+    return {
+      allDeps: parsed.packages || {},
+      manifestShortPath: 'ssg-lock.json',
+      manifestRaw: JSON.stringify(parsed, null, 2)
+    }
+  }
+
+  if (manifestType === 'ruby') {
+    const gemPath = path.join(submoduleAbs, 'Gemfile')
+    const raw = fs.readFileSync(gemPath, 'utf-8')
+    const deps = {}
+    for (const line of raw.split('\n')) {
+      const m = line.match(/gem\s+['"]([^'"]+)['"]\s*,\s*['"]([^'"]+)['"]/)
+      if (m) deps[m[1]] = m[2].replace(/^~\>\s*|^=\s*/, '')
+    }
+    return {
+      allDeps: deps,
+      manifestShortPath: 'Gemfile',
+      manifestRaw: raw
+    }
+  }
+
+  const pkgPath = path.join(submoduleAbs, 'package.json')
+  const pkgJson = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'))
+  const allDeps = {
+    ...(pkgJson.dependencies || {}),
+    ...(pkgJson.devDependencies || {})
+  }
+  return {
+    allDeps,
+    manifestShortPath: 'package.json',
+    manifestRaw: JSON.stringify(
+      {
+        name: pkgJson.name,
+        scripts: pkgJson.scripts,
+        dependencies: pkgJson.dependencies,
+        devDependencies: pkgJson.devDependencies
+      },
+      null,
+      2
+    )
+  }
+}
 
 function extractSidebarOrderNote(content) {
   const match = content.match(/sidebar:\s*\n(?:\s+.*\n)*?\s+order:\s*(\d+)/)
   if (match) return `order: ${match[1]}`
+  const posMatch = content.match(/^sidebar_position:\s*(\d+)/m)
+  if (posMatch) return `sidebar_position: ${posMatch[1]}`
+  const weightMatch = content.match(/^weight\s*[:=]\s*(\d+)/m)
+  if (weightMatch) return `weight: ${weightMatch[1]}`
   return null
 }
 
@@ -58,9 +136,9 @@ function computeContentRoute(site, innerRel) {
     return `${base}${withoutExt}.html`
   }
 
-  if (withoutExt === 'index') return base
-  if (withoutExt.endsWith('/index')) {
-    return `${base}${withoutExt.slice(0, -'index'.length)}`
+  if (withoutExt === 'index' || withoutExt === '_index') return base
+  if (withoutExt.endsWith('/index') || withoutExt.endsWith('/_index')) {
+    return `${base}${withoutExt.replace(/\/(_?index)$/, '')}/`
   }
   return `${base}${withoutExt}`
 }
@@ -72,19 +150,33 @@ function scanSubmoduleTree(submoduleAbs, site) {
   const configSet = new Set(site.configFiles || [])
   const rewrites = site.rewrites || {}
 
+  const subPrefix = site.submoduleDir === '.' ? '' : `${site.submoduleDir}/`
+  const relDistDir =
+    subPrefix && site.distDir.startsWith(subPrefix)
+      ? site.distDir.slice(subPrefix.length).replace(/\/$/, '')
+      : site.distDir.replace(/\/$/, '')
+
   function walk(currentRel, depth) {
     const absDir = path.join(submoduleAbs, currentRel)
     const entries = fs.readdirSync(absDir, { withFileTypes: true }).filter((ent) => {
       if (IGNORED_NAMES.has(ent.name)) return false
       const rel = currentRel ? `${currentRel}/${ent.name}` : ent.name
       if (site.isMaster && depth === 0 && ent.name !== 'docs') return false
+      if (rel === relDistDir || (!site.isMaster && rel === 'dist')) return false
       if (
         rel === '.vitepress/dist' ||
         rel === '.vitepress/cache' ||
         rel === 'docs/.vuepress/dist' ||
         rel === 'docs/.vuepress/.temp' ||
         rel === 'docs/.vuepress/.cache' ||
-        rel === 'docs/.vuepress/public/vendor'
+        rel === 'docs/.vuepress/public/vendor' ||
+        rel.endsWith('/vendor') ||
+        rel.endsWith('/fonts') ||
+        rel === 'static/katex' ||
+        ent.name.endsWith('.woff') ||
+        ent.name.endsWith('.woff2') ||
+        ent.name.endsWith('.ttf') ||
+        rel === '.bin'
       ) {
         return false
       }
@@ -110,6 +202,10 @@ function scanSubmoduleTree(submoduleAbs, site) {
           dirNote = 'VuePress v1 自动全局注册目录'
         } else if (relPath.endsWith('/nested')) {
           if (site.id === 'astro7-starlight') dirNote = 'autogenerate 直接暴露英文分组名 nested'
+          else if (site.id === 'docusaurus-v3') dirNote = '靠 _category_.json 声明中文分组名'
+          else if (site.id === 'rspress') dirNote = '靠 _meta.json 声明排序与中文分组名'
+          else if (site.id === 'hugo' || site.id === 'zola') dirNote = '需含 _index.md 才能作为分支章节'
+          else if (site.id === 'mdbook') dirNote = '由 SUMMARY.md 缩进控制层级'
           else if (site.routeStyle === 'hash') dirNote = '由 _sidebar.md 控制分组'
           else if (site.isMaster) dirNote = '纯自然子目录'
           else dirNote = '需在配置文件手写注册子分组'
@@ -132,22 +228,36 @@ function scanSubmoduleTree(submoduleAbs, site) {
         const isMarkdown = ent.name.endsWith('.md') || ent.name.endsWith('.mdx')
         if (excludedSet.has(relPath)) {
           category = 'excluded'
-          note = '仓库说明 (靠 srcExclude 排除编译)'
+          note = '仓库说明 (靠排除规则屏蔽编译)'
         } else if (ent.name === '_sidebar.md') {
           category = 'excluded'
           note = '下划线控制文件 (无 .nojekyll 会 404)'
+        } else if (ent.name === 'SUMMARY.md') {
+          category = 'config'
+          note = 'mdBook 全书唯一目录与路由索引'
+        } else if (ent.name === '_category_.json' || ent.name === '_meta.json') {
+          category = 'config'
+          note = '目录级侧边栏分组与排序元数据'
         } else if (relPath.startsWith('docs/sites/') && ent.name.endsWith('.json')) {
           category = 'config'
           route = `/master/sites/${ent.name}`
           note = '独立元数据 (官网/Tags/Libs) + github API 节点'
         } else if (contentPrefix && relPath === 'README.md') {
           category = 'infra'
-          note = '仓库根说明 (天然与 docs/ 隔离)'
-        } else if (configSet.has(relPath) || ent.name === 'package.json') {
+          note = '仓库根说明 (天然与内容目录隔离)'
+        } else if (
+          configSet.has(relPath) ||
+          ent.name === 'package.json' ||
+          ent.name === 'requirements.txt' ||
+          ent.name === 'ssg-lock.json' ||
+          ent.name === 'Gemfile'
+        ) {
           category =
             relPath.includes('plugins/') ||
             relPath.includes('components/') ||
-            relPath.includes('theme/')
+            relPath.includes('theme/') ||
+            relPath.includes('layouts/') ||
+            relPath.includes('templates/')
               ? 'plugin'
               : 'config'
         } else if (isMarkdown && (!contentPrefix || relPath.startsWith(contentPrefix))) {
@@ -158,6 +268,8 @@ function scanSubmoduleTree(submoduleAbs, site) {
           const orderNote = extractSidebarOrderNote(fileText)
           if (rewrites[innerRel]) {
             note = '经 rewrites 抹除序号'
+          } else if (ent.name === '_index.md') {
+            note = 'Branch Bundle 分支章节入口'
           } else if (orderNote) {
             note = `Frontmatter ${orderNote}`
           } else if (relPath.startsWith('docs/sites/')) {
@@ -167,7 +279,12 @@ function scanSubmoduleTree(submoduleAbs, site) {
           } else if (/\/\d{2}-/.test(`/${innerRel}`)) {
             note = '靠文件名前缀排序'
           }
-        } else if (relPath.startsWith('src/') || relPath.startsWith('scripts/')) {
+        } else if (
+          relPath.startsWith('src/') ||
+          relPath.startsWith('scripts/') ||
+          relPath.startsWith('layouts/') ||
+          relPath.startsWith('templates/')
+        ) {
           category = 'plugin'
         }
 
@@ -190,12 +307,8 @@ function scanSubmoduleTree(submoduleAbs, site) {
 
 const enrichedSites = rawConfig.sites.map((site) => {
   const submoduleAbs = path.join(rootDir, site.submoduleDir)
-  const pkgPath = path.join(submoduleAbs, 'package.json')
-  const pkgJson = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'))
-  const allDeps = {
-    ...(pkgJson.dependencies || {}),
-    ...(pkgJson.devDependencies || {})
-  }
+  const manifestInfo = readSubmoduleManifest(submoduleAbs, site)
+  const allDeps = manifestInfo.allDeps
 
   const packages = {}
   for (const pkgName of site.trackedPackages) {
@@ -258,16 +371,8 @@ const enrichedSites = rawConfig.sites.map((site) => {
     basePath: site.basePath,
     submoduleDir: site.submoduleDir,
     packages,
-    packageJsonRaw: JSON.stringify(
-      {
-        name: pkgJson.name,
-        scripts: pkgJson.scripts,
-        dependencies: pkgJson.dependencies,
-        devDependencies: pkgJson.devDependencies
-      },
-      null,
-      2
-    ),
+    packageJsonRaw: manifestInfo.manifestRaw,
+    manifestShortPath: manifestInfo.manifestShortPath,
     directoryProfile: site.directoryProfile,
     treeNodes,
     highlights: site.highlights,
@@ -278,7 +383,7 @@ const enrichedSites = rawConfig.sites.map((site) => {
 
 const enrichedById = Object.fromEntries(enrichedSites.map((s) => [s.id, s]))
 
-// Build 16 landscape rows directly from independent docs/sites/<id>.json files
+// Build landscape rows directly from independent docs/sites/<id>.json files
 const landscapeRows = siteJsonDocs.map((doc) => {
   const gh = doc.github
   const companions = gh.companionRepos || []
@@ -351,7 +456,7 @@ const landscapeRows = siteJsonDocs.map((doc) => {
   }
 })
 
-// Aggregate unique GitHub repos from the 16 independent docs/sites/<id>.json files
+// Aggregate unique GitHub repos from independent docs/sites/<id>.json files
 const uniqueRepoMap = new Map()
 for (const doc of siteJsonDocs) {
   const allRepoNodes = [doc.github, ...(doc.github.companionRepos || [])]
@@ -406,5 +511,5 @@ const outPath = path.join(outDir, 'comparison-data.json')
 fs.writeFileSync(outPath, JSON.stringify(outputData, null, 2) + '\n', 'utf-8')
 
 console.log(
-  `[generate-comparison-data] Loaded ${siteJsonDocs.length} independent docs/sites/<id>.json files -> ${path.relative(rootDir, outPath)}`
+  `[generate-comparison-data] Loaded ${enrichedSites.length} workbench sites + ${siteJsonDocs.length} independent docs/sites/<id>.json files -> ${path.relative(rootDir, outPath)}`
 )

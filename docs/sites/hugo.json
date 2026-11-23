@@ -4,7 +4,7 @@
   "order": 9,
   "name": "Hugo",
   "versionNote": "v0.140+ (Extended)",
-  "mounted": false,
+  "mounted": true,
   "sitePath": "sites/hugo",
   "websiteUrl": "https://gohugo.io/",
   "githubUrl": "https://github.com/gohugoio/hugo",
@@ -42,7 +42,13 @@
       "evanw/esbuild",
       "tdewolff/minify",
       "spf13/cobra"
-    ]
+    ],
+    "pinnedPackages": {
+      "hugo": "0.170.1",
+      "goldmark": "builtin",
+      "katex": "0.19.1",
+      "mermaid": "12.3.0"
+    }
   },
   "matrix": {
     "tagline": "Go 单二进制编译极速之王，千页毫秒级构建，零 node_modules 依赖",
@@ -52,7 +58,7 @@
     "diagramAndMath": "Goldmark render-codeblock-mermaid.html 渲染钩子 + passthrough 原生数学扩展"
   },
   "github": {
-    "fetchedAt": "2026-11-23T08:53:28.818Z",
+    "fetchedAt": "2026-11-23T11:47:11.123Z",
     "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
     "repo": "gohugoio/hugo",
     "url": "https://github.com/gohugoio/hugo",
@@ -65,8 +71,8 @@
     "createdAt": "2013-07-04T15:26:26Z",
     "createdYear": 2013,
     "pushedAt": "2026-11-19T17:42:51Z",
-    "updatedAt": "2026-11-23T08:34:14Z",
-    "stars": 90550,
+    "updatedAt": "2026-11-23T11:13:14Z",
+    "stars": 90552,
     "forks": 8527,
     "openIssues": 188,
     "totalCommits": 10107,
@@ -125,5 +131,7 @@
       "2025": 652,
       "2026": 701
     }
-  }
+  },
+  "subsiteRepoUrl": "https://github.com/page2401/hugo",
+  "previewUrl": "https://page.2401.xyz/hugo/"
 }

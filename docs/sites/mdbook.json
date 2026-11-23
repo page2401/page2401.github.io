@@ -4,7 +4,7 @@
   "order": 14,
   "name": "mdBook",
   "versionNote": "v0.4 / v0.5 (Rust)",
-  "mounted": false,
+  "mounted": true,
   "sitePath": "sites/mdbook",
   "websiteUrl": "https://rust-lang.github.io/mdBook/",
   "githubUrl": "https://github.com/rust-lang/mdBook",
@@ -42,7 +42,13 @@
       "elasticlunr",
       "highlight.js",
       "toml"
-    ]
+    ],
+    "pinnedPackages": {
+      "mdbook": "0.5.4",
+      "pulldown-cmark": "builtin",
+      "katex": "0.19.1",
+      "mermaid": "12.3.0"
+    }
   },
   "matrix": {
     "tagline": "《Rust 程序设计语言》同款引擎，专为线性阅读技术电子书而生",
@@ -52,7 +58,7 @@
     "diagramAndMath": "book.toml 原生内置 mathjax-support = true；Mermaid 需 mdbook-mermaid 预处理器"
   },
   "github": {
-    "fetchedAt": "2026-11-23T08:53:28.818Z",
+    "fetchedAt": "2026-11-23T11:47:11.123Z",
     "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
     "repo": "rust-lang/mdBook",
     "url": "https://github.com/rust-lang/mdBook",
@@ -68,7 +74,7 @@
     "updatedAt": "2026-11-23T01:28:54Z",
     "stars": 22321,
     "forks": 1921,
-    "openIssues": 548,
+    "openIssues": 549,
     "totalCommits": 3375,
     "peakYear": 2025,
     "peakCommits": 688,
@@ -125,5 +131,7 @@
       "2025": 688,
       "2026": 275
     }
-  }
+  },
+  "subsiteRepoUrl": "https://github.com/page2401/mdbook",
+  "previewUrl": "https://page.2401.xyz/mdbook/"
 }

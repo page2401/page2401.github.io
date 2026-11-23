@@ -1,0 +1,130 @@
+{
+  "$schema": "https://page.2401.xyz/schemas/site-metadata-v1.json",
+  "id": "eleventy",
+  "order": 17,
+  "name": "Eleventy (11ty)",
+  "versionNote": "v3.1 (ESM)",
+  "mounted": false,
+  "sitePath": "sites/eleventy",
+  "websiteUrl": "https://www.11ty.dev/",
+  "githubUrl": "https://github.com/11ty/buildawesome",
+  "packageUrl": "https://www.npmjs.com/package/@11ty/eleventy",
+  "ecosystem": "python-classic",
+  "tags": [
+    "ssg",
+    "nodejs",
+    "zero-client-js",
+    "markdown-it",
+    "nunjucks",
+    "liquid",
+    "webc",
+    "pure-html",
+    "fast-build"
+  ],
+  "lifecycle": {
+    "startedAt": "2017-11-27",
+    "activePeriod": "2018–至今（2024 加入 Font Awesome / Build Awesome 持续活跃）",
+    "deprecatedAt": null,
+    "isEol": false,
+    "summary": "始于 2017-11 · 零前端框架绑定纯粹派常青标杆"
+  },
+  "libs": {
+    "runtime": "Node.js >= 18 (v3 原生 ESM)",
+    "bundler": "Eleventy Zero-Bundler Static Compiler",
+    "uiFramework": "无客户端框架（支持 WebC / Nunjucks / Liquid / 11ty.js 混编）",
+    "markdownEngine": "markdown-it",
+    "codeHighlight": "@11ty/eleventy-plugin-syntaxhighlight (Prism)",
+    "searchEngine": "Pagefind（官方推荐静态后置索引）",
+    "mathLib": "markdown-it-texmath / markdown-it-mathjax3",
+    "diagramLib": "自定义 markdown-it fence 钩子或客户端 Mermaid",
+    "coreLibs": [
+      "@11ty/eleventy",
+      "markdown-it",
+      "liquidjs",
+      "nunjucks",
+      "@11ty/webc"
+    ]
+  },
+  "matrix": {
+    "tagline": "前端纯粹主义者的最爱：默认零字节客户端 JS，支持同目录 10+ 种模板引擎自由混排",
+    "stack": "Node.js + Eleventy 3 + WebC / Nunjucks / Liquid + markdown-it",
+    "directoryModel": "极致自由的目录映射（任意目录结构原样映射 URL）+ 目录级 *.11tydata.json 数据级联（Data Cascade）",
+    "calloutDialect": "无强制内置方言；由用户自装 markdown-it-container / markdown-it-github-alerts 或配 Shortcode",
+    "diagramAndMath": "通过 eleventyConfig.amendLibrary(\"md\", ...) 自由挂载任意 markdown-it 数学与图表插件"
+  },
+  "github": {
+    "fetchedAt": "2026-11-23T11:47:11.123Z",
+    "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
+    "repo": "11ty/buildawesome",
+    "url": "https://github.com/11ty/buildawesome",
+    "role": "Eleventy (11ty) 官方源码仓库",
+    "description": "A simpler site generator. Transforms a directory of templates (of varying types) into HTML.",
+    "primaryLanguage": "JavaScript",
+    "license": "MIT",
+    "defaultBranch": "main",
+    "isArchived": false,
+    "createdAt": "2017-11-27T05:19:00Z",
+    "createdYear": 2017,
+    "pushedAt": "2026-11-20T21:19:07Z",
+    "updatedAt": "2026-11-23T08:22:35Z",
+    "stars": 20055,
+    "forks": 595,
+    "openIssues": 14,
+    "totalCommits": 3972,
+    "peakYear": 2024,
+    "peakCommits": 597,
+    "latestRelease": {
+      "tagName": "v3.1.8",
+      "publishedAt": "2026-11-03T15:54:30Z",
+      "isPrerelease": false
+    },
+    "recentReleases": [
+      {
+        "tagName": "v4.0.0-alpha.12",
+        "publishedAt": "2026-11-19T20:21:14Z",
+        "isPrerelease": true
+      },
+      {
+        "tagName": "v4.0.0-alpha.11",
+        "publishedAt": "2026-11-18T18:34:12Z",
+        "isPrerelease": true
+      },
+      {
+        "tagName": "v3.1.8",
+        "publishedAt": "2026-11-03T15:54:30Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v3.1.7",
+        "publishedAt": "2026-10-15T19:51:53Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v4.0.0-alpha.10",
+        "publishedAt": "2026-07-01T20:56:57Z",
+        "isPrerelease": true
+      }
+    ],
+    "yearlyCommits": {
+      "2008": 0,
+      "2009": 0,
+      "2010": 0,
+      "2011": 0,
+      "2012": 0,
+      "2013": 0,
+      "2014": 0,
+      "2015": 0,
+      "2016": 0,
+      "2017": 135,
+      "2018": 488,
+      "2019": 346,
+      "2020": 293,
+      "2021": 424,
+      "2022": 458,
+      "2023": 252,
+      "2024": 597,
+      "2025": 530,
+      "2026": 449
+    }
+  }
+}

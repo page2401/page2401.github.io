@@ -1,11 +1,11 @@
 ---
 title: "mdbook 站点与生命周期档案 (mdBook)"
-description: "预留扩展位 sites/mdbook：Rust 官方技术电子书引擎生命周期、SUMMARY.md 目录驱动与历年提交记录。"
+description: "对应实测子模块 sites/mdbook：Rust 官方技术电子书引擎生命周期、SUMMARY.md 目录驱动与历年提交记录。"
 ---
 
-# `mdbook` 站点档案（mdBook · 图鉴扩展位）
+# `mdbook` 站点档案（mdBook · ★ 已挂载实测）
 
-- **预留子模块路径**：`sites/mdbook`（与本档案 `docs/sites/mdbook.md` 严格 1:1 对应）
+- **本地子模块路径**：`sites/mdbook` · **独立子站仓库**：[`page2401/mdbook`](https://github.com/page2401/mdbook) · **线上实测**：[`/mdbook/`](/mdbook/)（与本档案 `docs/sites/mdbook.md` 严格 1:1 对应）
 - **上游官方仓库**：[`rust-lang/mdBook`](https://github.com/rust-lang/mdBook)
 - **底层技术栈**：Rust 单二进制 + `pulldown-cmark`
 
@@ -35,6 +35,7 @@ description: "预留扩展位 sites/mdbook：Rust 官方技术电子书引擎生
 | **高亮与全文检索** | highlight.js（支持 Rust Playground 在线运行） · elasticlunr.js 内置搜索 |
 | **数学公式与流程图库** | book.toml 原生内置 mathjax-support = true ； mdbook-mermaid 独立预处理器二进制 |
 | **核心依赖库 (Core Libs)** | `pulldown-cmark`、`handlebars`、`elasticlunr`、`highlight.js`、`toml` |
+| **本子站实测锁定版本** | `mdbook@0.5.4` · `pulldown-cmark@builtin` · `katex@0.19.1` · `mermaid@12.3.0` |
 
 ### GitHub 仓库 API 指标快照
 

@@ -1,11 +1,11 @@
 ---
 title: "docusaurus-v3 站点与生命周期档案 (Docusaurus v3)"
-description: "预留扩展位 sites/docusaurus-v3：Meta 开源 React 旗舰文档站生命周期、多版本快照与 GitHub 提交活跃度。"
+description: "对应实测子模块 sites/docusaurus-v3：Meta 开源 React 旗舰文档站生命周期、多版本快照与 GitHub 提交活跃度。"
 ---
 
-# `docusaurus-v3` 站点档案（Docusaurus v3 · 图鉴扩展位）
+# `docusaurus-v3` 站点档案（Docusaurus v3 · ★ 已挂载实测）
 
-- **预留子模块路径**：`sites/docusaurus-v3`（与本档案 `docs/sites/docusaurus-v3.md` 严格 1:1 对应）
+- **本地子模块路径**：`sites/docusaurus-v3` · **独立子站仓库**：[`page2401/docusaurus-v3`](https://github.com/page2401/docusaurus-v3) · **线上实测**：[`/docusaurus-v3/`](/docusaurus-v3/)（与本档案 `docs/sites/docusaurus-v3.md` 严格 1:1 对应）
 - **上游官方仓库**：[`facebook/docusaurus`](https://github.com/facebook/docusaurus)
 - **底层技术栈**：React 18/19 + MDX 3 + Webpack / Rspack (`@docusaurus/faster`)
 
@@ -35,12 +35,13 @@ description: "预留扩展位 sites/docusaurus-v3：Meta 开源 React 旗舰文�
 | **高亮与全文检索** | prism-react-renderer · Algolia DocSearch / 本地搜索插件 |
 | **数学公式与流程图库** | remark-math + rehype-katex ； @docusaurus/theme-mermaid |
 | **核心依赖库 (Core Libs)** | `@docusaurus/core`、`@docusaurus/preset-classic`、`@mdx-js/react`、`react`、`prism-react-renderer` |
+| **本子站实测锁定版本** | `@docusaurus/core@3.10.2` · `@docusaurus/preset-classic@3.10.2` · `@docusaurus/theme-mermaid@3.10.2` · `@mdx-js/react@3.1.1` · `react@19.3.1` · `remark-math@6.0.0` · `rehype-katex@7.0.1` · `katex@0.19.1` · `mermaid@12.3.0` |
 
 ### GitHub 仓库 API 指标快照
 
 | 官方仓库 | 创建日期 | 最近推送 | Stars | 默认分支总提交 | 峰值年份 (提交数) | 最新 Release |
 | :--- | :--- | :--- | ---: | ---: | :--- | :--- |
-| [`meta/docusaurus`](https://github.com/meta/docusaurus) | `2017-06-20` | `2026-11-20` | ★ 66,787 | 7,118 | `2021` (1,139) | `v3.10.2` (2026-07-10) |
+| [`meta/docusaurus`](https://github.com/meta/docusaurus) | `2017-06-20` | `2026-11-20` | ★ 66,788 | 7,118 | `2021` (1,139) | `v3.10.2` (2026-07-10) |
 
 ### GitHub 主分支历年提交活跃度表（`2017–2026`）
 

@@ -4,7 +4,7 @@
   "order": 13,
   "name": "Zola",
   "versionNote": "v0.19+ (Rust)",
-  "mounted": false,
+  "mounted": true,
   "sitePath": "sites/zola",
   "websiteUrl": "https://www.getzola.org/",
   "githubUrl": "https://github.com/getzola/zola",
@@ -30,7 +30,7 @@
   "libs": {
     "runtime": "Rust 单二进制可执行文件",
     "bundler": "Zola All-in-One Binary（内置 grass Sass 编译）",
-    "uiFramework": "Keats/Tera（类 Jinja2 模板引擎）",
+    "uiFramework": "Tera v2（v0.23 组件化模板引擎）",
     "markdownEngine": "pulldown-cmark",
     "codeHighlight": "syntect / Giallo",
     "searchEngine": "内置 elasticlunr 离线索引",
@@ -42,7 +42,13 @@
       "grass",
       "syntect",
       "elasticlunr-rs"
-    ]
+    ],
+    "pinnedPackages": {
+      "zola": "0.23.6",
+      "tera": "builtin",
+      "katex": "0.19.1",
+      "mermaid": "12.3.0"
+    }
   },
   "matrix": {
     "tagline": "Rust 单二进制全能静态生成器，采用人性化类 Jinja2 (Tera) 模板",
@@ -52,7 +58,7 @@
     "diagramAndMath": "通过 Shortcode 或前端脚本注入 KaTeX 与 Mermaid"
   },
   "github": {
-    "fetchedAt": "2026-11-23T08:53:28.818Z",
+    "fetchedAt": "2026-11-23T11:47:11.123Z",
     "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
     "repo": "getzola/zola",
     "url": "https://github.com/getzola/zola",
@@ -65,8 +71,8 @@
     "createdAt": "2016-12-06T02:57:25Z",
     "createdYear": 2016,
     "pushedAt": "2026-11-23T07:46:28Z",
-    "updatedAt": "2026-11-22T17:52:27Z",
-    "stars": 17619,
+    "updatedAt": "2026-11-23T08:57:25Z",
+    "stars": 17620,
     "forks": 1242,
     "openIssues": 191,
     "totalCommits": 2625,
@@ -125,5 +131,7 @@
       "2025": 154,
       "2026": 226
     }
-  }
+  },
+  "subsiteRepoUrl": "https://github.com/page2401/zola",
+  "previewUrl": "https://page.2401.xyz/zola/"
 }

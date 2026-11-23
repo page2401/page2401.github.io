@@ -114,4 +114,15 @@ GitHub 在 CommonMark 基础上制定了 GFM 规范，并在 GitHub.com 网页�
 {{< /callout >}}
 ```
 
+---
+
+## 6. 第六层：新兴混合方言与跨出 Markdown 边界（MDC / WikiLinks / MyST / AsciiDoc）
+
+随着静态文档工程进一步分化，近年又出现了四类极具代表性的演进路线：
+
+1. **MDC 语法（Nuxt Content）**：使用双冒号 `::alert{type="warning"}` 直接在纯 `.md` 中传递 Props 并映射 Vue 组件，避免了 MDX 中裸写花括号 `{}` 报错的问题。
+2. **双链数字花园方言（Quartz 4 / Obsidian）**：围绕 `[[双向链接#锚点|别名]]`、`![[嵌入笔记]]` 与思维图谱构建非线性个人知识网络。
+3. **MyST Markdown（Sphinx 科学出版体系）**：为了将 Python 传统霸主 Sphinx（原生采用 `reStructuredText` `.rst`）引入 Markdown 世界，Executable Books 社区设计了围栏指令语法 ```` ```{warning} ```` 与角色语法 `{ref}`，兼顾交叉引用严谨性与 Markdown 可读性。
+4. **彻底跨出 Markdown 边界 —— AsciiDoc（Antora）**：在超大型多仓库企业级手册（如 Fedora、 Couchbase）中，Antora（官方托管于 GitLab `gitlab.com/antora/antora`）直接放弃了分裂的 Markdown 方言，全面采用原生内置条件宏、跨仓 `xref:` 引用、复杂跨行表格与五类标准警示块的 **AsciiDoc（`*.adoc`）**。
+
 这正是本站坚持 **「以纯正 GFM 作为母版（`docs/*.md`），各子模块独立派生并并排展示源码差异」** 的原因：唯有看清方言边界，才能在选型时评估真实的文档资产锁定风险（Vendor Lock-in）。

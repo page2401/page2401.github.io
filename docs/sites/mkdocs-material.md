@@ -1,11 +1,11 @@
 ---
 title: "mkdocs-material 站点与生命周期档案 (Material for MkDocs)"
-description: "预留扩展位 sites/mkdocs-material：Python 科研工程文档标杆、十年提交曲线与四空格缩进方言。"
+description: "对应实测子模块 sites/mkdocs-material：Python 科研工程文档标杆、十年提交曲线与四空格缩进方言。"
 ---
 
-# `mkdocs-material` 站点档案（Material for MkDocs · 图鉴扩展位）
+# `mkdocs-material` 站点档案（Material for MkDocs · ★ 已挂载实测）
 
-- **预留子模块路径**：`sites/mkdocs-material`（与本档案 `docs/sites/mkdocs-material.md` 严格 1:1 对应）
+- **本地子模块路径**：`sites/mkdocs-material` · **独立子站仓库**：[`page2401/mkdocs-material`](https://github.com/page2401/mkdocs-material) · **线上实测**：[`/mkdocs-material/`](/mkdocs-material/)（与本档案 `docs/sites/mkdocs-material.md` 严格 1:1 对应）
 - **上游官方仓库**：[`squidfunk/mkdocs-material`](https://github.com/squidfunk/mkdocs-material)
 - **底层技术栈**：Python + `MkDocs` + `Material for MkDocs` + `pymdown-extensions`
 
@@ -35,12 +35,13 @@ description: "预留扩展位 sites/mkdocs-material：Python 科研工程文档�
 | **高亮与全文检索** | Pygments + pymdownx.highlight · 内置多语言离线全文检索插件 |
 | **数学公式与流程图库** | pymdownx.arithmatex + KaTeX / MathJax ； pymdownx.superfences（原生暗色自适应 Mermaid） |
 | **核心依赖库 (Core Libs)** | `mkdocs`、`mkdocs-material`、`markdown`、`pymdown-extensions`、`pygments` |
+| **本子站实测锁定版本** | `mkdocs-material@9.8.2` · `mkdocs@1.6.1` · `pymdown-extensions@13.1.2` · `markdown@3.11.3` · `pygments@2.21.0` |
 
 ### GitHub 仓库 API 指标快照
 
 | 官方仓库 | 创建日期 | 最近推送 | Stars | 默认分支总提交 | 峰值年份 (提交数) | 最新 Release |
 | :--- | :--- | :--- | ---: | ---: | :--- | :--- |
-| [`squidfunk/mkdocs-material`](https://github.com/squidfunk/mkdocs-material) | `2016-01-28` | `2026-11-19` | ★ 27,642 | 6,794 | `2020` (1,321) | `9.8.2` (2026-11-19) |
+| [`squidfunk/mkdocs-material`](https://github.com/squidfunk/mkdocs-material) | `2016-01-28` | `2026-11-19` | ★ 27,643 | 6,794 | `2020` (1,321) | `9.8.2` (2026-11-19) |
 
 ### GitHub 主分支历年提交活跃度表（`2016–2026`）
 

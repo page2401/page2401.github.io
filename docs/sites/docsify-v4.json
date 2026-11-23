@@ -51,7 +51,7 @@
     }
   },
   "github": {
-    "fetchedAt": "2026-11-23T08:53:28.818Z",
+    "fetchedAt": "2026-11-23T11:47:11.123Z",
     "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
     "repo": "docsifyjs/docsify",
     "url": "https://github.com/docsifyjs/docsify",
@@ -66,7 +66,7 @@
     "pushedAt": "2026-11-14T09:41:35Z",
     "updatedAt": "2026-11-23T06:48:51Z",
     "stars": 31609,
-    "forks": 5779,
+    "forks": 5778,
     "openIssues": 61,
     "totalCommits": 2025,
     "peakYear": 2017,

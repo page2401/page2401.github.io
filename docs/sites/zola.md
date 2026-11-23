@@ -1,11 +1,11 @@
 ---
 title: "zola 站点与生命周期档案 (Zola)"
-description: "预留扩展位 sites/zola：Rust 单二进制全能生成器生命周期、十年稳定提交曲线与 Tera 模板特色。"
+description: "对应实测子模块 sites/zola：Rust 单二进制全能生成器生命周期、十年稳定提交曲线与 Tera 模板特色。"
 ---
 
-# `zola` 站点档案（Zola · 图鉴扩展位）
+# `zola` 站点档案（Zola · ★ 已挂载实测）
 
-- **预留子模块路径**：`sites/zola`（与本档案 `docs/sites/zola.md` 严格 1:1 对应）
+- **本地子模块路径**：`sites/zola` · **独立子站仓库**：[`page2401/zola`](https://github.com/page2401/zola) · **线上实测**：[`/zola/`](/zola/)（与本档案 `docs/sites/zola.md` 严格 1:1 对应）
 - **上游官方仓库**：[`getzola/zola`](https://github.com/getzola/zola)
 - **底层技术栈**：Rust 单二进制 + Tera 模板引擎（类 Jinja2）+ 内置 Sass / 搜索
 
@@ -31,16 +31,17 @@ description: "预留扩展位 sites/zola：Rust 单二进制全能生成器生�
 | **包管理仓库 (Registry)** | [https://crates.io/crates/zola](https://crates.io/crates/zola) |
 | **分类标签 (Tags)** | `#ssg` · `#rust` · `#single-binary` · `#zero-dependencies` · `#tera-templates` · `#jinja2-like` · `#pulldown-cmark` · `#builtin-sass` |
 | **运行时与打包器** | Rust 单二进制可执行文件 · Zola All-in-One Binary（内置 grass Sass 编译） |
-| **UI 与 Markdown 引擎** | Keats/Tera（类 Jinja2 模板引擎） · `pulldown-cmark` |
+| **UI 与 Markdown 引擎** | Tera v2（v0.23 组件化模板引擎） · `pulldown-cmark` |
 | **高亮与全文检索** | syntect / Giallo · 内置 elasticlunr 离线索引 |
 | **数学公式与流程图库** | KaTeX / MathJax Shortcode 或前端脚本 ； Mermaid Shortcode |
 | **核心依赖库 (Core Libs)** | `tera`、`pulldown-cmark`、`grass`、`syntect`、`elasticlunr-rs` |
+| **本子站实测锁定版本** | `zola@0.23.6` · `tera@builtin` · `katex@0.19.1` · `mermaid@12.3.0` |
 
 ### GitHub 仓库 API 指标快照
 
 | 官方仓库 | 创建日期 | 最近推送 | Stars | 默认分支总提交 | 峰值年份 (提交数) | 最新 Release |
 | :--- | :--- | :--- | ---: | ---: | :--- | :--- |
-| [`getzola/zola`](https://github.com/getzola/zola) | `2016-12-06` | `2026-11-23` | ★ 17,619 | 2,625 | `2018` (521) | `v0.23.6` (2026-09-12) |
+| [`getzola/zola`](https://github.com/getzola/zola) | `2016-12-06` | `2026-11-23` | ★ 17,620 | 2,625 | `2018` (521) | `v0.23.6` (2026-09-12) |
 
 ### GitHub 主分支历年提交活跃度表（`2016–2026`）
 

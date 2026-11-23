@@ -1,11 +1,11 @@
 ---
 title: "rspress 站点与生命周期档案 (Rspress v2)"
-description: "预留扩展位 sites/rspress：字节跳动 Rust Rspack 超高速文档框架生命周期与 GitHub 提交活跃度。"
+description: "对应实测子模块 sites/rspress：字节跳动 Rust Rspack 超高速文档框架生命周期与 GitHub 提交活跃度。"
 ---
 
-# `rspress` 站点档案（Rspress v2 · 图鉴扩展位）
+# `rspress` 站点档案（Rspress v2 · ★ 已挂载实测）
 
-- **预留子模块路径**：`sites/rspress`（与本档案 `docs/sites/rspress.md` 严格 1:1 对应）
+- **本地子模块路径**：`sites/rspress` · **独立子站仓库**：[`page2401/rspress`](https://github.com/page2401/rspress) · **线上实测**：[`/rspress/`](/rspress/)（与本档案 `docs/sites/rspress.md` 严格 1:1 对应）
 - **上游官方仓库**：[`web-infra-dev/rspress`](https://github.com/web-infra-dev/rspress)
 - **底层技术栈**：Rust Rspack + React + `mdx-rs`
 
@@ -33,14 +33,15 @@ description: "预留扩展位 sites/rspress：字节跳动 Rust Rspack 超高速
 | **运行时与打包器** | Node.js >= 18 · @rspack/core (Rust) |
 | **UI 与 Markdown 引擎** | React 18 / 19 · `@rspress/mdx-rs（Rust MDX 编译器）` |
 | **高亮与全文检索** | Shiki · 内置本地搜索索引 / Algolia |
-| **数学公式与流程图库** | @rspress/plugin-katex ； rspress-plugin-mermaid |
+| **数学公式与流程图库** | rspress-plugin-katex@1.0.1 ； rspress-plugin-mermaid |
 | **核心依赖库 (Core Libs)** | `@rspress/core`、`@rspack/core`、`@rspress/mdx-rs`、`react`、`shiki` |
+| **本子站实测锁定版本** | `@rspress/core@2.1.4` · `rspress-plugin-katex@1.0.1` · `rspress-plugin-mermaid@2.0.0` · `react@19.3.1` · `katex@0.19.1` · `mermaid@12.3.0` |
 
 ### GitHub 仓库 API 指标快照
 
 | 官方仓库 | 创建日期 | 最近推送 | Stars | 默认分支总提交 | 峰值年份 (提交数) | 最新 Release |
 | :--- | :--- | :--- | ---: | ---: | :--- | :--- |
-| [`web-infra-dev/rspress`](https://github.com/web-infra-dev/rspress) | `2023-06-27` | `2026-11-23` | ★ 2,360 | 2,937 | `2025` (875) | `v2.1.4` (2026-11-19) |
+| [`web-infra-dev/rspress`](https://github.com/web-infra-dev/rspress) | `2023-06-27` | `2026-11-23` | ★ 2,361 | 2,937 | `2025` (875) | `v2.1.4` (2026-11-19) |
 
 ### GitHub 主分支历年提交活跃度表（`2023–2026`）
 

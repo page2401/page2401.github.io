@@ -62,7 +62,7 @@
     }
   },
   "github": {
-    "fetchedAt": "2026-11-23T08:53:28.818Z",
+    "fetchedAt": "2026-11-23T11:47:11.123Z",
     "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
     "repo": "withastro/starlight",
     "url": "https://github.com/withastro/starlight",
@@ -74,12 +74,12 @@
     "isArchived": false,
     "createdAt": "2023-03-16T15:55:33Z",
     "createdYear": 2023,
-    "pushedAt": "2026-11-21T14:15:02Z",
-    "updatedAt": "2026-11-23T04:27:30Z",
-    "stars": 9640,
+    "pushedAt": "2026-11-23T11:35:54Z",
+    "updatedAt": "2026-11-23T09:15:02Z",
+    "stars": 9641,
     "forks": 1096,
-    "openIssues": 11,
-    "totalCommits": 3942,
+    "openIssues": 10,
+    "totalCommits": 3945,
     "peakYear": 2023,
     "peakCommits": 1336,
     "latestRelease": {
@@ -133,7 +133,7 @@
       "2023": 1336,
       "2024": 1272,
       "2025": 706,
-      "2026": 628
+      "2026": 631
     },
     "companionRepos": [
       {
@@ -147,12 +147,12 @@
         "isArchived": false,
         "createdAt": "2021-03-15T17:19:47Z",
         "createdYear": 2021,
-        "pushedAt": "2026-11-23T03:35:10Z",
-        "updatedAt": "2026-11-23T08:43:41Z",
+        "pushedAt": "2026-11-23T11:47:04Z",
+        "updatedAt": "2026-11-23T11:30:19Z",
         "stars": 64144,
         "forks": 3914,
-        "openIssues": 25,
-        "totalCommits": 15467,
+        "openIssues": 26,
+        "totalCommits": 15468,
         "peakYear": 2023,
         "peakCommits": 3622,
         "latestRelease": {
@@ -206,7 +206,7 @@
           "2023": 3622,
           "2024": 2797,
           "2025": 1373,
-          "2026": 2223
+          "2026": 2224
         }
       }
     ]

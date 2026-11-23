@@ -32,19 +32,25 @@
 
 ---
 
-## 由母版派生的 7 个独立版本子模块
+## 由母版派生的 13 个跨语言独立版本子模块（全景图谱共收录 26 款）
 
-统一命名约定：每个子模块标识 `<id>` 同时对应本地子模块目录 `sites/<id>`、独立仓库 `page2401/<id>` 以及线上访问路径 `https://page.2401.xyz/<id>/`（各自独立拥有 `main` 源码分支与 `page` 产物分支）。
+统一命名约定：每个子模块标识 `<id>` 同时对应本地子模块目录 `sites/<id>`、独立元数据 [`docs/sites/<id>.json`](./docs/sites/index.md)、独立仓库 `page2401/<id>` 以及线上访问路径 `https://page.2401.xyz/<id>/`（各自独立拥有 `main` 源码分支与 `page` 产物分支）。另有 13 款主流生成器（Fumadocs、Quartz 4、Nuxt Content、Eleventy、Lume、Sphinx、GitBook、HonKit、Gatsby、Pelican、Nextra、Hexo、Jekyll）收录于 `docs/sites/*.json` 图谱中。
 
-| 子模块（点击直达线上预览） | 架构派系 | 核心精确锁定版本 | 相对母版的典型派生特征与实测边界 |
+| 子模块（点击直达线上预览） | 语言 / 架构派系 | 核心精确锁定版本 | 相对母版的典型派生特征与实测边界 |
 | :--- | :--- | :--- | :--- |
-| [**`vitepress-v1`**](https://page.2401.xyz/vitepress-v1/)（[源码](https://github.com/page2401/vitepress-v1)） | 编译型 (Vue 3 + Rollup) | `vitepress@1.6.4` · `mathjax3@4.3.2` · `mermaid@11.17.2` | 兼容母版 GFM Alert 并扩展 `::: tip`；根目录平铺需配 `srcExclude`；三方 Mermaid 插件受限停留在 v11 |
-| [**`vitepress-v2`**](https://page.2401.xyz/vitepress-v2/)（[源码](https://github.com/page2401/vitepress-v2)） | 极速编译型 (Vite 8 Rolldown) | `vitepress@2.0.0-alpha.21` · `mermaid@12.3.0` | 构建比 v1 快 **3.4 倍**；启用 `srcDir: 'docs'` + `rewrites`，通过原生主题组件直连 Mermaid 12 |
-| [**`vuepress-v1`**](https://page.2401.xyz/vuepress-v1/)（[源码](https://github.com/page2401/vuepress-v1)） | 初代经典型 (Vue 2 + Webpack 4) | `vuepress@1.9.10` · `katex@0.19.1` · `mermaid@10.9.8` | 无法识别母版 GFM Alert 与 `::: info`；首页须改名为 `README.md`；Node 22 须开启 `--openssl-legacy-provider` |
-| [**`vuepress-v2`**](https://page.2401.xyz/vuepress-v2/)（[源码](https://github.com/page2401/vuepress-v2)） | 官方插件矩阵型 (Vue 3 + Vite) | `vuepress@2.0.0-rc.32` · `katex@0.19.1` · `mermaid@12.3.0` | 官方一等公民维护 Hint / Math / Chart 插件；延续 `README.md` 即目录首页与 `.html` 路由约定 |
-| [**`docsify-v4`**](https://page.2401.xyz/docsify-v4/)（[源码](https://github.com/page2401/docsify-v4)） | 零预编译运行时 SPA | `docsify@4.13.1` · `flexible-alerts@1.3.0` · `mermaid@10.9.8` | 派生新增 `_sidebar.md`（强绑 `.nojekyll`）与 `?>`/`!>`；旧插件无法识别母版 `[!IMPORTANT]` 与 `[!CAUTION]` |
-| [**`docsify-v5`**](https://page.2401.xyz/docsify-v5/)（[源码](https://github.com/page2401/docsify-v5)） | 新一代运行时引擎 | `docsify@5.1.0` · `katex@0.19.1` · `mermaid@12.3.0` | **零插件直接渲染母版全部 GFM Callouts**；重构 `core-dark` 主题，破坏性变更 `renderer.code` 签名 |
-| [**`astro7-starlight`**](https://page.2401.xyz/astro7-starlight/)（[源码](https://github.com/page2401/astro7-starlight)） | 强类型 Content Layer | `astro@7.4.13` · `starlight@0.43.1` · `katex@0.19.1` · `mermaid@12.3.0` | 母版派生改动最大：迁入 3 层深 `src/content/docs/`、改写为 `:::caution[标题]`，Astro 7 须显式装 `@astrojs/markdown-remark` |
+| [**`vitepress-v1`**](https://page.2401.xyz/vitepress-v1/)（[源码](https://github.com/page2401/vitepress-v1)） | Node · Vue 3 + Rollup | `vitepress@1.6.4` · `mathjax3@4.3.2` · `mermaid@11.17.2` | 兼容母版 GFM Alert 并扩展 `::: tip`；根目录平铺需配 `srcExclude`；三方 Mermaid 插件停留在 v11 |
+| [**`vitepress-v2`**](https://page.2401.xyz/vitepress-v2/)（[源码](https://github.com/page2401/vitepress-v2)） | Node · Vite 8 Rolldown | `vitepress@2.0.0-alpha.21` · `mermaid@12.3.0` | 构建比 v1 快 **3.4 倍**；启用 `srcDir: 'docs'` + `rewrites`，原生主题组件直连 Mermaid 12 |
+| [**`vuepress-v1`**](https://page.2401.xyz/vuepress-v1/)（[源码](https://github.com/page2401/vuepress-v1)） | Node · Vue 2 + Webpack 4 | `vuepress@1.9.10` · `katex@0.19.1` · `mermaid@10.9.8` | 无法识别母版 GFM Alert 与 `::: info`；首页须改名为 `README.md`；Node 22 须开启 `--openssl-legacy-provider` |
+| [**`vuepress-v2`**](https://page.2401.xyz/vuepress-v2/)（[源码](https://github.com/page2401/vuepress-v2)） | Node · Vue 3 + Vite | `vuepress@2.0.0-rc.32` · `katex@0.19.1` · `mermaid@12.3.0` | 官方一等公民维护 Hint / Math / Chart 插件；延续 `README.md` 即目录首页与 `.html` 路由约定 |
+| [**`docsify-v4`**](https://page.2401.xyz/docsify-v4/)（[源码](https://github.com/page2401/docsify-v4)） | Browser · 零编译 SPA | `docsify@4.13.1` · `flexible-alerts@1.3.1` | 派生新增 `_sidebar.md`（强绑 `.nojekyll`）与 `?>`/`!>`；旧插件无法识别母版 `[!IMPORTANT]` 与 `[!CAUTION]` |
+| [**`docsify-v5`**](https://page.2401.xyz/docsify-v5/)（[源码](https://github.com/page2401/docsify-v5)） | Browser · 新一代 SPA | `docsify@5.1.0` · `katex@0.19.1` · `mermaid@12.3.0` | **零插件直接渲染母版全部 GFM Callouts**；重构 `core-dark` 主题，破坏性变更 `renderer.code` 签名 |
+| [**`astro7-starlight`**](https://page.2401.xyz/astro7-starlight/)（[源码](https://github.com/page2401/astro7-starlight)） | Node · Astro 7 Islands | `astro@7.4.13` · `starlight@0.43.1` · `mermaid@12.3.0` | 迁入 3 层深 `src/content/docs/`、改写为 `:::caution[标题]`，Astro 7 须显式装 `@astrojs/markdown-remark` |
+| [**`docusaurus-v3`**](https://page.2401.xyz/docusaurus-v3/)（[源码](https://github.com/page2401/docusaurus-v3)） | Node · React 19 + MDX 3 | `@docusaurus/core@3.10.2` · `katex@0.19.1` · `mermaid@12.3.0` | 子目录 `_category_.json` 优雅指定中文分组名；MDX 3 严格拒绝裸 `<` 与 `{}`；默认不转换 GFM Alert |
+| [**`rspress`**](https://page.2401.xyz/rspress/)（[源码](https://github.com/page2401/rspress)） | Rust Rspack + React | `@rspress/core@2.1.4` · `katex@0.19.1` · `mermaid@12.3.0` | CI 全量构建仅 **24s**；每层 `_meta.json` 编排目录；双轨兼容 `:::` 与 GFM Alert，自动产出 `llms.txt` |
+| [**`hugo`**](https://page.2401.xyz/hugo/)（[源码](https://github.com/page2401/hugo)） | Go 单二进制 + Goldmark | `hugo@0.170.1` · `katex@0.19.1` · `mermaid@12.3.0` | 50ms 毫秒级构建；区分 `_index.md`（分支章节）与 `index.md`；Goldmark 渲染钩子原生接管 GFM Alert 与公式 |
+| [**`mkdocs-material`**](https://page.2401.xyz/mkdocs-material/)（[源码](https://github.com/page2401/mkdocs-material)） | Python + `pymdownx` | `mkdocs-material==9.8.2` · `pymdown-extensions==13.1.2` | 单文件 `mkdocs.yml` 总控导航；独创 `!!!` / `???` + **4 空格缩进**警示与折叠语法，跨生态迁移重写成本高 |
+| [**`mdbook`**](https://page.2401.xyz/mdbook/)（[源码](https://github.com/page2401/mdbook)） | Rust 单二进制电子书 | `mdbook@0.5.4` · `katex@0.19.1` · `mermaid@12.3.0` | `src/SUMMARY.md` 100% 驱动全书目录；**不支持 YAML Frontmatter（必须剔除）**；v0.5 原生支持全部 GFM Alerts |
+| [**`zola`**](https://page.2401.xyz/zola/)（[源码](https://github.com/page2401/zola)） | Rust 单二进制 + Tera v2 | `zola@0.23.6` · `katex@0.19.1` · `mermaid@12.3.0` | 29ms 极速构建 + `@/` 编译期死链检查；采用 `+++` TOML 元数据；**v0.23 Tera v2 改用 `{% <callout> %}` 组件标签** |
 
 ---
 
