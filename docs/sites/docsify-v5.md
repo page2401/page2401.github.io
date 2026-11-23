@@ -21,13 +21,30 @@ description: "对应子模块 sites/docsify-v5：2025–2026 复苏重生的零�
 ## 2. 上游 GitHub API 实测数据与历年提交活跃度
 
 <!-- GITHUB_API_TABLE_START -->
-> 数据源快照：[`docs/sites/github-activity.json`](./github-activity.json)（GitHub GraphQL API 采样日期：`2026-11-23`）
+> 独立结构化元数据文件：[`docs/sites/docsify-v5.json`](./docsify-v5.json)（含完整元数据、Tag、依赖 Lib 与 `github` API 节点，采样日期：`2026-11-23`）
+
+### 站点元数据与底层依赖库（Libs）
+
+| 元数据属性 | 内容详情 |
+| :--- | :--- |
+| **官方网站 (Website)** | [https://docsify.js.org/](https://docsify.js.org/) |
+| **GitHub 源码仓库** | [docsifyjs/docsify](https://github.com/docsifyjs/docsify) |
+| **包管理仓库 (Registry)** | [https://www.npmjs.com/package/docsify](https://www.npmjs.com/package/docsify) |
+| **分类标签 (Tags)** | `#spa-runtime` · `#zero-build` · `#marked` · `#gfm-callouts-native` · `#css-variables` · `#dark-mode` · `#hash-router` · `#nojekyll-required` · `#v5` |
+| **运行时与打包器** | Browser Client SPA（ESM / UMD） · 无（静态原样托管 *.md） |
+| **UI 与 Markdown 引擎** | Vanilla JS DOM + core.min.css / core-dark.min.css · `marked（新版 Token 入参签名）` |
+| **高亮与全文检索** | Prism.js · docsify/dist/plugins/search.min.js |
+| **数学公式与流程图库** | katex（beforeEach 客户端钩子） ； mermaid@12.3（renderer.code Token 扩展） |
+| **核心依赖库 (Core Libs)** | `marked`、`prismjs`、`katex`、`mermaid` |
+| **本子站实测锁定版本** | `docsify@5.1.0` · `katex@0.19.1` · `mermaid@12.3.0` |
+
+### GitHub 仓库 API 指标快照
 
 | 官方仓库 | 创建日期 | 最近推送 | Stars | 默认分支总提交 | 峰值年份 (提交数) | 最新 Release |
 | :--- | :--- | :--- | ---: | ---: | :--- | :--- |
 | [`docsifyjs/docsify`](https://github.com/docsifyjs/docsify) | `2016-11-20` | `2026-11-14` | ★ 31,609 | 2,025 | `2017` (657) | `v5.1.0` (2026-10-30) |
 
-### 主分支历年提交活跃度表（`2016–2026`）
+### GitHub 主分支历年提交活跃度表（`2016–2026`）
 
 | 年份 | 提交数 (Commits) | 占峰值比 | 活跃度趋势条 | 阶段状态 |
 | :--- | ---: | ---: | :--- | :--- |

@@ -1,0 +1,132 @@
+{
+  "$schema": "https://page.2401.xyz/schemas/site-metadata-v1.json",
+  "id": "vitepress-v1",
+  "order": 1,
+  "name": "VitePress",
+  "versionNote": "v1 (1.6.4)",
+  "mounted": true,
+  "sitePath": "sites/vitepress-v1",
+  "subsiteRepoUrl": "https://github.com/page2401/vitepress-v1",
+  "previewUrl": "https://page.2401.xyz/vitepress-v1/",
+  "websiteUrl": "https://vitepress.dev/",
+  "githubUrl": "https://github.com/vuejs/vitepress",
+  "packageUrl": "https://www.npmjs.com/package/vitepress",
+  "ecosystem": "vue",
+  "tags": [
+    "ssg",
+    "vue3",
+    "vite",
+    "rollup",
+    "markdown-it",
+    "gfm-alerts",
+    "mathjax3-svg",
+    "minisearch",
+    "clean-urls",
+    "stable"
+  ],
+  "lifecycle": {
+    "startedAt": "2020-04-30",
+    "activePeriod": "2022–至今（v1 生产主力稳定版）",
+    "deprecatedAt": null,
+    "isEol": false,
+    "summary": "始于 2020-04 · 2022–至今主力稳定"
+  },
+  "libs": {
+    "runtime": "Node.js >= 18",
+    "bundler": "Vite 5 + Rollup",
+    "uiFramework": "Vue 3",
+    "markdownEngine": "markdown-it",
+    "codeHighlight": "Shiki",
+    "searchEngine": "MiniSearch（内置本地全文索引）",
+    "mathLib": "markdown-it-mathjax3@^4（构建期输出内联 SVG）",
+    "diagramLib": "vitepress-plugin-mermaid + mermaid@11",
+    "coreLibs": [
+      "vite",
+      "vue",
+      "markdown-it",
+      "shiki",
+      "minisearch"
+    ],
+    "pinnedPackages": {
+      "vitepress": "1.6.4",
+      "markdown-it-mathjax3": "4.3.2",
+      "vitepress-plugin-mermaid": "2.0.17",
+      "mermaid": "11.17.2"
+    }
+  },
+  "github": {
+    "fetchedAt": "2026-11-23T08:53:28.818Z",
+    "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
+    "repo": "vuejs/vitepress",
+    "url": "https://github.com/vuejs/vitepress",
+    "role": "VitePress 核心与默认主题仓库",
+    "description": "Vite & Vue powered static site generator.",
+    "primaryLanguage": "TypeScript",
+    "license": "MIT",
+    "defaultBranch": "main",
+    "isArchived": false,
+    "createdAt": "2020-04-30T23:16:17Z",
+    "createdYear": 2020,
+    "pushedAt": "2026-11-12T11:19:50Z",
+    "updatedAt": "2026-11-23T04:10:29Z",
+    "stars": 18521,
+    "forks": 2764,
+    "openIssues": 235,
+    "totalCommits": 2958,
+    "peakYear": 2023,
+    "peakCommits": 824,
+    "latestRelease": {
+      "tagName": "v2.0.0-alpha.21",
+      "publishedAt": "2026-10-25T12:58:44Z",
+      "isPrerelease": false
+    },
+    "recentReleases": [
+      {
+        "tagName": "v2.0.0-alpha.21",
+        "publishedAt": "2026-10-25T12:58:44Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v2.0.0-alpha.20",
+        "publishedAt": "2026-09-04T10:59:16Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v2.0.0-alpha.19",
+        "publishedAt": "2026-08-02T00:44:09Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v2.0.0-alpha.18",
+        "publishedAt": "2026-07-06T19:31:45Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v2.0.0-alpha.17",
+        "publishedAt": "2026-03-19T17:06:52Z",
+        "isPrerelease": false
+      }
+    ],
+    "yearlyCommits": {
+      "2008": 0,
+      "2009": 0,
+      "2010": 0,
+      "2011": 0,
+      "2012": 0,
+      "2013": 0,
+      "2014": 0,
+      "2015": 0,
+      "2016": 0,
+      "2017": 0,
+      "2018": 0,
+      "2019": 0,
+      "2020": 334,
+      "2021": 260,
+      "2022": 554,
+      "2023": 824,
+      "2024": 369,
+      "2025": 255,
+      "2026": 362
+    }
+  }
+}

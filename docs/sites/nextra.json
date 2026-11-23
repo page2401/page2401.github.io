@@ -1,0 +1,131 @@
+{
+  "$schema": "https://page.2401.xyz/schemas/site-metadata-v1.json",
+  "id": "nextra",
+  "order": 12,
+  "name": "Nextra",
+  "versionNote": "v3 / v4 (Next.js)",
+  "mounted": false,
+  "sitePath": "sites/nextra",
+  "websiteUrl": "https://nextra.site/",
+  "githubUrl": "https://github.com/shuding/nextra",
+  "packageUrl": "https://www.npmjs.com/package/nextra",
+  "ecosystem": "react-astro",
+  "tags": [
+    "ssg-ssr",
+    "nextjs",
+    "app-router",
+    "rsc",
+    "react",
+    "mdx3",
+    "meta-ts",
+    "pagefind",
+    "vercel"
+  ],
+  "lifecycle": {
+    "startedAt": "2020-06-15",
+    "activePeriod": "2021–2025 高速期；2026 转入低频平缓维护",
+    "deprecatedAt": "v1 / v2 (Pages Router) 已淘汰",
+    "isEol": false,
+    "summary": "始于 2020-06 · 2021–2025 高速，2026 趋缓"
+  },
+  "libs": {
+    "runtime": "Node.js >= 18",
+    "bundler": "Next.js (Webpack / Turbopack)",
+    "uiFramework": "React + Next.js App Router (RSC)",
+    "markdownEngine": "@mdx-js/loader + remark / rehype",
+    "codeHighlight": "rehype-pretty-code (Shiki)",
+    "searchEngine": "Pagefind (v4) / FlexSearch (v2–v3)",
+    "mathLib": "内置 latex: true (KaTeX / MathJax)",
+    "diagramLib": "@theguild/remark-mermaid",
+    "coreLibs": [
+      "next",
+      "nextra",
+      "nextra-theme-docs",
+      "react",
+      "rehype-pretty-code",
+      "pagefind"
+    ]
+  },
+  "matrix": {
+    "tagline": "Vercel 生态基于 Next.js App Router 的全栈一体化文档方案",
+    "stack": "Next.js + React Server Components + MDX",
+    "directoryModel": "app/ 或 pages/ + _meta.js / _meta.ts 编程式目录导航（紧耦合 Next.js 路由演进）",
+    "calloutDialect": "内置 <Callout> MDX 组件与 GFM > [!NOTE] 原生转换",
+    "diagramAndMath": "内置 KaTeX 数学公式开关与构建期/客户端 Mermaid 支持"
+  },
+  "github": {
+    "fetchedAt": "2026-11-23T08:53:28.818Z",
+    "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
+    "repo": "shuding/nextra",
+    "url": "https://github.com/shuding/nextra",
+    "role": "Nextra (Next.js 文档框架) 官方仓库",
+    "description": "Simple, powerful and flexible site generation framework with everything you love from Next.js.",
+    "primaryLanguage": "TypeScript",
+    "license": "MIT",
+    "defaultBranch": "main",
+    "isArchived": false,
+    "createdAt": "2020-06-15T16:39:34Z",
+    "createdYear": 2020,
+    "pushedAt": "2026-07-31T20:39:04Z",
+    "updatedAt": "2026-11-23T04:53:55Z",
+    "stars": 13955,
+    "forks": 1404,
+    "openIssues": 271,
+    "totalCommits": 2332,
+    "peakYear": 2023,
+    "peakCommits": 578,
+    "latestRelease": {
+      "tagName": "nextra-theme-docs@4.6.1",
+      "publishedAt": "2025-12-04T10:30:15Z",
+      "isPrerelease": false
+    },
+    "recentReleases": [
+      {
+        "tagName": "nextra-theme-docs@4.6.1",
+        "publishedAt": "2025-12-04T10:30:15Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "nextra@4.6.1",
+        "publishedAt": "2025-12-04T10:30:12Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "nextra-theme-blog@4.6.1",
+        "publishedAt": "2025-12-04T10:30:10Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "nextra@4.6.0",
+        "publishedAt": "2025-10-02T14:50:10Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "nextra-theme-docs@4.6.0",
+        "publishedAt": "2025-10-02T14:50:07Z",
+        "isPrerelease": false
+      }
+    ],
+    "yearlyCommits": {
+      "2008": 0,
+      "2009": 0,
+      "2010": 0,
+      "2011": 0,
+      "2012": 0,
+      "2013": 0,
+      "2014": 0,
+      "2015": 0,
+      "2016": 0,
+      "2017": 0,
+      "2018": 0,
+      "2019": 0,
+      "2020": 93,
+      "2021": 221,
+      "2022": 577,
+      "2023": 578,
+      "2024": 300,
+      "2025": 553,
+      "2026": 10
+    }
+  }
+}

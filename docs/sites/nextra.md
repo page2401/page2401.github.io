@@ -20,13 +20,29 @@ description: "预留扩展位 sites/nextra：Vercel 生态 Next.js 文档框架�
 ## 2. 上游 GitHub API 实测数据与历年提交活跃度
 
 <!-- GITHUB_API_TABLE_START -->
-> 数据源快照：[`docs/sites/github-activity.json`](./github-activity.json)（GitHub GraphQL API 采样日期：`2026-11-23`）
+> 独立结构化元数据文件：[`docs/sites/nextra.json`](./nextra.json)（含完整元数据、Tag、依赖 Lib 与 `github` API 节点，采样日期：`2026-11-23`）
+
+### 站点元数据与底层依赖库（Libs）
+
+| 元数据属性 | 内容详情 |
+| :--- | :--- |
+| **官方网站 (Website)** | [https://nextra.site/](https://nextra.site/) |
+| **GitHub 源码仓库** | [shuding/nextra](https://github.com/shuding/nextra) |
+| **包管理仓库 (Registry)** | [https://www.npmjs.com/package/nextra](https://www.npmjs.com/package/nextra) |
+| **分类标签 (Tags)** | `#ssg-ssr` · `#nextjs` · `#app-router` · `#rsc` · `#react` · `#mdx3` · `#meta-ts` · `#pagefind` · `#vercel` |
+| **运行时与打包器** | Node.js >= 18 · Next.js (Webpack / Turbopack) |
+| **UI 与 Markdown 引擎** | React + Next.js App Router (RSC) · `@mdx-js/loader + remark / rehype` |
+| **高亮与全文检索** | rehype-pretty-code (Shiki) · Pagefind (v4) / FlexSearch (v2–v3) |
+| **数学公式与流程图库** | 内置 latex: true (KaTeX / MathJax) ； @theguild/remark-mermaid |
+| **核心依赖库 (Core Libs)** | `next`、`nextra`、`nextra-theme-docs`、`react`、`rehype-pretty-code`、`pagefind` |
+
+### GitHub 仓库 API 指标快照
 
 | 官方仓库 | 创建日期 | 最近推送 | Stars | 默认分支总提交 | 峰值年份 (提交数) | 最新 Release |
 | :--- | :--- | :--- | ---: | ---: | :--- | :--- |
 | [`shuding/nextra`](https://github.com/shuding/nextra) | `2020-06-15` | `2026-07-31` | ★ 13,955 | 2,332 | `2023` (578) | `nextra-theme-docs@4.6.1` (2025-12-04) |
 
-### 主分支历年提交活跃度表（`2020–2026`）
+### GitHub 主分支历年提交活跃度表（`2020–2026`）
 
 | 年份 | 提交数 (Commits) | 占峰值比 | 活跃度趋势条 | 阶段状态 |
 | :--- | ---: | ---: | :--- | :--- |

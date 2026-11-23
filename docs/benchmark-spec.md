@@ -40,4 +40,4 @@ description: "从主仓 docs/*.md 母版派生适配新静态网站生成器子�
    ```bash
    git submodule add -b main https://github.com/page2401/<ssg-version>.git sites/<ssg-version>
    ```
-4. **注册到 `sites.config.json` 并同步 `docs/sites/` 档案**：在主仓库 `sites.config.json` 的 `sites` 数组追加该子模块目录、精确跟踪包名与 5 篇文档路径，确保 [`docs/sites/<ssg-version>.md`](./sites/index.md) 与 `sites/<ssg-version>` 保持 1:1 对应（若新增上游仓库可执行 `npm run sync:github` 更新 [`docs/sites/github-activity.json`](./sites/github-activity.json) 及历年提交表），推送主仓库 `main` 分支后工作台与活跃度矩阵即自动更新。
+4. **注册到 `sites.config.json` 并维护 `docs/sites/<ssg-version>.json`**：在主仓库 `sites.config.json` 的 `sites` 数组追加该子模块目录、精确跟踪包名与 5 篇文档路径，并在 [`docs/sites/`](./sites/index.md) 维护同名 `<ssg-version>.json`（含 `websiteUrl`、`githubUrl`、`tags`、`libs` 及 `github` 节点，可执行 `npm run sync:github` 自动刷新 GitHub API 历年提交数据与 `<ssg-version>.md` 表格），推送主仓库 `main` 分支后工作台与活跃度矩阵即自动更新。

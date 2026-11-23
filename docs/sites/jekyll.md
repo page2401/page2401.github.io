@@ -20,13 +20,29 @@ description: "预留扩展位 sites/jekyll：静态网站生成器开山鼻祖�
 ## 2. 上游 GitHub API 实测数据与历年提交活跃度
 
 <!-- GITHUB_API_TABLE_START -->
-> 数据源快照：[`docs/sites/github-activity.json`](./github-activity.json)（GitHub GraphQL API 采样日期：`2026-11-23`）
+> 独立结构化元数据文件：[`docs/sites/jekyll.json`](./jekyll.json)（含完整元数据、Tag、依赖 Lib 与 `github` API 节点，采样日期：`2026-11-23`）
+
+### 站点元数据与底层依赖库（Libs）
+
+| 元数据属性 | 内容详情 |
+| :--- | :--- |
+| **官方网站 (Website)** | [https://jekyllrb.com/](https://jekyllrb.com/) |
+| **GitHub 源码仓库** | [jekyll/jekyll](https://github.com/jekyll/jekyll) |
+| **包管理仓库 (Registry)** | [https://rubygems.org/gems/jekyll](https://rubygems.org/gems/jekyll) |
+| **分类标签 (Tags)** | `#ssg` · `#ruby` · `#pioneer` · `#github-pages-default` · `#liquid-templates` · `#kramdown` · `#underscore-dirs` · `#classic` |
+| **运行时与打包器** | Ruby + Bundler (Gemfile) · Jekyll Static Pipeline + jekyll-sass-converter |
+| **UI 与 Markdown 引擎** | Shopify Liquid 模板引擎 · `Kramdown` |
+| **高亮与全文检索** | Rouge（Ruby 原生语法高亮） · Simple-Jekyll-Search / Lunr.js |
+| **数学公式与流程图库** | Kramdown MathJax 输出引擎 ； jekyll-mermaid 或客户端脚本 |
+| **核心依赖库 (Core Libs)** | `jekyll`、`liquid`、`kramdown`、`rouge`、`mercenary`、`safe_yaml` |
+
+### GitHub 仓库 API 指标快照
 
 | 官方仓库 | 创建日期 | 最近推送 | Stars | 默认分支总提交 | 峰值年份 (提交数) | 最新 Release |
 | :--- | :--- | :--- | ---: | ---: | :--- | :--- |
 | [`jekyll/jekyll`](https://github.com/jekyll/jekyll) | `2008-10-20` | `2026-10-13` | ★ 51,793 | 11,881 | `2014` (2,144) | `v4.4.1` (2025-01-29) |
 
-### 主分支历年提交活跃度表（`2008–2026`）
+### GitHub 主分支历年提交活跃度表（`2008–2026`）
 
 | 年份 | 提交数 (Commits) | 占峰值比 | 活跃度趋势条 | 阶段状态 |
 | :--- | ---: | ---: | :--- | :--- |

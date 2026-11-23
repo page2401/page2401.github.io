@@ -1,0 +1,130 @@
+{
+  "$schema": "https://page.2401.xyz/schemas/site-metadata-v1.json",
+  "id": "rspress",
+  "order": 11,
+  "name": "Rspress",
+  "versionNote": "v2.x (Rspack)",
+  "mounted": false,
+  "sitePath": "sites/rspress",
+  "websiteUrl": "https://rspress.rs/",
+  "githubUrl": "https://github.com/web-infra-dev/rspress",
+  "packageUrl": "https://www.npmjs.com/package/@rspress/core",
+  "ecosystem": "react-astro",
+  "tags": [
+    "ssg",
+    "react",
+    "rust-toolchain",
+    "rspack",
+    "mdx-rs",
+    "meta-json",
+    "gfm-alerts",
+    "fast-build",
+    "bytedance"
+  ],
+  "lifecycle": {
+    "startedAt": "2023-06-27",
+    "activePeriod": "2023–至今（v2.x 极高频迭代上升期）",
+    "deprecatedAt": null,
+    "isEol": false,
+    "summary": "始于 2023-06 · 2023–至今极高频上升"
+  },
+  "libs": {
+    "runtime": "Node.js >= 18",
+    "bundler": "@rspack/core (Rust)",
+    "uiFramework": "React 18 / 19",
+    "markdownEngine": "@rspress/mdx-rs（Rust MDX 编译器）",
+    "codeHighlight": "Shiki",
+    "searchEngine": "内置本地搜索索引 / Algolia",
+    "mathLib": "@rspress/plugin-katex",
+    "diagramLib": "rspress-plugin-mermaid",
+    "coreLibs": [
+      "@rspress/core",
+      "@rspack/core",
+      "@rspress/mdx-rs",
+      "react",
+      "shiki"
+    ]
+  },
+  "matrix": {
+    "tagline": "字节跳动出品，Rust Rspack + mdx-rs 驱动的超高速 React 文档框架",
+    "stack": "Rust Rspack + React + MDX RS（比传统 JS 编译快 5~10 倍）",
+    "directoryModel": "docs/ + 各层级 _meta.json 声明排序与中文分组标题",
+    "calloutDialect": "兼容 :::tip / :::warning 容器与 GitHub > [!NOTE] 警报语法",
+    "diagramAndMath": "@rspress/plugin-katex + Mermaid 插件支持"
+  },
+  "github": {
+    "fetchedAt": "2026-11-23T08:53:28.818Z",
+    "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
+    "repo": "web-infra-dev/rspress",
+    "url": "https://github.com/web-infra-dev/rspress",
+    "role": "Rspress (Rspack + MDX RS) 官方仓库",
+    "description": "🦀 A fast Rsbuild-based static site generator.",
+    "primaryLanguage": "TypeScript",
+    "license": "MIT",
+    "defaultBranch": "main",
+    "isArchived": false,
+    "createdAt": "2023-06-27T06:37:44Z",
+    "createdYear": 2023,
+    "pushedAt": "2026-11-23T08:45:29Z",
+    "updatedAt": "2026-11-19T22:59:18Z",
+    "stars": 2360,
+    "forks": 239,
+    "openIssues": 35,
+    "totalCommits": 2937,
+    "peakYear": 2025,
+    "peakCommits": 875,
+    "latestRelease": {
+      "tagName": "v2.1.4",
+      "publishedAt": "2026-11-19T17:09:33Z",
+      "isPrerelease": false
+    },
+    "recentReleases": [
+      {
+        "tagName": "v2.1.4",
+        "publishedAt": "2026-11-19T17:09:33Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v2.1.3",
+        "publishedAt": "2026-11-12T08:31:33Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v2.1.2",
+        "publishedAt": "2026-11-11T10:59:37Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v2.1.1",
+        "publishedAt": "2026-11-06T05:34:59Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v2.1.0",
+        "publishedAt": "2026-11-02T11:45:12Z",
+        "isPrerelease": false
+      }
+    ],
+    "yearlyCommits": {
+      "2008": 0,
+      "2009": 0,
+      "2010": 0,
+      "2011": 0,
+      "2012": 0,
+      "2013": 0,
+      "2014": 0,
+      "2015": 0,
+      "2016": 0,
+      "2017": 0,
+      "2018": 0,
+      "2019": 0,
+      "2020": 0,
+      "2021": 0,
+      "2022": 0,
+      "2023": 534,
+      "2024": 782,
+      "2025": 875,
+      "2026": 746
+    }
+  }
+}

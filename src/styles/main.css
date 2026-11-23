@@ -1325,6 +1325,47 @@ select {
   color: var(--accent-teal);
 }
 
+.gen-ext-links {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  margin-top: 0.2rem;
+}
+
+.gen-ext-links a {
+  color: var(--accent-teal);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.gen-ext-links a:hover {
+  text-decoration: underline;
+}
+
+.meta-tags-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-top: 0.35rem;
+}
+
+.meta-tag {
+  font-size: 0.66rem;
+  padding: 0.06rem 0.34rem;
+  border-radius: 4px;
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+}
+
+.libs-sub {
+  margin-top: 0.32rem;
+  font-size: 0.71rem;
+  color: var(--accent-teal);
+  line-height: 1.4;
+}
+
 /* GitHub Yearly Commits Heatmap Panel */
 .gh-heatmap-panel {
   margin-top: 1.5rem;

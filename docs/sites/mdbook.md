@@ -20,13 +20,29 @@ description: "预留扩展位 sites/mdbook：Rust 官方技术电子书引擎生
 ## 2. 上游 GitHub API 实测数据与历年提交活跃度
 
 <!-- GITHUB_API_TABLE_START -->
-> 数据源快照：[`docs/sites/github-activity.json`](./github-activity.json)（GitHub GraphQL API 采样日期：`2026-11-23`）
+> 独立结构化元数据文件：[`docs/sites/mdbook.json`](./mdbook.json)（含完整元数据、Tag、依赖 Lib 与 `github` API 节点，采样日期：`2026-11-23`）
+
+### 站点元数据与底层依赖库（Libs）
+
+| 元数据属性 | 内容详情 |
+| :--- | :--- |
+| **官方网站 (Website)** | [https://rust-lang.github.io/mdBook/](https://rust-lang.github.io/mdBook/) |
+| **GitHub 源码仓库** | [rust-lang/mdBook](https://github.com/rust-lang/mdBook) |
+| **包管理仓库 (Registry)** | [https://crates.io/crates/mdbook](https://crates.io/crates/mdbook) |
+| **分类标签 (Tags)** | `#ssg` · `#rust` · `#ebook` · `#linear-tutorial` · `#summary-md` · `#single-binary` · `#pulldown-cmark` · `#official-rust` |
+| **运行时与打包器** | Rust 单二进制可执行文件 · mdBook Native Static Renderer |
+| **UI 与 Markdown 引擎** | Handlebars 模板 + 内置电子书阅读器 · `pulldown-cmark` |
+| **高亮与全文检索** | highlight.js（支持 Rust Playground 在线运行） · elasticlunr.js 内置搜索 |
+| **数学公式与流程图库** | book.toml 原生内置 mathjax-support = true ； mdbook-mermaid 独立预处理器二进制 |
+| **核心依赖库 (Core Libs)** | `pulldown-cmark`、`handlebars`、`elasticlunr`、`highlight.js`、`toml` |
+
+### GitHub 仓库 API 指标快照
 
 | 官方仓库 | 创建日期 | 最近推送 | Stars | 默认分支总提交 | 峰值年份 (提交数) | 最新 Release |
 | :--- | :--- | :--- | ---: | ---: | :--- | :--- |
 | [`rust-lang/mdBook`](https://github.com/rust-lang/mdBook) | `2015-07-07` | `2026-11-22` | ★ 22,321 | 3,375 | `2025` (688) | `v0.5.4` (2026-07-06) |
 
-### 主分支历年提交活跃度表（`2015–2026`）
+### GitHub 主分支历年提交活跃度表（`2015–2026`）
 
 | 年份 | 提交数 (Commits) | 占峰值比 | 活跃度趋势条 | 阶段状态 |
 | :--- | ---: | ---: | :--- | :--- |

@@ -21,13 +21,30 @@ description: "对应子模块 sites/vuepress-v1：Vue 2 + Webpack 4 初代文档
 ## 2. 上游 GitHub API 实测数据与历年提交活跃度
 
 <!-- GITHUB_API_TABLE_START -->
-> 数据源快照：[`docs/sites/github-activity.json`](./github-activity.json)（GitHub GraphQL API 采样日期：`2026-11-23`）
+> 独立结构化元数据文件：[`docs/sites/vuepress-v1.json`](./vuepress-v1.json)（含完整元数据、Tag、依赖 Lib 与 `github` API 节点，采样日期：`2026-11-23`）
+
+### 站点元数据与底层依赖库（Libs）
+
+| 元数据属性 | 内容详情 |
+| :--- | :--- |
+| **官方网站 (Website)** | [https://v1.vuepress.vuejs.org/](https://v1.vuepress.vuejs.org/) |
+| **GitHub 源码仓库** | [vuejs/vuepress](https://github.com/vuejs/vuepress) |
+| **包管理仓库 (Registry)** | [https://www.npmjs.com/package/vuepress/v/1.9.10](https://www.npmjs.com/package/vuepress/v/1.9.10) |
+| **分类标签 (Tags)** | `#ssg` · `#vue2` · `#webpack4` · `#commonjs` · `#markdown-it` · `#readme-index` · `#html-suffix` · `#legacy` · `#eol` |
+| **运行时与打包器** | Node.js（Node 18+ 须开启 --openssl-legacy-provider） · Webpack 4 |
+| **UI 与 Markdown 引擎** | Vue 2.7 + Vue Router 3 · `markdown-it@8` |
+| **高亮与全文检索** | Prism.js · @vuepress/plugin-search（标题索引） |
+| **数学公式与流程图库** | katex（extendMarkdown 自定义规则） ； mermaid@10.9.8（UMD 末代兼容版） |
+| **核心依赖库 (Core Libs)** | `vue@2`、`webpack@4`、`vue-router@3`、`markdown-it@8`、`prismjs` |
+| **本子站实测锁定版本** | `vuepress@1.9.10` · `katex@0.19.1` · `mermaid@10.9.8` |
+
+### GitHub 仓库 API 指标快照
 
 | 官方仓库 | 创建日期 | 最近推送 | Stars | 默认分支总提交 | 峰值年份 (提交数) | 最新 Release |
 | :--- | :--- | :--- | ---: | ---: | :--- | :--- |
 | [`vuejs/vuepress`](https://github.com/vuejs/vuepress) | `2018-04-05` | `2024-08-07` | ★ 22,714 | 2,152 | `2018` (1,297) | `v1.9.10` (2023-08-14) |
 
-### 主分支历年提交活跃度表（`2018–2026`）
+### GitHub 主分支历年提交活跃度表（`2018–2026`）
 
 | 年份 | 提交数 (Commits) | 占峰值比 | 活跃度趋势条 | 阶段状态 |
 | :--- | ---: | ---: | :--- | :--- |

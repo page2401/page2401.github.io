@@ -212,11 +212,15 @@ function filterLandscapeRows() {
       row.sitePath,
       row.profileDoc,
       row.upstreamRepo,
+      row.websiteUrl,
       row.name,
       row.versionNote,
       row.lifecycle,
       row.tagline,
       row.stack,
+      row.markdownEngine,
+      ...row.tags,
+      ...row.coreLibs,
       row.directoryModel,
       row.calloutDialect,
       row.diagramAndMath
@@ -276,7 +280,7 @@ function renderGitHubHeatmapRowsHtml(): string {
       const siteLinks = r.siteIds
         .map(
           (id) =>
-            `<a class="gh-site-chip mono" href="/master/sites/${escapeHtml(id)}" target="_blank" rel="noopener">${escapeHtml(id)}</a>`
+            `<a class="gh-site-chip mono" href="/master/sites/${escapeHtml(id)}.json" target="_blank" rel="noopener" title="查看独立元数据与 github 节点 docs/sites/${escapeHtml(id)}.json">${escapeHtml(id)}.json</a>`
         )
         .join('')
 
@@ -320,6 +324,16 @@ function renderLandscapeRowsHtml(): string {
         ? `<span class="gen-ver mono">★ ${formatCompactNum(row.stars)} · 总提交 ${row.totalCommits.toLocaleString('en-US')} · 26年 ${row.commits2026}次</span>`
         : ''
 
+      const tagsHtml = row.tags
+        .slice(0, 5)
+        .map((t) => `<span class="meta-tag mono">#${escapeHtml(t)}</span>`)
+        .join('')
+
+      const libsLine =
+        row.coreLibs.length > 0
+          ? `<div class="libs-sub mono">Libs: ${escapeHtml(row.coreLibs.join(', '))}</div>`
+          : ''
+
       return `
         <tr>
           <td class="gen-cell">
@@ -328,18 +342,28 @@ function renderLandscapeRowsHtml(): string {
               ${statusBadge}
             </div>
             <span class="gen-ver mono">${escapeHtml(row.versionNote)}</span>
+            <div class="gen-ext-links mono">
+              <a href="${escapeHtml(row.websiteUrl)}" target="_blank" rel="noopener">🌐 官网 ↗</a>
+              <span>·</span>
+              <a href="${escapeHtml(row.githubUrl)}" target="_blank" rel="noopener">GitHub ↗</a>
+            </div>
             <span class="gen-ver mono" style="color:${lifecycleColor};font-weight:600;">⏱ ${escapeHtml(row.lifecycle)}</span>
             ${ghStatLine}
+            <div class="meta-tags-wrap">${tagsHtml}</div>
+          </td>
+          <td style="max-width:225px;">
+            <div class="mono" style="font-size:0.76rem;">${escapeHtml(row.stack)}</div>
+            ${libsLine}
             <p class="gen-tagline">${escapeHtml(row.tagline)}</p>
           </td>
-          <td class="mono" style="font-size:0.77rem;max-width:210px;">${escapeHtml(row.stack)}</td>
           <td>${escapeHtml(row.directoryModel)}</td>
           <td>${escapeHtml(row.calloutDialect)}</td>
           <td>${escapeHtml(row.diagramAndMath)}</td>
           <td class="action-cell">
             <div class="row-actions">
               ${loadWorkbenchBtn}
-              <a class="row-action-btn mono" href="${escapeHtml(row.profileRoute)}" target="_blank" rel="noopener">📖 docs/sites/${escapeHtml(row.id)} ↗</a>
+              <a class="row-action-btn mono" href="${escapeHtml(row.profileRoute)}" target="_blank" rel="noopener">📖 ${escapeHtml(row.id)}.md ↗</a>
+              <a class="row-action-btn mono" href="${escapeHtml(row.jsonRoute)}" target="_blank" rel="noopener">{ } ${escapeHtml(row.id)}.json ↗</a>
             </div>
           </td>
         </tr>
@@ -812,13 +836,12 @@ function renderAppShell(): void {
       <section class="section-block" id="matrix">
         <div class="dialects-header-bar">
           <div>
-            <h2 class="section-heading">静态网站生成器（SSG）1:1 站点图鉴与 GitHub 活跃度矩阵（${dataset.landscapeRows.length} 款）</h2>
-            <p class="section-sub" style="margin-bottom:0;">主库档案目录 <code>docs/sites/&lt;id&gt;.md</code> 与子模块挂载目录 <code>sites/&lt;id&gt;</code> 严格 1:1 对齐；下方同步展示持久化的 GitHub GraphQL API 历年提交记录快照。</p>
+            <h2 class="section-heading">静态网站生成器（SSG）1:1 站点图鉴与独立元数据矩阵（${dataset.landscapeRows.length} 款）</h2>
+            <p class="section-sub" style="margin-bottom:0;">主库 <code>docs/sites/</code> 下每款生成器均维护独立的 <code>&lt;id&gt;.json</code>（含官网地址、GitHub 地址、Tag 属性、依赖 Lib 与 <code>github</code> API 节点）及同名 <code>&lt;id&gt;.md</code>。</p>
           </div>
           <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
             <a class="open-subsite-btn mono" href="/master/sites/" target="_blank" rel="noopener">浏览站点与活跃度总览 (/master/sites/) ↗</a>
-            <a class="open-subsite-btn mono" href="/master/sites/github-activity.json" target="_blank" rel="noopener">GitHub API 快照 JSON ↗</a>
-            <a class="open-subsite-btn mono" href="https://github.com/page2401/page2401.github.io/tree/main/docs/sites" target="_blank" rel="noopener">GitHub docs/sites/ ↗</a>
+            <a class="open-subsite-btn mono" href="https://github.com/page2401/page2401.github.io/tree/main/docs/sites" target="_blank" rel="noopener">GitHub docs/sites/*.json ↗</a>
           </div>
         </div>
 
@@ -836,7 +859,7 @@ function renderAppShell(): void {
             type="search"
             id="matrix-search-input"
             class="matrix-search"
-            placeholder="搜索 ID、仓库或特性 (如 vuepress / EOL / _index.md)..."
+            placeholder="搜索 ID、Tag、依赖 Lib 或特性 (如 rolldown / shiki / goldmark)..."
             aria-label="搜索静态网站生成器"
           />
         </div>
@@ -845,12 +868,12 @@ function renderAppShell(): void {
           <table class="matrix-table">
             <thead>
               <tr>
-                <th>生成器 / 1:1 站点标识</th>
-                <th>底层技术栈</th>
+                <th>生成器 / 官网 / Tags</th>
+                <th>技术栈与依赖 Libs</th>
                 <th>目录与侧边栏流派</th>
                 <th>标注方言与 GFM 兼容</th>
                 <th>流程图与公式方案</th>
-                <th>1:1 档案与实测</th>
+                <th>1:1 档案与 JSON</th>
               </tr>
             </thead>
             <tbody id="landscape-matrix-tbody">
@@ -863,7 +886,7 @@ function renderAppShell(): void {
           <div class="gh-heatmap-header">
             <div>
               <h3 class="gh-heatmap-title">📊 上游 GitHub 官方仓库历年提交活跃度热力表（2008–2026）</h3>
-              <p class="gh-heatmap-sub">数据持久化于 <code>docs/sites/github-activity.json</code>（采样日期：<code>${escapeHtml(dataset.githubActivity.fetchedAt)}</code>，可通过 <code>npm run sync:github</code> 一键刷新）。带 ★ 边框为该仓单年历史峰值，铜色 <code>0</code> 标识已完全停止提交。</p>
+              <p class="gh-heatmap-sub">数据聚合自每个站点独立维护的 <code>docs/sites/&lt;id&gt;.json</code> 中的 <code>github</code> 节点（采样日期：<code>${escapeHtml(dataset.githubActivity.fetchedAt)}</code>，点击仓库右侧胶囊可直接查看对应的独立 <code>.json</code>）。</p>
             </div>
             <div class="gh-legend mono">
               <span class="heat-legend-chip heat-none">· 未立项</span>

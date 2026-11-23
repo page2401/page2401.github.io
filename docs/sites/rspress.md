@@ -20,13 +20,29 @@ description: "预留扩展位 sites/rspress：字节跳动 Rust Rspack 超高速
 ## 2. 上游 GitHub API 实测数据与历年提交活跃度
 
 <!-- GITHUB_API_TABLE_START -->
-> 数据源快照：[`docs/sites/github-activity.json`](./github-activity.json)（GitHub GraphQL API 采样日期：`2026-11-23`）
+> 独立结构化元数据文件：[`docs/sites/rspress.json`](./rspress.json)（含完整元数据、Tag、依赖 Lib 与 `github` API 节点，采样日期：`2026-11-23`）
+
+### 站点元数据与底层依赖库（Libs）
+
+| 元数据属性 | 内容详情 |
+| :--- | :--- |
+| **官方网站 (Website)** | [https://rspress.rs/](https://rspress.rs/) |
+| **GitHub 源码仓库** | [web-infra-dev/rspress](https://github.com/web-infra-dev/rspress) |
+| **包管理仓库 (Registry)** | [https://www.npmjs.com/package/@rspress/core](https://www.npmjs.com/package/@rspress/core) |
+| **分类标签 (Tags)** | `#ssg` · `#react` · `#rust-toolchain` · `#rspack` · `#mdx-rs` · `#meta-json` · `#gfm-alerts` · `#fast-build` · `#bytedance` |
+| **运行时与打包器** | Node.js >= 18 · @rspack/core (Rust) |
+| **UI 与 Markdown 引擎** | React 18 / 19 · `@rspress/mdx-rs（Rust MDX 编译器）` |
+| **高亮与全文检索** | Shiki · 内置本地搜索索引 / Algolia |
+| **数学公式与流程图库** | @rspress/plugin-katex ； rspress-plugin-mermaid |
+| **核心依赖库 (Core Libs)** | `@rspress/core`、`@rspack/core`、`@rspress/mdx-rs`、`react`、`shiki` |
+
+### GitHub 仓库 API 指标快照
 
 | 官方仓库 | 创建日期 | 最近推送 | Stars | 默认分支总提交 | 峰值年份 (提交数) | 最新 Release |
 | :--- | :--- | :--- | ---: | ---: | :--- | :--- |
 | [`web-infra-dev/rspress`](https://github.com/web-infra-dev/rspress) | `2023-06-27` | `2026-11-23` | ★ 2,360 | 2,937 | `2025` (875) | `v2.1.4` (2026-11-19) |
 
-### 主分支历年提交活跃度表（`2023–2026`）
+### GitHub 主分支历年提交活跃度表（`2023–2026`）
 
 | 年份 | 提交数 (Commits) | 占峰值比 | 活跃度趋势条 | 阶段状态 |
 | :--- | ---: | ---: | :--- | :--- |

@@ -20,13 +20,29 @@ description: "预留扩展位 sites/docusaurus-v3：Meta 开源 React 旗舰文�
 ## 2. 上游 GitHub API 实测数据与历年提交活跃度
 
 <!-- GITHUB_API_TABLE_START -->
-> 数据源快照：[`docs/sites/github-activity.json`](./github-activity.json)（GitHub GraphQL API 采样日期：`2026-11-23`）
+> 独立结构化元数据文件：[`docs/sites/docusaurus-v3.json`](./docusaurus-v3.json)（含完整元数据、Tag、依赖 Lib 与 `github` API 节点，采样日期：`2026-11-23`）
+
+### 站点元数据与底层依赖库（Libs）
+
+| 元数据属性 | 内容详情 |
+| :--- | :--- |
+| **官方网站 (Website)** | [https://docusaurus.io/](https://docusaurus.io/) |
+| **GitHub 源码仓库** | [meta/docusaurus](https://github.com/facebook/docusaurus) |
+| **包管理仓库 (Registry)** | [https://www.npmjs.com/package/@docusaurus/core](https://www.npmjs.com/package/@docusaurus/core) |
+| **分类标签 (Tags)** | `#ssg` · `#react` · `#mdx3` · `#docs-versioning` · `#i18n` · `#webpack` · `#rspack-faster` · `#category-json` · `#blog-included` |
+| **运行时与打包器** | Node.js >= 18 · Webpack 5 / Rspack (@docusaurus/faster) |
+| **UI 与 Markdown 引擎** | React 18 / 19 · `MDX 3 + remark / rehype` |
+| **高亮与全文检索** | prism-react-renderer · Algolia DocSearch / 本地搜索插件 |
+| **数学公式与流程图库** | remark-math + rehype-katex ； @docusaurus/theme-mermaid |
+| **核心依赖库 (Core Libs)** | `@docusaurus/core`、`@docusaurus/preset-classic`、`@mdx-js/react`、`react`、`prism-react-renderer` |
+
+### GitHub 仓库 API 指标快照
 
 | 官方仓库 | 创建日期 | 最近推送 | Stars | 默认分支总提交 | 峰值年份 (提交数) | 最新 Release |
 | :--- | :--- | :--- | ---: | ---: | :--- | :--- |
 | [`meta/docusaurus`](https://github.com/meta/docusaurus) | `2017-06-20` | `2026-11-20` | ★ 66,787 | 7,118 | `2021` (1,139) | `v3.10.2` (2026-07-10) |
 
-### 主分支历年提交活跃度表（`2017–2026`）
+### GitHub 主分支历年提交活跃度表（`2017–2026`）
 
 | 年份 | 提交数 (Commits) | 占峰值比 | 活跃度趋势条 | 阶段状态 |
 | :--- | ---: | ---: | :--- | :--- |

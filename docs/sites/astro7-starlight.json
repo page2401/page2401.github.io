@@ -1,0 +1,214 @@
+{
+  "$schema": "https://page.2401.xyz/schemas/site-metadata-v1.json",
+  "id": "astro7-starlight",
+  "order": 7,
+  "name": "Astro Starlight",
+  "versionNote": "Astro 7.4 / SL 0.43",
+  "mounted": true,
+  "sitePath": "sites/astro7-starlight",
+  "subsiteRepoUrl": "https://github.com/page2401/astro7-starlight",
+  "previewUrl": "https://page.2401.xyz/astro7-starlight/",
+  "websiteUrl": "https://starlight.astro.build/",
+  "githubUrl": "https://github.com/withastro/starlight",
+  "companionGithubUrls": [
+    "https://github.com/withastro/astro"
+  ],
+  "packageUrl": "https://www.npmjs.com/package/@astrojs/starlight",
+  "ecosystem": "react-astro",
+  "tags": [
+    "ssg",
+    "astro7",
+    "islands",
+    "zero-js-default",
+    "zod-schema",
+    "content-layer",
+    "mdx",
+    "remark",
+    "pagefind",
+    "expressive-code"
+  ],
+  "lifecycle": {
+    "startedAt": "2023-03-16",
+    "activePeriod": "2023–至今（极高频迭代上升期）",
+    "deprecatedAt": null,
+    "isEol": false,
+    "summary": "始于 2023-03 · 2023–至今极高频上升"
+  },
+  "libs": {
+    "runtime": "Node.js >= 22 (Astro 7)",
+    "bundler": "Vite + Astro Compiler",
+    "uiFramework": "Astro Islands（可按需挂载 React / Vue / Svelte）",
+    "markdownEngine": "Sätteri / @astrojs/markdown-remark (unified)",
+    "codeHighlight": "astro-expressive-code (Shiki)",
+    "searchEngine": "Pagefind（Rust 静态分片全文索引）",
+    "mathLib": "remark-math + rehype-katex + katex",
+    "diagramLib": "自定义 remark AST 插件 + mermaid@12.3",
+    "coreLibs": [
+      "astro",
+      "@astrojs/starlight",
+      "astro-expressive-code",
+      "pagefind",
+      "zod",
+      "remark-directive"
+    ],
+    "pinnedPackages": {
+      "astro": "7.4.13",
+      "@astrojs/starlight": "0.43.1",
+      "@astrojs/markdown-remark": "7.3.10",
+      "remark-math": "6.0.0",
+      "rehype-katex": "7.0.1",
+      "katex": "0.19.1",
+      "mermaid": "12.3.0"
+    }
+  },
+  "github": {
+    "fetchedAt": "2026-11-23T08:53:28.818Z",
+    "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
+    "repo": "withastro/starlight",
+    "url": "https://github.com/withastro/starlight",
+    "role": "Astro Starlight 官方文档主题框架仓库",
+    "description": "🌟 Build beautiful, accessible, high-performance documentation websites with Astro",
+    "primaryLanguage": "TypeScript",
+    "license": "MIT",
+    "defaultBranch": "main",
+    "isArchived": false,
+    "createdAt": "2023-03-16T15:55:33Z",
+    "createdYear": 2023,
+    "pushedAt": "2026-11-21T14:15:02Z",
+    "updatedAt": "2026-11-23T04:27:30Z",
+    "stars": 9640,
+    "forks": 1096,
+    "openIssues": 11,
+    "totalCommits": 3942,
+    "peakYear": 2023,
+    "peakCommits": 1336,
+    "latestRelease": {
+      "tagName": "@astrojs/starlight@0.43.1",
+      "publishedAt": "2026-11-13T20:43:02Z",
+      "isPrerelease": false
+    },
+    "recentReleases": [
+      {
+        "tagName": "@astrojs/starlight@0.43.1",
+        "publishedAt": "2026-11-13T20:43:02Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "@astrojs/starlight@0.43.0",
+        "publishedAt": "2026-11-13T17:16:14Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "@astrojs/starlight-docsearch@0.8.2",
+        "publishedAt": "2026-11-12T14:03:08Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "@astrojs/starlight@0.42.11",
+        "publishedAt": "2026-11-12T14:03:05Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "@astrojs/starlight-docsearch@0.8.1",
+        "publishedAt": "2026-11-06T18:13:21Z",
+        "isPrerelease": false
+      }
+    ],
+    "yearlyCommits": {
+      "2008": 0,
+      "2009": 0,
+      "2010": 0,
+      "2011": 0,
+      "2012": 0,
+      "2013": 0,
+      "2014": 0,
+      "2015": 0,
+      "2016": 0,
+      "2017": 0,
+      "2018": 0,
+      "2019": 0,
+      "2020": 0,
+      "2021": 0,
+      "2022": 0,
+      "2023": 1336,
+      "2024": 1272,
+      "2025": 706,
+      "2026": 628
+    },
+    "companionRepos": [
+      {
+        "repo": "withastro/astro",
+        "url": "https://github.com/withastro/astro",
+        "role": "Astro 底层内容层与构建引擎仓库",
+        "description": "The web framework for content-driven websites.",
+        "primaryLanguage": "TypeScript",
+        "license": "NOASSERTION",
+        "defaultBranch": "main",
+        "isArchived": false,
+        "createdAt": "2021-03-15T17:19:47Z",
+        "createdYear": 2021,
+        "pushedAt": "2026-11-23T03:35:10Z",
+        "updatedAt": "2026-11-23T08:43:41Z",
+        "stars": 64144,
+        "forks": 3914,
+        "openIssues": 25,
+        "totalCommits": 15467,
+        "peakYear": 2023,
+        "peakCommits": 3622,
+        "latestRelease": {
+          "tagName": "@astrojs/node@11.1.14",
+          "publishedAt": "2026-11-18T17:33:50Z",
+          "isPrerelease": false
+        },
+        "recentReleases": [
+          {
+            "tagName": "@astrojs/node@11.1.14",
+            "publishedAt": "2026-11-18T17:33:50Z",
+            "isPrerelease": false
+          },
+          {
+            "tagName": "@astrojs/cloudflare@14.4.9",
+            "publishedAt": "2026-11-18T17:33:47Z",
+            "isPrerelease": false
+          },
+          {
+            "tagName": "astro@7.4.13",
+            "publishedAt": "2026-11-18T17:33:44Z",
+            "isPrerelease": false
+          },
+          {
+            "tagName": "@astrojs/runtime@0.1.2",
+            "publishedAt": "2026-11-18T17:33:41Z",
+            "isPrerelease": false
+          },
+          {
+            "tagName": "@astrojs/markdown-remark@7.3.10",
+            "publishedAt": "2026-11-18T17:33:38Z",
+            "isPrerelease": false
+          }
+        ],
+        "yearlyCommits": {
+          "2008": 0,
+          "2009": 0,
+          "2010": 0,
+          "2011": 0,
+          "2012": 0,
+          "2013": 0,
+          "2014": 0,
+          "2015": 0,
+          "2016": 0,
+          "2017": 0,
+          "2018": 0,
+          "2019": 0,
+          "2020": 0,
+          "2021": 1991,
+          "2022": 3461,
+          "2023": 3622,
+          "2024": 2797,
+          "2025": 1373,
+          "2026": 2223
+        }
+      }
+    ]
+  }
+}

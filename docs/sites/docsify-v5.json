@@ -1,0 +1,129 @@
+{
+  "$schema": "https://page.2401.xyz/schemas/site-metadata-v1.json",
+  "id": "docsify-v5",
+  "order": 6,
+  "name": "Docsify",
+  "versionNote": "v5 (5.1.0)",
+  "mounted": true,
+  "sitePath": "sites/docsify-v5",
+  "subsiteRepoUrl": "https://github.com/page2401/docsify-v5",
+  "previewUrl": "https://page.2401.xyz/docsify-v5/",
+  "websiteUrl": "https://docsify.js.org/",
+  "githubUrl": "https://github.com/docsifyjs/docsify",
+  "packageUrl": "https://www.npmjs.com/package/docsify",
+  "ecosystem": "runtime",
+  "tags": [
+    "spa-runtime",
+    "zero-build",
+    "marked",
+    "gfm-callouts-native",
+    "css-variables",
+    "dark-mode",
+    "hash-router",
+    "nojekyll-required",
+    "v5"
+  ],
+  "lifecycle": {
+    "startedAt": "2025-05-27",
+    "activePeriod": "2025–至今（2026-07 首发 v5.0，显著复苏）",
+    "deprecatedAt": null,
+    "isEol": false,
+    "summary": "2026-07 正式首发 · 2025–2026 显著复苏"
+  },
+  "libs": {
+    "runtime": "Browser Client SPA（ESM / UMD）",
+    "bundler": "无（静态原样托管 *.md）",
+    "uiFramework": "Vanilla JS DOM + core.min.css / core-dark.min.css",
+    "markdownEngine": "marked（新版 Token 入参签名）",
+    "codeHighlight": "Prism.js",
+    "searchEngine": "docsify/dist/plugins/search.min.js",
+    "mathLib": "katex（beforeEach 客户端钩子）",
+    "diagramLib": "mermaid@12.3（renderer.code Token 扩展）",
+    "coreLibs": [
+      "marked",
+      "prismjs",
+      "katex",
+      "mermaid"
+    ],
+    "pinnedPackages": {
+      "docsify": "5.1.0",
+      "katex": "0.19.1",
+      "mermaid": "12.3.0"
+    }
+  },
+  "github": {
+    "fetchedAt": "2026-11-23T08:53:28.818Z",
+    "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
+    "repo": "docsifyjs/docsify",
+    "url": "https://github.com/docsifyjs/docsify",
+    "role": "Docsify 零预编译运行时引擎仓库",
+    "description": "🃏 A magical documentation site generator.",
+    "primaryLanguage": "JavaScript",
+    "license": "MIT",
+    "defaultBranch": "develop",
+    "isArchived": false,
+    "createdAt": "2016-11-20T07:55:43Z",
+    "createdYear": 2016,
+    "pushedAt": "2026-11-14T09:41:35Z",
+    "updatedAt": "2026-11-23T06:48:51Z",
+    "stars": 31609,
+    "forks": 5779,
+    "openIssues": 61,
+    "totalCommits": 2025,
+    "peakYear": 2017,
+    "peakCommits": 657,
+    "latestRelease": {
+      "tagName": "v5.1.0",
+      "publishedAt": "2026-10-30T04:17:06Z",
+      "isPrerelease": false
+    },
+    "recentReleases": [
+      {
+        "tagName": "v5.1.0",
+        "publishedAt": "2026-10-30T04:17:06Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v5.0.0",
+        "publishedAt": "2026-07-23T04:03:07Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v5.0.0-rc.4",
+        "publishedAt": "2026-03-11T04:00:32Z",
+        "isPrerelease": true
+      },
+      {
+        "tagName": "v5.0.0-rc.3",
+        "publishedAt": "2025-09-05T04:32:19Z",
+        "isPrerelease": true
+      },
+      {
+        "tagName": "v5.0.0-rc.1",
+        "publishedAt": "2025-05-27T02:43:19Z",
+        "isPrerelease": true
+      }
+    ],
+    "yearlyCommits": {
+      "2008": 0,
+      "2009": 0,
+      "2010": 0,
+      "2011": 0,
+      "2012": 0,
+      "2013": 0,
+      "2014": 0,
+      "2015": 0,
+      "2016": 175,
+      "2017": 657,
+      "2018": 208,
+      "2019": 135,
+      "2020": 299,
+      "2021": 102,
+      "2022": 68,
+      "2023": 132,
+      "2024": 54,
+      "2025": 87,
+      "2026": 108
+    }
+  }
+}

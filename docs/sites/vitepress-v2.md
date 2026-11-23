@@ -21,13 +21,30 @@ description: "对应子模块 sites/vitepress-v2：Vite 8 Rolldown 3.4 倍提速
 ## 2. 上游 GitHub API 实测数据与历年提交活跃度
 
 <!-- GITHUB_API_TABLE_START -->
-> 数据源快照：[`docs/sites/github-activity.json`](./github-activity.json)（GitHub GraphQL API 采样日期：`2026-11-23`）
+> 独立结构化元数据文件：[`docs/sites/vitepress-v2.json`](./vitepress-v2.json)（含完整元数据、Tag、依赖 Lib 与 `github` API 节点，采样日期：`2026-11-23`）
+
+### 站点元数据与底层依赖库（Libs）
+
+| 元数据属性 | 内容详情 |
+| :--- | :--- |
+| **官方网站 (Website)** | [https://vitepress.dev/](https://vitepress.dev/) |
+| **GitHub 源码仓库** | [vuejs/vitepress](https://github.com/vuejs/vitepress) |
+| **包管理仓库 (Registry)** | [https://www.npmjs.com/package/vitepress](https://www.npmjs.com/package/vitepress) |
+| **分类标签 (Tags)** | `#ssg` · `#vue3` · `#vite8` · `#rolldown` · `#rust-bundler` · `#markdown-it` · `#gfm-alerts` · `#mathjax3-svg` · `#mermaid12` · `#alpha` |
+| **运行时与打包器** | Node.js >= 20 · Vite 8 + Rolldown (Rust) |
+| **UI 与 Markdown 引擎** | Vue 3.6 Beta · `markdown-it` |
+| **高亮与全文检索** | Shiki · MiniSearch（内置本地全文索引） |
+| **数学公式与流程图库** | markdown-it-mathjax3@^4（构建期输出内联 SVG） ； 原生主题组件 MermaidBlock.vue + mermaid@12.3 |
+| **核心依赖库 (Core Libs)** | `vite@8`、`rolldown`、`vue`、`markdown-it`、`shiki`、`minisearch` |
+| **本子站实测锁定版本** | `vitepress@2.0.0-alpha.21` · `vue@3.5.13` · `markdown-it-mathjax3@4.3.2` · `mermaid@12.3.0` |
+
+### GitHub 仓库 API 指标快照
 
 | 官方仓库 | 创建日期 | 最近推送 | Stars | 默认分支总提交 | 峰值年份 (提交数) | 最新 Release |
 | :--- | :--- | :--- | ---: | ---: | :--- | :--- |
 | [`vuejs/vitepress`](https://github.com/vuejs/vitepress) | `2020-04-30` | `2026-11-12` | ★ 18,521 | 2,958 | `2023` (824) | `v2.0.0-alpha.21` (2026-10-25) |
 
-### 主分支历年提交活跃度表（`2020–2026`）
+### GitHub 主分支历年提交活跃度表（`2020–2026`）
 
 | 年份 | 提交数 (Commits) | 占峰值比 | 活跃度趋势条 | 阶段状态 |
 | :--- | ---: | ---: | :--- | :--- |

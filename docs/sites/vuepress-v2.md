@@ -24,14 +24,31 @@ description: "对应子模块 sites/vuepress-v2：Vue 3 + Vite 重构版、官�
 > VuePress v2 自 `2023-09` 起采用 **核心引擎（`vuepress/core`）+ 官方主题与插件生态（`vuepress/ecosystem`）** 双仓库协同架构，单独看 `core` 会低估其真实迭代活跃度，因此下表同时列出两座官方仓库的 API 数据。
 
 <!-- GITHUB_API_TABLE_START -->
-> 数据源快照：[`docs/sites/github-activity.json`](./github-activity.json)（GitHub GraphQL API 采样日期：`2026-11-23`）
+> 独立结构化元数据文件：[`docs/sites/vuepress-v2.json`](./vuepress-v2.json)（含完整元数据、Tag、依赖 Lib 与 `github` API 节点，采样日期：`2026-11-23`）
+
+### 站点元数据与底层依赖库（Libs）
+
+| 元数据属性 | 内容详情 |
+| :--- | :--- |
+| **官方网站 (Website)** | [https://vuejs.press/](https://vuejs.press/) |
+| **GitHub 源码仓库** | [vuepress/core](https://github.com/vuepress/core)（协同仓库：[vuepress/ecosystem](https://github.com/vuepress/ecosystem)） |
+| **包管理仓库 (Registry)** | [https://www.npmjs.com/package/vuepress](https://www.npmjs.com/package/vuepress) |
+| **分类标签 (Tags)** | `#ssg` · `#vue3` · `#vite` · `#official-plugins` · `#markdown-it` · `#gfm-alerts` · `#katex` · `#mermaid12` · `#readme-index` · `#rc` |
+| **运行时与打包器** | Node.js >= 18.19 · @vuepress/bundler-vite（可选 bundler-webpack） |
+| **UI 与 Markdown 引擎** | Vue 3 + Vue Router 4 · `markdown-it + @mdit/plugin-*` |
+| **高亮与全文检索** | @vuepress/plugin-prismjs / shiki · @vuepress/plugin-search / docsearch |
+| **数学公式与流程图库** | @vuepress/plugin-markdown-math + katex ； @vuepress/plugin-markdown-chart + mermaid@12.3 |
+| **核心依赖库 (Core Libs)** | `vue`、`vite`、`markdown-it`、`@vuepress/theme-default`、`@mdit/plugin-alert`、`@mdit/plugin-katex` |
+| **本子站实测锁定版本** | `vuepress@2.0.0-rc.32` · `@vuepress/bundler-vite@2.0.0-rc.32` · `@vuepress/theme-default@2.0.0-rc.141` · `@vuepress/plugin-markdown-hint@2.0.0-rc.141` · `@vuepress/plugin-markdown-math@2.0.0-rc.139` · `@vuepress/plugin-markdown-chart@2.0.0-rc.139` · `katex@0.19.1` · `mermaid@12.3.0` |
+
+### GitHub 仓库 API 指标快照
 
 | 官方仓库 | 创建日期 | 最近推送 | Stars | 默认分支总提交 | 峰值年份 (提交数) | 最新 Release |
 | :--- | :--- | :--- | ---: | ---: | :--- | :--- |
 | [`vuepress/core`](https://github.com/vuepress/core) | `2020-05-06` | `2026-11-23` | ★ 2,833 | 2,071 | `2021` (705) | `v2.0.0-rc.32` (2026-11-12) |
 | [`vuepress/ecosystem`](https://github.com/vuepress/ecosystem) | `2023-09-05` | `2026-11-23` | ★ 61 | 1,511 | `2024` (674) | `v2.0.0-rc.141` (2026-11-23) |
 
-### 双仓库协同历年提交活跃度表（`2020–2026`）
+### GitHub 双仓库协同历年提交活跃度表（`2020–2026`）
 
 | 年份 | `vuepress/core` | `vuepress/ecosystem` | 合计提交 | 合计活跃趋势条 |
 | :--- | ---: | ---: | ---: | :--- |

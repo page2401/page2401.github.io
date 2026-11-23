@@ -23,14 +23,31 @@ description: "对应子模块 sites/astro7-starlight：孤岛架构文档标杆�
 > `astro7-starlight` 由官方文档层 `withastro/starlight` 与底层内容引擎 `withastro/astro` 共同驱动，下表同时保留两座官方仓库的 GitHub API 历年提交记录。
 
 <!-- GITHUB_API_TABLE_START -->
-> 数据源快照：[`docs/sites/github-activity.json`](./github-activity.json)（GitHub GraphQL API 采样日期：`2026-11-23`）
+> 独立结构化元数据文件：[`docs/sites/astro7-starlight.json`](./astro7-starlight.json)（含完整元数据、Tag、依赖 Lib 与 `github` API 节点，采样日期：`2026-11-23`）
+
+### 站点元数据与底层依赖库（Libs）
+
+| 元数据属性 | 内容详情 |
+| :--- | :--- |
+| **官方网站 (Website)** | [https://starlight.astro.build/](https://starlight.astro.build/) |
+| **GitHub 源码仓库** | [withastro/starlight](https://github.com/withastro/starlight)（协同仓库：[withastro/astro](https://github.com/withastro/astro)） |
+| **包管理仓库 (Registry)** | [https://www.npmjs.com/package/@astrojs/starlight](https://www.npmjs.com/package/@astrojs/starlight) |
+| **分类标签 (Tags)** | `#ssg` · `#astro7` · `#islands` · `#zero-js-default` · `#zod-schema` · `#content-layer` · `#mdx` · `#remark` · `#pagefind` · `#expressive-code` |
+| **运行时与打包器** | Node.js >= 22 (Astro 7) · Vite + Astro Compiler |
+| **UI 与 Markdown 引擎** | Astro Islands（可按需挂载 React / Vue / Svelte） · `Sätteri / @astrojs/markdown-remark (unified)` |
+| **高亮与全文检索** | astro-expressive-code (Shiki) · Pagefind（Rust 静态分片全文索引） |
+| **数学公式与流程图库** | remark-math + rehype-katex + katex ； 自定义 remark AST 插件 + mermaid@12.3 |
+| **核心依赖库 (Core Libs)** | `astro`、`@astrojs/starlight`、`astro-expressive-code`、`pagefind`、`zod`、`remark-directive` |
+| **本子站实测锁定版本** | `astro@7.4.13` · `@astrojs/starlight@0.43.1` · `@astrojs/markdown-remark@7.3.10` · `remark-math@6.0.0` · `rehype-katex@7.0.1` · `katex@0.19.1` · `mermaid@12.3.0` |
+
+### GitHub 仓库 API 指标快照
 
 | 官方仓库 | 创建日期 | 最近推送 | Stars | 默认分支总提交 | 峰值年份 (提交数) | 最新 Release |
 | :--- | :--- | :--- | ---: | ---: | :--- | :--- |
 | [`withastro/starlight`](https://github.com/withastro/starlight) | `2023-03-16` | `2026-11-21` | ★ 9,640 | 3,942 | `2023` (1,336) | `@astrojs/starlight@0.43.1` (2026-11-13) |
 | [`withastro/astro`](https://github.com/withastro/astro) | `2021-03-15` | `2026-11-23` | ★ 64,144 | 15,467 | `2023` (3,622) | `@astrojs/node@11.1.14` (2026-11-18) |
 
-### 双仓库协同历年提交活跃度表（`2021–2026`）
+### GitHub 双仓库协同历年提交活跃度表（`2021–2026`）
 
 | 年份 | `withastro/starlight` | `withastro/astro` | 合计提交 | 合计活跃趋势条 |
 | :--- | ---: | ---: | ---: | :--- |

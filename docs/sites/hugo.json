@@ -1,0 +1,129 @@
+{
+  "$schema": "https://page.2401.xyz/schemas/site-metadata-v1.json",
+  "id": "hugo",
+  "order": 9,
+  "name": "Hugo",
+  "versionNote": "v0.140+ (Extended)",
+  "mounted": false,
+  "sitePath": "sites/hugo",
+  "websiteUrl": "https://gohugo.io/",
+  "githubUrl": "https://github.com/gohugoio/hugo",
+  "packageUrl": "https://pkg.go.dev/github.com/gohugoio/hugo",
+  "ecosystem": "native",
+  "tags": [
+    "ssg",
+    "golang",
+    "single-binary",
+    "zero-node-modules",
+    "goldmark",
+    "millisecond-build",
+    "page-bundles",
+    "branch-index"
+  ],
+  "lifecycle": {
+    "startedAt": "2013-07-04",
+    "activePeriod": "2014–至今（连续 13 年高频活跃）",
+    "deprecatedAt": null,
+    "isEol": false,
+    "summary": "始于 2013-07 · 13 年常青高频活跃"
+  },
+  "libs": {
+    "runtime": "Go 单二进制可执行文件（Hugo Extended）",
+    "bundler": "Hugo Pipes + esbuild + LibSass/Dart Sass",
+    "uiFramework": "Go html/template",
+    "markdownEngine": "yuin/goldmark",
+    "codeHighlight": "alecthomas/chroma（Go 原生高亮）",
+    "searchEngine": "Pagefind / Fuse.js / Algolia（主题集成）",
+    "mathLib": "Goldmark passthrough + KaTeX / MathJax",
+    "diagramLib": "render-codeblock-mermaid.html 渲染钩子",
+    "coreLibs": [
+      "yuin/goldmark",
+      "alecthomas/chroma",
+      "evanw/esbuild",
+      "tdewolff/minify",
+      "spf13/cobra"
+    ]
+  },
+  "matrix": {
+    "tagline": "Go 单二进制编译极速之王，千页毫秒级构建，零 node_modules 依赖",
+    "stack": "Go 单二进制 + Goldmark 解析器 + Go html/template",
+    "directoryModel": "content/ + _index.md (Branch Bundle) vs index.md (Leaf Bundle，一字之差极易踩坑)",
+    "calloutDialect": "新版支持 render-blockquote 钩子解析 GFM [!NOTE]，或使用 {{< callout >}} Shortcode",
+    "diagramAndMath": "Goldmark render-codeblock-mermaid.html 渲染钩子 + passthrough 原生数学扩展"
+  },
+  "github": {
+    "fetchedAt": "2026-11-23T08:53:28.818Z",
+    "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
+    "repo": "gohugoio/hugo",
+    "url": "https://github.com/gohugoio/hugo",
+    "role": "Hugo (Go 单二进制引擎) 官方仓库",
+    "description": "The world’s fastest framework for building websites.",
+    "primaryLanguage": "Go",
+    "license": "Apache-2.0",
+    "defaultBranch": "master",
+    "isArchived": false,
+    "createdAt": "2013-07-04T15:26:26Z",
+    "createdYear": 2013,
+    "pushedAt": "2026-11-19T17:42:51Z",
+    "updatedAt": "2026-11-23T08:34:14Z",
+    "stars": 90550,
+    "forks": 8527,
+    "openIssues": 188,
+    "totalCommits": 10107,
+    "peakYear": 2016,
+    "peakCommits": 1057,
+    "latestRelease": {
+      "tagName": "v0.170.1",
+      "publishedAt": "2026-11-17T17:08:14Z",
+      "isPrerelease": false
+    },
+    "recentReleases": [
+      {
+        "tagName": "v0.170.1",
+        "publishedAt": "2026-11-17T17:08:14Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v0.170.0",
+        "publishedAt": "2026-11-13T16:09:01Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v0.169.0",
+        "publishedAt": "2026-10-27T16:24:46Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v0.168.0",
+        "publishedAt": "2026-10-13T17:24:15Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v0.167.0",
+        "publishedAt": "2026-09-28T15:20:52Z",
+        "isPrerelease": false
+      }
+    ],
+    "yearlyCommits": {
+      "2008": 0,
+      "2009": 0,
+      "2010": 0,
+      "2011": 0,
+      "2012": 0,
+      "2013": 346,
+      "2014": 487,
+      "2015": 987,
+      "2016": 1057,
+      "2017": 986,
+      "2018": 1025,
+      "2019": 567,
+      "2020": 703,
+      "2021": 575,
+      "2022": 633,
+      "2023": 658,
+      "2024": 730,
+      "2025": 652,
+      "2026": 701
+    }
+  }
+}

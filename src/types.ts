@@ -92,8 +92,13 @@ export interface LandscapeRow {
   ecosystem: string
   mounted: boolean
   subsiteUrl?: string
+  websiteUrl: string
+  githubUrl: string
+  packageUrl: string
+  tags: string[]
+  coreLibs: string[]
+  markdownEngine: string
   upstreamRepo: string
-  upstreamUrl: string
   stars: number
   totalCommits: number
   commits2026: number
@@ -104,6 +109,7 @@ export interface LandscapeRow {
   diagramAndMath: string
   profileDoc: string
   profileRoute: string
+  jsonRoute: string
 }
 
 export interface GitHubRepoActivity {

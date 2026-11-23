@@ -8,7 +8,7 @@
 
 0. **先看懂 `*.md` 的方言分裂与各主流生成器特色**：
    - **方言谱系导览**：[`docs/00-dialects.md`](./docs/00-dialects.md)（线上阅读：[`/master/00-dialects`](https://page.2401.xyz/master/00-dialects)）
-   - **1:1 站点档案与 GitHub 历年提交活跃度**：[`docs/sites/`](./docs/sites/index.md)（线上阅读：[`/master/sites/`](https://page.2401.xyz/master/sites/)），目录命名与 `sites/<id>` 严格 1:1 对齐，并持久化保存 GitHub GraphQL API 采样快照 [`docs/sites/github-activity.json`](./docs/sites/github-activity.json)（线上直链：[`/master/sites/github-activity.json`](https://page.2401.xyz/master/sites/github-activity.json)），自动渲染 **2008–2026 主分支历年提交数全景表**。
+   - **1:1 独立站点元数据 JSON 与 GitHub 活跃度**：[`docs/sites/`](./docs/sites/index.md)（线上阅读：[`/master/sites/`](https://page.2401.xyz/master/sites/)），目录命名与 `sites/<id>` 严格 1:1 对齐；每个站点均独立维护一份 **`docs/sites/<id>.json`**（包含 `websiteUrl` 官网地址、`githubUrl` 仓库地址、`tags` 标签属性、`libs` 底层依赖库清单，以及独立的 `github` API 历年提交节点）与同名 **`docs/sites/<id>.md`**。
 1. **本站维护唯一原始母版（[`docs/`](./docs/)）**：
    - 本仓库 `docs/` 目录下保存不绑定任何特定生成器的 **标准 GitHub Flavored Markdown（GFM）母版文档集**（包含基础 YAML Frontmatter、`> [!NOTE]` 五类警报、原生 `<details>`、```` ```mermaid ```` 流程图与 `$...$` / `$$...$$` 公式，在 GitHub 网页端可直接原生渲染）。
    - 构建时同时通过 [`scripts/build-master-docs.mjs`](./scripts/build-master-docs.mjs) 编译为 [`https://page.2401.xyz/master/`](https://page.2401.xyz/master/) 作为标准 GFM 视觉参考基准。
@@ -24,8 +24,8 @@
 
 - **打包构建**：`vite@8.3.8`（底层基于 Rolldown，生产编译耗时约 `0.3s`）
 - **前端实现**：**原生 TypeScript + Vanilla CSS**（CSS 变量驱动深浅色主题，并通过同源 `<iframe>` 联动母版预览与各子站主题切换）
-- **母版参考渲染器**：Node.js 构建脚本 [`scripts/build-master-docs.mjs`](./scripts/build-master-docs.mjs)（基于 `marked@18.2.1` + `katex@0.19.1` + `mermaid@12.3.0` 将 `docs/*.md` 输出至 `dist/master/`）
-- **GitHub API 活跃度快照同步**：[`scripts/fetch-github-activity.mjs`](./scripts/fetch-github-activity.mjs) + [`scripts/sync-github-tables.mjs`](./scripts/sync-github-tables.mjs)（执行 `npm run sync:github` 查询 16 座上游官方仓库 `2008–2026` 历年提交数，持久化至 `docs/sites/github-activity.json` 并同步刷新 Markdown 表格与首页热力矩阵）
+- **母版参考渲染器**：Node.js 构建脚本 [`scripts/build-master-docs.mjs`](./scripts/build-master-docs.mjs)（基于 `marked@18.2.1` + `katex@0.19.1` + `mermaid@12.3.0` 将 `docs/*.md` 与 `docs/sites/*.json` 输出至 `dist/master/`）
+- **独立站点 JSON 同步**：[`scripts/fetch-github-activity.mjs`](./scripts/fetch-github-activity.mjs) + [`scripts/sync-github-tables.mjs`](./scripts/sync-github-tables.mjs)（执行 `npm run sync:github` 自动扫描 `docs/sites/*.json`，刷新每个文件内的 `github` API 历年提交节点与对应 Markdown 表格）
 - **构建期数据抽取**：[`scripts/generate-comparison-data.mjs`](./scripts/generate-comparison-data.mjs) 根据 [`sites.config.json`](./sites.config.json) 自动扫描母版 `docs/` 与各子模块 `sites/*` 的物理目录树、解析 `package.json` 锁定版本并提取真实 `*.md` 原文
 - **本地同源联调**：基于 `node:http` 的零依赖服务 [`scripts/preview-all.mjs`](./scripts/preview-all.mjs)，单端口模拟 `/`、`/master/` 与全部子路径挂载
 - **分支与自动部署**：`main` 分支仅保留纯源代码与母版 `docs/*.md`；GitHub Actions 构建后将静态产物与 `CNAME` 强制推送至孤儿分支 `page`

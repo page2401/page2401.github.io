@@ -20,13 +20,29 @@ description: "预留扩展位 sites/hexo：中文静态技术博客启蒙框架�
 ## 2. 上游 GitHub API 实测数据与历年提交活跃度
 
 <!-- GITHUB_API_TABLE_START -->
-> 数据源快照：[`docs/sites/github-activity.json`](./github-activity.json)（GitHub GraphQL API 采样日期：`2026-11-23`）
+> 独立结构化元数据文件：[`docs/sites/hexo.json`](./hexo.json)（含完整元数据、Tag、依赖 Lib 与 `github` API 节点，采样日期：`2026-11-23`）
+
+### 站点元数据与底层依赖库（Libs）
+
+| 元数据属性 | 内容详情 |
+| :--- | :--- |
+| **官方网站 (Website)** | [https://hexo.io/](https://hexo.io/) |
+| **GitHub 源码仓库** | [hexojs/hexo](https://github.com/hexojs/hexo) |
+| **包管理仓库 (Registry)** | [https://www.npmjs.com/package/hexo](https://www.npmjs.com/package/hexo) |
+| **分类标签 (Tags)** | `#ssg` · `#nodejs` · `#blog-engine` · `#timeline-posts` · `#tag-plugins` · `#ejs-nunjucks` · `#theme-ecosystem` · `#classic` |
+| **运行时与打包器** | Node.js >= 14 · Hexo Generator Pipeline |
+| **UI 与 Markdown 引擎** | EJS / Nunjucks / Pug 模板引擎 · `hexo-renderer-marked` |
+| **高亮与全文检索** | highlight.js / Prism.js · hexo-generator-searchdb（XML/JSON 索引） |
+| **数学公式与流程图库** | hexo-math / hexo-filter-mathjax ； hexo-filter-mermaid-diagrams 或主题内置 |
+| **核心依赖库 (Core Libs)** | `hexo`、`warehouse`、`hexo-renderer-marked`、`hexo-renderer-ejs`、`nunjucks`、`highlight.js` |
+
+### GitHub 仓库 API 指标快照
 
 | 官方仓库 | 创建日期 | 最近推送 | Stars | 默认分支总提交 | 峰值年份 (提交数) | 最新 Release |
 | :--- | :--- | :--- | ---: | ---: | :--- | :--- |
 | [`hexojs/hexo`](https://github.com/hexojs/hexo) | `2012-09-23` | `2026-10-26` | ★ 41,783 | 3,769 | `2013` (1,136) | `v8.1.2` (2026-05-06) |
 
-### 主分支历年提交活跃度表（`2012–2026`）
+### GitHub 主分支历年提交活跃度表（`2012–2026`）
 
 | 年份 | 提交数 (Commits) | 占峰值比 | 活跃度趋势条 | 阶段状态 |
 | :--- | ---: | ---: | :--- | :--- |
