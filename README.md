@@ -58,4 +58,4 @@ npm run build:all
 npm run preview:all
 ```
 
-新增派生版本子模块的标准接入规范请参见 [`spec/BENCHMARK_SPEC.md`](./spec/BENCHMARK_SPEC.md)。
+新增派生版本子模块的标准接入规范请参见 [`docs/benchmark-spec.md`](./docs/benchmark-spec.md)（线上阅读：[`/master/benchmark-spec`](https://page.2401.xyz/master/benchmark-spec)）。

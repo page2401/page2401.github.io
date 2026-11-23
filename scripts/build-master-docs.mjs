@@ -257,6 +257,7 @@ function buildHtmlShell(title, relDepthPrefix, contentHtml, activeRel) {
         <a href="/master/">母版首页</a>
         <a href="/master/00-dialects">方言谱系</a>
         <a href="/master/generators/">生成器特色图鉴</a>
+        <a href="/master/benchmark-spec">接入规范</a>
         <a href="/master/01-annotations">01. 标注</a>
         <a href="/master/02-diagrams">02. 流程图</a>
         <a href="/master/03-math">03. 公式</a>

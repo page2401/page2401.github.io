@@ -15,6 +15,7 @@ description: "page2401.github.io 静态网站对比平台的标准 CommonMark / 
 | :--- | :--- | :--- | :--- |
 | [`00-dialects.md`](./00-dialects.md) | **导览：Markdown 方言谱系** | 梳理 CommonMark → GFM → `markdown-it` / `remark-directive` / MDX / Docsify / MkDocs / Hugo 演进脉络 | 解释为什么同为 `*.md` 却存在语法壁垒与迁移锁定成本 |
 | [`generators/`](./generators/index.md) | **图鉴：各生成器特色档案目录** | 收录 VitePress、VuePress、Docsify、Starlight、Docusaurus、Hugo、MkDocs、Zola、mdBook、Rspress、Nextra、Hexo、Jekyll | 剖析各流派杀手锏特性、目录模型软肋与最佳适用场景 |
+| [`benchmark-spec.md`](./benchmark-spec.md) | **规范：派生子模块接入标准** | 定义母版五章测试算例要求、`main`/`page` 双分支约定与新增版本子模块四步上线流程 | 保障所有新接入子模块结构统一、版本精确可复现 |
 | [`01-annotations.md`](./01-annotations.md) | 专属标注与元数据 | 基础 YAML `title`/`description`、GFM `> [!NOTE]` 五类警报、原生 `<details>` | VitePress / VuePress 派生出 `::: tip` 容器与 `<Badge>`；Starlight 被迫改为 `:::caution[标题]` 与强类型 `tableOfContents`；Docsify 派生出 `?>` / `!>` |
 | [`02-diagrams.md`](./02-diagrams.md) | 流程图与时序图 | 标准围栏代码块 ```` ```mermaid ````（含 `flowchart`、`sequenceDiagram`、`stateDiagram-v2`） | Markdown 原文几乎无需改动，差异集中体现在工程配置文件与 Mermaid 大版本锁死（v10 / v11 / v12） |
 | [`03-math.md`](./03-math.md) | 数学公式排版 | 标准行内 `$...$`、块级 `$$...$$`（含 `aligned`、`bmatrix`、`cases`）及字面量 `\$` 转义 | 原文高度一致，检验各引擎构建期 SVG（MathJax 3）、HTML+Webfont（KaTeX）或客户端钩子防 `\\` 吞噬的表现 |
