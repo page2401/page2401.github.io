@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>04 扩展规范 — page.2401.xyz 多语言子模块与双分支接入架构</title>
+    <meta
+      name="description"
+      content="母版 docs/*.md 派生规范、独立 JSON 元数据协议、多语言清单适配机制与 Git Submodule 双分支自治架构指南。"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      ;(function () {
+        const saved = localStorage.getItem('page2401-theme')
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+        const theme = saved === 'dark' || saved === 'light' ? saved : prefersDark ? 'dark' : 'light'
+        document.documentElement.setAttribute('data-theme', theme)
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/pages/architecture.ts"></script>
+  </body>
+</html>

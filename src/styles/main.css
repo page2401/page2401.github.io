@@ -2220,3 +2220,107 @@ select {
   background-color: var(--accent-copper);
   width: 2px !important;
 }
+
+/* ==========================================================================
+   Multi-Page Architecture (MPA) Navigation, Portal Cards & Page Headers
+   ========================================================================== */
+
+.nav-link.active,
+.nav-link[aria-current='page'] {
+  background-color: var(--accent-teal-soft);
+  color: var(--accent-teal);
+  font-weight: 700;
+}
+
+.page-hero-compact {
+  padding-block: 1.55rem 1.15rem;
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.page-hero-compact .section-heading {
+  font-size: 1.55rem;
+  margin-bottom: 0.3rem;
+}
+
+.portal-channels-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-block: 1.6rem 2rem;
+}
+
+.channel-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 1.35rem 1.5rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.9rem;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
+}
+
+.channel-card:hover {
+  border-color: var(--accent-teal);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.channel-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.channel-num {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.16rem 0.52rem;
+  border-radius: 999px;
+  background-color: var(--accent-teal-soft);
+  color: var(--accent-teal);
+  letter-spacing: 0.04em;
+}
+
+.channel-route {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.channel-title {
+  margin: 0.45rem 0 0.35rem;
+  font-size: 1.18rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+.channel-desc {
+  margin: 0;
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  line-height: 1.58;
+}
+
+.channel-Enter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--accent-teal);
+}
+
+@media (max-width: 860px) {
+  .portal-channels-grid {
+    grid-template-columns: 1fr;
+  }
+}
