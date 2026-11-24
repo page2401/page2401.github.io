@@ -4,7 +4,7 @@
   "order": 17,
   "name": "Eleventy (11ty)",
   "versionNote": "v3.1 (ESM)",
-  "mounted": false,
+  "mounted": true,
   "sitePath": "sites/eleventy",
   "websiteUrl": "https://www.11ty.dev/",
   "githubUrl": "https://github.com/11ty/buildawesome",
@@ -43,7 +43,17 @@
       "liquidjs",
       "nunjucks",
       "@11ty/webc"
-    ]
+    ],
+    "pinnedPackages": {
+      "@11ty/eleventy": "3.1.8",
+      "@11ty/eleventy-navigation": "1.0.5",
+      "@11ty/eleventy-plugin-syntaxhighlight": "5.0.2",
+      "markdown-it": "15.0.3",
+      "@mdit/plugin-alert": "2.2.0",
+      "@mdit/plugin-katex": "1.2.1",
+      "katex": "0.19.1",
+      "mermaid": "12.3.0"
+    }
   },
   "matrix": {
     "tagline": "前端纯粹主义者的最爱：默认零字节客户端 JS，支持同目录 10+ 种模板引擎自由混排",
@@ -126,5 +136,28 @@
       "2025": 530,
       "2026": 449
     }
+  },
+  "subsiteRepoUrl": "https://github.com/page2401/eleventy",
+  "benchmark": {
+    "measuredAt": "2026-11-24T00:55:09.074Z",
+    "buildCommand": "npm run build",
+    "isRuntimeSpa": false,
+    "coldBuildMs": 1198,
+    "totalFiles": 70,
+    "totalBytes": 6783191,
+    "htmlFiles": 7,
+    "htmlBytes": 134124,
+    "jsFiles": 1,
+    "jsBytes": 5537838,
+    "jsGzipBytes": 1592717,
+    "cssFiles": 2,
+    "cssBytes": 34657,
+    "cssGzipBytes": 6067,
+    "otherBytes": 1076572,
+    "entryHtmlBytes": 9301,
+    "proseScriptCount": 0,
+    "hasOfflineSearch": false,
+    "offlineSearchKind": null,
+    "hasLlmsTxt": false
   }
 }

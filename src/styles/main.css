@@ -2324,3 +2324,148 @@ select {
     grid-template-columns: 1fr;
   }
 }
+
+/* ==========================================================================
+   Benchmark Telemetry Leaderboard & Pane Header Badges
+   ========================================================================== */
+
+.bench-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.85rem;
+  margin-bottom: 1.15rem;
+}
+
+@media (max-width: 960px) {
+  .bench-kpi-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.bench-speed-track {
+  height: 7px;
+  border-radius: 999px;
+  background-color: var(--bg-canvas);
+  border: 1px solid var(--border-subtle);
+  overflow: hidden;
+  margin-top: 0.35rem;
+}
+
+.bench-speed-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.25s ease;
+}
+
+.bench-speed-fill.tier-instant {
+  background-color: var(--accent-teal);
+}
+
+.bench-speed-fill.tier-fast {
+  background-color: #2f7ac7;
+}
+
+.bench-speed-fill.tier-heavy {
+  background-color: var(--accent-copper);
+}
+
+.bench-speed-fill.tier-spa {
+  background-color: var(--text-muted);
+}
+
+.bench-stack-outer {
+  display: flex;
+  height: 8px;
+  min-width: 48px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 0.35rem;
+  border: 1px solid var(--border-subtle);
+  background-color: var(--bg-canvas);
+}
+
+.seg-html {
+  background-color: var(--accent-teal);
+}
+
+.seg-js {
+  background-color: var(--accent-copper);
+}
+
+.seg-css {
+  background-color: #5b6ad0;
+}
+
+.seg-other {
+  background-color: #9aa3b2;
+}
+
+.bench-legend-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  margin-left: 0.35rem;
+  margin-right: 0.15rem;
+  vertical-align: middle;
+}
+
+.bench-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.14rem 0.46rem;
+  border-radius: 5px;
+  font-size: 0.7rem;
+  border: 1px solid var(--border-subtle);
+  background-color: var(--bg-canvas);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.bench-chip.zero-js {
+  background-color: var(--accent-teal-soft);
+  border-color: transparent;
+  color: var(--accent-teal);
+  font-weight: 700;
+}
+
+.bench-chip.search {
+  border-color: rgba(47, 122, 199, 0.35);
+  color: #2f7ac7;
+}
+
+[data-theme='dark'] .bench-chip.search {
+  color: #74b0f5;
+}
+
+.bench-chip.llms {
+  background-color: var(--accent-copper-soft);
+  border-color: transparent;
+  color: var(--accent-copper);
+  font-weight: 700;
+}
+
+.bench-chip.muted {
+  opacity: 0.68;
+}
+
+.bench-pane-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.12rem 0.48rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  background-color: var(--accent-teal-soft);
+  color: var(--accent-teal);
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: filter 0.15s ease;
+}
+
+.bench-pane-badge:hover {
+  filter: brightness(0.95);
+  text-decoration: underline;
+}

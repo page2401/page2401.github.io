@@ -13,6 +13,8 @@
     "preview": "vite preview",
     "build:all": "node scripts/build-all.mjs",
     "preview:all": "node scripts/preview-all.mjs",
+    "measure:benchmarks": "node scripts/measure-benchmarks.mjs",
+    "sync:benchmarks": "node scripts/measure-benchmarks.mjs && node scripts/sync-github-tables.mjs",
     "sync:github": "node scripts/fetch-github-activity.mjs && node scripts/sync-github-tables.mjs"
   },
   "devDependencies": {

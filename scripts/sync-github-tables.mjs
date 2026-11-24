@@ -140,8 +140,33 @@ function renderSiteSection(doc) {
     ].join('\n')
   }
 
+  const benchLines = doc.benchmark
+    ? [
+        '',
+        '### ⚡ 同源 5 章基准冷构建耗时与产物体积实测（`benchmark` 节点）',
+        '',
+        '| 冷构建耗时 | 产物文件数 | 总产物体积 | HTML 体积 | JS 原始 / Gzip | CSS 原始 / Gzip | 正文 `<script>` 数 | 离线搜索 / AI |',
+        '| ---: | ---: | ---: | ---: | ---: | ---: | ---: | :--- |',
+        `| **${
+          doc.benchmark.isRuntimeSpa
+            ? `${doc.benchmark.coldBuildMs} ms (零编译 SPA)`
+            : doc.benchmark.coldBuildMs >= 1000
+              ? `${(doc.benchmark.coldBuildMs / 1000).toFixed(2)} s (${fmtNum(doc.benchmark.coldBuildMs)} ms)`
+              : `${doc.benchmark.coldBuildMs} ms`
+        }** | ${doc.benchmark.totalFiles} | ${(doc.benchmark.totalBytes / 1024).toFixed(1)} KB | ${(doc.benchmark.htmlBytes / 1024).toFixed(1)} KB | ${(doc.benchmark.jsBytes / 1024).toFixed(1)} KB / **${(doc.benchmark.jsGzipBytes / 1024).toFixed(1)} KB** | ${(doc.benchmark.cssBytes / 1024).toFixed(1)} KB / ${(doc.benchmark.cssGzipBytes / 1024).toFixed(1)} KB | \`${doc.benchmark.proseScriptCount}\` 个 | ${
+          [
+            doc.benchmark.hasOfflineSearch ? doc.benchmark.offlineSearchKind : '无内置离线索引',
+            doc.benchmark.hasLlmsTxt ? '`llms.txt`' : null
+          ]
+            .filter(Boolean)
+            .join(' · ')
+        } |`
+      ]
+    : []
+
   return [
     ...metaCardLines,
+    ...benchLines,
     '',
     '### GitHub 仓库 API 指标快照',
     '',
@@ -158,7 +183,7 @@ function renderIndexMatrix() {
   const yearCols = recentYears.map((y) => `\`${String(y).slice(2)}年\``).join(' | ')
   const yearAligns = recentYears.map(() => '---:').join(' | ')
 
-  // Aggregate unique repositories across all 16 docs/sites/<id>.json files
+  // Aggregate unique repositories across all docs/sites/<id>.json files
   const uniqueRepos = new Map()
   for (const doc of siteDocs) {
     const entries = [doc.github, ...(doc.github.companionRepos || [])]
@@ -198,7 +223,7 @@ function renderIndexMatrix() {
     .join('\n')
 
   return [
-    `> 数据聚合自本目录下 16 个独立的 \`docs/sites/<id>.json\` 中的 \`github\` 节点（采样日期：\`${fetchedDate}\`）。粗体为单年历史峰值，\`·\` 表示当年尚未建仓。`,
+    `> 数据聚合自本目录下 ${siteDocs.length} 个独立的 \`docs/sites/<id>.json\` 中的 \`github\` 节点（采样日期：\`${fetchedDate}\`）。粗体为单年历史峰值，\`·\` 表示当年尚未建仓。`,
     '',
     `| 上游 GitHub 仓库 | 1:1 关联档案 & JSON | 立项月份 | Stars | 总提交 | \`08-15\`累计 | ${yearCols} |`,
     `| :--- | :--- | :--- | ---: | ---: | ---: | ${yearAligns} |`,

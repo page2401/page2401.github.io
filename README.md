@@ -25,32 +25,37 @@
 - **打包构建**：`vite@8.3.8`（底层基于 Rolldown，生产编译耗时约 `0.3s`）
 - **前端实现**：**原生 TypeScript + Vanilla CSS**（CSS 变量驱动深浅色主题，并通过同源 `<iframe>` 联动母版预览与各子站主题切换）
 - **母版参考渲染器**：Node.js 构建脚本 [`scripts/build-master-docs.mjs`](./scripts/build-master-docs.mjs)（基于 `marked@18.2.1` + `katex@0.19.1` + `mermaid@12.3.0` 将 `docs/*.md` 与 `docs/sites/*.json` 输出至 `dist/master/`）
-- **独立站点 JSON 同步**：[`scripts/fetch-github-activity.mjs`](./scripts/fetch-github-activity.mjs) + [`scripts/sync-github-tables.mjs`](./scripts/sync-github-tables.mjs)（执行 `npm run sync:github` 自动扫描 `docs/sites/*.json`，刷新每个文件内的 `github` API 历年提交节点与对应 Markdown 表格）
-- **构建期数据抽取**：[`scripts/generate-comparison-data.mjs`](./scripts/generate-comparison-data.mjs) 根据 [`sites.config.json`](./sites.config.json) 自动扫描母版 `docs/` 与各子模块 `sites/*` 的物理目录树、解析 `package.json` 锁定版本并提取真实 `*.md` 原文
-- **本地同源联调**：基于 `node:http` 的零依赖服务 [`scripts/preview-all.mjs`](./scripts/preview-all.mjs)，单端口模拟 `/`、`/master/` 与全部子路径挂载
+- **独立站点 JSON 与性能基准同步**：[`scripts/fetch-github-activity.mjs`](./scripts/fetch-github-activity.mjs) + [`scripts/measure-benchmarks.mjs`](./scripts/measure-benchmarks.mjs) + [`scripts/sync-github-tables.mjs`](./scripts/sync-github-tables.mjs)（`npm run sync:github` 刷新 `github` API 历年提交节点；`npm run sync:benchmarks` 空缓存实测全部子站冷构建耗时与产物体积并写入 `benchmark` 节点）
+- **构建期数据抽取**：[`scripts/generate-comparison-data.mjs`](./scripts/generate-comparison-data.mjs) 根据 [`sites.config.json`](./sites.config.json) 自动扫描母版 `docs/` 与各子模块 `sites/*` 的物理目录树、解析多语言锁定版本清单并提取真实 `*.md` 原文
+- **本地同源联调**：基于 `node:http` 的零依赖服务 [`scripts/preview-all.mjs`](./scripts/preview-all.mjs)，单端口模拟 `/`、`/directory/`、`/workbench/`、`/observatory/`、`/architecture/`、`/master/` 与全部子路径挂载
 - **分支与自动部署**：`main` 分支仅保留纯源代码与母版 `docs/*.md`；GitHub Actions 构建后将静态产物与 `CNAME` 强制推送至孤儿分支 `page`
 
 ---
 
-## 由母版派生的 13 个跨语言独立版本子模块（全景图谱共收录 26 款）
+## 由母版派生的 18 个跨语言独立版本子模块（全景图谱共收录 26 款）
 
-统一命名约定：每个子模块标识 `<id>` 同时对应本地子模块目录 `sites/<id>`、独立元数据 [`docs/sites/<id>.json`](./docs/sites/index.md)、独立仓库 `page2401/<id>` 以及线上访问路径 `https://page.2401.xyz/<id>/`（各自独立拥有 `main` 源码分支与 `page` 产物分支）。另有 13 款主流生成器（Fumadocs、Quartz 4、Nuxt Content、Eleventy、Lume、Sphinx、GitBook、HonKit、Gatsby、Pelican、Nextra、Hexo、Jekyll）收录于 `docs/sites/*.json` 图谱中。
+统一命名约定：每个子模块标识 `<id>` 同时对应本地子模块目录 `sites/<id>`、独立元数据 [`docs/sites/<id>.json`](./docs/sites/index.md)、独立仓库 `page2401/<id>` 以及线上访问路径 `https://page.2401.xyz/<id>/`（各自独立拥有 `main` 源码分支与 `page` 产物分支）。另有 8 款主流生成器（Lume、Sphinx、GitBook、HonKit、Gatsby、Pelican、Hexo、Jekyll）收录于 `docs/sites/*.json` 图谱中。
 
 | 子模块（点击直达线上预览） | 语言 / 架构派系 | 核心精确锁定版本 | 相对母版的典型派生特征与实测边界 |
 | :--- | :--- | :--- | :--- |
 | [**`vitepress-v1`**](https://page.2401.xyz/vitepress-v1/)（[源码](https://github.com/page2401/vitepress-v1)） | Node · Vue 3 + Rollup | `vitepress@1.6.4` · `mathjax3@4.3.2` · `mermaid@11.17.2` | 兼容母版 GFM Alert 并扩展 `::: tip`；根目录平铺需配 `srcExclude`；三方 Mermaid 插件停留在 v11 |
-| [**`vitepress-v2`**](https://page.2401.xyz/vitepress-v2/)（[源码](https://github.com/page2401/vitepress-v2)） | Node · Vite 8 Rolldown | `vitepress@2.0.0-alpha.21` · `mermaid@12.3.0` | 构建比 v1 快 **3.4 倍**；启用 `srcDir: 'docs'` + `rewrites`，原生主题组件直连 Mermaid 12 |
+| [**`vitepress-v2`**](https://page.2401.xyz/vitepress-v2/)（[源码](https://github.com/page2401/vitepress-v2)） | Node · Vite 8 Rolldown | `vitepress@2.0.0-alpha.21` · `mermaid@12.3.0` | 冷构建比 v1 快 **2.35×**；启用 `srcDir: 'docs'` + `rewrites`，原生主题组件直连 Mermaid 12 |
 | [**`vuepress-v1`**](https://page.2401.xyz/vuepress-v1/)（[源码](https://github.com/page2401/vuepress-v1)） | Node · Vue 2 + Webpack 4 | `vuepress@1.9.10` · `katex@0.19.1` · `mermaid@10.9.8` | 无法识别母版 GFM Alert 与 `::: info`；首页须改名为 `README.md`；Node 22 须开启 `--openssl-legacy-provider` |
 | [**`vuepress-v2`**](https://page.2401.xyz/vuepress-v2/)（[源码](https://github.com/page2401/vuepress-v2)） | Node · Vue 3 + Vite | `vuepress@2.0.0-rc.32` · `katex@0.19.1` · `mermaid@12.3.0` | 官方一等公民维护 Hint / Math / Chart 插件；延续 `README.md` 即目录首页与 `.html` 路由约定 |
-| [**`docsify-v4`**](https://page.2401.xyz/docsify-v4/)（[源码](https://github.com/page2401/docsify-v4)） | Browser · 零编译 SPA | `docsify@4.13.1` · `flexible-alerts@1.3.1` | 派生新增 `_sidebar.md`（强绑 `.nojekyll`）与 `?>`/`!>`；旧插件无法识别母版 `[!IMPORTANT]` 与 `[!CAUTION]` |
+| [**`docsify-v4`**](https://page.2401.xyz/docsify-v4/)（[源码](https://github.com/page2401/docsify-v4)） | Browser · 零编译 SPA | `docsify@4.13.1` · `flexible-alerts@1.3.0` | 派生新增 `_sidebar.md`（强绑 `.nojekyll`）与 `?>`/`!>`；旧插件无法识别母版 `[!IMPORTANT]` 与 `[!CAUTION]` |
 | [**`docsify-v5`**](https://page.2401.xyz/docsify-v5/)（[源码](https://github.com/page2401/docsify-v5)） | Browser · 新一代 SPA | `docsify@5.1.0` · `katex@0.19.1` · `mermaid@12.3.0` | **零插件直接渲染母版全部 GFM Callouts**；重构 `core-dark` 主题，破坏性变更 `renderer.code` 签名 |
-| [**`astro7-starlight`**](https://page.2401.xyz/astro7-starlight/)（[源码](https://github.com/page2401/astro7-starlight)） | Node · Astro 7 Islands | `astro@7.4.13` · `starlight@0.43.1` · `mermaid@12.3.0` | 迁入 3 层深 `src/content/docs/`、改写为 `:::caution[标题]`，Astro 7 须显式装 `@astrojs/markdown-remark` |
-| [**`docusaurus-v3`**](https://page.2401.xyz/docusaurus-v3/)（[源码](https://github.com/page2401/docusaurus-v3)） | Node · React 19 + MDX 3 | `@docusaurus/core@3.10.2` · `katex@0.19.1` · `mermaid@12.3.0` | 子目录 `_category_.json` 优雅指定中文分组名；MDX 3 严格拒绝裸 `<` 与 `{}`；默认不转换 GFM Alert |
-| [**`rspress`**](https://page.2401.xyz/rspress/)（[源码](https://github.com/page2401/rspress)） | Rust Rspack + React | `@rspress/core@2.1.4` · `katex@0.19.1` · `mermaid@12.3.0` | CI 全量构建仅 **24s**；每层 `_meta.json` 编排目录；双轨兼容 `:::` 与 GFM Alert，自动产出 `llms.txt` |
-| [**`hugo`**](https://page.2401.xyz/hugo/)（[源码](https://github.com/page2401/hugo)） | Go 单二进制 + Goldmark | `hugo@0.170.1` · `katex@0.19.1` · `mermaid@12.3.0` | 50ms 毫秒级构建；区分 `_index.md`（分支章节）与 `index.md`；Goldmark 渲染钩子原生接管 GFM Alert 与公式 |
-| [**`mkdocs-material`**](https://page.2401.xyz/mkdocs-material/)（[源码](https://github.com/page2401/mkdocs-material)） | Python + `pymdownx` | `mkdocs-material==9.8.2` · `pymdown-extensions==13.1.2` | 单文件 `mkdocs.yml` 总控导航；独创 `!!!` / `???` + **4 空格缩进**警示与折叠语法，跨生态迁移重写成本高 |
-| [**`mdbook`**](https://page.2401.xyz/mdbook/)（[源码](https://github.com/page2401/mdbook)） | Rust 单二进制电子书 | `mdbook@0.5.4` · `katex@0.19.1` · `mermaid@12.3.0` | `src/SUMMARY.md` 100% 驱动全书目录；**不支持 YAML Frontmatter（必须剔除）**；v0.5 原生支持全部 GFM Alerts |
-| [**`zola`**](https://page.2401.xyz/zola/)（[源码](https://github.com/page2401/zola)） | Rust 单二进制 + Tera v2 | `zola@0.23.6` · `katex@0.19.1` · `mermaid@12.3.0` | 29ms 极速构建 + `@/` 编译期死链检查；采用 `+++` TOML 元数据；**v0.23 Tera v2 改用 `{% <callout> %}` 组件标签** |
+| [**`astro7-starlight`**](https://page.2401.xyz/astro7-starlight/)（[源码](https://github.com/page2401/astro7-starlight)） | Node · Astro 7 Islands | `astro@7.4.13` · `starlight@0.43.1` · `mermaid@12.3.0` | 迁入 3 层深 `src/content/docs/`、改写为 `:::caution[标题]`，内置 Pagefind 离线中文索引 |
+| [**`docusaurus-v3`**](https://page.2401.xyz/docusaurus-v3/)（[源码](https://github.com/page2401/docusaurus-v3)） | Node · React 19 + MDX 3 | `@docusaurus/core@3.10.2` · `katex@0.19.1` · `mermaid@12.3.0` | 子目录 `_category_.json` 优雅指定中文分组名；MDX 3 严拒裸 `<` 与 `{}`；Webpack 双端编译最重 |
+| [**`rspress`**](https://page.2401.xyz/rspress/)（[源码](https://github.com/page2401/rspress)） | Rust Rspack + React | `@rspress/core@2.1.4` · `katex@0.19.1` · `mermaid@12.3.0` | 空缓存构建仅 `11.8s`（比 Docusaurus 快 **13×**）；`_meta.json` 编排目录；自动产出 `llms.txt` |
+| [**`hugo`**](https://page.2401.xyz/hugo/)（[源码](https://github.com/page2401/hugo)） | Go 单二进制 + Goldmark | `hugo@0.170.1` · `katex@0.19.1` · `mermaid@12.3.0` | `266ms` 毫秒级构建；区分 `_index.md`（分支章节）与 `index.md`；Goldmark 渲染钩子原生接管 GFM Alert |
+| [**`mkdocs-material`**](https://page.2401.xyz/mkdocs-material/)（[源码](https://github.com/page2401/mkdocs-material)） | Python + `pymdownx` | `mkdocs-material==9.8.2` · `pymdown-extensions==10.21.2` | 单文件 `mkdocs.yml` 总控导航；独创 `!!!` / `???` + **4 空格缩进**警示与折叠语法 |
+| [**`mdbook`**](https://page.2401.xyz/mdbook/)（[源码](https://github.com/page2401/mdbook)） | Rust 单二进制电子书 | `mdbook@0.5.4` · `katex@0.19.1` · `mermaid@12.3.0` | `168ms` 最速构建；`src/SUMMARY.md` 驱动全书目录；**不支持 YAML 头（须剔除）**；v0.5 原生支持 GFM Alerts |
+| [**`zola`**](https://page.2401.xyz/zola/)（[源码](https://github.com/page2401/zola)） | Rust 单二进制 + Tera v2 | `zola@0.23.6` · `katex@0.19.1` · `mermaid@12.3.0` | `173ms` 闪电构建 + `@/` 编译期死链检查；`+++` TOML 头；**v0.23 Tera v2 改用 `{% <callout> %}` 组件** |
+| [**`fumadocs`**](https://page.2401.xyz/fumadocs/)（[源码](https://github.com/page2401/fumadocs)） | Node · Next.js 16 + MDX | `fumadocs-ui@16.19.7` · `next@16.4.6` · `mermaid@12.3.0` | 源码级 Tailwind v4 定制 + 分层级 `meta.json`；前置函数注入 `rehype-katex` 绕过内置 Shiki 抢占 |
+| [**`nextra`**](https://page.2401.xyz/nextra/)（[源码](https://github.com/page2401/nextra)） | Node · Next.js 15 + RSC | `nextra@4.6.1` · `next@15.5.29` · `pagefind@1.6.0` | v4 废除 `_meta.json` 仅认 `_meta.js`；需锁 `zod@4.1.12` 规避 strictObject 回归；内置 Pagefind 索引 |
+| [**`quartz`**](https://page.2401.xyz/quartz/)（[源码](https://github.com/page2401/quartz)） | Node · Preact + Unified | `@jackyzha0/quartz@4.5.2` · `d3@7.9.0` · `pixi.js@8.15.0` | 原生 Obsidian `[[Wikilinks]]` 双向链接、反向链接与交互关系图谱；`6.2s` 构建含 FlexSearch 全文索引 |
+| [**`nuxt-content`**](https://page.2401.xyz/nuxt-content/)（[源码](https://github.com/page2401/nuxt-content)） | Node · Nuxt 4 + SQLite | `@nuxt/content@3.17.0` · `nuxt@4.7.0` · `vue@3.5.46` | 独创双冒号 `::callout` MDC 组件语法；Frontmatter 编译为 SQLite 强类型表 + `.navigation.yml` 中文分组 |
+| [**`eleventy`**](https://page.2401.xyz/eleventy/)（[源码](https://github.com/page2401/eleventy)） | Node · 11ty v3 零 JS | `@11ty/eleventy@3.1.8` · `markdown-it@15.0.3` · `katex@0.19.1` | `1.2s` 全量构建；**正文页 `0` 个 `<script>` 纯静态 HTML**；`*.11tydata.json` 数据级联 + 自动重写 `.md` 相对链接 |
 
 ---
 

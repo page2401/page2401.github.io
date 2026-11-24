@@ -40,8 +40,12 @@ const mounts = config.sites
   .sort((a, b) => b.prefix.length - a.prefix.length)
 
 function resolveStaticFile(baseDir, subPath) {
-  const cleanRel = decodeURIComponent(subPath).replace(/^\/+/, '').replace(/\.\./g, '')
-  const direct = path.join(baseDir, cleanRel)
+  const resolvedBase = path.resolve(baseDir)
+  const cleanRel = decodeURIComponent(subPath).replace(/^\/+/, '')
+  const direct = path.resolve(resolvedBase, cleanRel)
+  if (direct !== resolvedBase && !direct.startsWith(`${resolvedBase}${path.sep}`)) {
+    return null
+  }
 
   if (fs.existsSync(direct) && fs.statSync(direct).isFile()) return direct
   if (fs.existsSync(path.join(direct, 'index.html'))) return path.join(direct, 'index.html')

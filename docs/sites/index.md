@@ -1,23 +1,24 @@
 ---
-title: "docs/sites/ 站点元数据 JSON 与 GitHub 活跃度总览（26 款）"
-description: "与 sites/<id> 严格 1:1 对齐的 26 组 <id>.md + <id>.json（涵盖 13 个跨语言实测挂载子站 + 13 个主流生态图鉴位，含 2008–2026 GitHub 历年提交节点）。"
+title: "docs/sites/ 站点元数据 JSON、构建性能与 GitHub 活跃度总览（26 款）"
+description: "与 sites/<id> 严格 1:1 对齐的 26 组 <id>.md + <id>.json（涵盖 18 个跨语言实测挂载子站 + 8 个主流生态图鉴位，含空缓存冷构建 benchmark 节点与 2008–2026 GitHub 历年提交节点）。"
 ---
 
-# `docs/sites/` 站点独立元数据 JSON 与 GitHub 活跃度总览（26 款）
+# `docs/sites/` 站点独立元数据 JSON、构建性能与 GitHub 活跃度总览（26 款）
 
-本目录（`docs/sites/`）与仓库子模块目录 **`sites/<id>` 严格保持 1:1 对齐**，当前共收录 **26 款主流静态网站生成器 / 大版本**（包含 **13 个跨语言同源实测子站** 与 **13 个生态图鉴预留位**），每个站点均成对维护两份文件：
+本目录（`docs/sites/`）与仓库子模块目录 **`sites/<id>` 严格保持 1:1 对齐**，当前共收录 **26 款主流静态网站生成器 / 大版本**（包含 **18 个跨语言同源实测子站** 与 **8 个生态图鉴预留位**），每个站点均成对维护两份文件：
 
-1. **结构化元数据与 API 数据文件 `docs/sites/<id>.json`**：
+1. **结构化元数据与实测数据文件 `docs/sites/<id>.json`**：
    - **站点自身元数据**：`websiteUrl`（官方网站）、`githubUrl`（GitHub 源码地址）、`packageUrl`（包仓库地址）、`tags`（特性与流派标签数组）、`lifecycle`（开始 / 活跃 / 废弃时间）、`libs`（运行时、打包器、UI 框架、Markdown 引擎、代码高亮、全文检索、公式与图表库及 `coreLibs` / `pinnedPackages`）；
+   - **`benchmark` 节点**（已挂载实测子站）：通过 `npm run sync:benchmarks`（[`scripts/measure-benchmarks.mjs`](https://github.com/page2401/page2401.github.io/blob/main/scripts/measure-benchmarks.mjs)）在同一环境空缓存实测的冷构建耗时（`coldBuildMs`）、总产物大小、HTML/JS/CSS/字体拆分、Gzip 体积、正文 `<script>` 数及离线搜索索引形态；
    - **`github` 节点**：通过 `npm run sync:github`（[`scripts/fetch-github-activity.mjs`](https://github.com/page2401/page2401.github.io/blob/main/scripts/fetch-github-activity.mjs)）查询 GitHub GraphQL API 持久化的仓库统计与 `2008–2026` 历年提交数。
-2. **深度剖析文档 `docs/sites/<id>.md`**：自动读取同名 `./<id>.json` 渲染元数据卡片与历年提交活跃度表格，并补充架构优劣与排障实录。
+2. **深度剖析文档 `docs/sites/<id>.md`**：自动读取同名 `./<id>.json` 渲染元数据卡片、构建性能实测表与历年提交活跃度表格，并补充架构优劣与排障实录。
 
 ---
 
 ## 1. 上游 GitHub 仓库历年提交数全景表（2008–2026 · 27 座官方仓）
 
 <!-- GITHUB_API_INDEX_START -->
-> 数据聚合自本目录下 16 个独立的 `docs/sites/<id>.json` 中的 `github` 节点（采样日期：`2026-11-23`）。粗体为单年历史峰值，`·` 表示当年尚未建仓。
+> 数据聚合自本目录下 26 个独立的 `docs/sites/<id>.json` 中的 `github` 节点（采样日期：`2026-11-23`）。粗体为单年历史峰值，`·` 表示当年尚未建仓。
 
 | 上游 GitHub 仓库 | 1:1 关联档案 & JSON | 立项月份 | Stars | 总提交 | `08-15`累计 | `16年` | `17年` | `18年` | `19年` | `20年` | `21年` | `22年` | `23年` | `24年` | `25年` | `26年` |
 | :--- | :--- | :--- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -52,7 +53,7 @@ description: "与 sites/<id> 严格 1:1 对齐的 26 组 <id>.md + <id>.json（�
 
 ---
 
-## 2. 已挂载跨语言实测子站（13 个 · 与 `sites/<id>` 1:1 对应）
+## 2. 已挂载跨语言实测子站（18 个 · 与 `sites/<id>` 1:1 对应）
 
 | 站点 ID (`sites/<id>`) | 档案与独立 JSON | 底层语言 / 管线 | 线上实测路径 | 开始时间 | 活跃 / EOL 状态 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -68,19 +69,19 @@ description: "与 sites/<id> 严格 1:1 对齐的 26 组 <id>.md + <id>.json（�
 | `sites/hugo` | [`hugo.md`](./hugo.md) · [`json`](./hugo.json) | Go 单二进制 + Goldmark | [`/hugo/`](/hugo/) | `2013-07-04` | 十三年常青高频活跃 |
 | `sites/mkdocs-material` | [`mkdocs-material.md`](./mkdocs-material.md) · [`json`](./mkdocs-material.json) | Python + `pymdownx` | [`/mkdocs-material/`](/mkdocs-material/) | `2016-01-28` | v8 停更；v9.8 成熟活跃 |
 | `sites/mdbook` | [`mdbook.md`](./mdbook.md) · [`json`](./mdbook.json) | Rust 单二进制 + `SUMMARY.md` | [`/mdbook/`](/mdbook/) | `2015-07-07` | Rust 官方长青活跃 |
-| `sites/zola` | [`zola.md`](./zola.md) · [`json`](./zola.json) | Rust 单二进制 + Tera | [`/zola/`](/zola/) | `2016-12-06` | 十年稳步迭代活跃 |
+| `sites/zola` | [`zola.md`](./zola.md) · [`json`](./zola.json) | Rust 单二进制 + Tera v2 | [`/zola/`](/zola/) | `2016-12-06` | 十年稳步迭代活跃 |
+| `sites/fumadocs` | [`fumadocs.md`](./fumadocs.md) · [`json`](./fumadocs.json) | Node · Next.js 16 + MDX | [`/fumadocs/`](/fumadocs/) | `2023-07-03` | 2024–2026 爆发式增长 |
+| `sites/nextra` | [`nextra.md`](./nextra.md) · [`json`](./nextra.json) | Node · Next.js 15 + `_meta.js` | [`/nextra/`](/nextra/) | `2020-06-15` | v4 App Router 架构升级 |
+| `sites/quartz` | [`quartz.md`](./quartz.md) · [`json`](./quartz.json) | Node · Preact + Obsidian 双链 | [`/quartz/`](/quartz/) | `2021-07-18` | v4 数字花园标杆 |
+| `sites/nuxt-content` | [`nuxt-content.md`](./nuxt-content.md) · [`json`](./nuxt-content.json) | Node · Nuxt 4 + SQLite MDC | [`/nuxt-content/`](/nuxt-content/) | `2020-03-31` | v3 MDC + SQLite 持续活跃 |
+| `sites/eleventy` | [`eleventy.md`](./eleventy.md) · [`json`](./eleventy.json) | Node · 11ty v3 零 JS HTML | [`/eleventy/`](/eleventy/) | `2017-11-27` | 零客户端 JS 常青活跃 |
 
 ---
 
-## 3. 主流生态图鉴预留扩展位（13 个 · 预留 `sites/<id>` 1:1 命名）
+## 3. 主流生态图鉴预留扩展位（8 个 · 预留 `sites/<id>` 1:1 命名）
 
 | 预留 ID (`sites/<id>`) | 档案与独立 JSON | 官网地址 | 上游 GitHub 仓库 | 开始时间 | 活跃 / EOL 状态 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| `sites/fumadocs` | [`fumadocs.md`](./fumadocs.md) · [`json`](./fumadocs.json) | [fumadocs.dev](https://fumadocs.dev/) | `fuma-nama/fumadocs` | `2023-07-03` | 2024–2026 爆发式增长 |
-| `sites/quartz` | [`quartz.md`](./quartz.md) · [`json`](./quartz.json) | [quartz.jzhao.xyz](https://quartz.jzhao.xyz/) | `jackyzha0/quartz` | `2021-07-18` | v4 Obsidian 数字花园标杆 |
-| `sites/nuxt-content` | [`nuxt-content.md`](./nuxt-content.md) · [`json`](./nuxt-content.json) | [content.nuxt.com](https://content.nuxt.com/) | `nuxt/content` | `2020-03-31` | v3 MDC + SQLite 持续活跃 |
-| `sites/nextra` | [`nextra.md`](./nextra.md) · [`json`](./nextra.json) | [nextra.site](https://nextra.site/) | `shuding/nextra` | `2020-06-15` | v1/v2 淘汰；2026 提交趋缓 |
-| `sites/eleventy` | [`eleventy.md`](./eleventy.md) · [`json`](./eleventy.json) | [11ty.dev](https://www.11ty.dev/) | `11ty/buildawesome` | `2017-11-27` | 零客户端 JS 常青活跃 |
 | `sites/lume` | [`lume.md`](./lume.md) · [`json`](./lume.json) | [lume.land](https://lume.land/) | `lumeland/lume` | `2020-09-07` | Deno 原生高频活跃 |
 | `sites/sphinx` | [`sphinx.md`](./sphinx.md) · [`json`](./sphinx.json) | [sphinx-doc.org](https://www.sphinx-doc.org/) | `sphinx-doc/sphinx` | `2008-03-21` | Python 与科学出版不朽基石 |
 | `sites/gitbook` | [`gitbook.md`](./gitbook.md) · [`json`](./gitbook.json) | [gitbook.com](https://www.gitbook.com/) | `GitbookIO/gitbook` | `2014-03-31` | 旧 CLI 废弃；转型 Next.js 云端 |

@@ -1,5 +1,13 @@
 import { escapeHtml } from '../components/source-diff'
-import { dataset, formatCompactNum, mountPageShell, openDrawer, renderSparklineSvg } from '../shared/shell'
+import {
+  dataset,
+  formatBuildMs,
+  formatBytes,
+  formatCompactNum,
+  mountPageShell,
+  openDrawer,
+  renderSparklineSvg
+} from '../shared/shell'
 
 function redirectLegacyAnchors(): boolean {
   const hash = window.location.hash
@@ -10,6 +18,10 @@ function redirectLegacyAnchors(): boolean {
   }
   if (hash === '#observatory') {
     window.location.replace('/observatory/')
+    return true
+  }
+  if (hash === '#benchmark') {
+    window.location.replace('/observatory/?tab=benchmark')
     return true
   }
   if (hash === '#matrix') {
@@ -62,7 +74,11 @@ function renderHomePage(): void {
             <div class="spark-strip" style="margin-top:0.6rem;">
               <div class="spark-metrics mono">
                 <span class="spark-metrics-top">★ ${formatCompactNum(row.stars)} · 26年 ${row.commits2026} 次</span>
-                <span class="spark-metrics-sub">${escapeHtml(row.libs.bundler)}</span>
+                <span class="spark-metrics-sub">${
+                  row.benchmark
+                    ? `⚡ ${escapeHtml(formatBuildMs(row.benchmark.coldBuildMs, row.benchmark.isRuntimeSpa))} · JS ${escapeHtml(formatBytes(row.benchmark.jsGzipBytes))}`
+                    : escapeHtml(row.libs.bundler)
+                }</span>
               </div>
               ${renderSparklineSvg(row)}
             </div>
@@ -90,12 +106,12 @@ function renderHomePage(): void {
           <p class="intro-eyebrow mono">Canonical GFM Master · Per-Site JSON Metadata · Polyglot Git Submodules</p>
           <h1 class="intro-title">跨语言静态网站生成器（SSG）全景生态图谱与多版本实测平台</h1>
           <p class="intro-desc">
-            围绕<strong>一套纯正 GFM 母版（<code>docs/*.md</code>）</strong>、<strong>${totalSites} 份独立站点 JSON 元数据图谱（<code>docs/sites/*.json</code>）</strong>与 <strong>${mountedCount} 座跨语言同源实测子模块（Node / Go / Rust / Python / SPA）</strong>构建，四大功能模块现已拆分为独立专页按需加载。
+            围绕<strong>一套纯正 GFM 母版（<code>docs/*.md</code>）</strong>、<strong>${totalSites} 份独立站点 JSON 元数据图谱（<code>docs/sites/*.json</code>）</strong>与 <strong>${mountedCount} 座跨语言同源实测子模块（Node / Go / Rust / Python / SPA）</strong>构建，涵盖双栏渲染、源码派生与冷构建性能实测。
           </p>
           <div class="hero-actions">
             <a href="/workbench/" class="hero-cta primary">⚡ 进入 02 分屏实测工作台</a>
+            <a href="/observatory/?tab=benchmark" class="hero-cta">🚀 查看冷构建耗时与体积榜</a>
             <a href="/directory/" class="hero-cta">🗂️ 检索 01 生态目录 (${totalSites} 款)</a>
-            <a href="/observatory/" class="hero-cta">📊 查看 03 历年提交热力图</a>
           </div>
         </div>
 

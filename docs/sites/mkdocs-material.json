@@ -133,5 +133,27 @@
     }
   },
   "subsiteRepoUrl": "https://github.com/page2401/mkdocs-material",
-  "previewUrl": "https://page.2401.xyz/mkdocs-material/"
+  "previewUrl": "https://page.2401.xyz/mkdocs-material/",
+  "benchmark": {
+    "measuredAt": "2026-11-24T00:55:09.074Z",
+    "buildCommand": "mkdocs build",
+    "isRuntimeSpa": false,
+    "coldBuildMs": 2092,
+    "totalFiles": 119,
+    "totalBytes": 9628013,
+    "htmlFiles": 8,
+    "htmlBytes": 177463,
+    "jsFiles": 40,
+    "jsBytes": 6877836,
+    "jsGzipBytes": 1952902,
+    "cssFiles": 3,
+    "cssBytes": 174295,
+    "cssGzipBytes": 28253,
+    "otherBytes": 2398419,
+    "entryHtmlBytes": 24618,
+    "proseScriptCount": 8,
+    "hasOfflineSearch": true,
+    "offlineSearchKind": "Lunr.js 静态索引",
+    "hasLlmsTxt": false
+  }
 }

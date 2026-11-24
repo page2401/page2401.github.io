@@ -54,6 +54,29 @@ export interface SiteHighlights {
   buildArtifact: string
 }
 
+export interface SiteBenchmark {
+  measuredAt: string
+  buildCommand: string
+  isRuntimeSpa: boolean
+  coldBuildMs: number
+  totalFiles: number
+  totalBytes: number
+  htmlFiles: number
+  htmlBytes: number
+  jsFiles: number
+  jsBytes: number
+  jsGzipBytes: number
+  cssFiles: number
+  cssBytes: number
+  cssGzipBytes: number
+  otherBytes: number
+  entryHtmlBytes: number
+  proseScriptCount: number
+  hasOfflineSearch: boolean
+  offlineSearchKind: string | null
+  hasLlmsTxt: boolean
+}
+
 export interface SiteEntry {
   id: string
   isMaster?: boolean
@@ -80,6 +103,7 @@ export interface SiteEntry {
   directoryProfile: DirectoryProfile
   treeNodes: TreeNode[]
   highlights: SiteHighlights
+  benchmark?: SiteBenchmark | null
   docs: Record<string, DocEntry>
   configs: ConfigFileEntry[]
 }
@@ -139,6 +163,7 @@ export interface LandscapeRow {
   totalCommits: number
   commits2026: number
   yearlyCommits: Record<string, number>
+  benchmark?: SiteBenchmark | null
   tagline: string
   stack: string
   directoryModel: string
@@ -200,7 +225,8 @@ export type DirectorySort =
   | 'stars-desc'
   | 'commits2026-desc'
   | 'total-commits-desc'
+  | 'build-asc'
   | 'newest'
   | 'oldest'
 export type DirectoryView = 'grid' | 'list'
-export type ObservatoryTab = 'heatmap' | 'matrix' | 'dialects'
+export type ObservatoryTab = 'heatmap' | 'benchmark' | 'matrix' | 'dialects'

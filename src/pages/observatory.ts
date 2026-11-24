@@ -1,24 +1,40 @@
 import { escapeHtml } from '../components/source-diff'
-import type { GitHubRepoActivity, ObservatoryTab } from '../types'
-import { dataset, formatCompactNum, mountPageShell, openDrawer } from '../shared/shell'
+import type { GitHubRepoActivity, LandscapeRow, ObservatoryTab } from '../types'
+import {
+  dataset,
+  formatBuildMs,
+  formatBytes,
+  formatCompactNum,
+  mountPageShell,
+  openDrawer
+} from '../shared/shell'
 
 type HeatmapSort = 'default' | 'commits2026' | 'total' | 'stars' | 'oldest'
+type BenchmarkSort = 'build-asc' | 'js-gzip-asc' | 'total-bytes-asc' | 'default'
 
 interface ObservatoryState {
   obsTab: ObservatoryTab
   heatmapSort: HeatmapSort
+  benchSort: BenchmarkSort
 }
 
 function loadObservatoryState(): ObservatoryState {
   const params = new URLSearchParams(window.location.search)
   const tabParam = params.get('tab') as ObservatoryTab | null
-  const sortParam = params.get('sort') as HeatmapSort | null
+  const sortParam = params.get('sort')
   return {
-    obsTab: tabParam && ['heatmap', 'matrix', 'dialects'].includes(tabParam) ? tabParam : 'heatmap',
+    obsTab:
+      tabParam && ['heatmap', 'benchmark', 'matrix', 'dialects'].includes(tabParam)
+        ? tabParam
+        : 'heatmap',
     heatmapSort:
       sortParam && ['default', 'commits2026', 'total', 'stars', 'oldest'].includes(sortParam)
-        ? sortParam
-        : 'default'
+        ? (sortParam as HeatmapSort)
+        : 'default',
+    benchSort:
+      sortParam && ['build-asc', 'js-gzip-asc', 'total-bytes-asc', 'default'].includes(sortParam)
+        ? (sortParam as BenchmarkSort)
+        : 'build-asc'
   }
 }
 
@@ -27,9 +43,17 @@ const state = loadObservatoryState()
 function syncObservatoryUrl(): void {
   const params = new URLSearchParams()
   if (state.obsTab !== 'heatmap') params.set('tab', state.obsTab)
-  if (state.heatmapSort !== 'default') params.set('sort', state.heatmapSort)
+  if (state.obsTab === 'heatmap' && state.heatmapSort !== 'default') {
+    params.set('sort', state.heatmapSort)
+  } else if (state.obsTab === 'benchmark' && state.benchSort !== 'build-asc') {
+    params.set('sort', state.benchSort)
+  }
   const qs = params.toString()
-  window.history.replaceState(null, '', qs ? `${window.location.pathname}?${qs}` : window.location.pathname)
+  window.history.replaceState(
+    null,
+    '',
+    qs ? `${window.location.pathname}?${qs}` : window.location.pathname
+  )
 }
 
 function heatLevelClass(count: number, isBeforeCreation: boolean): string {
@@ -62,7 +86,224 @@ function getSortedHeatmapRepos(): GitHubRepoActivity[] {
   return list
 }
 
+function getSortedBenchRows(): LandscapeRow[] {
+  const measured = dataset.landscapeRows.filter((r) => r.mounted && r.benchmark)
+  switch (state.benchSort) {
+    case 'js-gzip-asc':
+      measured.sort((a, b) => a.benchmark!.jsGzipBytes - b.benchmark!.jsGzipBytes)
+      break
+    case 'total-bytes-asc':
+      measured.sort((a, b) => a.benchmark!.totalBytes - b.benchmark!.totalBytes)
+      break
+    case 'default':
+      measured.sort((a, b) => a.order - b.order)
+      break
+    case 'build-asc':
+    default:
+      measured.sort((a, b) => {
+        // Group compiled SSGs by build speed first, place zero-compile runtime SPAs right after or compare fairly
+        if (a.benchmark!.isRuntimeSpa !== b.benchmark!.isRuntimeSpa) {
+          return a.benchmark!.isRuntimeSpa ? 1 : -1
+        }
+        return a.benchmark!.coldBuildMs - b.benchmark!.coldBuildMs
+      })
+      break
+  }
+  return measured
+}
+
+function renderBenchmarkTabHtml(): string {
+  const rows = getSortedBenchRows()
+  if (rows.length === 0) {
+    return `
+      <div style="background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:10px;padding:2rem;color:var(--text-muted);">
+        尚未采集构建性能数据，请运行 <code>npm run sync:benchmarks</code> 生成实测遥测节点。
+      </div>
+    `
+  }
+
+  const compiledRows = rows.filter((r) => !r.benchmark!.isRuntimeSpa)
+  const fastestCompiled = [...compiledRows].sort(
+    (a, b) => a.benchmark!.coldBuildMs - b.benchmark!.coldBuildMs
+  )[0]
+  const slowestCompiled = [...compiledRows].sort(
+    (a, b) => b.benchmark!.coldBuildMs - a.benchmark!.coldBuildMs
+  )[0]
+  const lightestJs = [...compiledRows].sort(
+    (a, b) => a.benchmark!.jsGzipBytes - b.benchmark!.jsGzipBytes
+  )[0]
+  const searchCount = rows.filter((r) => r.benchmark!.hasOfflineSearch).length
+  const llmsCount = rows.filter((r) => r.benchmark!.hasLlmsTxt).length
+  const maxBuildMs = Math.max(100, ...rows.map((r) => r.benchmark!.coldBuildMs))
+  const maxTotalBytes = Math.max(1024, ...rows.map((r) => r.benchmark!.totalBytes))
+  const speedRatio =
+    fastestCompiled && slowestCompiled && fastestCompiled.benchmark!.coldBuildMs > 0
+      ? Math.round(slowestCompiled.benchmark!.coldBuildMs / fastestCompiled.benchmark!.coldBuildMs)
+      : 1
+
+  const measuredDate = rows[0]?.benchmark?.measuredAt?.slice(0, 10) || ''
+
+  const trs = rows
+    .map((row, idx) => {
+      const b = row.benchmark!
+      // Log-scaled width so sub-100ms binaries and 20s bundlers are both legible on one chart
+      const logMin = Math.log10(15)
+      const logMax = Math.log10(Math.max(1000, maxBuildMs))
+      const logCur = Math.log10(Math.max(15, b.coldBuildMs))
+      const speedPct = b.isRuntimeSpa
+        ? 6
+        : Math.max(5, Math.min(100, Math.round(((logCur - logMin) / (logMax - logMin)) * 100)))
+
+      const speedTierCls = b.isRuntimeSpa
+        ? 'tier-spa'
+        : b.coldBuildMs < 250
+          ? 'tier-instant'
+          : b.coldBuildMs < 3500
+            ? 'tier-fast'
+            : 'tier-heavy'
+
+      const total = Math.max(1, b.totalBytes)
+      const htmlPct = ((b.htmlBytes / total) * 100).toFixed(1)
+      const jsPct = ((b.jsBytes / total) * 100).toFixed(1)
+      const cssPct = ((b.cssBytes / total) * 100).toFixed(1)
+      const otherPct = ((b.otherBytes / total) * 100).toFixed(1)
+      const sizeScalePct = Math.max(12, Math.round((b.totalBytes / maxTotalBytes) * 100))
+
+      const scriptBadge =
+        b.proseScriptCount === 0
+          ? `<span class="bench-chip zero-js mono">0 脚本 · 纯静态 HTML</span>`
+          : `<span class="bench-chip mono">&lt;script&gt; × ${b.proseScriptCount}</span>`
+
+      const searchBadge = b.hasOfflineSearch
+        ? `<span class="bench-chip search mono">${escapeHtml(b.offlineSearchKind || '离线索引')}</span>`
+        : `<span class="bench-chip muted mono">无内置索引</span>`
+
+      const llmsBadge = b.hasLlmsTxt
+        ? `<span class="bench-chip llms mono">🤖 llms.txt</span>`
+        : ''
+
+      return `
+        <tr>
+          <td class="gen-cell">
+            <div class="gen-name-line">
+              <span class="mono" style="color:var(--text-muted);font-size:0.74rem;">#${idx + 1}</span>
+              <span>${escapeHtml(row.name)}</span>
+              <span class="status-badge mounted mono">${escapeHtml(row.id)}</span>
+            </div>
+            <span class="gen-ver mono">${escapeHtml(row.versionNote)} · ${escapeHtml(row.libs.bundler)}</span>
+            <div style="margin-top:0.35rem;display:flex;gap:0.3rem;flex-wrap:wrap;">
+              <a class="card-act-btn wb mono" href="/workbench/?left=master&right=${encodeURIComponent(row.id)}">⇄ 分屏</a>
+              <button type="button" class="card-act-btn mono" data-open-drawer="${escapeHtml(row.id)}">🔍 JSON</button>
+            </div>
+          </td>
+          <td style="min-width:210px;">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:0.5rem;">
+              <strong class="mono" style="font-size:0.9rem;color:${b.coldBuildMs < 250 && !b.isRuntimeSpa ? 'var(--accent-teal)' : 'var(--text-primary)'};">
+                ${escapeHtml(formatBuildMs(b.coldBuildMs, b.isRuntimeSpa))}
+              </strong>
+              <span class="mono" style="font-size:0.7rem;color:var(--text-muted);">${escapeHtml(b.buildCommand)}</span>
+            </div>
+            <div class="bench-speed-track" title="对数尺度构建耗时条：${b.coldBuildMs} ms">
+              <div class="bench-speed-fill ${speedTierCls}" style="width:${speedPct}%"></div>
+            </div>
+          </td>
+          <td style="min-width:240px;">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:0.5rem;" class="mono">
+              <strong style="font-size:0.86rem;">${escapeHtml(formatBytes(b.totalBytes))}</strong>
+              <span style="font-size:0.72rem;color:var(--text-muted);">${b.totalFiles} 文件 · HTML ${escapeHtml(formatBytes(b.htmlBytes))}</span>
+            </div>
+            <div class="bench-stack-outer" style="width:${sizeScalePct}%" title="HTML ${formatBytes(b.htmlBytes)} | JS ${formatBytes(b.jsBytes)} | CSS ${formatBytes(b.cssBytes)} | 字体与索引 ${formatBytes(b.otherBytes)}">
+              <span class="seg-html" style="width:${htmlPct}%"></span>
+              <span class="seg-js" style="width:${jsPct}%"></span>
+              <span class="seg-css" style="width:${cssPct}%"></span>
+              <span class="seg-other" style="width:${otherPct}%"></span>
+            </div>
+            <div class="mono" style="font-size:0.69rem;color:var(--text-muted);margin-top:0.22rem;">
+              CSS ${escapeHtml(formatBytes(b.cssBytes))} (Gzip ${escapeHtml(formatBytes(b.cssGzipBytes))}) · 字体/索引 ${escapeHtml(formatBytes(b.otherBytes))}
+            </div>
+          </td>
+          <td class="mono" style="text-align:right;white-space:nowrap;">
+            <div style="font-weight:700;font-size:0.86rem;">${escapeHtml(formatBytes(b.jsGzipBytes))}</div>
+            <div style="font-size:0.71rem;color:var(--text-muted);">原始 ${escapeHtml(formatBytes(b.jsBytes))} (${b.jsFiles} 个)</div>
+          </td>
+          <td>
+            <div style="display:flex;flex-wrap:wrap;gap:0.3rem;">
+              ${scriptBadge}
+              ${searchBadge}
+              ${llmsBadge}
+            </div>
+          </td>
+        </tr>
+      `
+    })
+    .join('')
+
+  return `
+    <div class="bench-kpi-grid">
+      <div class="telemetry-card">
+        <div class="telemetry-val teal mono">${fastestCompiled ? escapeHtml(formatBuildMs(fastestCompiled.benchmark!.coldBuildMs)) : '—'}</div>
+        <div class="telemetry-label">🚀 最快冷构建编译引擎</div>
+        <div class="telemetry-sub mono">${fastestCompiled ? `${escapeHtml(fastestCompiled.name)} · 比最慢快约 ${speedRatio}×` : ''}</div>
+      </div>
+      <div class="telemetry-card">
+        <div class="telemetry-val mono">${lightestJs ? escapeHtml(formatBytes(lightestJs.benchmark!.jsGzipBytes)) : '—'}</div>
+        <div class="telemetry-label">🪶 最轻全站 JS Gzip 载荷</div>
+        <div class="telemetry-sub mono">${lightestJs ? `${escapeHtml(lightestJs.name)} (${lightestJs.benchmark!.jsFiles} JS 文件)` : ''}</div>
+      </div>
+      <div class="telemetry-card">
+        <div class="telemetry-val mono">${rows.length} <span style="font-size:0.88rem;font-weight:600;">座子站</span></div>
+        <div class="telemetry-label">📏 同源 5 章 + 2 嵌套页空缓存实测</div>
+        <div class="telemetry-sub mono">采样日期 ${escapeHtml(measuredDate)} · 同一 Linux x64 环境</div>
+      </div>
+      <div class="telemetry-card">
+        <div class="telemetry-val mono">${searchCount} / ${llmsCount}</div>
+        <div class="telemetry-label">🔍 内置离线搜索 / 原生 llms.txt</div>
+        <div class="telemetry-sub mono">${searchCount} 款自带离线检索索引 · ${llmsCount} 款直出 AI 语料</div>
+      </div>
+    </div>
+
+    <div class="gh-heatmap-header" style="margin-bottom:0.75rem;">
+      <p class="gh-heatmap-sub">
+        所有已挂载子站在同一机器清空构建缓存后编译相同 7 篇基准文档（含 Mermaid 与 KaTeX/MathJax 本地资源），实测结果持久化在各站点独立的 <code>docs/sites/&lt;id&gt;.json</code> 的 <code>benchmark</code> 节点中。
+      </p>
+      <div style="display:flex;align-items:center;gap:0.65rem;flex-wrap:wrap;">
+        <select id="bench-sort-select" class="sort-select" aria-label="性能榜单排序">
+          <option value="build-asc"${state.benchSort === 'build-asc' ? ' selected' : ''}>排序：冷构建耗时最快 ↑</option>
+          <option value="js-gzip-asc"${state.benchSort === 'js-gzip-asc' ? ' selected' : ''}>排序：JS Gzip 体积最小 ↑</option>
+          <option value="total-bytes-asc"${state.benchSort === 'total-bytes-asc' ? ' selected' : ''}>排序：产物总体积最小 ↑</option>
+          <option value="default"${state.benchSort === 'default' ? ' selected' : ''}>排序：默认流派序</option>
+        </select>
+        <div class="gh-legend mono">
+          <span class="bench-legend-dot seg-html"></span><span>HTML</span>
+          <span class="bench-legend-dot seg-js"></span><span>JS</span>
+          <span class="bench-legend-dot seg-css"></span><span>CSS</span>
+          <span class="bench-legend-dot seg-other"></span><span>字体/索引</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="matrix-wrap">
+      <table class="matrix-table">
+        <thead>
+          <tr>
+            <th>实测子站 / 打包管线</th>
+            <th>空缓存冷构建耗时 (对数尺度)</th>
+            <th>产物总体积与资源构成拆分</th>
+            <th style="text-align:right;">全站 JS (Gzip)</th>
+            <th>水合脚本 / 离线检索 / AI</th>
+          </tr>
+        </thead>
+        <tbody>${trs}</tbody>
+      </table>
+    </div>
+  `
+}
+
 function renderObservatoryPanelHtml(): string {
+  if (state.obsTab === 'benchmark') {
+    return renderBenchmarkTabHtml()
+  }
+
   if (state.obsTab === 'heatmap') {
     const repos = getSortedHeatmapRepos()
     const rowsHtml = repos
@@ -240,11 +481,10 @@ function renderObservatoryPanelHtml(): string {
         <div>
           <span class="dialect-layer-tag mono">Layer 3B · remark + MDX 派</span>
           <h3 class="dialect-name">指令方括号容器 + JSX</h3>
-          <p class="dialect-desc">代表：<strong>Astro Starlight / Docusaurus</strong>。遵循 <code>remark-directive</code>，标题放方括号内；MDX 严格拒绝裸 <code>{var}</code>。</p>
+          <p class="dialect-desc">代表：<strong>Astro Starlight / Docusaurus / Fumadocs / Nextra</strong>。遵循 <code>remark-directive</code> 或 JSX <code>&lt;Callout&gt;</code>；MDX 严格拒绝裸 <code>{var}</code>。</p>
         </div>
         <pre class="dialect-snippet mono">:::caution[升级注意]
-请先备份配置。
-:::</pre>
+&lt;Callout type="warn"&gt;请先备份配置。&lt;/Callout&gt;</pre>
       </article>
       <article class="dialect-card">
         <div>
@@ -260,9 +500,9 @@ function renderObservatoryPanelHtml(): string {
         <div>
           <span class="dialect-layer-tag mono">Layer 5 · MDC / 双链 / MyST / AsciiDoc</span>
           <h3 class="dialect-name">Nuxt / Quartz / Sphinx / Antora</h3>
-          <p class="dialect-desc">Nuxt 独创双冒号 <code>::alert</code>；Quartz 原生兼容 <code>[[双链]]</code>；Sphinx 采用 <code>\`\`\`{warning}</code> MyST；Antora 彻底转向 <code>*.adoc</code>。</p>
+          <p class="dialect-desc">Nuxt 独创双冒号 <code>::callout</code>；Quartz 原生兼容 <code>[[双链]]</code>；Sphinx 采用 <code>\`\`\`{warning}</code> MyST；Antora 彻底转向 <code>*.adoc</code>。</p>
         </div>
-        <pre class="dialect-snippet mono">::alert{type="warning"}
+        <pre class="dialect-snippet mono">::callout{type="warning"}
 [[01-order-and-url|嵌套子页]]
 \`\`\`{warning} 升级注意</pre>
       </article>
@@ -280,6 +520,10 @@ function updateObservatoryDom(): void {
     state.heatmapSort = (e.target as HTMLSelectElement).value as HeatmapSort
     updateObservatoryDom()
   })
+  document.getElementById('bench-sort-select')?.addEventListener('change', (e) => {
+    state.benchSort = (e.target as HTMLSelectElement).value as BenchmarkSort
+    updateObservatoryDom()
+  })
   syncObservatoryUrl()
 }
 
@@ -288,11 +532,12 @@ function renderObservatoryPage(): void {
     <div class="page-hero-compact">
       <div>
         <span class="section-step-tag mono">03 · Cross-Generator Observatory (/observatory/)</span>
-        <h1 class="section-heading">全景演化与方言横向观测台</h1>
-        <p class="section-sub" style="margin-bottom:0;">从时间维度（2008–2026 GitHub 提交热力图）、空间维度（26 款生成器五维对照）与语法维度（六层 Markdown 方言分裂）审视静态站点生态演进。</p>
+        <h1 class="section-heading">全景演化、构建性能与方言横向观测台</h1>
+        <p class="section-sub" style="margin-bottom:0;">从时间维度（2008–2026 提交热力图）、工程维度（冷构建耗时与产物体积实测）、空间维度（26 款五维对照）与语法维度（六层方言分裂）全景审视。</p>
       </div>
       <div class="segmented-tabs" role="tablist" aria-label="观测台维度切换">
         <button type="button" class="seg-btn" data-obs-tab="heatmap" id="obs-tab-heatmap">📊 GitHub 历年提交热力表</button>
+        <button type="button" class="seg-btn" data-obs-tab="benchmark" id="obs-tab-benchmark">⚡ 构建性能与产物体积</button>
         <button type="button" class="seg-btn" data-obs-tab="matrix" id="obs-tab-matrix">🧬 五维架构与方言对照表</button>
         <button type="button" class="seg-btn" data-obs-tab="dialects" id="obs-tab-dialects">📜 Markdown 方言分裂谱系</button>
       </div>

@@ -50,3 +50,23 @@
 	path = sites/zola
 	url = https://github.com/page2401/zola.git
 	branch = main
+[submodule "sites/fumadocs"]
+	path = sites/fumadocs
+	url = https://github.com/page2401/fumadocs.git
+	branch = main
+[submodule "sites/nextra"]
+	path = sites/nextra
+	url = https://github.com/page2401/nextra.git
+	branch = main
+[submodule "sites/quartz"]
+	path = sites/quartz
+	url = https://github.com/page2401/quartz.git
+	branch = main
+[submodule "sites/nuxt-content"]
+	path = sites/nuxt-content
+	url = https://github.com/page2401/nuxt-content.git
+	branch = main
+[submodule "sites/eleventy"]
+	path = sites/eleventy
+	url = https://github.com/page2401/eleventy.git
+	branch = main

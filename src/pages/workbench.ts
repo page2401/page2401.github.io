@@ -1,6 +1,14 @@
 import { computeDiffLineFlags, escapeHtml, renderCodeTableHtml } from '../components/source-diff'
 import type { FocusedPane, SiteEntry, ViewportPreset, WorkbenchMode } from '../types'
-import { dataset, ECOSYSTEM_LABELS, mountPageShell, openDrawer, syncIframeThemes } from '../shared/shell'
+import {
+  dataset,
+  ECOSYSTEM_LABELS,
+  formatBuildMs,
+  formatBytes,
+  mountPageShell,
+  openDrawer,
+  syncIframeThemes
+} from '../shared/shell'
 
 interface WorkbenchState {
   leftSiteId: string
@@ -258,12 +266,17 @@ function renderPaneContent(
     ? `<button type="button" class="mini-btn mono" data-open-drawer="${escapeHtml(site.id)}">🔍 JSON</button>`
     : ''
 
+  const benchBadgeHtml = site.benchmark
+    ? `<a href="/observatory/?tab=benchmark" class="bench-pane-badge mono" title="空缓存冷构建 ${site.benchmark.coldBuildMs} ms | 总产物 ${formatBytes(site.benchmark.totalBytes)} (${site.benchmark.totalFiles} 文件) | 全站 JS Gzip ${formatBytes(site.benchmark.jsGzipBytes)} | 点击查看性能总榜">⚡ ${escapeHtml(formatBuildMs(site.benchmark.coldBuildMs, site.benchmark.isRuntimeSpa))} · ${escapeHtml(formatBytes(site.benchmark.totalBytes))}</a>`
+    : ''
+
   return `
     <div class="workbench-pane ${side}-pane">
       <div class="pane-header">
         <div class="pane-title-group">
           <span class="pane-dot ${side}"></span>
           <span class="pane-engine-badge">${escapeHtml(site.family)} <span class="mono" style="font-weight:500;opacity:0.8;">(${escapeHtml(site.primaryPackage)}@${escapeHtml(site.primaryVersion)})</span></span>
+          ${benchBadgeHtml}
           <span class="pane-path mono" title="${escapeHtml(headerPath)}">${escapeHtml(headerPath)}</span>
         </div>
         <div class="pane-actions">
@@ -398,6 +411,7 @@ function buildAutoFamilyPairsHtml(): string {
 }
 
 function renderWorkbenchPage(): void {
+  const mountedCount = dataset.sites.filter((s) => !s.isMaster).length
   const siteOptionsHtml = buildGroupedSiteOptionsHtml()
   const autoFamilyPairsHtml = buildAutoFamilyPairsHtml()
   const chapterButtonsHtml = dataset.chapters
@@ -412,7 +426,7 @@ function renderWorkbenchPage(): void {
       <div>
         <span class="section-step-tag mono">02 · Side-by-Side Live Benchmark Workbench (/workbench/)</span>
         <h1 class="section-heading">跨语言双栏同源实测对比工作台</h1>
-        <p class="section-sub" style="margin-bottom:0;">在独立页面专注并排检验 Pure GFM 母版与 13 座跨语言实测子站（Node / Go / Rust / Python / SPA）的网页渲染、目录树、相似 <code>*.md</code> 差异与工程配置。</p>
+        <p class="section-sub" style="margin-bottom:0;">在独立页面专注并排检验 Pure GFM 母版与 ${mountedCount} 座跨语言实测子站（Node / Go / Rust / Python / SPA）的网页渲染、目录树、相似 <code>*.md</code> 差异与工程配置。</p>
       </div>
       <a class="open-subsite-btn mono" href="/directory/">← 返回 01 生态目录挑选站点</a>
     </div>
@@ -445,10 +459,25 @@ function renderWorkbenchPage(): void {
           <span class="preset-label">同门跨代：</span>
           ${autoFamilyPairsHtml}
           <span class="nav-divider" role="separator"></span>
-          <span class="preset-label">跨语言焦点：</span>
-          <button type="button" class="preset-pill" data-preset-left="docusaurus-v3" data-preset-right="rspress">Docusaurus ↔ Rspress</button>
-          <button type="button" class="preset-pill" data-preset-left="hugo" data-preset-right="zola">Hugo (Go) ↔ Zola (Rust)</button>
-          <button type="button" class="preset-pill" data-preset-left="mkdocs-material" data-preset-right="mdbook">MkDocs (Py) ↔ mdBook (Rust)</button>
+          <span class="preset-label">跨流派焦点：</span>
+          ${[
+            ['fumadocs', 'nextra', 'Fumadocs ↔ Nextra'],
+            ['docusaurus-v3', 'rspress', 'Docusaurus ↔ Rspress'],
+            ['nuxt-content', 'vitepress-v2', 'Nuxt MDC ↔ VitePress v2'],
+            ['quartz', 'hugo', 'Quartz (双链) ↔ Hugo'],
+            ['hugo', 'zola', 'Hugo (Go) ↔ Zola (Rust)'],
+            ['sphinx', 'mkdocs-material', 'Sphinx (MyST) ↔ MkDocs'],
+            ['eleventy', 'astro7-starlight', '11ty v3 ↔ Starlight']
+          ]
+            .filter(
+              ([l, r]) =>
+                dataset.sites.some((s) => s.id === l) && dataset.sites.some((s) => s.id === r)
+            )
+            .map(
+              ([l, r, label]) =>
+                `<button type="button" class="preset-pill" data-preset-left="${escapeHtml(l)}" data-preset-right="${escapeHtml(r)}">${escapeHtml(label)}</button>`
+            )
+            .join('')}
         </div>
 
         <div class="chapter-bar">

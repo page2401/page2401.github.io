@@ -133,5 +133,27 @@
     }
   },
   "subsiteRepoUrl": "https://github.com/page2401/mdbook",
-  "previewUrl": "https://page.2401.xyz/mdbook/"
+  "previewUrl": "https://page.2401.xyz/mdbook/",
+  "benchmark": {
+    "measuredAt": "2026-11-24T00:55:09.074Z",
+    "buildCommand": "mdbook build",
+    "isRuntimeSpa": false,
+    "coldBuildMs": 168,
+    "totalFiles": 47,
+    "totalBytes": 7343050,
+    "htmlFiles": 10,
+    "htmlBytes": 234018,
+    "jsFiles": 12,
+    "jsBytes": 6181045,
+    "jsGzipBytes": 1766385,
+    "cssFiles": 10,
+    "cssBytes": 417935,
+    "cssGzipBytes": 277322,
+    "otherBytes": 510052,
+    "entryHtmlBytes": 23389,
+    "proseScriptCount": 17,
+    "hasOfflineSearch": true,
+    "offlineSearchKind": "Elasticlunr 静态索引",
+    "hasLlmsTxt": false
+  }
 }

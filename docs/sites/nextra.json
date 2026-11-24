@@ -4,7 +4,7 @@
   "order": 12,
   "name": "Nextra",
   "versionNote": "v3 / v4 (Next.js)",
-  "mounted": false,
+  "mounted": true,
   "sitePath": "sites/nextra",
   "websiteUrl": "https://nextra.site/",
   "githubUrl": "https://github.com/shuding/nextra",
@@ -44,7 +44,17 @@
       "react",
       "rehype-pretty-code",
       "pagefind"
-    ]
+    ],
+    "pinnedPackages": {
+      "nextra": "4.6.1",
+      "nextra-theme-docs": "4.6.1",
+      "next": "15.5.29",
+      "react": "19.3.1",
+      "zod": "4.1.12",
+      "katex": "0.16.47",
+      "mermaid": "11.17.2",
+      "pagefind": "1.6.0"
+    }
   },
   "matrix": {
     "tagline": "Vercel 生态基于 Next.js App Router 的全栈一体化文档方案",
@@ -127,5 +137,28 @@
       "2025": 553,
       "2026": 10
     }
+  },
+  "subsiteRepoUrl": "https://github.com/page2401/nextra",
+  "benchmark": {
+    "measuredAt": "2026-11-24T00:55:09.074Z",
+    "buildCommand": "npm run build",
+    "isRuntimeSpa": false,
+    "coldBuildMs": 90926,
+    "totalFiles": 185,
+    "totalBytes": 7473181,
+    "htmlFiles": 9,
+    "htmlBytes": 802122,
+    "jsFiles": 93,
+    "jsBytes": 5012085,
+    "jsGzipBytes": 1420643,
+    "cssFiles": 5,
+    "cssBytes": 164358,
+    "cssGzipBytes": 28123,
+    "otherBytes": 1494616,
+    "entryHtmlBytes": 84390,
+    "proseScriptCount": 41,
+    "hasOfflineSearch": true,
+    "offlineSearchKind": "Pagefind (Wasm)",
+    "hasLlmsTxt": false
   }
 }

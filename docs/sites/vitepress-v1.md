@@ -38,6 +38,12 @@ description: "对应子模块 sites/vitepress-v1：Vue 3 + Rollup 稳定版技�
 | **核心依赖库 (Core Libs)** | `vite`、`vue`、`markdown-it`、`shiki`、`minisearch` |
 | **本子站实测锁定版本** | `vitepress@1.6.4` · `markdown-it-mathjax3@4.3.2` · `vitepress-plugin-mermaid@2.0.17` · `mermaid@11.17.2` |
 
+### ⚡ 同源 5 章基准冷构建耗时与产物体积实测（`benchmark` 节点）
+
+| 冷构建耗时 | 产物文件数 | 总产物体积 | HTML 体积 | JS 原始 / Gzip | CSS 原始 / Gzip | 正文 `<script>` 数 | 离线搜索 / AI |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: | :--- |
+| **27.54 s (27,544 ms)** | 100 | 4989.6 KB | 353.4 KB | 3897.0 KB / **1109.5 KB** | 111.2 KB / 20.2 KB | `4` 个 | MiniSearch 本地索引 |
+
 ### GitHub 仓库 API 指标快照
 
 | 官方仓库 | 创建日期 | 最近推送 | Stars | 默认分支总提交 | 峰值年份 (提交数) | 最新 Release |

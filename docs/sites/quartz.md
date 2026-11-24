@@ -35,6 +35,13 @@ description: "预留扩展位 sites/quartz：Obsidian 笔记库一键发布首�
 | **高亮与全文检索** | rehype-pretty-code (Shiki) · FlexSearch（支持全文与标签即时检索） |
 | **数学公式与流程图库** | remark-math + rehype-katex / mathjax ； 原生内置 Mermaid 代码块与 Obsidian Callouts 解析 |
 | **核心依赖库 (Core Libs)** | `preact`、`esbuild`、`unified`、`remark-parse`、`rehype-katex`、`flexsearch`、`d3` |
+| **本子站实测锁定版本** | `@jackyzha0/quartz@4.5.2` · `preact@10.28.2` · `micromorph@0.4.5` · `d3@7.9.0` · `pixi.js@8.15.0` · `flexsearch@0.8.205` · `remark-math@6.0.0` · `rehype-katex@7.0.1` · `katex@0.19.1` · `mermaid@12.3.0` · `shiki@1.26.2` |
+
+### ⚡ 同源 5 章基准冷构建耗时与产物体积实测（`benchmark` 节点）
+
+| 冷构建耗时 | 产物文件数 | 总产物体积 | HTML 体积 | JS 原始 / Gzip | CSS 原始 / Gzip | 正文 `<script>` 数 | 离线搜索 / AI |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: | :--- |
+| **6.23 s (6,226 ms)** | 204 | 8043.0 KB | 824.6 KB | 6016.7 KB / **1774.6 KB** | 67.9 KB / 13.2 KB | `6` 个 | FlexSearch (contentIndex) |
 
 ### GitHub 仓库 API 指标快照
 

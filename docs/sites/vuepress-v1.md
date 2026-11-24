@@ -38,6 +38,12 @@ description: "对应子模块 sites/vuepress-v1：Vue 2 + Webpack 4 初代文档
 | **核心依赖库 (Core Libs)** | `vue@2`、`webpack@4`、`vue-router@3`、`markdown-it@8`、`prismjs` |
 | **本子站实测锁定版本** | `vuepress@1.9.10` · `katex@0.19.1` · `mermaid@10.9.8` |
 
+### ⚡ 同源 5 章基准冷构建耗时与产物体积实测（`benchmark` 节点）
+
+| 冷构建耗时 | 产物文件数 | 总产物体积 | HTML 体积 | JS 原始 / Gzip | CSS 原始 / Gzip | 正文 `<script>` 数 | 离线搜索 / AI |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: | :--- |
+| **23.46 s (23,464 ms)** | 102 | 5076.5 KB | 166.0 KB | 3788.7 KB / **1128.0 KB** | 70.2 KB / 14.8 KB | `6` 个 | 无内置离线索引 |
+
 ### GitHub 仓库 API 指标快照
 
 | 官方仓库 | 创建日期 | 最近推送 | Stars | 默认分支总提交 | 峰值年份 (提交数) | 最新 Release |

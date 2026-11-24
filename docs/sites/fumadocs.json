@@ -4,7 +4,7 @@
   "order": 18,
   "name": "Fumadocs",
   "versionNote": "v15+ (Next.js App Router)",
-  "mounted": false,
+  "mounted": true,
   "sitePath": "sites/fumadocs",
   "websiteUrl": "https://fumadocs.dev/",
   "githubUrl": "https://github.com/fuma-nama/fumadocs",
@@ -44,7 +44,19 @@
       "next",
       "shiki",
       "@orama/orama"
-    ]
+    ],
+    "pinnedPackages": {
+      "fumadocs-ui": "16.19.7",
+      "fumadocs-core": "16.19.7",
+      "fumadocs-mdx": "15.6.4",
+      "next": "16.4.6",
+      "tailwindcss": "4.3.5",
+      "react": "19.3.1",
+      "remark-math": "6.0.0",
+      "rehype-katex": "7.0.1",
+      "katex": "0.19.1",
+      "mermaid": "12.3.0"
+    }
   },
   "matrix": {
     "tagline": "Shadcn UI 时代的 Next.js 新王：无黑盒可定制组件 + 原生 OpenAPI 交互演练场 + Twoslash 类型提示",
@@ -127,5 +139,28 @@
       "2025": 1729,
       "2026": 1464
     }
+  },
+  "subsiteRepoUrl": "https://github.com/page2401/fumadocs",
+  "benchmark": {
+    "measuredAt": "2026-11-24T00:55:09.074Z",
+    "buildCommand": "npm run build",
+    "isRuntimeSpa": false,
+    "coldBuildMs": 57502,
+    "totalFiles": 211,
+    "totalBytes": 9070188,
+    "htmlFiles": 10,
+    "htmlBytes": 626557,
+    "jsFiles": 108,
+    "jsBytes": 6496652,
+    "jsGzipBytes": 1875865,
+    "cssFiles": 1,
+    "cssBytes": 112185,
+    "cssGzipBytes": 18556,
+    "otherBytes": 1834794,
+    "entryHtmlBytes": 55773,
+    "proseScriptCount": 24,
+    "hasOfflineSearch": false,
+    "offlineSearchKind": null,
+    "hasLlmsTxt": false
   }
 }

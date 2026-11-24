@@ -4,7 +4,7 @@
   "order": 20,
   "name": "Nuxt Content",
   "versionNote": "v3 (SQLite / MDC)",
-  "mounted": false,
+  "mounted": true,
   "sitePath": "sites/nuxt-content",
   "websiteUrl": "https://content.nuxt.com/",
   "githubUrl": "https://github.com/nuxt/content",
@@ -42,7 +42,17 @@
       "vue",
       "shiki",
       "better-sqlite3"
-    ]
+    ],
+    "pinnedPackages": {
+      "@nuxt/content": "3.17.0",
+      "nuxt": "4.7.0",
+      "better-sqlite3": "13.2.0",
+      "remark-math": "6.0.0",
+      "rehype-katex": "7.0.1",
+      "katex": "0.19.1",
+      "mermaid": "12.3.0",
+      "vue": "3.5.46"
+    }
   },
   "matrix": {
     "tagline": "Nuxt 官方内容引擎：独创 ::component 双冒号 MDC 语法 + SQL 数据库级内容检索查询",
@@ -125,5 +135,28 @@
       "2025": 562,
       "2026": 161
     }
+  },
+  "subsiteRepoUrl": "https://github.com/page2401/nuxt-content",
+  "benchmark": {
+    "measuredAt": "2026-11-24T00:55:09.074Z",
+    "buildCommand": "npm run build",
+    "isRuntimeSpa": false,
+    "coldBuildMs": 15216,
+    "totalFiles": 212,
+    "totalBytes": 8264005,
+    "htmlFiles": 9,
+    "htmlBytes": 185168,
+    "jsFiles": 130,
+    "jsBytes": 5903760,
+    "jsGzipBytes": 1723345,
+    "cssFiles": 3,
+    "cssBytes": 45827,
+    "cssGzipBytes": 12391,
+    "otherBytes": 2129250,
+    "entryHtmlBytes": 13776,
+    "proseScriptCount": 4,
+    "hasOfflineSearch": false,
+    "offlineSearchKind": null,
+    "hasLlmsTxt": false
   }
 }

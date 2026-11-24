@@ -37,6 +37,12 @@ description: "对应实测子模块 sites/mdbook：Rust 官方技术电子书引
 | **核心依赖库 (Core Libs)** | `pulldown-cmark`、`handlebars`、`elasticlunr`、`highlight.js`、`toml` |
 | **本子站实测锁定版本** | `mdbook@0.5.4` · `pulldown-cmark@builtin` · `katex@0.19.1` · `mermaid@12.3.0` |
 
+### ⚡ 同源 5 章基准冷构建耗时与产物体积实测（`benchmark` 节点）
+
+| 冷构建耗时 | 产物文件数 | 总产物体积 | HTML 体积 | JS 原始 / Gzip | CSS 原始 / Gzip | 正文 `<script>` 数 | 离线搜索 / AI |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: | :--- |
+| **168 ms** | 47 | 7170.9 KB | 228.5 KB | 6036.2 KB / **1725.0 KB** | 408.1 KB / 270.8 KB | `17` 个 | Elasticlunr 静态索引 |
+
 ### GitHub 仓库 API 指标快照
 
 | 官方仓库 | 创建日期 | 最近推送 | Stars | 默认分支总提交 | 峰值年份 (提交数) | 最新 Release |

@@ -26,6 +26,13 @@ const IGNORED_NAMES = new Set([
   '.docusaurus',
   'doc_build',
   '.next',
+  '.source',
+  '.nuxt',
+  '.output',
+  '.data',
+  '.quartz-cache',
+  '_site',
+  '_build',
   'cache',
   '.temp',
   '.cache',
@@ -84,6 +91,7 @@ function readSubmoduleManifest(submoduleAbs, site) {
   const pkgPath = path.join(submoduleAbs, 'package.json')
   const pkgJson = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'))
   const allDeps = {
+    ...(pkgJson.name && pkgJson.version ? { [pkgJson.name]: pkgJson.version } : {}),
     ...(pkgJson.dependencies || {}),
     ...(pkgJson.devDependencies || {})
   }
@@ -235,9 +243,17 @@ function scanSubmoduleTree(submoduleAbs, site) {
         } else if (ent.name === 'SUMMARY.md') {
           category = 'config'
           note = 'mdBook 全书唯一目录与路由索引'
-        } else if (ent.name === '_category_.json' || ent.name === '_meta.json') {
+        } else if (
+          ent.name === '_category_.json' ||
+          ent.name === '_meta.json' ||
+          ent.name === '_meta.js' ||
+          ent.name === '_meta.ts' ||
+          ent.name === 'meta.json' ||
+          ent.name === '.navigation.yml' ||
+          ent.name.endsWith('.11tydata.json')
+        ) {
           category = 'config'
-          note = '目录级侧边栏分组与排序元数据'
+          note = '目录级侧边栏分组、排序或数据级联元数据'
         } else if (relPath.startsWith('docs/sites/') && ent.name.endsWith('.json')) {
           category = 'config'
           route = `/master/sites/${ent.name}`
@@ -376,6 +392,7 @@ const enrichedSites = rawConfig.sites.map((site) => {
     directoryProfile: site.directoryProfile,
     treeNodes,
     highlights: site.highlights,
+    benchmark: metaJson?.benchmark || null,
     docs,
     configs
   }
@@ -435,6 +452,7 @@ const landscapeRows = siteJsonDocs.map((doc) => {
     totalCommits,
     commits2026,
     yearlyCommits: combinedYearly,
+    benchmark: doc.benchmark || null,
     tagline: mountedSite ? mountedSite.tagline : doc.matrix.tagline,
     stack: mountedSite
       ? Object.entries(mountedSite.packages)

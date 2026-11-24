@@ -1,6 +1,14 @@
 import { escapeHtml } from '../components/source-diff'
 import type { DirectoryFilter, DirectorySort, DirectoryView, LandscapeRow } from '../types'
-import { dataset, formatCompactNum, mountPageShell, openDrawer, renderSparklineSvg } from '../shared/shell'
+import {
+  dataset,
+  formatBuildMs,
+  formatBytes,
+  formatCompactNum,
+  mountPageShell,
+  openDrawer,
+  renderSparklineSvg
+} from '../shared/shell'
 
 interface DirectoryPageState {
   dirFilter: DirectoryFilter
@@ -106,6 +114,18 @@ function getFilteredAndSortedRows(): LandscapeRow[] {
       break
     case 'total-commits-desc':
       sorted.sort((a, b) => b.totalCommits - a.totalCommits)
+      break
+    case 'build-asc':
+      sorted.sort((a, b) => {
+        const ba = a.benchmark
+        const bb = b.benchmark
+        if (Boolean(ba) !== Boolean(bb)) return ba ? -1 : 1
+        if (ba && bb) {
+          if (ba.isRuntimeSpa !== bb.isRuntimeSpa) return ba.isRuntimeSpa ? 1 : -1
+          return ba.coldBuildMs - bb.coldBuildMs
+        }
+        return a.order - b.order
+      })
       break
     case 'newest':
       sorted.sort((a, b) => b.createdAt.localeCompare(a.createdAt))
@@ -246,6 +266,11 @@ function renderResultsHtml(): string {
             <div class="ssg-libs-kv mono" style="margin-top:0.5rem;">
               <div><strong>管线:</strong> ${escapeHtml(row.libs.bundler)} · ${escapeHtml(row.markdownEngine)}</div>
               <div><strong>Libs:</strong> ${escapeHtml(row.coreLibs.slice(0, 4).join(', '))}</div>
+              ${
+                row.benchmark
+                  ? `<div style="color:var(--accent-teal);"><strong>实测:</strong> ⚡ ${escapeHtml(formatBuildMs(row.benchmark.coldBuildMs, row.benchmark.isRuntimeSpa))} · 总产物 ${escapeHtml(formatBytes(row.benchmark.totalBytes))} · JS Gzip ${escapeHtml(formatBytes(row.benchmark.jsGzipBytes))}</div>`
+                  : ''
+              }
             </div>
 
             <div class="ssg-card-tags" style="margin-top:0.55rem;">${tagsHtml}</div>
@@ -347,6 +372,7 @@ function renderDirectoryPage(): void {
           <div class="explorer-controls-right">
             <select id="directory-sort-select" class="sort-select" aria-label="排序方式">
               <option value="recommended"${state.dirSort === 'recommended' ? ' selected' : ''}>排序：推荐默认序</option>
+              <option value="build-asc"${state.dirSort === 'build-asc' ? ' selected' : ''}>排序：实测冷构建最快 ↑</option>
               <option value="commits2026-desc"${state.dirSort === 'commits2026-desc' ? ' selected' : ''}>排序：2026 提交活跃度 ↓</option>
               <option value="stars-desc"${state.dirSort === 'stars-desc' ? ' selected' : ''}>排序：GitHub Stars ↓</option>
               <option value="total-commits-desc"${state.dirSort === 'total-commits-desc' ? ' selected' : ''}>排序：累计总提交数 ↓</option>

@@ -35,6 +35,13 @@ description: "预留扩展位 sites/fumadocs：Shadcn UI 时代的 Next.js 新�
 | **高亮与全文检索** | Shiki Twoslash（内置 TypeScript 类型悬浮提示！） · Orama 内置搜索 / Algolia / Pagefind |
 | **数学公式与流程图库** | remark-math + rehype-katex ； Mermaid MDX 组件或 remark 插件 |
 | **核心依赖库 (Core Libs)** | `fumadocs-core`、`fumadocs-ui`、`fumadocs-mdx`、`next`、`shiki`、`@orama/orama` |
+| **本子站实测锁定版本** | `fumadocs-ui@16.19.7` · `fumadocs-core@16.19.7` · `fumadocs-mdx@15.6.4` · `next@16.4.6` · `tailwindcss@4.3.5` · `react@19.3.1` · `remark-math@6.0.0` · `rehype-katex@7.0.1` · `katex@0.19.1` · `mermaid@12.3.0` |
+
+### ⚡ 同源 5 章基准冷构建耗时与产物体积实测（`benchmark` 节点）
+
+| 冷构建耗时 | 产物文件数 | 总产物体积 | HTML 体积 | JS 原始 / Gzip | CSS 原始 / Gzip | 正文 `<script>` 数 | 离线搜索 / AI |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: | :--- |
+| **57.50 s (57,502 ms)** | 211 | 8857.6 KB | 611.9 KB | 6344.4 KB / **1831.9 KB** | 109.6 KB / 18.1 KB | `24` 个 | 无内置离线索引 |
 
 ### GitHub 仓库 API 指标快照
 

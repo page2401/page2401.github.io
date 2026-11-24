@@ -705,7 +705,7 @@
       "submoduleDir": "sites/mkdocs-material",
       "distDir": "sites/mkdocs-material/site",
       "manifestType": "python",
-      "buildCommand": ".venv/bin/mkdocs build",
+      "buildCommand": ".venv/bin/python -m mkdocs build",
       "routeStyle": "clean",
       "primaryPackage": "mkdocs-material",
       "trackedPackages": [
@@ -875,6 +875,350 @@
         "02-diagrams": { "route": "02-diagrams/", "file": "content/02-diagrams.md" },
         "03-math": { "route": "03-math/", "file": "content/03-math.md" },
         "04-directory": { "route": "04-directory/", "file": "content/04-directory/_index.md" }
+      }
+    },
+    {
+      "id": "fumadocs",
+      "family": "Fumadocs",
+      "versionSeries": "v16 (Next.js 16)",
+      "tagline": "Next.js 16 App Router 源码级组件库 + Zod v4 集合 + meta.json",
+      "repo": "page2401/fumadocs",
+      "basePath": "/fumadocs/",
+      "submoduleDir": "sites/fumadocs",
+      "distDir": "sites/fumadocs/out",
+      "manifestType": "npm",
+      "buildCommand": "npm run build",
+      "routeStyle": "clean",
+      "primaryPackage": "fumadocs-ui",
+      "trackedPackages": [
+        "fumadocs-ui",
+        "fumadocs-core",
+        "fumadocs-mdx",
+        "next",
+        "tailwindcss",
+        "react",
+        "remark-math",
+        "rehype-katex",
+        "katex",
+        "mermaid"
+      ],
+      "configFiles": [
+        "next.config.mjs",
+        "source.config.ts",
+        "lib/source.ts",
+        "lib/layout.shared.tsx",
+        "mdx-components.tsx",
+        "components/mdx/mermaid.tsx",
+        "content/docs/meta.json",
+        "content/docs/04-directory/meta.json",
+        "content/docs/04-directory/nested/meta.json"
+      ],
+      "directoryProfile": {
+        "contentRoot": "content/docs/ (source.config.ts 集合隔离 + 分层级 meta.json)",
+        "contentPrefix": "content/docs/",
+        "excludedContentFiles": [],
+        "orderingMechanism": "各层级 meta.json 的 pages 数组显式控制顺序",
+        "sidebarMechanism": "分层级 meta.json 声明中文组名 + 文件夹 index.mdx 自动绑定入口",
+        "pros": [
+          "非黑盒源码级掌控：app/[[...slug]] 与 Tailwind CSS v4 完全向开发者敞开，任意定制布局无天花板",
+          "meta.json 兼顾灵活性与安全感：既能给 nested/ 指定中文标题，又支持 \"...\" 通配符防止遗漏孤岛页",
+          "createRelativeLink 原生解析 ./nested/01-order-and-url.mdx 相对互链并自动注入 basePath"
+        ],
+        "cons": [
+          "宿主脚手架文件较多：需自行维护 app/、lib/source.ts、source.config.ts、mdx-components.tsx 等十余个工程文件",
+          "Next.js output: 'export' 静态导出限制：默认依赖服务端 /api/search 路由，纯静态托管需显式关闭或改配离线索引",
+          "内置 Shiki rehypeCode 默认抢在用户 rehype 插件之前执行，必须写函数形式 (v) => [rehypeKatex, ...v] 防公式被拦截"
+        ]
+      },
+      "highlights": {
+        "dirIsolation": "content/docs/ 双层集合隔离 + .source/server.ts 编译期强类型代码生成",
+        "dirRoutingSidebar": "Next.js trailingSlash 干净目录路由 + 分层级 meta.json 精准控制中文分组名与展开态",
+        "frontmatter": "基于 Zod v4 pageSchema 强类型校验（DocsTitle 自动渲染唯一 H1）",
+        "callouts": "抛弃三冒号指令，采用一等公民 JSX 组件 <Callout type=\"info|idea|warn|error\" title=\"...\">",
+        "details": "MDX 3 原生兼容空行分隔的 <details><summary>，另提供 Radix <Accordions> 组件",
+        "gfmAlerts": "默认仅启用基础 remark-gfm（> [!NOTE] / [!CAUTION] 退化为普通引用块）",
+        "mermaid": "内置 remarkMdxMermaid 将 ```mermaid 编译为 <Mermaid chart=\"...\" /> + 本地 mermaid@12.3",
+        "math": "remark-math@6 + 前置函数注入 rehype-katex@7（绕过内置 Shiki 抢占）+ 本地 KaTeX 0.19",
+        "buildArtifact": "Next.js 16 Turbopack 静态导出至 out/（零外部 CDN 请求）"
+      },
+      "docs": {
+        "index": { "route": "", "file": "content/docs/index.mdx" },
+        "01-annotations": { "route": "01-annotations/", "file": "content/docs/01-annotations.mdx" },
+        "02-diagrams": { "route": "02-diagrams/", "file": "content/docs/02-diagrams.mdx" },
+        "03-math": { "route": "03-math/", "file": "content/docs/03-math.mdx" },
+        "04-directory": { "route": "04-directory/", "file": "content/docs/04-directory/index.mdx" }
+      }
+    },
+    {
+      "id": "nextra",
+      "family": "Nextra",
+      "versionSeries": "v4 (App Router)",
+      "tagline": "Vercel 生态 Next.js 15 App Router + RSC + _meta.js 编程式文档框架",
+      "repo": "page2401/nextra",
+      "basePath": "/nextra/",
+      "submoduleDir": "sites/nextra",
+      "distDir": "sites/nextra/out",
+      "manifestType": "npm",
+      "buildCommand": "npm run build",
+      "routeStyle": "clean",
+      "primaryPackage": "nextra",
+      "trackedPackages": [
+        "nextra",
+        "nextra-theme-docs",
+        "next",
+        "react",
+        "zod",
+        "katex",
+        "mermaid",
+        "pagefind"
+      ],
+      "configFiles": [
+        "next.config.mjs",
+        "mdx-components.js",
+        "app/layout.jsx",
+        "app/[[...mdxPath]]/page.jsx",
+        "content/_meta.js",
+        "content/04-directory/_meta.js",
+        "content/04-directory/nested/_meta.js"
+      ],
+      "directoryProfile": {
+        "contentRoot": "content/ (配合 app/[[...mdxPath]]/page.jsx 全捕获路由与分层 _meta.js)",
+        "contentPrefix": "content/",
+        "excludedContentFiles": [],
+        "orderingMechanism": "各层级 _meta.js 导出对象的键声明顺序决定侧边栏排序",
+        "sidebarMechanism": "getPageMap() 自动扫描 + 分层级 _meta.js (Zod 强校验) 映射中文分组与 asIndexPage",
+        "pros": [
+          "content/ 与 App Router 解耦：所有文档收敛于 content/ 由单一 [[...mdxPath]] 路由承载，天然隔离根 README.md",
+          "核心功能高度内聚：无需外接三方插件即可在 nextra({ latex: true }) 中一键开启 KaTeX 公式、内置 Mermaid 与 Pagefind 标记",
+          "asIndexPage + _meta.js 精准控场：既能将目录节点直接绑定为章节主页，又能优雅赋予 nested 子目录中文分组标题"
+        ],
+        "cons": [
+          "彻底移除 _meta.json 且校验严苛：v4 仅识别 _meta.{js,jsx,ts,tsx}，若残留无效键名或与 asIndexPage 重复声明 index 会直接中断构建",
+          "Zod 4.6+ 上游兼容回归陷阱：nextra-theme-docs@4.6.1 解构 children 后做 strictObject 校验，不通过 overrides 锁死 zod@4.1.12 会在预渲染报错",
+          "trailingSlash 破坏离线相对链接：静态导出开启 trailingSlash: true 后，内部链接须改写为 /04-directory/... 根相对路径防目录偏移"
+        ]
+      },
+      "highlights": {
+        "dirIsolation": "content/ 独立文档树 + app/[[...mdxPath]]/page.jsx 单一路由入口（隔离根 README.md）",
+        "dirRoutingSidebar": "淘汰 _meta.json 改用 _meta.js + Frontmatter asIndexPage: true 合并目录首页",
+        "frontmatter": "支持 title / sidebarTitle / description / asIndexPage；format: 'detect' 按后缀自动切换严谨度",
+        "callouts": "无 ::: 三冒号语法，采用纯正 MDX 组件 <Callout type=\"info | default | important | warning | error\">",
+        "details": "内置 remarkMdxDisableExplicitJsx 白名单接管原生 <details><summary> 并注入平滑折叠动画",
+        "gfmAlerts": "半兼容陷阱：内置 withGitHubAlert 要求 > [!NOTE] 下一行必须插入空引用行 > 才转为 Callout，单换行写法退化为普通引用！",
+        "mermaid": "编译器内置 @theguild/remark-mermaid@0.3.0（锁定 mermaid@11.17.2），随明暗主题自动重绘",
+        "math": "内置 latex: true (remark-math@6 + rehype-katex@7) + 本地打包 katex@0.16.47 样式与字体",
+        "buildArtifact": "Next.js 15.5 output: 'export' 输出至 out/ + Pagefind 生成 out/_pagefind/ 中文离线检索索引"
+      },
+      "docs": {
+        "index": { "route": "", "file": "content/index.md" },
+        "01-annotations": { "route": "01-annotations/", "file": "content/01-annotations.mdx" },
+        "02-diagrams": { "route": "02-diagrams/", "file": "content/02-diagrams.md" },
+        "03-math": { "route": "03-math/", "file": "content/03-math.md" },
+        "04-directory": { "route": "04-directory/", "file": "content/04-directory/index.md" }
+      }
+    },
+    {
+      "id": "quartz",
+      "family": "Quartz",
+      "versionSeries": "v4",
+      "tagline": "Preact + Unified AST 自包含源码仓架构 · Obsidian 双向链接与知识图谱数字花园",
+      "repo": "page2401/quartz",
+      "basePath": "/quartz/",
+      "submoduleDir": "sites/quartz",
+      "distDir": "sites/quartz/public",
+      "manifestType": "npm",
+      "buildCommand": "npm run build",
+      "routeStyle": "clean",
+      "primaryPackage": "@jackyzha0/quartz",
+      "trackedPackages": [
+        "@jackyzha0/quartz",
+        "preact",
+        "micromorph",
+        "d3",
+        "pixi.js",
+        "flexsearch",
+        "remark-math",
+        "rehype-katex",
+        "katex",
+        "mermaid",
+        "shiki"
+      ],
+      "configFiles": [
+        "quartz.config.ts",
+        "quartz.layout.ts",
+        "quartz/plugins/emitters/static.ts",
+        "quartz/plugins/transformers/latex.ts",
+        "quartz/components/scripts/mermaid.inline.ts"
+      ],
+      "directoryProfile": {
+        "contentRoot": "content/ (Obsidian Vault 独立隔离目录)",
+        "contentPrefix": "content/",
+        "excludedContentFiles": [],
+        "orderingMechanism": "01- 文件名前缀 + Explorer 自定义 numeric sortFn",
+        "sidebarMechanism": "ContentIndex 自动扫描 + quartz.layout.ts Explorer({ sortFn, mapFn })",
+        "pros": [
+          "原生 Obsidian 数字花园体验：开箱具备 [[Wikilinks]] 双向链接、自动反向链接 (Backlinks)、悬浮预览与 d3+Pixi.js 关系图谱",
+          "Vault 与编译器彻底隔离：所有笔记集中在 content/，根 README.md 零误编译风险，FolderPage 自动接管目录主页",
+          "双轨链接无缝兼容：启用 markdownLinkResolution: 'shortest' 后同时支持最短路径 [[01-order-and-url]] 与标准相对路径"
+        ],
+        "cons": [
+          "非 npm 黑盒包形态：必须完整克隆并维护整个 quartz/ 编译器源码目录（约 180 个工程源码文件与内容仓共存）",
+          "Explorer 默认文件夹置顶陷阱：默认排序强制将文件夹排在单文件之前（导致 04-directory 跃居首位），须覆写纯函数 sortFn",
+          "上游默认隐含多处外部 CDN：默认从 Google Fonts、jsdelivr 与 cdnjs 拉取资源，离线部署须本地化插件静态资源"
+        ]
+      },
+      "highlights": {
+        "dirIsolation": "content/ 独立知识库目录隔离（与根目录 README.md 及 quartz/ 引擎源码互不干扰）",
+        "dirRoutingSidebar": "Clean URL 无后缀路由；靠自定义 Explorer sortFn/mapFn 修正文件夹置顶与 nested 中文命名",
+        "frontmatter": "宽松 YAML（原生支持 title / description / tags / aliases 重定向与 draft 过滤）",
+        "callouts": "Obsidian 原生 > [!note]+ / > [!warning]- 正负号可折叠标注 + ==双等号高亮==",
+        "details": "内置 rehype-raw 完整支持原生 <details> 与内部代码块、KaTeX 公式混排",
+        "gfmAlerts": "100% 零改造原生直通（GFM Alerts 与 Obsidian Callouts 语法完全同源）",
+        "mermaid": "内置全屏拖拽缩放弹窗；修复上游 innerHTML 吞噬 <id> 尖括号 Bug 并升级为本地 mermaid@12.3 ESM",
+        "math": "remark-math@6.0.0 + rehype-katex@7.0.1 构建期预渲染，改用本地 static/katex@0.19.1 字体",
+        "buildArtifact": "esbuild + Preact SSR 极速编译生成含全文索引 contentIndex.json 的 Micromorph 静态站"
+      },
+      "docs": {
+        "index": { "route": "", "file": "content/index.md" },
+        "01-annotations": { "route": "01-annotations", "file": "content/01-annotations.md" },
+        "02-diagrams": { "route": "02-diagrams", "file": "content/02-diagrams.md" },
+        "03-math": { "route": "03-math", "file": "content/03-math.md" },
+        "04-directory": { "route": "04-directory/", "file": "content/04-directory/index.md" }
+      }
+    },
+    {
+      "id": "nuxt-content",
+      "family": "Nuxt Content",
+      "versionSeries": "v3 (Nuxt 4 + SQLite)",
+      "tagline": "Nuxt 4 + SQLite 强类型内容集合 + 双冒号 ::callout MDC 组件方言",
+      "repo": "page2401/nuxt-content",
+      "basePath": "/nuxt-content/",
+      "submoduleDir": "sites/nuxt-content",
+      "distDir": "sites/nuxt-content/.output/public",
+      "manifestType": "npm",
+      "buildCommand": "npm run build",
+      "routeStyle": "clean",
+      "primaryPackage": "@nuxt/content",
+      "trackedPackages": [
+        "@nuxt/content",
+        "nuxt",
+        "better-sqlite3",
+        "remark-math",
+        "rehype-katex",
+        "katex",
+        "mermaid",
+        "vue"
+      ],
+      "configFiles": [
+        "nuxt.config.ts",
+        "content.config.ts",
+        "app.vue",
+        "pages/[...slug].vue",
+        "components/content/Callout.vue",
+        "components/content/DetailsBox.vue",
+        "components/content/MermaidBlock.vue",
+        "components/content/ProsePre.vue"
+      ],
+      "directoryProfile": {
+        "contentRoot": "content/ (单层隔离 + SQLite 集合编译)",
+        "contentPrefix": "content/",
+        "excludedContentFiles": [],
+        "orderingMechanism": "1.xxx.md 点号前缀自动剥离 / content.config.ts SQLite order 列排序",
+        "sidebarMechanism": "queryCollectionNavigation('docs') + 目录内 .navigation.yml 中文分组覆盖",
+        "pros": [
+          "单层 content/ 隔离恰到好处：既天然屏蔽根 README.md 误编译，又无需像 Starlight 那样深嵌 3 层目录",
+          "SQLite 强类型集合查询：Frontmatter 经 Zod 校验编译为真实 SQLite 表，原生支持 order / where 与翻页查询",
+          ".navigation.yml 轻量命名：1 行配置即可将英文子目录 nested 映射为中文侧栏分组，避免暴露原始文件夹名"
+        ],
+        "cons": [
+          "仅剥离点号前缀 (1.xxx.md)：内置正则 (\\d+\\.) 不剥离连字符前缀 01-xxx.md，保留母版命名仍会带入 URL",
+          "相对 .md 链接归一化缺陷：内置 normaliseLink 对 ./ 与 ../ 逐段 slugify 会丢失父目录路径，内链需改写为根路径",
+          "无内置开箱文档壳层：裸 @nuxt/content 需手写 pages/[...slug].vue 与侧栏布局，且含 sqlite-wasm 全栈产物体积较重"
+        ]
+      },
+      "highlights": {
+        "dirIsolation": "content/ 单层根目录隔离（自动注入 ignore: ['content/**']，根 README 零冲突）",
+        "dirRoutingSidebar": "支持 1.xxx.md 点号前缀剥离 + .navigation.yml 配合 queryCollectionNavigation 生成中文多级树",
+        "frontmatter": "content.config.ts Zod Schema 强类型编译为 SQLite 表列（支持自定义 order / badge 查询）",
+        "callouts": "独创双冒号 MDC 组件语法 ::callout{type=\"warning\" title=\"...\"} ... :: 映射 Vue 组件",
+        "details": "同时支持 MDC ::details-box{summary=\"...\"} 自定义折叠组件与原生 HTML <details>",
+        "gfmAlerts": "未内置 GFM Alert 解析器（remark-gfm 不含警报块），原始 > [!NOTE] 退化为普通引用块",
+        "mermaid": "覆盖 components/content/ProsePre.vue 无侵入拦截 mermaid 代码块并由本地 mermaid@12.3 渲染",
+        "math": "content.build.markdown 挂载 remark-math@6 + rehype-katex@7（排在 remark-mdc 前，零花括号冲突）",
+        "buildArtifact": "Nuxt 4 + Vite 8 + Nitro 静态预渲染输出至 .output/public（含 sqlite-wasm 兜底转储）"
+      },
+      "docs": {
+        "index": { "route": "", "file": "content/index.md" },
+        "01-annotations": { "route": "01-annotations", "file": "content/01-annotations.md" },
+        "02-diagrams": { "route": "02-diagrams", "file": "content/02-diagrams.md" },
+        "03-math": { "route": "03-math", "file": "content/03-math.md" },
+        "04-directory": { "route": "04-directory/", "file": "content/04-directory/index.md" }
+      }
+    },
+    {
+      "id": "eleventy",
+      "family": "Eleventy (11ty)",
+      "versionSeries": "v3.1 (ESM)",
+      "tagline": "Node.js 零客户端 JS 纯粹派标杆 + Data Cascade 数据级联 + 内置离线链接重写",
+      "repo": "page2401/eleventy",
+      "basePath": "/eleventy/",
+      "submoduleDir": "sites/eleventy",
+      "distDir": "sites/eleventy/_site",
+      "manifestType": "npm",
+      "buildCommand": "npm run build",
+      "routeStyle": "clean",
+      "primaryPackage": "@11ty/eleventy",
+      "trackedPackages": [
+        "@11ty/eleventy",
+        "@11ty/eleventy-navigation",
+        "@11ty/eleventy-plugin-syntaxhighlight",
+        "markdown-it",
+        "@mdit/plugin-alert",
+        "@mdit/plugin-katex",
+        "katex",
+        "mermaid"
+      ],
+      "configFiles": [
+        "eleventy.config.js",
+        "src/src.11tydata.json",
+        "src/04-directory/04-directory.11tydata.json",
+        "src/04-directory/nested/nested.11tydata.json",
+        "src/_includes/layouts/base.njk"
+      ],
+      "directoryProfile": {
+        "contentRoot": "src/ (1:1 透明目录映射 + *.11tydata.json 数据级联)",
+        "contentPrefix": "src/",
+        "excludedContentFiles": [],
+        "orderingMechanism": "Frontmatter eleventyNavigation.order + 目录级 *.11tydata.json 自动注入 parent",
+        "sidebarMechanism": "@11ty/eleventy-navigation 集合过滤 + Nunjucks 递归宏渲染多级导航",
+        "pros": [
+          "真正 0 字节客户端 JS：语法高亮、KaTeX 公式与导航树全部构建期直出 HTML，非图表页 0 个 <script> 标签",
+          "招牌 Data Cascade 数据级联：通过 src.11tydata.json 与 nested.11tydata.json 按目录层级自动合并 layout 与导航父节点",
+          "完美保留离线 .md 链接：内置 InputPathToUrlTransformPlugin + HtmlBasePlugin 自动将 ./nested/01-order-and-url.md 重写为干净路由"
+        ],
+        "cons": [
+          "零预设文档主题：不捆绑任何 UI 框架，侧边栏递归宏、TOC 提取过滤器与暗色样式均需手写模板",
+          "Nunjucks 预处理器冲突：开启 markdownTemplateEngine: 'njk' 后，正文代码块演示 {% ... %} 必须包裹 {% raw %} 防提前求值",
+          "markdown-it 插件代际碎片：@mdit/plugin-* 系列要求显式升级至 markdown-it@15 覆盖 11ty 内置的 v14"
+        ]
+      },
+      "highlights": {
+        "dirIsolation": "dir.input: 'src' 干净隔离工程根 README.md，静态产物输出至 _site/",
+        "dirRoutingSidebar": "保留标准 index.md + InputPathToUrlTransformPlugin 自动重写相对 .md 链接 + *.11tydata.json 级联注入导航",
+        "frontmatter": "完全自由的无 Schema YAML + 四级 Data Cascade 自动合并目录元数据",
+        "callouts": "Nunjucks 成对短代码 {% callout \"type\", \"标题\" %} ... {% endcallout %} 构建期直出语义化 HTML",
+        "details": "markdown-it 开启 html: true 后原生直通 <details><summary> 及内部公式与高亮代码",
+        "gfmAlerts": "挂载 @mdit/plugin-alert@2.2.0 原生支持 > [!NOTE] 至 > [!CAUTION] 全部 5 类警报",
+        "mermaid": "amendLibrary('md') 接管 mermaid 围栏，仅在页面含 .mermaid 容器时按需引入本地 mermaid@12.3.0",
+        "math": "@mdit/plugin-katex@1.2.1 + katex@0.19.1 构建期 SSR 输出纯静态 HTML + 本地 Webfont（0 客户端 JS）",
+        "buildArtifact": "Node 22 原生 ESM 极速全量构建 7 页，正文页 scripts=0，零外部 CDN 请求"
+      },
+      "docs": {
+        "index": { "route": "", "file": "src/index.md" },
+        "01-annotations": { "route": "01-annotations/", "file": "src/01-annotations.md" },
+        "02-diagrams": { "route": "02-diagrams/", "file": "src/02-diagrams.md" },
+        "03-math": { "route": "03-math/", "file": "src/03-math.md" },
+        "04-directory": { "route": "04-directory/", "file": "src/04-directory/index.md" }
       }
     }
   ]

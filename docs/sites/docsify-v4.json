@@ -124,5 +124,27 @@
       "2025": 87,
       "2026": 108
     }
+  },
+  "benchmark": {
+    "measuredAt": "2026-11-24T00:48:57.100Z",
+    "buildCommand": "npm run build",
+    "isRuntimeSpa": true,
+    "coldBuildMs": 440,
+    "totalFiles": 77,
+    "totalBytes": 4929791,
+    "htmlFiles": 1,
+    "htmlBytes": 3601,
+    "jsFiles": 6,
+    "jsBytes": 3799278,
+    "jsGzipBytes": 1131936,
+    "cssFiles": 2,
+    "cssBytes": 37854,
+    "cssGzipBytes": 7029,
+    "otherBytes": 1089058,
+    "entryHtmlBytes": 3601,
+    "proseScriptCount": 7,
+    "hasOfflineSearch": true,
+    "offlineSearchKind": "客户端全文扫描",
+    "hasLlmsTxt": false
   }
 }

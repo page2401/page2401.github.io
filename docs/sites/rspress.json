@@ -136,5 +136,27 @@
     }
   },
   "subsiteRepoUrl": "https://github.com/page2401/rspress",
-  "previewUrl": "https://page.2401.xyz/rspress/"
+  "previewUrl": "https://page.2401.xyz/rspress/",
+  "benchmark": {
+    "measuredAt": "2026-11-24T00:48:57.100Z",
+    "buildCommand": "npm run build",
+    "isRuntimeSpa": false,
+    "coldBuildMs": 11805,
+    "totalFiles": 164,
+    "totalBytes": 7369835,
+    "htmlFiles": 8,
+    "htmlBytes": 209418,
+    "jsFiles": 80,
+    "jsBytes": 5929800,
+    "jsGzipBytes": 1681918,
+    "cssFiles": 1,
+    "cssBytes": 101531,
+    "cssGzipBytes": 21627,
+    "otherBytes": 1129086,
+    "entryHtmlBytes": 17858,
+    "proseScriptCount": 6,
+    "hasOfflineSearch": true,
+    "offlineSearchKind": "Rspress 内置静态索引",
+    "hasLlmsTxt": true
+  }
 }

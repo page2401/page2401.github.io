@@ -139,5 +139,27 @@
     }
   },
   "subsiteRepoUrl": "https://github.com/page2401/docusaurus-v3",
-  "previewUrl": "https://page.2401.xyz/docusaurus-v3/"
+  "previewUrl": "https://page.2401.xyz/docusaurus-v3/",
+  "benchmark": {
+    "measuredAt": "2026-11-24T00:48:57.100Z",
+    "buildCommand": "npm run build",
+    "isRuntimeSpa": false,
+    "coldBuildMs": 155719,
+    "totalFiles": 157,
+    "totalBytes": 7423557,
+    "htmlFiles": 8,
+    "htmlBytes": 205730,
+    "jsFiles": 82,
+    "jsBytes": 6034033,
+    "jsGzipBytes": 1690253,
+    "cssFiles": 2,
+    "cssBytes": 103375,
+    "cssGzipBytes": 19108,
+    "otherBytes": 1080419,
+    "entryHtmlBytes": 17813,
+    "proseScriptCount": 3,
+    "hasOfflineSearch": false,
+    "offlineSearchKind": null,
+    "hasLlmsTxt": false
+  }
 }

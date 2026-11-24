@@ -133,5 +133,27 @@
     }
   },
   "subsiteRepoUrl": "https://github.com/page2401/hugo",
-  "previewUrl": "https://page.2401.xyz/hugo/"
+  "previewUrl": "https://page.2401.xyz/hugo/",
+  "benchmark": {
+    "measuredAt": "2026-11-24T00:48:57.100Z",
+    "buildCommand": "hugo --minify",
+    "isRuntimeSpa": false,
+    "coldBuildMs": 266,
+    "totalFiles": 72,
+    "totalBytes": 7026884,
+    "htmlFiles": 8,
+    "htmlBytes": 111114,
+    "jsFiles": 3,
+    "jsBytes": 5814405,
+    "jsGzipBytes": 1670401,
+    "cssFiles": 1,
+    "cssBytes": 24793,
+    "cssGzipBytes": 3518,
+    "otherBytes": 1076572,
+    "entryHtmlBytes": 15302,
+    "proseScriptCount": 5,
+    "hasOfflineSearch": false,
+    "offlineSearchKind": null,
+    "hasLlmsTxt": false
+  }
 }

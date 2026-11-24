@@ -203,5 +203,27 @@
         }
       }
     ]
+  },
+  "benchmark": {
+    "measuredAt": "2026-11-24T00:48:57.100Z",
+    "buildCommand": "npm run build",
+    "isRuntimeSpa": false,
+    "coldBuildMs": 11127,
+    "totalFiles": 182,
+    "totalBytes": 7784406,
+    "htmlFiles": 8,
+    "htmlBytes": 165530,
+    "jsFiles": 98,
+    "jsBytes": 5517213,
+    "jsGzipBytes": 1587821,
+    "cssFiles": 1,
+    "cssBytes": 160227,
+    "cssGzipBytes": 30691,
+    "otherBytes": 1941436,
+    "entryHtmlBytes": 8716,
+    "proseScriptCount": 2,
+    "hasOfflineSearch": false,
+    "offlineSearchKind": null,
+    "hasLlmsTxt": false
   }
 }

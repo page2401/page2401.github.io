@@ -41,6 +41,12 @@ description: "对应子模块 sites/vuepress-v2：Vue 3 + Vite 重构版、官�
 | **核心依赖库 (Core Libs)** | `vue`、`vite`、`markdown-it`、`@vuepress/theme-default`、`@mdit/plugin-alert`、`@mdit/plugin-katex` |
 | **本子站实测锁定版本** | `vuepress@2.0.0-rc.32` · `@vuepress/bundler-vite@2.0.0-rc.32` · `@vuepress/theme-default@2.0.0-rc.141` · `@vuepress/plugin-markdown-hint@2.0.0-rc.141` · `@vuepress/plugin-markdown-math@2.0.0-rc.139` · `@vuepress/plugin-markdown-chart@2.0.0-rc.139` · `katex@0.19.1` · `mermaid@12.3.0` |
 
+### ⚡ 同源 5 章基准冷构建耗时与产物体积实测（`benchmark` 节点）
+
+| 冷构建耗时 | 产物文件数 | 总产物体积 | HTML 体积 | JS 原始 / Gzip | CSS 原始 / Gzip | 正文 `<script>` 数 | 离线搜索 / AI |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: | :--- |
+| **11.13 s (11,127 ms)** | 182 | 7602.0 KB | 161.7 KB | 5387.9 KB / **1550.6 KB** | 156.5 KB / 30.0 KB | `2` 个 | 无内置离线索引 |
+
 ### GitHub 仓库 API 指标快照
 
 | 官方仓库 | 创建日期 | 最近推送 | Stars | 默认分支总提交 | 峰值年份 (提交数) | 最新 Release |

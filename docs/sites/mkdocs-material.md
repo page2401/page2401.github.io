@@ -37,6 +37,12 @@ description: "对应实测子模块 sites/mkdocs-material：Python 科研工程�
 | **核心依赖库 (Core Libs)** | `mkdocs`、`mkdocs-material`、`markdown`、`pymdown-extensions`、`pygments` |
 | **本子站实测锁定版本** | `mkdocs-material@9.8.2` · `mkdocs@1.6.1` · `pymdown-extensions@13.1.2` · `markdown@3.11.3` · `pygments@2.21.0` |
 
+### ⚡ 同源 5 章基准冷构建耗时与产物体积实测（`benchmark` 节点）
+
+| 冷构建耗时 | 产物文件数 | 总产物体积 | HTML 体积 | JS 原始 / Gzip | CSS 原始 / Gzip | 正文 `<script>` 数 | 离线搜索 / AI |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: | :--- |
+| **2.09 s (2,092 ms)** | 119 | 9402.4 KB | 173.3 KB | 6716.6 KB / **1907.1 KB** | 170.2 KB / 27.6 KB | `8` 个 | Lunr.js 静态索引 |
+
 ### GitHub 仓库 API 指标快照
 
 | 官方仓库 | 创建日期 | 最近推送 | Stars | 默认分支总提交 | 峰值年份 (提交数) | 最新 Release |
