@@ -32,9 +32,9 @@
 
 ---
 
-## 由母版派生的 18 个跨语言独立版本子模块（全景图谱共收录 26 款）
+## 由母版派生的 19 个跨语言独立版本子模块（全景图谱共收录 26 款）
 
-统一命名约定：每个子模块标识 `<id>` 同时对应本地子模块目录 `sites/<id>`、独立元数据 [`docs/sites/<id>.json`](./docs/sites/index.md)、独立仓库 `page2401/<id>` 以及线上访问路径 `https://page.2401.xyz/<id>/`（各自独立拥有 `main` 源码分支与 `page` 产物分支）。另有 8 款主流生成器（Lume、Sphinx、GitBook、HonKit、Gatsby、Pelican、Hexo、Jekyll）收录于 `docs/sites/*.json` 图谱中。
+统一命名约定：每个子模块标识 `<id>` 同时对应本地子模块目录 `sites/<id>`、独立元数据 [`docs/sites/<id>.json`](./docs/sites/index.md)、独立仓库 `page2401/<id>` 以及线上访问路径 `https://page.2401.xyz/<id>/`（各自独立拥有 `main` 源码分支与 `page` 产物分支）。另有 7 款主流生成器（Lume、GitBook、HonKit、Gatsby、Pelican、Hexo、Jekyll）收录于 `docs/sites/*.json` 图谱中。
 
 | 子模块（点击直达线上预览） | 语言 / 架构派系 | 核心精确锁定版本 | 相对母版的典型派生特征与实测边界 |
 | :--- | :--- | :--- | :--- |
@@ -56,6 +56,7 @@
 | [**`quartz`**](https://page.2401.xyz/quartz/)（[源码](https://github.com/page2401/quartz)） | Node · Preact + Unified | `@jackyzha0/quartz@4.5.2` · `d3@7.9.0` · `pixi.js@8.15.0` | 原生 Obsidian `[[Wikilinks]]` 双向链接、反向链接与交互关系图谱；`6.2s` 构建含 FlexSearch 全文索引 |
 | [**`nuxt-content`**](https://page.2401.xyz/nuxt-content/)（[源码](https://github.com/page2401/nuxt-content)） | Node · Nuxt 4 + SQLite | `@nuxt/content@3.17.0` · `nuxt@4.7.0` · `vue@3.5.46` | 独创双冒号 `::callout` MDC 组件语法；Frontmatter 编译为 SQLite 强类型表 + `.navigation.yml` 中文分组 |
 | [**`eleventy`**](https://page.2401.xyz/eleventy/)（[源码](https://github.com/page2401/eleventy)） | Node · 11ty v3 零 JS | `@11ty/eleventy@3.1.8` · `markdown-it@15.0.3` · `katex@0.19.1` | `1.2s` 全量构建；**正文页 `0` 个 `<script>` 纯静态 HTML**；`*.11tydata.json` 数据级联 + 自动重写 `.md` 相对链接 |
+| [**`sphinx`**](https://page.2401.xyz/sphinx/)（[源码](https://github.com/page2401/sphinx)） | Python · Sphinx 9 + MyST | `sphinx==9.1.1` · `myst-parser==5.2.0` · `furo==2025.12.19` | 分布式 `{toctree}` 零孤岛强契约 + `{eq}` 自动公式编号交叉引用；MyST 5.2 原生支持 GFM Alerts |
 
 ---
 

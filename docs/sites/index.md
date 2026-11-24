@@ -1,11 +1,11 @@
 ---
 title: "docs/sites/ 站点元数据 JSON、构建性能与 GitHub 活跃度总览（26 款）"
-description: "与 sites/<id> 严格 1:1 对齐的 26 组 <id>.md + <id>.json（涵盖 18 个跨语言实测挂载子站 + 8 个主流生态图鉴位，含空缓存冷构建 benchmark 节点与 2008–2026 GitHub 历年提交节点）。"
+description: "与 sites/<id> 严格 1:1 对齐的 26 组 <id>.md + <id>.json（涵盖 19 个跨语言实测挂载子站 + 7 个主流生态图鉴位，含空缓存冷构建 benchmark 节点与 2008–2026 GitHub 历年提交节点）。"
 ---
 
 # `docs/sites/` 站点独立元数据 JSON、构建性能与 GitHub 活跃度总览（26 款）
 
-本目录（`docs/sites/`）与仓库子模块目录 **`sites/<id>` 严格保持 1:1 对齐**，当前共收录 **26 款主流静态网站生成器 / 大版本**（包含 **18 个跨语言同源实测子站** 与 **8 个生态图鉴预留位**），每个站点均成对维护两份文件：
+本目录（`docs/sites/`）与仓库子模块目录 **`sites/<id>` 严格保持 1:1 对齐**，当前共收录 **26 款主流静态网站生成器 / 大版本**（包含 **19 个跨语言同源实测子站** 与 **7 个生态图鉴预留位**），每个站点均成对维护两份文件：
 
 1. **结构化元数据与实测数据文件 `docs/sites/<id>.json`**：
    - **站点自身元数据**：`websiteUrl`（官方网站）、`githubUrl`（GitHub 源码地址）、`packageUrl`（包仓库地址）、`tags`（特性与流派标签数组）、`lifecycle`（开始 / 活跃 / 废弃时间）、`libs`（运行时、打包器、UI 框架、Markdown 引擎、代码高亮、全文检索、公式与图表库及 `coreLibs` / `pinnedPackages`）；
@@ -53,7 +53,7 @@ description: "与 sites/<id> 严格 1:1 对齐的 26 组 <id>.md + <id>.json（�
 
 ---
 
-## 2. 已挂载跨语言实测子站（18 个 · 与 `sites/<id>` 1:1 对应）
+## 2. 已挂载跨语言实测子站（19 个 · 与 `sites/<id>` 1:1 对应）
 
 | 站点 ID (`sites/<id>`) | 档案与独立 JSON | 底层语言 / 管线 | 线上实测路径 | 开始时间 | 活跃 / EOL 状态 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -75,15 +75,15 @@ description: "与 sites/<id> 严格 1:1 对齐的 26 组 <id>.md + <id>.json（�
 | `sites/quartz` | [`quartz.md`](./quartz.md) · [`json`](./quartz.json) | Node · Preact + Obsidian 双链 | [`/quartz/`](/quartz/) | `2021-07-18` | v4 数字花园标杆 |
 | `sites/nuxt-content` | [`nuxt-content.md`](./nuxt-content.md) · [`json`](./nuxt-content.json) | Node · Nuxt 4 + SQLite MDC | [`/nuxt-content/`](/nuxt-content/) | `2020-03-31` | v3 MDC + SQLite 持续活跃 |
 | `sites/eleventy` | [`eleventy.md`](./eleventy.md) · [`json`](./eleventy.json) | Node · 11ty v3 零 JS HTML | [`/eleventy/`](/eleventy/) | `2017-11-27` | 零客户端 JS 常青活跃 |
+| `sites/sphinx` | [`sphinx.md`](./sphinx.md) · [`json`](./sphinx.json) | Python · Sphinx 9 + MyST 5.2 | [`/sphinx/`](/sphinx/) | `2008-03-21` | Python 与科学出版不朽基石 |
 
 ---
 
-## 3. 主流生态图鉴预留扩展位（8 个 · 预留 `sites/<id>` 1:1 命名）
+## 3. 主流生态图鉴预留扩展位（7 个 · 预留 `sites/<id>` 1:1 命名）
 
 | 预留 ID (`sites/<id>`) | 档案与独立 JSON | 官网地址 | 上游 GitHub 仓库 | 开始时间 | 活跃 / EOL 状态 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | `sites/lume` | [`lume.md`](./lume.md) · [`json`](./lume.json) | [lume.land](https://lume.land/) | `lumeland/lume` | `2020-09-07` | Deno 原生高频活跃 |
-| `sites/sphinx` | [`sphinx.md`](./sphinx.md) · [`json`](./sphinx.json) | [sphinx-doc.org](https://www.sphinx-doc.org/) | `sphinx-doc/sphinx` | `2008-03-21` | Python 与科学出版不朽基石 |
 | `sites/gitbook` | [`gitbook.md`](./gitbook.md) · [`json`](./gitbook.json) | [gitbook.com](https://www.gitbook.com/) | `GitbookIO/gitbook` | `2014-03-31` | 旧 CLI 废弃；转型 Next.js 云端 |
 | `sites/honkit` | [`honkit.md`](./honkit.md) · [`json`](./honkit.json) | [honkit.netlify.app](https://honkit.netlify.app/) | `honkit/honkit` | `2020-06-13` | 社区接力维护旧 GitBook 生态 |
 | `sites/gatsby` | [`gatsby.md`](./gatsby.md) · [`json`](./gatsby.json) | [gatsbyjs.com](https://www.gatsbyjs.com/) | `gatsbyjs/gatsby` | `2015-05-21` | **2023 后显著衰退（历史教材）** |

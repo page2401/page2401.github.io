@@ -1220,6 +1220,69 @@
         "03-math": { "route": "03-math/", "file": "src/03-math.md" },
         "04-directory": { "route": "04-directory/", "file": "src/04-directory/index.md" }
       }
+    },
+    {
+      "id": "sphinx",
+      "family": "Sphinx (MyST)",
+      "versionSeries": "v9.1 + MyST 5.2 (Python)",
+      "tagline": "Python 科学出版统治级编译器 + Docutils AST + {eq} 公式交叉引用",
+      "repo": "page2401/sphinx",
+      "basePath": "/sphinx/",
+      "submoduleDir": "sites/sphinx",
+      "distDir": "sites/sphinx/_build/dirhtml",
+      "manifestType": "python",
+      "buildCommand": "/home/antigravity/.venvs/sphinx/bin/sphinx-build -b dirhtml . _build/dirhtml",
+      "routeStyle": "clean",
+      "primaryPackage": "sphinx",
+      "trackedPackages": [
+        "sphinx",
+        "myst-parser",
+        "furo",
+        "sphinx-design",
+        "sphinxcontrib-mermaid",
+        "docutils",
+        "pygments"
+      ],
+      "configFiles": [
+        "conf.py",
+        "_static/vendor/mermaid-esm.mjs",
+        "_static/custom.css"
+      ],
+      "directoryProfile": {
+        "contentRoot": "/ (根 conf.py + 分布式 {toctree} 显式整书树)",
+        "contentPrefix": "",
+        "excludedContentFiles": ["README.md"],
+        "orderingMechanism": "父级 ```{toctree} 指令内显式书写顺序",
+        "sidebarMechanism": "分布式 {toctree} 组合树（未入树文档触发构建期告警）",
+        "pros": [
+          "零孤岛页强契约：任何 .md 若未挂入 {toctree} 且未标 orphan: true，构建期立刻抛出告警拦截",
+          "语义角色跨页联动：使用 {doc} 与 {ref} 引用子文档时免硬编码标题，目标改 H1 全站自动同步更新",
+          "dirhtml 天然子路径无关：所有页面通过 ../_static/ 相对路径寻址，无需配置 basePath 即可挂载至 /sphinx/"
+        ],
+        "cons": [
+          "仓库根 README.md 与正文同处根目录时，必须在 conf.py 配置 exclude_patterns = ['README.md'] 防孤立页告警",
+          "GitHub Pages 强依赖 .nojekyll：Sphinx 默认静态目录名为 _static/，漏建 .nojekyll 会导致全站 CSS/JS 404",
+          "冒号围栏嵌套陷阱：外层 :::{dropdown} 内若含 ::: 代码块示例，外层须递增为四冒号 :::: 否则提前闭合"
+        ]
+      },
+      "highlights": {
+        "dirIsolation": "根级 conf.py + exclude_patterns 排除 README.md 与 _build/",
+        "dirRoutingSidebar": "dirhtml 干净目录路由 + 分布式 {toctree} 显式树 + {doc}/{ref} 死链强校验",
+        "frontmatter": "Docutils docinfo 元数据 + myst.html_meta 注入 HTML meta 描述",
+        "callouts": "```{note} 反引号指令与 :::{admonition} 自定义标题 (:class: tip) 双轨体系",
+        "details": "sphinx-design ::::{dropdown} 折叠卡片 + 原生 HTML <details> 双支持",
+        "gfmAlerts": "myst-parser 5.2 (mdit-py-plugins 0.7) 新增内置 'alert' 扩展，零插件原生渲染全部 5 类 GFM 警报！",
+        "mermaid": "sphinxcontrib-mermaid 2.1 ```{mermaid} 指令（带图题编号）+ 本地 ES 模块桥接 mermaid@12.3.0",
+        "math": "杀手级学术能力：$$...$$ (label) / ```{math} :label: 自动公式编号 + {eq} 交叉引用 + 本地 MathJax 3 SVG",
+        "buildArtifact": "Python 3.12 极速编译至 _build/dirhtml（内置中文全文检索索引，零外部 CDN 请求）"
+      },
+      "docs": {
+        "index": { "route": "", "file": "index.md" },
+        "01-annotations": { "route": "01-annotations/", "file": "01-annotations.md" },
+        "02-diagrams": { "route": "02-diagrams/", "file": "02-diagrams.md" },
+        "03-math": { "route": "03-math/", "file": "03-math.md" },
+        "04-directory": { "route": "04-directory/", "file": "04-directory/index.md" }
+      }
     }
   ]
 }

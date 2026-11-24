@@ -4,7 +4,7 @@
   "order": 24,
   "name": "Sphinx (MyST)",
   "versionNote": "v8.x + MyST-Parser",
-  "mounted": false,
+  "mounted": true,
   "sitePath": "sites/sphinx",
   "websiteUrl": "https://www.sphinx-doc.org/",
   "githubUrl": "https://github.com/sphinx-doc/sphinx",
@@ -45,7 +45,18 @@
       "markdown-it-py",
       "pygments",
       "jinja2"
-    ]
+    ],
+    "pinnedPackages": {
+      "sphinx": "9.1.1",
+      "myst-parser": "5.2.0",
+      "furo": "2025.12.19",
+      "sphinx-design": "0.8.0",
+      "sphinxcontrib-mermaid": "2.1.1",
+      "docutils": "0.22.4",
+      "markdown-it-py": "4.3.0",
+      "mdit-py-plugins": "0.7.0",
+      "pygments": "2.21.0"
+    }
   },
   "matrix": {
     "tagline": "Python 官方与 Linux 内核同款工业级出版系统：拥有全行业最严谨的跨文档符号交叉引用、API 自动抽取与原生 LaTeX PDF 排版",
@@ -203,5 +214,28 @@
         }
       }
     ]
+  },
+  "subsiteRepoUrl": "https://github.com/page2401/sphinx",
+  "benchmark": {
+    "measuredAt": "2026-11-24T05:21:11.411Z",
+    "buildCommand": "sphinx-build -b dirhtml . _build/dirhtml",
+    "isRuntimeSpa": false,
+    "coldBuildMs": 3341,
+    "totalFiles": 49,
+    "totalBytes": 8611820,
+    "htmlFiles": 9,
+    "htmlBytes": 253165,
+    "jsFiles": 15,
+    "jsBytes": 7926413,
+    "jsGzipBytes": 2334783,
+    "cssFiles": 8,
+    "cssBytes": 153562,
+    "cssGzipBytes": 26893,
+    "otherBytes": 278680,
+    "entryHtmlBytes": 29620,
+    "proseScriptCount": 9,
+    "hasOfflineSearch": true,
+    "offlineSearchKind": "Sphinx 静态分词索引",
+    "hasLlmsTxt": false
   }
 }

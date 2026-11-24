@@ -70,3 +70,7 @@
 	path = sites/eleventy
 	url = https://github.com/page2401/eleventy.git
 	branch = main
+[submodule "sites/sphinx"]
+	path = sites/sphinx
+	url = https://github.com/page2401/sphinx.git
+	branch = main
