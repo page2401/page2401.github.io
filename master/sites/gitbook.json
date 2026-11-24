@@ -1,0 +1,127 @@
+{
+  "$schema": "https://page.2401.xyz/schemas/site-metadata-v1.json",
+  "id": "gitbook",
+  "order": 22,
+  "name": "GitBook",
+  "versionNote": "OpenDoc / Legacy CLI Pivot",
+  "mounted": false,
+  "sitePath": "sites/gitbook",
+  "websiteUrl": "https://www.gitbook.com/",
+  "githubUrl": "https://github.com/GitbookIO/gitbook",
+  "packageUrl": "https://www.npmjs.com/package/gitbook-cli",
+  "ecosystem": "react-astro",
+  "tags": [
+    "ebook",
+    "summary-md",
+    "commercial-pivot",
+    "nextjs",
+    "saas-docs",
+    "historical-pioneer"
+  ],
+  "lifecycle": {
+    "startedAt": "2014-03-31",
+    "activePeriod": "2014–2018 开源 CLI 风靡全球；2019 闭源转向 SaaS；2024 重新开源 Next.js 渲染端",
+    "deprecatedAt": "原版 gitbook-cli (v3.2.3) 早已彻底废弃不可用（社区由 HonKit / mdBook 承接）",
+    "isEol": false,
+    "summary": "始于 2014-03 · SUMMARY.md 鼻祖，旧 CLI 已死、现转为 Next.js 云端渲染器"
+  },
+  "libs": {
+    "runtime": "Node.js / Cloudflare Workers (新版 GitBook Open)",
+    "bundler": "Next.js + OpenNext (新版渲染端)",
+    "uiFramework": "React + Tailwind CSS",
+    "markdownEngine": "GitBook Custom Document AST / Markdown Sync",
+    "codeHighlight": "Shiki",
+    "searchEngine": "GitBook AI Search & Cloud Index",
+    "mathLib": "KaTeX（{% math %} 或 $$...$$ 块）",
+    "diagramLib": "原生内置 Mermaid 代码块渲染",
+    "coreLibs": [
+      "next",
+      "react",
+      "shiki",
+      "katex",
+      "mermaid"
+    ]
+  },
+  "matrix": {
+    "tagline": "定义了 README.md + SUMMARY.md 电子书范式的开山鼻祖，历经旧 CLI 停更断层后转型云端协同 SaaS 与 Next.js 渲染端",
+    "stack": "新版：Next.js 渲染端 + GitBook Cloud Git Sync；旧版（已废弃）：Node 6–10 + Nunjucks",
+    "directoryModel": "README.md 作为封面导言 + SUMMARY.md 缩进无序列表定义整本手册层级（直接启发了 mdBook 与 Docsify！）",
+    "calloutDialect": "专有 Liquid 风格标签：{% hint style=\"warning\" %} ... {% endhint %} 与 {% tabs %}",
+    "diagramAndMath": "云端版与新版渲染器原生支持 ```mermaid 与 $$...$$ KaTeX 公式"
+  },
+  "github": {
+    "fetchedAt": "2026-11-23T11:47:11.123Z",
+    "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
+    "repo": "GitbookIO/gitbook",
+    "url": "https://github.com/GitbookIO/gitbook",
+    "role": "GitBook 官方源码仓库",
+    "description": "The open source frontend for GitBook doc sites",
+    "primaryLanguage": "TypeScript",
+    "license": "GPL-3.0",
+    "defaultBranch": "main",
+    "isArchived": false,
+    "createdAt": "2014-03-31T03:01:56Z",
+    "createdYear": 2014,
+    "pushedAt": "2026-11-23T11:34:58Z",
+    "updatedAt": "2026-11-23T10:00:44Z",
+    "stars": 29106,
+    "forks": 4030,
+    "openIssues": 8,
+    "totalCommits": 2543,
+    "peakYear": 2025,
+    "peakCommits": 1037,
+    "latestRelease": {
+      "tagName": "@gitbook/react-contentkit@0.7.7",
+      "publishedAt": "2025-10-15T11:34:01Z",
+      "isPrerelease": false
+    },
+    "recentReleases": [
+      {
+        "tagName": "@gitbook/react-contentkit@0.7.7",
+        "publishedAt": "2025-10-15T11:34:01Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "@gitbook/embed@0.1.4",
+        "publishedAt": "2025-10-15T11:33:58Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "@gitbook/react-openapi@1.5.2",
+        "publishedAt": "2025-10-15T11:33:55Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "@gitbook/react-math@0.6.3",
+        "publishedAt": "2025-10-15T11:33:52Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "@gitbook/colors@0.4.2",
+        "publishedAt": "2025-10-15T11:33:48Z",
+        "isPrerelease": false
+      }
+    ],
+    "yearlyCommits": {
+      "2008": 0,
+      "2009": 0,
+      "2010": 0,
+      "2011": 0,
+      "2012": 0,
+      "2013": 0,
+      "2014": 0,
+      "2015": 0,
+      "2016": 0,
+      "2017": 0,
+      "2018": 0,
+      "2019": 0,
+      "2020": 0,
+      "2021": 0,
+      "2022": 0,
+      "2023": 169,
+      "2024": 579,
+      "2025": 1037,
+      "2026": 758
+    }
+  }
+}

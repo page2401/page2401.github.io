@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>导览：Markdown 方言谱系与分裂根源 — 本站母版 (Pure GFM)</title>
+    <link rel="stylesheet" href="./vendor/katex.min.css" />
+    <style>
+      :root, [data-theme="light"] {
+        --bg: #ffffff;
+        --bg-nav: #f6f8fa;
+        --text: #1f2328;
+        --muted: #59636e;
+        --border: #d1d9e0;
+        --code-bg: #f6f8fa;
+        --link: #0969da;
+      }
+      html.dark, [data-theme="dark"] {
+        --bg: #0d1117;
+        --bg-nav: #161b22;
+        --text: #e6edf3;
+        --muted: #8b949e;
+        --border: #30363d;
+        --code-bg: #161b22;
+        --link: #58a6ff;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", Helvetica, Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.65;
+        font-size: 15px;
+      }
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: var(--bg-nav);
+        border-bottom: 1px solid var(--border);
+        padding: 0.6rem 1.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        font-size: 13px;
+      }
+      .topbar-title { font-weight: 700; display: flex; align-items: center; gap: 0.5rem; }
+      .gfm-badge {
+        font-size: 11px;
+        padding: 0.1rem 0.45rem;
+        border-radius: 999px;
+        background: rgba(9, 105, 218, 0.12);
+        color: var(--link);
+        font-weight: 600;
+      }
+      .topbar-nav { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+      .topbar-nav a { color: var(--muted); text-decoration: none; font-weight: 500; }
+      .topbar-nav a:hover, .topbar-nav a.active { color: var(--link); }
+      main {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 1.75rem 1.5rem 3rem;
+      }
+      a { color: var(--link); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      h1, h2, h3 { line-height: 1.3; margin-top: 1.6em; margin-bottom: 0.6em; }
+      h1 { font-size: 1.75rem; margin-top: 0.2em; padding-bottom: 0.35em; border-bottom: 1px solid var(--border); }
+      h2 { font-size: 1.3rem; padding-bottom: 0.25em; border-bottom: 1px solid var(--border); }
+      code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 85%;
+        background: var(--code-bg);
+        padding: 0.18em 0.38em;
+        border-radius: 5px;
+      }
+      pre {
+        background: var(--code-bg);
+        border: 1px solid var(--border);
+        padding: 0.9rem 1rem;
+        border-radius: 6px;
+        overflow-x: auto;
+      }
+      pre code { background: none; padding: 0; font-size: 13px; }
+      .table-wrap { width: 100%; overflow-x: auto; margin: 1rem 0; }
+      table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+      th, td { border: 1px solid var(--border); padding: 0.45rem 0.65rem; text-align: left; white-space: normal; }
+      th { background: var(--bg-nav); white-space: nowrap; }
+      blockquote {
+        margin: 1rem 0;
+        padding: 0.2rem 1rem;
+        color: var(--muted);
+        border-left: 4px solid var(--border);
+      }
+      details {
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 0.65rem 0.95rem;
+        margin: 1rem 0;
+        background: var(--bg-nav);
+      }
+      summary { cursor: pointer; font-weight: 600; }
+      .gfm-alert {
+        margin: 1rem 0;
+        padding: 0.65rem 1rem;
+        border-left: 4px solid #0969da;
+        background: var(--bg-nav);
+        border-radius: 0 6px 6px 0;
+      }
+      .gfm-alert-title { font-weight: 700; font-size: 13.5px; margin-bottom: 0.25rem; }
+      .gfm-alert-note { border-left-color: #0969da; }
+      .gfm-alert-note .gfm-alert-title { color: #0969da; }
+      .gfm-alert-tip { border-left-color: #1a7f37; }
+      .gfm-alert-tip .gfm-alert-title { color: #1a7f37; }
+      .gfm-alert-important { border-left-color: #8250df; }
+      .gfm-alert-important .gfm-alert-title { color: #8250df; }
+      .gfm-alert-warning { border-left-color: #9a6700; }
+      .gfm-alert-warning .gfm-alert-title { color: #9a6700; }
+      .gfm-alert-caution { border-left-color: #d1242f; }
+      .gfm-alert-caution .gfm-alert-title { color: #d1242f; }
+      .gfm-alert p:last-child { margin-bottom: 0; }
+      .gfm-math-block { overflow-x: auto; padding: 0.5rem 0; text-align: center; }
+      .gfm-mermaid {
+        margin: 1.25rem 0;
+        padding: 1rem;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--bg-nav);
+        display: flex;
+        justify-content: center;
+        overflow-x: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-title">
+        <span>★ 本站母版 (docs/00-dialects.md)</span>
+        <span class="gfm-badge">Pure GFM 参考基准</span>
+      </div>
+      <nav class="topbar-nav">
+        <a href="/master/">母版首页</a>
+        <a href="/master/00-dialects">方言谱系</a>
+        <a href="/master/sites/">站点档案与活跃度 (docs/sites/)</a>
+        <a href="/master/benchmark-spec">接入规范</a>
+        <a href="/master/01-annotations">01. 标注</a>
+        <a href="/master/02-diagrams">02. 流程图</a>
+        <a href="/master/03-math">03. 公式</a>
+        <a href="/master/04-directory/">04. 目录结构</a>
+        <a href="/master/05-code-blocks">05. 代码块</a>
+        <a href="https://github.com/page2401/page2401.github.io/blob/main/docs/00-dialects.md" target="_blank" rel="noopener">GitHub 原文 ↗</a>
+      </nav>
+    </header>
+    <main><h1>Markdown 方言谱系：为什么“同为 <code>*.md</code>”却无法跨框架通用？</h1>
+<p>文件后缀名虽然都叫 <code>.md</code>，但在现代静态网站生成（SSG）领域，<strong>并不存在唯一的“标准技术文档 Markdown”</strong>。初代 Markdown 只定义了最基础的散文排版，而现代技术文档必需的<strong>表格、提示框（Callouts）、折叠块、数学公式、流程图与交互组件</strong>全部由后来的各个社区各自扩展，最终演化出互不兼容的<strong>五大方言派系</strong>。</p>
+<div class="gfm-mermaid" data-b64="Zmxvd2NoYXJ0IFRECiAgICBNMjAwNFsi5Yid5LujIE1hcmtkb3duIChKb2huIEdydWJlciwgMjAwNCk8YnIvPuS7heWumuS5ieagh+mimC/mrrXokL0v5YiX6KGoL+W8leeUqC/pk77mjqUv5Luj56CB5Z2X77yM5a2Y5Zyo5aSn6YeP6L6557yY5q2n5LmJIl0KICAgIENNWyJDb21tb25NYXJrICgyMDE0IOS4peagvOinhOiMg+WMluWGheaguCk8YnIvPua2iOmZpOino+aekOatp+S5ie+8jOS9huS7jeS4jeWQq+ihqOagvOOAgeS7u+WKoeWIl+ihqOOAgeWFrOW8j+S4juaPkOekuuWdlyJdCiAgICBNMjAwNCAtLT4gQ00KCiAgICBHRk1bIkdpdEh1YiBGbGF2b3JlZCBNYXJrZG93biAoR0ZNKTxici8+5paw5aKe6KGo5qC844CB5Lu75Yqh5YiX6KGo44CB5Yig6Zmk57q/77yb5bmz5Y+w5bGC5omp5bGVIFshTk9URV3jgIFNZXJtYWlkIOS4jiBNYXRoIl0KICAgIENNIC0tPiBHRk0KCiAgICBNRElUWyJtYXJrZG93bi1pdCDlrrnlmaggKyBWdWUgU0ZDIOa0vjxici8+5Luj6KGoOiBWdWVQcmVzcyAvIFZpdGVQcmVzczxici8+6K+t5rOVOiA6Ojogd2FybmluZyDmoIfpopggKyDlhoXogZQgPEJhZGdlIC8+Il0KICAgIFJFTUFSS1sicmVtYXJrLWRpcmVjdGl2ZSArIE1EWCDmtL48YnIvPuS7o+ihqDogQXN0cm8gU3RhcmxpZ2h0IC8gRG9jdXNhdXJ1czxici8+6K+t5rOVOiA6OjpjYXV0aW9uW+agh+mimF0gKyBKU1ggaW1wb3J0Il0KICAgIFJVTlRJTUVbIui9u+mHj+WJjee8gOS4jui/kOihjOaXtuaWueiogOa0vjxici8+5Luj6KGoOiBEb2NzaWZ5PGJyLz7or63ms5U6ID8+IOS4gOiIrOaPkOekuiAvICE+IOmHjeeCueW8uuiwgyJdCiAgICBPVEhFUlsi5YW25a6D55Sf5oCB5LiT5pyJ5pa56KiA5rS+PGJyLz5Na0RvY3M6ICEhISBub3RlIOe8qei/m+Wdlzxici8+SHVnbzoge3s8IHNob3J0Y29kZSA+fX08YnIvPk9ic2lkaWFuOiBbW+WPjOmTvl1dICsgPiBbIWluZm9dLSJdCgogICAgR0ZNIC0tPiBNRElUCiAgICBHRk0gLS0+IFJFTUFSSwogICAgQ00gLS0+IFJVTlRJTUUKICAgIENNIC0tPiBPVEhFUg=="><pre class="mermaid">flowchart TD
+    M2004["初代 Markdown (John Gruber, 2004)&lt;br/&gt;仅定义标题/段落/列表/引用/链接/代码块，存在大量边缘歧义"]
+    CM["CommonMark (2014 严格规范化内核)&lt;br/&gt;消除解析歧义，但仍不含表格、任务列表、公式与提示块"]
+    M2004 --&gt; CM
+
+    GFM["GitHub Flavored Markdown (GFM)&lt;br/&gt;新增表格、任务列表、删除线；平台层扩展 [!NOTE]、Mermaid 与 Math"]
+    CM --&gt; GFM
+
+    MDIT["markdown-it 容器 + Vue SFC 派&lt;br/&gt;代表: VuePress / VitePress&lt;br/&gt;语法: ::: warning 标题 + 内联 &lt;Badge /&gt;"]
+    REMARK["remark-directive + MDX 派&lt;br/&gt;代表: Astro Starlight / Docusaurus&lt;br/&gt;语法: :::caution[标题] + JSX import"]
+    RUNTIME["轻量前缀与运行时方言派&lt;br/&gt;代表: Docsify&lt;br/&gt;语法: ?&gt; 一般提示 / !&gt; 重点强调"]
+    OTHER["其它生态专有方言派&lt;br/&gt;MkDocs: !!! note 缩进块&lt;br/&gt;Hugo: {{&lt; shortcode &gt;}}&lt;br/&gt;Obsidian: [[双链]] + &gt; [!info]-"]
+
+    GFM --&gt; MDIT
+    GFM --&gt; REMARK
+    CM --&gt; RUNTIME
+    CM --&gt; OTHER</pre></div><hr>
+<h2>1. 第一层：基础 Markdown 与 CommonMark（最大公约数内核）</h2>
+<ul>
+<li><strong>包含内容</strong>：标题 <code>#</code>、粗斜体 <code>**</code> / <code>*</code>、无序/有序列表、基础块引用 <code>&gt;</code>、超链接 <code>[text](url)</code>、图片 <code>![alt](src)</code>、围栏代码块 <code>```</code> 以及原生内联 HTML。</li>
+<li><strong>核心局限</strong>：为了保持极简，CommonMark <strong>没有任何关于表格、元数据（Frontmatter）、提示框、脚注或数学公式的定义</strong>。如果只写严格 CommonMark，虽然任何工具都能打开，但根本无法满足工程技术文档的表达需求。</li>
+</ul>
+<hr>
+<h2>2. 第二层：GitHub Flavored Markdown（GFM · 事实上的通用母版）</h2>
+<p>GitHub 在 CommonMark 基础上制定了 GFM 规范，并在 GitHub.com 网页渲染器中持续加入高频特性，使其成为当今开发者默认的“通用基准”（<strong>本站 <code>docs/*.md</code> 母版即严格采用此层语法</strong>）：</p>
+<ol>
+<li><strong>GFM 正式语法扩展</strong>：管道符表格（<code>| a | b |</code>）、任务列表（<code>- [x] done</code>）、删除线（<code>~~text~~</code>）、裸 URL 自动链接。</li>
+<li><strong>GitHub 平台级扩展</strong>：<ul>
+<li><strong>五类引用警报（Alerts）</strong>：<code>&gt; [!NOTE]</code>、<code>&gt; [!TIP]</code>、<code>&gt; [!IMPORTANT]</code>、<code>&gt; [!WARNING]</code>、<code>&gt; [!CAUTION]</code>；</li>
+<li><strong>原生图表代码块</strong>：<code>```mermaid</code> 直接渲染为交互式矢量图；</li>
+<li><strong>原生数学公式</strong>：<code>$...$</code> 与 <code>$$...$$</code>（由 MathJax 引擎支持）。</li>
+</ul>
+</li>
+<li><strong>跨框架落差</strong>：很多开发者误以为 GitHub 能渲染的语法就是所有 <code>.md</code> 的标准——实际上把包含 <code>&gt; [!CAUTION]</code> 和 <code>```mermaid</code> 的 GFM 文档直接丢进未加插件的 Starlight、VitePress 或旧版 VuePress，要么样式全无，要么变成死代码块。</li>
+</ol>
+<hr>
+<h2>3. 第三层：同为“三冒号 <code>:::</code>”，为何裂变成两派？</h2>
+<p>这是跨 SSG 迁移文档最常踩坑的重灾区——表面都用 <code>:::</code>，底层却分属两套完全不同的解析器生态：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th align="left">对比项</th>
+<th align="left"><code>markdown-it-container</code> 方言派</th>
+<th align="left"><code>remark-directive</code> 指令提案派</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>代表框架</strong></td>
+<td align="left"><strong>VuePress (v1/v2)</strong>、<strong>VitePress (v1/v2)</strong>、Hexo</td>
+<td align="left"><strong>Astro Starlight</strong>、<strong>Docusaurus</strong>、MyST</td>
+</tr>
+<tr>
+<td align="left"><strong>空格规则</strong></td>
+<td align="left"><code>:::</code> 后通常加空格：<code>::: tip</code></td>
+<td align="left"><code>:::</code> 后紧贴指令名：<code>:::tip</code></td>
+</tr>
+<tr>
+<td align="left"><strong>自定义标题写法</strong></td>
+<td align="left">直接跟在空格后：<code>::: warning 升级注意</code></td>
+<td align="left"><strong>必须包裹在方括号内</strong>：<code>:::caution[升级注意]</code></td>
+</tr>
+<tr>
+<td align="left"><strong>警告关键字</strong></td>
+<td align="left"><code>warning</code> / <code>danger</code></td>
+<td align="left">Starlight 为 <code>caution</code> / <code>danger</code></td>
+</tr>
+<tr>
+<td align="left"><strong>折叠容器</strong></td>
+<td align="left">原生提供 <code>::: details 点击展开</code></td>
+<td align="left">无内置 <code>:::details</code>，改用 HTML <code>&lt;details&gt;</code></td>
+</tr>
+</tbody></table></div>
+<div class="gfm-alert gfm-alert-warning"><div class="gfm-alert-title">Warning</div><p>若将 VitePress 的 <code>::: tip 自定义标题</code> 原样复制到 Astro Starlight 中，由于没有用 <code>[自定义标题]</code> 方括号包裹，自定义标题会被静默丢弃！</p>
+</div><hr>
+<h2>4. 第四层：组件内嵌方言（Vue-in-Markdown vs MDX）</h2>
+<p>当静态文本无法满足复杂排版（如多栏卡片、标签页切换）时，两大现代前端阵营走上了截然不同的混合编译路线：</p>
+<ul>
+<li><strong>Markdown-as-Vue-SFC（VuePress / VitePress）</strong>：<ul>
+<li>整篇 <code>.md</code> 直接被编译为一个 Vue 单文件组件，支持在 <code>.md</code> 中直接写 <code>&lt;script setup&gt;</code> 与全局组件 <code>&lt;Badge type=&quot;tip&quot; text=&quot;v1&quot; /&gt;</code>。</li>
+<li><strong>副作用</strong>：正文中若出现未包裹在反引号里的伪泛型标签（如 <code>Array&lt;string&gt;</code> 或 <code>&lt;T&gt;</code>），会被 Vue 模板编译器误认为未知 HTML/Vue 组件甚至导致编译报错。</li>
+</ul>
+</li>
+<li><strong>MDX（<code>.mdx</code> — Astro Starlight / Docusaurus / Nextra）</strong>：<ul>
+<li>将 Markdown 与严格 <strong>JSX</strong> 融合，通常使用专门的 <code>.mdx</code> 文件后缀，必须显式编写 <code>import { Card } from &#39;@astrojs/starlight/components&#39;</code>。</li>
+<li><strong>副作用</strong>：内联 HTML 必须遵守 JSX 规则——标准 HTML 注释 <code>&lt;!-- 注释 --&gt;</code> 非法（必须改为 <code>{/* 注释 */}</code>），正文里裸写的花括号 <code>{variable}</code> 会被当作 JavaScript 表达式求值而直接报 <code>ReferenceError</code>！</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2>5. 第五层：轻量运行时与其它主流生态方言对照</h2>
+<p>同一句“带自定义标题的警告框”，在七种不同 Markdown 方言中的真实写法对比如下：</p>
+<pre><code class="language-markdown">&lt;!-- 1. CommonMark 基础兼容写法 --&gt;
+&gt; **升级注意**：请先备份配置文件。
+
+&lt;!-- 2. GitHub Flavored Markdown (GFM 母版写法) --&gt;
+&gt; [!WARNING]
+&gt; **升级注意**：请先备份配置文件。
+
+&lt;!-- 3. VitePress / VuePress (markdown-it 容器方言) --&gt;
+::: warning 升级注意
+请先备份配置文件。
+:::
+
+&lt;!-- 4. Astro Starlight (remark-directive 指令方言) --&gt;
+:::caution[升级注意]
+请先备份配置文件。
+:::
+
+&lt;!-- 5. Docsify (专有前缀方言) --&gt;
+!&gt; **升级注意**：请先备份配置文件。
+
+&lt;!-- 6. MkDocs Material (Python-Markdown 4 空格缩进方言，无需闭合标签) --&gt;
+!!! warning "升级注意"
+    请先备份配置文件。
+
+&lt;!-- 7. Hugo (Go Template Shortcode 短代码方言) --&gt;
+{{&lt; callout type="warning" title="升级注意" &gt;}}
+请先备份配置文件。
+{{&lt; /callout &gt;}}</code></pre><hr>
+<h2>6. 第六层：新兴混合方言与跨出 Markdown 边界（MDC / WikiLinks / MyST / AsciiDoc）</h2>
+<p>随着静态文档工程进一步分化，近年又出现了四类极具代表性的演进路线：</p>
+<ol>
+<li><strong>MDC 语法（Nuxt Content）</strong>：使用双冒号 <code>::alert{type=&quot;warning&quot;}</code> 直接在纯 <code>.md</code> 中传递 Props 并映射 Vue 组件，避免了 MDX 中裸写花括号 <code>{}</code> 报错的问题。</li>
+<li><strong>双链数字花园方言（Quartz 4 / Obsidian）</strong>：围绕 <code>[[双向链接#锚点|别名]]</code>、<code>![[嵌入笔记]]</code> 与思维图谱构建非线性个人知识网络。</li>
+<li><strong>MyST Markdown（Sphinx 科学出版体系）</strong>：为了将 Python 传统霸主 Sphinx（原生采用 <code>reStructuredText</code> <code>.rst</code>）引入 Markdown 世界，Executable Books 社区设计了围栏指令语法 <code>```{warning}</code> 与角色语法 <code>{ref}</code>，兼顾交叉引用严谨性与 Markdown 可读性。</li>
+<li><strong>彻底跨出 Markdown 边界 —— AsciiDoc（Antora）</strong>：在超大型多仓库企业级手册（如 Fedora、 Couchbase）中，Antora（官方托管于 GitLab <code>gitlab.com/antora/antora</code>）直接放弃了分裂的 Markdown 方言，全面采用原生内置条件宏、跨仓 <code>xref:</code> 引用、复杂跨行表格与五类标准警示块的 <strong>AsciiDoc（<code>*.adoc</code>）</strong>。</li>
+</ol>
+<p>这正是本站坚持 <strong>「以纯正 GFM 作为母版（<code>docs/*.md</code>），各子模块独立派生并并排展示源码差异」</strong> 的原因：唯有看清方言边界，才能在选型时评估真实的文档资产锁定风险（Vendor Lock-in）。</p>
+</main>
+    <script src="./vendor/mermaid.min.js"></script>
+    <script>
+      function decodeB64(b64) {
+        const bin = atob(b64)
+        return new TextDecoder().decode(Uint8Array.from(bin, (c) => c.charCodeAt(0)))
+      }
+      async function renderMermaid() {
+        const boxes = document.querySelectorAll('.gfm-mermaid[data-b64]')
+        if (!boxes.length || !window.mermaid) return
+        const isDark = document.documentElement.classList.contains('dark') || document.documentElement.getAttribute('data-theme') === 'dark'
+        window.mermaid.initialize({ startOnLoad: false, theme: isDark ? 'dark' : 'default', securityLevel: 'loose' })
+        let i = 0
+        for (const box of boxes) {
+          const src = decodeB64(box.getAttribute('data-b64'))
+          const { svg } = await window.mermaid.render('master-mmd-' + Date.now() + '-' + i++, src)
+          box.innerHTML = svg
+        }
+      }
+      renderMermaid()
+      new MutationObserver(() => renderMermaid()).observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-theme', 'class']
+      })
+    </script>
+  </body>
+</html>

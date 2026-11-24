@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>00. 基准母版总览 (Master GFM Suite) — 本站母版 (Pure GFM)</title>
+    <link rel="stylesheet" href="./vendor/katex.min.css" />
+    <style>
+      :root, [data-theme="light"] {
+        --bg: #ffffff;
+        --bg-nav: #f6f8fa;
+        --text: #1f2328;
+        --muted: #59636e;
+        --border: #d1d9e0;
+        --code-bg: #f6f8fa;
+        --link: #0969da;
+      }
+      html.dark, [data-theme="dark"] {
+        --bg: #0d1117;
+        --bg-nav: #161b22;
+        --text: #e6edf3;
+        --muted: #8b949e;
+        --border: #30363d;
+        --code-bg: #161b22;
+        --link: #58a6ff;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", Helvetica, Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.65;
+        font-size: 15px;
+      }
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: var(--bg-nav);
+        border-bottom: 1px solid var(--border);
+        padding: 0.6rem 1.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        font-size: 13px;
+      }
+      .topbar-title { font-weight: 700; display: flex; align-items: center; gap: 0.5rem; }
+      .gfm-badge {
+        font-size: 11px;
+        padding: 0.1rem 0.45rem;
+        border-radius: 999px;
+        background: rgba(9, 105, 218, 0.12);
+        color: var(--link);
+        font-weight: 600;
+      }
+      .topbar-nav { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+      .topbar-nav a { color: var(--muted); text-decoration: none; font-weight: 500; }
+      .topbar-nav a:hover, .topbar-nav a.active { color: var(--link); }
+      main {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 1.75rem 1.5rem 3rem;
+      }
+      a { color: var(--link); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      h1, h2, h3 { line-height: 1.3; margin-top: 1.6em; margin-bottom: 0.6em; }
+      h1 { font-size: 1.75rem; margin-top: 0.2em; padding-bottom: 0.35em; border-bottom: 1px solid var(--border); }
+      h2 { font-size: 1.3rem; padding-bottom: 0.25em; border-bottom: 1px solid var(--border); }
+      code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 85%;
+        background: var(--code-bg);
+        padding: 0.18em 0.38em;
+        border-radius: 5px;
+      }
+      pre {
+        background: var(--code-bg);
+        border: 1px solid var(--border);
+        padding: 0.9rem 1rem;
+        border-radius: 6px;
+        overflow-x: auto;
+      }
+      pre code { background: none; padding: 0; font-size: 13px; }
+      .table-wrap { width: 100%; overflow-x: auto; margin: 1rem 0; }
+      table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+      th, td { border: 1px solid var(--border); padding: 0.45rem 0.65rem; text-align: left; white-space: normal; }
+      th { background: var(--bg-nav); white-space: nowrap; }
+      blockquote {
+        margin: 1rem 0;
+        padding: 0.2rem 1rem;
+        color: var(--muted);
+        border-left: 4px solid var(--border);
+      }
+      details {
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 0.65rem 0.95rem;
+        margin: 1rem 0;
+        background: var(--bg-nav);
+      }
+      summary { cursor: pointer; font-weight: 600; }
+      .gfm-alert {
+        margin: 1rem 0;
+        padding: 0.65rem 1rem;
+        border-left: 4px solid #0969da;
+        background: var(--bg-nav);
+        border-radius: 0 6px 6px 0;
+      }
+      .gfm-alert-title { font-weight: 700; font-size: 13.5px; margin-bottom: 0.25rem; }
+      .gfm-alert-note { border-left-color: #0969da; }
+      .gfm-alert-note .gfm-alert-title { color: #0969da; }
+      .gfm-alert-tip { border-left-color: #1a7f37; }
+      .gfm-alert-tip .gfm-alert-title { color: #1a7f37; }
+      .gfm-alert-important { border-left-color: #8250df; }
+      .gfm-alert-important .gfm-alert-title { color: #8250df; }
+      .gfm-alert-warning { border-left-color: #9a6700; }
+      .gfm-alert-warning .gfm-alert-title { color: #9a6700; }
+      .gfm-alert-caution { border-left-color: #d1242f; }
+      .gfm-alert-caution .gfm-alert-title { color: #d1242f; }
+      .gfm-alert p:last-child { margin-bottom: 0; }
+      .gfm-math-block { overflow-x: auto; padding: 0.5rem 0; text-align: center; }
+      .gfm-mermaid {
+        margin: 1.25rem 0;
+        padding: 1rem;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--bg-nav);
+        display: flex;
+        justify-content: center;
+        overflow-x: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-title">
+        <span>★ 本站母版 (docs/index.md)</span>
+        <span class="gfm-badge">Pure GFM 参考基准</span>
+      </div>
+      <nav class="topbar-nav">
+        <a href="/master/">母版首页</a>
+        <a href="/master/00-dialects">方言谱系</a>
+        <a href="/master/sites/">站点档案与活跃度 (docs/sites/)</a>
+        <a href="/master/benchmark-spec">接入规范</a>
+        <a href="/master/01-annotations">01. 标注</a>
+        <a href="/master/02-diagrams">02. 流程图</a>
+        <a href="/master/03-math">03. 公式</a>
+        <a href="/master/04-directory/">04. 目录结构</a>
+        <a href="/master/05-code-blocks">05. 代码块</a>
+        <a href="https://github.com/page2401/page2401.github.io/blob/main/docs/index.md" target="_blank" rel="noopener">GitHub 原文 ↗</a>
+      </nav>
+    </header>
+    <main><h1>静态网站生成基准母版（Canonical Master <code>*.md</code>）</h1>
+<p>本目录（<code>page2401.github.io/docs/</code>）存放全站所有测试章节的<strong>唯一原始母版（Single Source of Truth）</strong>。母版严格使用不绑定任何特定生成器的 <strong>标准 GitHub Flavored Markdown（GFM）+ LaTeX 数学语法 + Mermaid 代码块</strong> 编写。</p>
+<p>各个独立子模块仓库（<code>sites/vitepress-v1</code>、<code>sites/vitepress-v2</code>、<code>sites/vuepress-v1</code>、<code>sites/vuepress-v2</code>、<code>sites/docsify-v4</code>、<code>sites/docsify-v5</code>、<code>sites/astro7-starlight</code>）中的文档均由本母版<strong>派生适配（Derived）<strong>而来——凡是子模块与本母版存在差异的行，即为该框架特定大版本所要求的</strong>方言妥协或元数据侵入成本</strong>。</p>
+<h2>母版五大标准测试章节</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th align="left">章节路径</th>
+<th align="left">测试维度</th>
+<th align="left">母版采用的中立标准语法</th>
+<th align="left">各子模块派生时的典型改造点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><a href="./00-dialects"><code>00-dialects.md</code></a></td>
+<td align="left"><strong>导览：Markdown 方言谱系</strong></td>
+<td align="left">梳理 CommonMark → GFM → <code>markdown-it</code> / <code>remark-directive</code> / MDX / Docsify / MkDocs / Hugo 演进脉络</td>
+<td align="left">解释为什么同为 <code>*.md</code> 却存在语法壁垒与迁移锁定成本</td>
+</tr>
+<tr>
+<td align="left"><a href="./sites/"><code>sites/</code></a></td>
+<td align="left"><strong>档案：1:1 站点元数据 JSON 与活跃度</strong></td>
+<td align="left">每个 <code>&lt;id&gt;</code> 独立维护 <code>&lt;id&gt;.json</code>（官网、GitHub、Tags、依赖 Libs 与 <code>github</code> API 节点）及 <code>&lt;id&gt;.md</code></td>
+<td align="left">直观对比底层依赖库、生命周期峰值与历年提交曲线</td>
+</tr>
+<tr>
+<td align="left"><a href="./benchmark-spec"><code>benchmark-spec.md</code></a></td>
+<td align="left"><strong>规范：派生子模块接入标准</strong></td>
+<td align="left">定义母版五章测试算例要求、<code>main</code>/<code>page</code> 双分支约定与新增版本子模块四步上线流程</td>
+<td align="left">保障所有新接入子模块结构统一、版本精确可复现</td>
+</tr>
+<tr>
+<td align="left"><a href="./01-annotations"><code>01-annotations.md</code></a></td>
+<td align="left">专属标注与元数据</td>
+<td align="left">基础 YAML <code>title</code>/<code>description</code>、GFM <code>&gt; [!NOTE]</code> 五类警报、原生 <code>&lt;details&gt;</code></td>
+<td align="left">VitePress / VuePress 派生出 <code>::: tip</code> 容器与 <code>&lt;Badge&gt;</code>；Starlight 被迫改为 <code>:::caution[标题]</code> 与强类型 <code>tableOfContents</code>；Docsify 派生出 <code>?&gt;</code> / <code>!&gt;</code></td>
+</tr>
+<tr>
+<td align="left"><a href="./02-diagrams"><code>02-diagrams.md</code></a></td>
+<td align="left">流程图与时序图</td>
+<td align="left">标准围栏代码块 <code>```mermaid</code>（含 <code>flowchart</code>、<code>sequenceDiagram</code>、<code>stateDiagram-v2</code>）</td>
+<td align="left">Markdown 原文几乎无需改动，差异集中体现在工程配置文件与 Mermaid 大版本锁死（v10 / v11 / v12）</td>
+</tr>
+<tr>
+<td align="left"><a href="./03-math"><code>03-math.md</code></a></td>
+<td align="left">数学公式排版</td>
+<td align="left">标准行内 <code>$...$</code>、块级 <code>$$...$$</code>（含 <code>aligned</code>、<code>bmatrix</code>、<code>cases</code>）及字面量 <code>\$</code> 转义</td>
+<td align="left">原文高度一致，检验各引擎构建期 SVG（MathJax 3）、HTML+Webfont（KaTeX）或客户端钩子防 <code>\\</code> 吞噬的表现</td>
+</tr>
+<tr>
+<td align="left"><a href="./04-directory/"><code>04-directory/</code></a></td>
+<td align="left">目录结构与路由取舍</td>
+<td align="left"><code>04-directory/index.md</code> + <code>nested/</code> 两篇子文档</td>
+<td align="left">VuePress/HonKit 派生为 <code>README.md</code>；Starlight 迁入 3 层深 <code>src/content/docs/</code>；Docsify 增加 <code>_sidebar.md</code></td>
+</tr>
+<tr>
+<td align="left"><a href="./05-code-blocks"><code>05-code-blocks.md</code></a></td>
+<td align="left">高阶代码块与语法高亮</td>
+<td align="left">标准围栏 <code>```ts</code> / <code>```diff</code> 与顺序命令组</td>
+<td align="left">VitePress 派生为 <code>[title]</code> + <code>[!code ++]</code> + <code>::: code-group</code>；MDX 派系用 <code>title=&quot;...&quot;</code> + <code>&lt;Tabs&gt;</code>；Python/Go/Rust 派用 <code>hl_lines</code> / <code>{tab-set}</code></td>
+</tr>
+</tbody></table></div>
+</main>
+    <script src="./vendor/mermaid.min.js"></script>
+    <script>
+      function decodeB64(b64) {
+        const bin = atob(b64)
+        return new TextDecoder().decode(Uint8Array.from(bin, (c) => c.charCodeAt(0)))
+      }
+      async function renderMermaid() {
+        const boxes = document.querySelectorAll('.gfm-mermaid[data-b64]')
+        if (!boxes.length || !window.mermaid) return
+        const isDark = document.documentElement.classList.contains('dark') || document.documentElement.getAttribute('data-theme') === 'dark'
+        window.mermaid.initialize({ startOnLoad: false, theme: isDark ? 'dark' : 'default', securityLevel: 'loose' })
+        let i = 0
+        for (const box of boxes) {
+          const src = decodeB64(box.getAttribute('data-b64'))
+          const { svg } = await window.mermaid.render('master-mmd-' + Date.now() + '-' + i++, src)
+          box.innerHTML = svg
+        }
+      }
+      renderMermaid()
+      new MutationObserver(() => renderMermaid()).observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-theme', 'class']
+      })
+    </script>
+  </body>
+</html>

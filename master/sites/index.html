@@ -1,0 +1,969 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>docs/sites/ 站点元数据 JSON、构建性能与 GitHub 活跃度总览（26 款） — 本站母版 (Pure GFM)</title>
+    <link rel="stylesheet" href="../vendor/katex.min.css" />
+    <style>
+      :root, [data-theme="light"] {
+        --bg: #ffffff;
+        --bg-nav: #f6f8fa;
+        --text: #1f2328;
+        --muted: #59636e;
+        --border: #d1d9e0;
+        --code-bg: #f6f8fa;
+        --link: #0969da;
+      }
+      html.dark, [data-theme="dark"] {
+        --bg: #0d1117;
+        --bg-nav: #161b22;
+        --text: #e6edf3;
+        --muted: #8b949e;
+        --border: #30363d;
+        --code-bg: #161b22;
+        --link: #58a6ff;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", Helvetica, Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.65;
+        font-size: 15px;
+      }
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: var(--bg-nav);
+        border-bottom: 1px solid var(--border);
+        padding: 0.6rem 1.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        font-size: 13px;
+      }
+      .topbar-title { font-weight: 700; display: flex; align-items: center; gap: 0.5rem; }
+      .gfm-badge {
+        font-size: 11px;
+        padding: 0.1rem 0.45rem;
+        border-radius: 999px;
+        background: rgba(9, 105, 218, 0.12);
+        color: var(--link);
+        font-weight: 600;
+      }
+      .topbar-nav { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+      .topbar-nav a { color: var(--muted); text-decoration: none; font-weight: 500; }
+      .topbar-nav a:hover, .topbar-nav a.active { color: var(--link); }
+      main {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 1.75rem 1.5rem 3rem;
+      }
+      a { color: var(--link); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      h1, h2, h3 { line-height: 1.3; margin-top: 1.6em; margin-bottom: 0.6em; }
+      h1 { font-size: 1.75rem; margin-top: 0.2em; padding-bottom: 0.35em; border-bottom: 1px solid var(--border); }
+      h2 { font-size: 1.3rem; padding-bottom: 0.25em; border-bottom: 1px solid var(--border); }
+      code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 85%;
+        background: var(--code-bg);
+        padding: 0.18em 0.38em;
+        border-radius: 5px;
+      }
+      pre {
+        background: var(--code-bg);
+        border: 1px solid var(--border);
+        padding: 0.9rem 1rem;
+        border-radius: 6px;
+        overflow-x: auto;
+      }
+      pre code { background: none; padding: 0; font-size: 13px; }
+      .table-wrap { width: 100%; overflow-x: auto; margin: 1rem 0; }
+      table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+      th, td { border: 1px solid var(--border); padding: 0.45rem 0.65rem; text-align: left; white-space: normal; }
+      th { background: var(--bg-nav); white-space: nowrap; }
+      blockquote {
+        margin: 1rem 0;
+        padding: 0.2rem 1rem;
+        color: var(--muted);
+        border-left: 4px solid var(--border);
+      }
+      details {
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 0.65rem 0.95rem;
+        margin: 1rem 0;
+        background: var(--bg-nav);
+      }
+      summary { cursor: pointer; font-weight: 600; }
+      .gfm-alert {
+        margin: 1rem 0;
+        padding: 0.65rem 1rem;
+        border-left: 4px solid #0969da;
+        background: var(--bg-nav);
+        border-radius: 0 6px 6px 0;
+      }
+      .gfm-alert-title { font-weight: 700; font-size: 13.5px; margin-bottom: 0.25rem; }
+      .gfm-alert-note { border-left-color: #0969da; }
+      .gfm-alert-note .gfm-alert-title { color: #0969da; }
+      .gfm-alert-tip { border-left-color: #1a7f37; }
+      .gfm-alert-tip .gfm-alert-title { color: #1a7f37; }
+      .gfm-alert-important { border-left-color: #8250df; }
+      .gfm-alert-important .gfm-alert-title { color: #8250df; }
+      .gfm-alert-warning { border-left-color: #9a6700; }
+      .gfm-alert-warning .gfm-alert-title { color: #9a6700; }
+      .gfm-alert-caution { border-left-color: #d1242f; }
+      .gfm-alert-caution .gfm-alert-title { color: #d1242f; }
+      .gfm-alert p:last-child { margin-bottom: 0; }
+      .gfm-math-block { overflow-x: auto; padding: 0.5rem 0; text-align: center; }
+      .gfm-mermaid {
+        margin: 1.25rem 0;
+        padding: 1rem;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--bg-nav);
+        display: flex;
+        justify-content: center;
+        overflow-x: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-title">
+        <span>★ 本站母版 (docs/sites/index.md)</span>
+        <span class="gfm-badge">Pure GFM 参考基准</span>
+      </div>
+      <nav class="topbar-nav">
+        <a href="/master/">母版首页</a>
+        <a href="/master/00-dialects">方言谱系</a>
+        <a href="/master/sites/">站点档案与活跃度 (docs/sites/)</a>
+        <a href="/master/benchmark-spec">接入规范</a>
+        <a href="/master/01-annotations">01. 标注</a>
+        <a href="/master/02-diagrams">02. 流程图</a>
+        <a href="/master/03-math">03. 公式</a>
+        <a href="/master/04-directory/">04. 目录结构</a>
+        <a href="/master/05-code-blocks">05. 代码块</a>
+        <a href="https://github.com/page2401/page2401.github.io/blob/main/docs/sites/index.md" target="_blank" rel="noopener">GitHub 原文 ↗</a>
+      </nav>
+    </header>
+    <main><h1><code>docs/sites/</code> 站点独立元数据 JSON、构建性能与 GitHub 活跃度总览（26 款）</h1>
+<p>本目录（<code>docs/sites/</code>）与仓库子模块目录 <strong><code>sites/&lt;id&gt;</code> 严格保持 1:1 对齐</strong>，当前共收录 <strong>26 款主流静态网站生成器 / 大版本</strong>（包含 <strong>25 个跨语言同源实测子站</strong> 与 <strong>1 个纯云端 SaaS 历史档案位 <code>gitbook</code></strong>），每个站点均成对维护两份文件：</p>
+<ol>
+<li><strong>结构化元数据与实测数据文件 <code>docs/sites/&lt;id&gt;.json</code></strong>：<ul>
+<li><strong>站点自身元数据</strong>：<code>websiteUrl</code>（官方网站）、<code>githubUrl</code>（GitHub 源码地址）、<code>packageUrl</code>（包仓库地址）、<code>tags</code>（特性与流派标签数组）、<code>lifecycle</code>（开始 / 活跃 / 废弃时间）、<code>libs</code>（运行时、打包器、UI 框架、Markdown 引擎、代码高亮、全文检索、公式与图表库及 <code>coreLibs</code> / <code>pinnedPackages</code>）；</li>
+<li><strong><code>benchmark</code> 节点</strong>（已挂载实测子站）：通过 <code>npm run sync:benchmarks</code>（<a href="https://github.com/page2401/page2401.github.io/blob/main/scripts/measure-benchmarks.mjs"><code>scripts/measure-benchmarks.mjs</code></a>）在同一环境空缓存实测的冷构建耗时（<code>coldBuildMs</code>）、总产物大小、HTML/JS/CSS/字体拆分、Gzip 体积、正文 <code>&lt;script&gt;</code> 数及离线搜索索引形态；</li>
+<li><strong><code>github</code> 节点</strong>：通过 <code>npm run sync:github</code>（<a href="https://github.com/page2401/page2401.github.io/blob/main/scripts/fetch-github-activity.mjs"><code>scripts/fetch-github-activity.mjs</code></a>）查询 GitHub GraphQL API 持久化的仓库统计与 <code>2008–2026</code> 历年提交数。</li>
+</ul>
+</li>
+<li><strong>深度剖析文档 <code>docs/sites/&lt;id&gt;.md</code></strong>：自动读取同名 <code>./&lt;id&gt;.json</code> 渲染元数据卡片、构建性能实测表与历年提交活跃度表格，并补充架构优劣与排障实录。</li>
+</ol>
+<hr>
+<h2>1. 上游 GitHub 仓库历年提交数全景表（2008–2026 · 27 座官方仓）</h2>
+<!-- GITHUB_API_INDEX_START -->
+<blockquote><p>数据聚合自本目录下 26 个独立的 <code>docs/sites/&lt;id&gt;.json</code> 中的 <code>github</code> 节点（采样日期：<code>2026-11-23</code>）。粗体为单年历史峰值，<code>·</code> 表示当年尚未建仓。</p>
+</blockquote><div class="table-wrap"><table>
+<thead>
+<tr>
+<th align="left">上游 GitHub 仓库</th>
+<th align="left">1:1 关联档案 &amp; JSON</th>
+<th align="left">立项月份</th>
+<th align="right">Stars</th>
+<th align="right">总提交</th>
+<th align="right"><code>08-15</code>累计</th>
+<th align="right"><code>16年</code></th>
+<th align="right"><code>17年</code></th>
+<th align="right"><code>18年</code></th>
+<th align="right"><code>19年</code></th>
+<th align="right"><code>20年</code></th>
+<th align="right"><code>21年</code></th>
+<th align="right"><code>22年</code></th>
+<th align="right"><code>23年</code></th>
+<th align="right"><code>24年</code></th>
+<th align="right"><code>25年</code></th>
+<th align="right"><code>26年</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><a href="https://github.com/vuejs/vitepress"><code>vuejs/vitepress</code></a></td>
+<td align="left"><a href="./vitepress-v1"><code>vitepress-v1</code></a>(<a href="./vitepress-v1.json">json</a>) <a href="./vitepress-v2"><code>vitepress-v2</code></a>(<a href="./vitepress-v2.json">json</a>)</td>
+<td align="left"><code>2020-04</code></td>
+<td align="right">★ 18,521</td>
+<td align="right">2,958</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">334</td>
+<td align="right">260</td>
+<td align="right">554</td>
+<td align="right"><strong>824</strong></td>
+<td align="right">369</td>
+<td align="right">255</td>
+<td align="right">362</td>
+</tr>
+<tr>
+<td align="left"><a href="https://github.com/vuejs/vuepress"><code>vuejs/vuepress</code></a></td>
+<td align="left"><a href="./vuepress-v1"><code>vuepress-v1</code></a>(<a href="./vuepress-v1.json">json</a>)</td>
+<td align="left"><code>2018-04</code></td>
+<td align="right">★ 22,715</td>
+<td align="right">2,152</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right"><strong>1297</strong></td>
+<td align="right">521</td>
+<td align="right">202</td>
+<td align="right">92</td>
+<td align="right">16</td>
+<td align="right">23</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="left"><a href="https://github.com/vuepress/core"><code>vuepress/core</code></a></td>
+<td align="left"><a href="./vuepress-v2"><code>vuepress-v2</code></a>(<a href="./vuepress-v2.json">json</a>)</td>
+<td align="left"><code>2020-05</code></td>
+<td align="right">★ 2,833</td>
+<td align="right">2,071</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">510</td>
+<td align="right"><strong>705</strong></td>
+<td align="right">375</td>
+<td align="right">150</td>
+<td align="right">217</td>
+<td align="right">47</td>
+<td align="right">67</td>
+</tr>
+<tr>
+<td align="left"><a href="https://github.com/vuepress/ecosystem"><code>vuepress/ecosystem</code></a></td>
+<td align="left"><a href="./vuepress-v2"><code>vuepress-v2</code></a>(<a href="./vuepress-v2.json">json</a>)</td>
+<td align="left"><code>2023-09</code></td>
+<td align="right">★ 61</td>
+<td align="right">1,511</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">7</td>
+<td align="right"><strong>674</strong></td>
+<td align="right">466</td>
+<td align="right">364</td>
+</tr>
+<tr>
+<td align="left"><a href="https://github.com/docsifyjs/docsify"><code>docsifyjs/docsify</code></a></td>
+<td align="left"><a href="./docsify-v4"><code>docsify-v4</code></a>(<a href="./docsify-v4.json">json</a>) <a href="./docsify-v5"><code>docsify-v5</code></a>(<a href="./docsify-v5.json">json</a>)</td>
+<td align="left"><code>2016-11</code></td>
+<td align="right">★ 31,609</td>
+<td align="right">2,025</td>
+<td align="right">·</td>
+<td align="right">175</td>
+<td align="right"><strong>657</strong></td>
+<td align="right">208</td>
+<td align="right">135</td>
+<td align="right">299</td>
+<td align="right">102</td>
+<td align="right">68</td>
+<td align="right">132</td>
+<td align="right">54</td>
+<td align="right">87</td>
+<td align="right">108</td>
+</tr>
+<tr>
+<td align="left"><a href="https://github.com/withastro/starlight"><code>withastro/starlight</code></a></td>
+<td align="left"><a href="./astro7-starlight"><code>astro7-starlight</code></a>(<a href="./astro7-starlight.json">json</a>)</td>
+<td align="left"><code>2023-03</code></td>
+<td align="right">★ 9,641</td>
+<td align="right">3,945</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right"><strong>1336</strong></td>
+<td align="right">1272</td>
+<td align="right">706</td>
+<td align="right">631</td>
+</tr>
+<tr>
+<td align="left"><a href="https://github.com/withastro/astro"><code>withastro/astro</code></a></td>
+<td align="left"><a href="./astro7-starlight"><code>astro7-starlight</code></a>(<a href="./astro7-starlight.json">json</a>)</td>
+<td align="left"><code>2021-03</code></td>
+<td align="right">★ 64,144</td>
+<td align="right">15,468</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">1991</td>
+<td align="right">3461</td>
+<td align="right"><strong>3622</strong></td>
+<td align="right">2797</td>
+<td align="right">1373</td>
+<td align="right">2224</td>
+</tr>
+<tr>
+<td align="left"><a href="https://github.com/meta/docusaurus"><code>meta/docusaurus</code></a></td>
+<td align="left"><a href="./docusaurus-v3"><code>docusaurus-v3</code></a>(<a href="./docusaurus-v3.json">json</a>)</td>
+<td align="left"><code>2017-06</code></td>
+<td align="right">★ 66,788</td>
+<td align="right">7,118</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">556</td>
+<td align="right">693</td>
+<td align="right">879</td>
+<td align="right">1084</td>
+<td align="right"><strong>1139</strong></td>
+<td align="right">1085</td>
+<td align="right">350</td>
+<td align="right">400</td>
+<td align="right">290</td>
+<td align="right">642</td>
+</tr>
+<tr>
+<td align="left"><a href="https://github.com/gohugoio/hugo"><code>gohugoio/hugo</code></a></td>
+<td align="left"><a href="./hugo"><code>hugo</code></a>(<a href="./hugo.json">json</a>)</td>
+<td align="left"><code>2013-07</code></td>
+<td align="right">★ 90,552</td>
+<td align="right">10,107</td>
+<td align="right">1,820</td>
+<td align="right"><strong>1057</strong></td>
+<td align="right">986</td>
+<td align="right">1025</td>
+<td align="right">567</td>
+<td align="right">703</td>
+<td align="right">575</td>
+<td align="right">633</td>
+<td align="right">658</td>
+<td align="right">730</td>
+<td align="right">652</td>
+<td align="right">701</td>
+</tr>
+<tr>
+<td align="left"><a href="https://github.com/squidfunk/mkdocs-material"><code>squidfunk/mkdocs-material</code></a></td>
+<td align="left"><a href="./mkdocs-material"><code>mkdocs-material</code></a>(<a href="./mkdocs-material.json">json</a>)</td>
+<td align="left"><code>2016-01</code></td>
+<td align="right">★ 27,643</td>
+<td align="right">6,794</td>
+<td align="right">·</td>
+<td align="right">240</td>
+<td align="right">656</td>
+<td align="right">195</td>
+<td align="right">502</td>
+<td align="right"><strong>1321</strong></td>
+<td align="right">1004</td>
+<td align="right">882</td>
+<td align="right">1171</td>
+<td align="right">484</td>
+<td align="right">250</td>
+<td align="right">89</td>
+</tr>
+<tr>
+<td align="left"><a href="https://github.com/web-infra-dev/rspress"><code>web-infra-dev/rspress</code></a></td>
+<td align="left"><a href="./rspress"><code>rspress</code></a>(<a href="./rspress.json">json</a>)</td>
+<td align="left"><code>2023-06</code></td>
+<td align="right">★ 2,361</td>
+<td align="right">2,937</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">534</td>
+<td align="right">782</td>
+<td align="right"><strong>875</strong></td>
+<td align="right">746</td>
+</tr>
+<tr>
+<td align="left"><a href="https://github.com/shuding/nextra"><code>shuding/nextra</code></a></td>
+<td align="left"><a href="./nextra"><code>nextra</code></a>(<a href="./nextra.json">json</a>)</td>
+<td align="left"><code>2020-06</code></td>
+<td align="right">★ 13,956</td>
+<td align="right">2,332</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">93</td>
+<td align="right">221</td>
+<td align="right">577</td>
+<td align="right"><strong>578</strong></td>
+<td align="right">300</td>
+<td align="right">553</td>
+<td align="right">10</td>
+</tr>
+<tr>
+<td align="left"><a href="https://github.com/getzola/zola"><code>getzola/zola</code></a></td>
+<td align="left"><a href="./zola"><code>zola</code></a>(<a href="./zola.json">json</a>)</td>
+<td align="left"><code>2016-12</code></td>
+<td align="right">★ 17,620</td>
+<td align="right">2,625</td>
+<td align="right">·</td>
+<td align="right">11</td>
+<td align="right">366</td>
+<td align="right"><strong>521</strong></td>
+<td align="right">286</td>
+<td align="right">296</td>
+<td align="right">271</td>
+<td align="right">170</td>
+<td align="right">204</td>
+<td align="right">120</td>
+<td align="right">154</td>
+<td align="right">226</td>
+</tr>
+<tr>
+<td align="left"><a href="https://github.com/rust-lang/mdBook"><code>rust-lang/mdBook</code></a></td>
+<td align="left"><a href="./mdbook"><code>mdbook</code></a>(<a href="./mdbook.json">json</a>)</td>
+<td align="left"><code>2015-07</code></td>
+<td align="right">★ 22,321</td>
+<td align="right">3,375</td>
+<td align="right">205</td>
+<td align="right">154</td>
+<td align="right">438</td>
+<td align="right">324</td>
+<td align="right">252</td>
+<td align="right">219</td>
+<td align="right">244</td>
+<td align="right">200</td>
+<td align="right">230</td>
+<td align="right">146</td>
+<td align="right"><strong>688</strong></td>
+<td align="right">275</td>
+</tr>
+<tr>
+<td align="left"><a href="https://github.com/hexojs/hexo"><code>hexojs/hexo</code></a></td>
+<td align="left"><a href="./hexo"><code>hexo</code></a>(<a href="./hexo.json">json</a>)</td>
+<td align="left"><code>2012-09</code></td>
+<td align="right">★ 41,782</td>
+<td align="right">3,769</td>
+<td align="right">2,247</td>
+<td align="right">86</td>
+<td align="right">120</td>
+<td align="right">204</td>
+<td align="right">462</td>
+<td align="right">333</td>
+<td align="right">43</td>
+<td align="right">90</td>
+<td align="right">44</td>
+<td align="right">45</td>
+<td align="right">51</td>
+<td align="right">44</td>
+</tr>
+<tr>
+<td align="left"><a href="https://github.com/jekyll/jekyll"><code>jekyll/jekyll</code></a></td>
+<td align="left"><a href="./jekyll"><code>jekyll</code></a>(<a href="./jekyll.json">json</a>)</td>
+<td align="left"><code>2008-10</code></td>
+<td align="right">★ 51,793</td>
+<td align="right">11,881</td>
+<td align="right">6,369</td>
+<td align="right">2106</td>
+<td align="right">1044</td>
+<td align="right">743</td>
+<td align="right">452</td>
+<td align="right">517</td>
+<td align="right">202</td>
+<td align="right">163</td>
+<td align="right">109</td>
+<td align="right">97</td>
+<td align="right">55</td>
+<td align="right">24</td>
+</tr>
+<tr>
+<td align="left"><a href="https://github.com/11ty/buildawesome"><code>11ty/buildawesome</code></a></td>
+<td align="left"><a href="./eleventy"><code>eleventy</code></a>(<a href="./eleventy.json">json</a>)</td>
+<td align="left"><code>2017-11</code></td>
+<td align="right">★ 20,055</td>
+<td align="right">3,972</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">135</td>
+<td align="right">488</td>
+<td align="right">346</td>
+<td align="right">293</td>
+<td align="right">424</td>
+<td align="right">458</td>
+<td align="right">252</td>
+<td align="right"><strong>597</strong></td>
+<td align="right">530</td>
+<td align="right">449</td>
+</tr>
+<tr>
+<td align="left"><a href="https://github.com/fuma-nama/fumadocs"><code>fuma-nama/fumadocs</code></a></td>
+<td align="left"><a href="./fumadocs"><code>fumadocs</code></a>(<a href="./fumadocs.json">json</a>)</td>
+<td align="left"><code>2023-07</code></td>
+<td align="right">★ 13,697</td>
+<td align="right">6,343</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">1223</td>
+<td align="right"><strong>1927</strong></td>
+<td align="right">1729</td>
+<td align="right">1464</td>
+</tr>
+<tr>
+<td align="left"><a href="https://github.com/jackyzha0/quartz"><code>jackyzha0/quartz</code></a></td>
+<td align="left"><a href="./quartz"><code>quartz</code></a>(<a href="./quartz.json">json</a>)</td>
+<td align="left"><code>2021-07</code></td>
+<td align="right">★ 13,619</td>
+<td align="right">2,141</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">82</td>
+<td align="right">297</td>
+<td align="right">462</td>
+<td align="right"><strong>539</strong></td>
+<td align="right">232</td>
+<td align="right">529</td>
+</tr>
+<tr>
+<td align="left"><a href="https://github.com/nuxt/content"><code>nuxt/content</code></a></td>
+<td align="left"><a href="./nuxt-content"><code>nuxt-content</code></a>(<a href="./nuxt-content.json">json</a>)</td>
+<td align="left"><code>2020-03</code></td>
+<td align="right">★ 3,682</td>
+<td align="right">3,538</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right"><strong>873</strong></td>
+<td align="right">362</td>
+<td align="right">713</td>
+<td align="right">344</td>
+<td align="right">523</td>
+<td align="right">562</td>
+<td align="right">161</td>
+</tr>
+<tr>
+<td align="left"><a href="https://github.com/gatsbyjs/gatsby"><code>gatsbyjs/gatsby</code></a></td>
+<td align="left"><a href="./gatsby"><code>gatsby</code></a>(<a href="./gatsby.json">json</a>)</td>
+<td align="left"><code>2015-05</code></td>
+<td align="right">★ 55,915</td>
+<td align="right">21,877</td>
+<td align="right">217</td>
+<td align="right">689</td>
+<td align="right">2236</td>
+<td align="right">4404</td>
+<td align="right"><strong>5698</strong></td>
+<td align="right">4289</td>
+<td align="right">2088</td>
+<td align="right">1354</td>
+<td align="right">624</td>
+<td align="right">115</td>
+<td align="right">48</td>
+<td align="right">115</td>
+</tr>
+<tr>
+<td align="left"><a href="https://github.com/GitbookIO/gitbook"><code>GitbookIO/gitbook</code></a></td>
+<td align="left"><a href="./gitbook"><code>gitbook</code></a>(<a href="./gitbook.json">json</a>)</td>
+<td align="left"><code>2014-03</code></td>
+<td align="right">★ 29,106</td>
+<td align="right">2,543</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">169</td>
+<td align="right">579</td>
+<td align="right"><strong>1037</strong></td>
+<td align="right">758</td>
+</tr>
+<tr>
+<td align="left"><a href="https://github.com/honkit/honkit"><code>honkit/honkit</code></a></td>
+<td align="left"><a href="./honkit"><code>honkit</code></a>(<a href="./honkit.json">json</a>)</td>
+<td align="left"><code>2020-06</code></td>
+<td align="right">★ 3,532</td>
+<td align="right">3,495</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">812</td>
+<td align="right">57</td>
+<td align="right">60</td>
+<td align="right">54</td>
+<td align="right">28</td>
+<td align="right">27</td>
+<td align="right">41</td>
+</tr>
+<tr>
+<td align="left"><a href="https://github.com/sphinx-doc/sphinx"><code>sphinx-doc/sphinx</code></a></td>
+<td align="left"><a href="./sphinx"><code>sphinx</code></a>(<a href="./sphinx.json">json</a>)</td>
+<td align="left"><code>2015-01</code></td>
+<td align="right">★ 8,104</td>
+<td align="right">22,461</td>
+<td align="right">5,470</td>
+<td align="right">1757</td>
+<td align="right">2010</td>
+<td align="right"><strong>2633</strong></td>
+<td align="right">1729</td>
+<td align="right">2582</td>
+<td align="right">2059</td>
+<td align="right">1117</td>
+<td align="right">692</td>
+<td align="right">1146</td>
+<td align="right">775</td>
+<td align="right">62</td>
+</tr>
+<tr>
+<td align="left"><a href="https://github.com/executablebooks/MyST-Parser"><code>executablebooks/MyST-Parser</code></a></td>
+<td align="left"><a href="./sphinx"><code>sphinx</code></a>(<a href="./sphinx.json">json</a>)</td>
+<td align="left"><code>2020-02</code></td>
+<td align="right">★ 904</td>
+<td align="right">594</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right"><strong>209</strong></td>
+<td align="right">95</td>
+<td align="right">64</td>
+<td align="right">95</td>
+<td align="right">49</td>
+<td align="right">17</td>
+<td align="right">65</td>
+</tr>
+<tr>
+<td align="left"><a href="https://github.com/getpelican/pelican"><code>getpelican/pelican</code></a></td>
+<td align="left"><a href="./pelican"><code>pelican</code></a>(<a href="./pelican.json">json</a>)</td>
+<td align="left"><code>2010-10</code></td>
+<td align="right">★ 13,378</td>
+<td align="right">4,045</td>
+<td align="right">2,625</td>
+<td align="right">144</td>
+<td align="right">90</td>
+<td align="right">200</td>
+<td align="right">171</td>
+<td align="right">187</td>
+<td align="right">112</td>
+<td align="right">62</td>
+<td align="right">182</td>
+<td align="right">139</td>
+<td align="right">74</td>
+<td align="right">59</td>
+</tr>
+<tr>
+<td align="left"><a href="https://github.com/lumeland/lume"><code>lumeland/lume</code></a></td>
+<td align="left"><a href="./lume"><code>lume</code></a>(<a href="./lume.json">json</a>)</td>
+<td align="left"><code>2020-09</code></td>
+<td align="right">★ 2,284</td>
+<td align="right">4,614</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">·</td>
+<td align="right">214</td>
+<td align="right"><strong>957</strong></td>
+<td align="right">831</td>
+<td align="right">716</td>
+<td align="right">612</td>
+<td align="right">609</td>
+<td align="right">675</td>
+</tr>
+</tbody></table></div>
+<!-- GITHUB_API_INDEX_END --><hr>
+<h2>2. 已挂载跨语言实测子站（25 个 · 与 <code>sites/&lt;id&gt;</code> 1:1 对应）</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th align="left">站点 ID (<code>sites/&lt;id&gt;</code>)</th>
+<th align="left">档案与独立 JSON</th>
+<th align="left">底层语言 / 管线</th>
+<th align="left">线上实测路径</th>
+<th align="left">开始时间</th>
+<th align="left">活跃 / EOL 状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>sites/vitepress-v1</code></td>
+<td align="left"><a href="./vitepress-v1"><code>vitepress-v1.md</code></a> · <a href="./vitepress-v1.json"><code>json</code></a></td>
+<td align="left">Node · Vue 3 + Rollup</td>
+<td align="left"><a href="/vitepress-v1/"><code>/vitepress-v1/</code></a></td>
+<td align="left"><code>2020-04-30</code></td>
+<td align="left">2022–至今主力稳定</td>
+</tr>
+<tr>
+<td align="left"><code>sites/vitepress-v2</code></td>
+<td align="left"><a href="./vitepress-v2"><code>vitepress-v2.md</code></a> · <a href="./vitepress-v2.json"><code>json</code></a></td>
+<td align="left">Node · Vite 8 Rolldown</td>
+<td align="left"><a href="/vitepress-v2/"><code>/vitepress-v2/</code></a></td>
+<td align="left"><code>2025-01</code></td>
+<td align="left">v2 Rolldown 高频推进</td>
+</tr>
+<tr>
+<td align="left"><code>sites/vuepress-v1</code></td>
+<td align="left"><a href="./vuepress-v1"><code>vuepress-v1.md</code></a> · <a href="./vuepress-v1.json"><code>json</code></a></td>
+<td align="left">Node · Vue 2 + Webpack 4</td>
+<td align="left"><a href="/vuepress-v1/"><code>/vuepress-v1/</code></a></td>
+<td align="left"><code>2018-04-05</code></td>
+<td align="left"><strong>已实质废弃 EOL</strong>（25–26 零提交）</td>
+</tr>
+<tr>
+<td align="left"><code>sites/vuepress-v2</code></td>
+<td align="left"><a href="./vuepress-v2"><code>vuepress-v2.md</code></a> · <a href="./vuepress-v2.json"><code>json</code></a></td>
+<td align="left">Node · Vue 3 + Vite</td>
+<td align="left"><a href="/vuepress-v2/"><code>/vuepress-v2/</code></a></td>
+<td align="left"><code>2020-05-06</code></td>
+<td align="left"><code>core</code> + <code>ecosystem</code> 双仓活跃</td>
+</tr>
+<tr>
+<td align="left"><code>sites/docsify-v4</code></td>
+<td align="left"><a href="./docsify-v4"><code>docsify-v4.md</code></a> · <a href="./docsify-v4.json"><code>json</code></a></td>
+<td align="left">Browser SPA Runtime</td>
+<td align="left"><a href="/docsify-v4/"><code>/docsify-v4/</code></a></td>
+<td align="left"><code>2016-11-20</code></td>
+<td align="left"><strong>2026-07 起被 v5 替代淘汰</strong></td>
+</tr>
+<tr>
+<td align="left"><code>sites/docsify-v5</code></td>
+<td align="left"><a href="./docsify-v5"><code>docsify-v5.md</code></a> · <a href="./docsify-v5.json"><code>json</code></a></td>
+<td align="left">Browser SPA Runtime</td>
+<td align="left"><a href="/docsify-v5/"><code>/docsify-v5/</code></a></td>
+<td align="left"><code>2025-05-27</code></td>
+<td align="left">2025–2026 显著复苏活跃</td>
+</tr>
+<tr>
+<td align="left"><code>sites/astro7-starlight</code></td>
+<td align="left"><a href="./astro7-starlight"><code>astro7-starlight.md</code></a> · <a href="./astro7-starlight.json"><code>json</code></a></td>
+<td align="left">Node · Astro 7 Islands</td>
+<td align="left"><a href="/astro7-starlight/"><code>/astro7-starlight/</code></a></td>
+<td align="left"><code>2023-03-16</code></td>
+<td align="left">顶级高频上升期</td>
+</tr>
+<tr>
+<td align="left"><code>sites/docusaurus-v3</code></td>
+<td align="left"><a href="./docusaurus-v3"><code>docusaurus-v3.md</code></a> · <a href="./docusaurus-v3.json"><code>json</code></a></td>
+<td align="left">Node · React + MDX 3</td>
+<td align="left"><a href="/docusaurus-v3/"><code>/docusaurus-v3/</code></a></td>
+<td align="left"><code>2017-06-20</code></td>
+<td align="left">v1/v2 淘汰；v3 主力活跃</td>
+</tr>
+<tr>
+<td align="left"><code>sites/rspress</code></td>
+<td align="left"><a href="./rspress"><code>rspress.md</code></a> · <a href="./rspress.json"><code>json</code></a></td>
+<td align="left">Rust Rspack + React</td>
+<td align="left"><a href="/rspress/"><code>/rspress/</code></a></td>
+<td align="left"><code>2023-06-27</code></td>
+<td align="left">v2.x 极高频迭代上升</td>
+</tr>
+<tr>
+<td align="left"><code>sites/hugo</code></td>
+<td align="left"><a href="./hugo"><code>hugo.md</code></a> · <a href="./hugo.json"><code>json</code></a></td>
+<td align="left">Go 单二进制 + Goldmark</td>
+<td align="left"><a href="/hugo/"><code>/hugo/</code></a></td>
+<td align="left"><code>2013-07-04</code></td>
+<td align="left">十三年常青高频活跃</td>
+</tr>
+<tr>
+<td align="left"><code>sites/mkdocs-material</code></td>
+<td align="left"><a href="./mkdocs-material"><code>mkdocs-material.md</code></a> · <a href="./mkdocs-material.json"><code>json</code></a></td>
+<td align="left">Python + <code>pymdownx</code></td>
+<td align="left"><a href="/mkdocs-material/"><code>/mkdocs-material/</code></a></td>
+<td align="left"><code>2016-01-28</code></td>
+<td align="left">v8 停更；v9.8 成熟活跃</td>
+</tr>
+<tr>
+<td align="left"><code>sites/mdbook</code></td>
+<td align="left"><a href="./mdbook"><code>mdbook.md</code></a> · <a href="./mdbook.json"><code>json</code></a></td>
+<td align="left">Rust 单二进制 + <code>SUMMARY.md</code></td>
+<td align="left"><a href="/mdbook/"><code>/mdbook/</code></a></td>
+<td align="left"><code>2015-07-07</code></td>
+<td align="left">Rust 官方长青活跃</td>
+</tr>
+<tr>
+<td align="left"><code>sites/zola</code></td>
+<td align="left"><a href="./zola"><code>zola.md</code></a> · <a href="./zola.json"><code>json</code></a></td>
+<td align="left">Rust 单二进制 + Tera v2</td>
+<td align="left"><a href="/zola/"><code>/zola/</code></a></td>
+<td align="left"><code>2016-12-06</code></td>
+<td align="left">十年稳步迭代活跃</td>
+</tr>
+<tr>
+<td align="left"><code>sites/fumadocs</code></td>
+<td align="left"><a href="./fumadocs"><code>fumadocs.md</code></a> · <a href="./fumadocs.json"><code>json</code></a></td>
+<td align="left">Node · Next.js 16 + MDX</td>
+<td align="left"><a href="/fumadocs/"><code>/fumadocs/</code></a></td>
+<td align="left"><code>2023-07-03</code></td>
+<td align="left">2024–2026 爆发式增长</td>
+</tr>
+<tr>
+<td align="left"><code>sites/nextra</code></td>
+<td align="left"><a href="./nextra"><code>nextra.md</code></a> · <a href="./nextra.json"><code>json</code></a></td>
+<td align="left">Node · Next.js 15 + <code>_meta.js</code></td>
+<td align="left"><a href="/nextra/"><code>/nextra/</code></a></td>
+<td align="left"><code>2020-06-15</code></td>
+<td align="left">v4 App Router 架构升级</td>
+</tr>
+<tr>
+<td align="left"><code>sites/quartz</code></td>
+<td align="left"><a href="./quartz"><code>quartz.md</code></a> · <a href="./quartz.json"><code>json</code></a></td>
+<td align="left">Node · Preact + Obsidian 双链</td>
+<td align="left"><a href="/quartz/"><code>/quartz/</code></a></td>
+<td align="left"><code>2021-07-18</code></td>
+<td align="left">v4 数字花园标杆</td>
+</tr>
+<tr>
+<td align="left"><code>sites/nuxt-content</code></td>
+<td align="left"><a href="./nuxt-content"><code>nuxt-content.md</code></a> · <a href="./nuxt-content.json"><code>json</code></a></td>
+<td align="left">Node · Nuxt 4 + SQLite MDC</td>
+<td align="left"><a href="/nuxt-content/"><code>/nuxt-content/</code></a></td>
+<td align="left"><code>2020-03-31</code></td>
+<td align="left">v3 MDC + SQLite 持续活跃</td>
+</tr>
+<tr>
+<td align="left"><code>sites/eleventy</code></td>
+<td align="left"><a href="./eleventy"><code>eleventy.md</code></a> · <a href="./eleventy.json"><code>json</code></a></td>
+<td align="left">Node · 11ty v3 零 JS HTML</td>
+<td align="left"><a href="/eleventy/"><code>/eleventy/</code></a></td>
+<td align="left"><code>2017-11-27</code></td>
+<td align="left">零客户端 JS 常青活跃</td>
+</tr>
+<tr>
+<td align="left"><code>sites/sphinx</code></td>
+<td align="left"><a href="./sphinx"><code>sphinx.md</code></a> · <a href="./sphinx.json"><code>json</code></a></td>
+<td align="left">Python · Sphinx 9 + MyST 5.2</td>
+<td align="left"><a href="/sphinx/"><code>/sphinx/</code></a></td>
+<td align="left"><code>2008-03-21</code></td>
+<td align="left">Python 与科学出版不朽基石</td>
+</tr>
+<tr>
+<td align="left"><code>sites/lume</code></td>
+<td align="left"><a href="./lume"><code>lume.md</code></a> · <a href="./lume.json"><code>json</code></a></td>
+<td align="left">Deno 2 · TypeScript + Vento</td>
+<td align="left"><a href="/lume/"><code>/lume/</code></a></td>
+<td align="left"><code>2020-09-07</code></td>
+<td align="left">Deno 原生高频活跃</td>
+</tr>
+<tr>
+<td align="left"><code>sites/jekyll</code></td>
+<td align="left"><a href="./jekyll"><code>jekyll.md</code></a> · <a href="./jekyll.json"><code>json</code></a></td>
+<td align="left">Ruby · Liquid + Kramdown</td>
+<td align="left"><a href="/jekyll/"><code>/jekyll/</code></a></td>
+<td align="left"><code>2008-10-20</code></td>
+<td align="left">核心低频维护；GitHub Pages 鼻祖</td>
+</tr>
+<tr>
+<td align="left"><code>sites/honkit</code></td>
+<td align="left"><a href="./honkit"><code>honkit.md</code></a> · <a href="./honkit.json"><code>json</code></a></td>
+<td align="left">Node · <code>SUMMARY.md</code> 电子书</td>
+<td align="left"><a href="/honkit/"><code>/honkit/</code></a></td>
+<td align="left"><code>2020-06-13</code></td>
+<td align="left">社区接力维护开源 GitBook 生态</td>
+</tr>
+<tr>
+<td align="left"><code>sites/hexo</code></td>
+<td align="left"><a href="./hexo"><code>hexo.md</code></a> · <a href="./hexo.json"><code>json</code></a></td>
+<td align="left">Node · EJS + Warehouse</td>
+<td align="left"><a href="/hexo/"><code>/hexo/</code></a></td>
+<td align="left"><code>2012-09-23</code></td>
+<td align="left">核心低频维护；中文博客元老</td>
+</tr>
+<tr>
+<td align="left"><code>sites/pelican</code></td>
+<td align="left"><a href="./pelican"><code>pelican.md</code></a> · <a href="./pelican.json"><code>json</code></a></td>
+<td align="left">Python · Jinja2 + Markdown</td>
+<td align="left"><a href="/pelican/"><code>/pelican/</code></a></td>
+<td align="left"><code>2010-10-16</code></td>
+<td align="left">Python 博客经典低频维护</td>
+</tr>
+<tr>
+<td align="left"><code>sites/gatsby</code></td>
+<td align="left"><a href="./gatsby"><code>gatsby.md</code></a> · <a href="./gatsby.json"><code>json</code></a></td>
+<td align="left">Node · React 18 + GraphQL</td>
+<td align="left"><a href="/gatsby/"><code>/gatsby/</code></a></td>
+<td align="left"><code>2015-05-21</code></td>
+<td align="left"><strong>2023 后显著衰退（历史教材）</strong></td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2>3. 云端 SaaS 对照档案位（1 个 · 已无本地开源 CLI）</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th align="left">档案 ID</th>
+<th align="left">档案与独立 JSON</th>
+<th align="left">官网地址</th>
+<th align="left">上游 GitHub 仓库</th>
+<th align="left">开始时间</th>
+<th align="left">状态说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>sites/gitbook</code></td>
+<td align="left"><a href="./gitbook"><code>gitbook.md</code></a> · <a href="./gitbook.json"><code>json</code></a></td>
+<td align="left"><a href="https://www.gitbook.com/">gitbook.com</a></td>
+<td align="left"><code>GitbookIO/gitbook</code></td>
+<td align="left"><code>2014-03-31</code></td>
+<td align="left">旧本地 CLI 已彻底废弃（由上方 <code>sites/honkit</code> 接力）；现为闭源商业云端平台</td>
+</tr>
+</tbody></table></div>
+</main>
+    <script src="../vendor/mermaid.min.js"></script>
+    <script>
+      function decodeB64(b64) {
+        const bin = atob(b64)
+        return new TextDecoder().decode(Uint8Array.from(bin, (c) => c.charCodeAt(0)))
+      }
+      async function renderMermaid() {
+        const boxes = document.querySelectorAll('.gfm-mermaid[data-b64]')
+        if (!boxes.length || !window.mermaid) return
+        const isDark = document.documentElement.classList.contains('dark') || document.documentElement.getAttribute('data-theme') === 'dark'
+        window.mermaid.initialize({ startOnLoad: false, theme: isDark ? 'dark' : 'default', securityLevel: 'loose' })
+        let i = 0
+        for (const box of boxes) {
+          const src = decodeB64(box.getAttribute('data-b64'))
+          const { svg } = await window.mermaid.render('master-mmd-' + Date.now() + '-' + i++, src)
+          box.innerHTML = svg
+        }
+      }
+      renderMermaid()
+      new MutationObserver(() => renderMermaid()).observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-theme', 'class']
+      })
+    </script>
+  </body>
+</html>

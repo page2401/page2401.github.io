@@ -1,0 +1,168 @@
+{
+  "$schema": "https://page.2401.xyz/schemas/site-metadata-v1.json",
+  "id": "mdbook",
+  "order": 14,
+  "name": "mdBook",
+  "versionNote": "v0.4 / v0.5 (Rust)",
+  "mounted": true,
+  "sitePath": "sites/mdbook",
+  "websiteUrl": "https://rust-lang.github.io/mdBook/",
+  "githubUrl": "https://github.com/rust-lang/mdBook",
+  "packageUrl": "https://crates.io/crates/mdbook",
+  "ecosystem": "native",
+  "tags": [
+    "ssg",
+    "rust",
+    "ebook",
+    "linear-tutorial",
+    "summary-md",
+    "single-binary",
+    "pulldown-cmark",
+    "official-rust"
+  ],
+  "lifecycle": {
+    "startedAt": "2015-07-07",
+    "activePeriod": "2016–至今（Rust 官方长期活跃）",
+    "deprecatedAt": null,
+    "isEol": false,
+    "summary": "始于 2015-07 · Rust 官方长期活跃"
+  },
+  "libs": {
+    "runtime": "Rust 单二进制可执行文件",
+    "bundler": "mdBook Native Static Renderer",
+    "uiFramework": "Handlebars 模板 + 内置电子书阅读器",
+    "markdownEngine": "pulldown-cmark",
+    "codeHighlight": "highlight.js（支持 Rust Playground 在线运行）",
+    "searchEngine": "elasticlunr.js 内置搜索",
+    "mathLib": "book.toml 原生内置 mathjax-support = true",
+    "diagramLib": "mdbook-mermaid 独立预处理器二进制",
+    "coreLibs": [
+      "pulldown-cmark",
+      "handlebars",
+      "elasticlunr",
+      "highlight.js",
+      "toml"
+    ],
+    "pinnedPackages": {
+      "mdbook": "0.5.4",
+      "pulldown-cmark": "builtin",
+      "katex": "0.19.1",
+      "mermaid": "12.3.0"
+    }
+  },
+  "matrix": {
+    "tagline": "《Rust 程序设计语言》同款引擎，专为线性阅读技术电子书而生",
+    "stack": "Rust 单二进制 + pulldown-cmark",
+    "directoryModel": "src/SUMMARY.md 单文件列表驱动整本书目录（甚至自动创建缺失的章节 .md 文件！）",
+    "calloutDialect": "新版支持 GFM > [!NOTE] 警报块，其余依赖 HTML 或独立预处理器二进制",
+    "diagramAndMath": "book.toml 原生内置 mathjax-support = true；Mermaid 需 mdbook-mermaid 预处理器"
+  },
+  "github": {
+    "fetchedAt": "2026-11-23T11:47:11.123Z",
+    "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
+    "repo": "rust-lang/mdBook",
+    "url": "https://github.com/rust-lang/mdBook",
+    "role": "mdBook (Rust 官方电子书引擎) 仓库",
+    "description": "Create book from markdown files. Like Gitbook but implemented in Rust",
+    "primaryLanguage": "Rust",
+    "license": "MPL-2.0",
+    "defaultBranch": "main",
+    "isArchived": false,
+    "createdAt": "2015-07-07T00:57:25Z",
+    "createdYear": 2015,
+    "pushedAt": "2026-11-22T20:49:04Z",
+    "updatedAt": "2026-11-23T01:28:54Z",
+    "stars": 22321,
+    "forks": 1921,
+    "openIssues": 549,
+    "totalCommits": 3375,
+    "peakYear": 2025,
+    "peakCommits": 688,
+    "latestRelease": {
+      "tagName": "v0.5.4",
+      "publishedAt": "2026-07-06T15:28:05Z",
+      "isPrerelease": false
+    },
+    "recentReleases": [
+      {
+        "tagName": "v0.5.4",
+        "publishedAt": "2026-07-06T15:28:05Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v0.5.3",
+        "publishedAt": "2026-05-19T23:03:26Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v0.5.2",
+        "publishedAt": "2025-12-11T21:16:14Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v0.5.1",
+        "publishedAt": "2025-11-20T02:53:56Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v0.5.0",
+        "publishedAt": "2025-11-17T23:41:11Z",
+        "isPrerelease": false
+      }
+    ],
+    "yearlyCommits": {
+      "2008": 0,
+      "2009": 0,
+      "2010": 0,
+      "2011": 0,
+      "2012": 0,
+      "2013": 0,
+      "2014": 0,
+      "2015": 205,
+      "2016": 154,
+      "2017": 438,
+      "2018": 324,
+      "2019": 252,
+      "2020": 219,
+      "2021": 244,
+      "2022": 200,
+      "2023": 230,
+      "2024": 146,
+      "2025": 688,
+      "2026": 275
+    }
+  },
+  "subsiteRepoUrl": "https://github.com/page2401/mdbook",
+  "previewUrl": "https://page.2401.xyz/mdbook/",
+  "benchmark": {
+    "measuredAt": "2026-11-24T08:11:01.558Z",
+    "buildCommand": "mdbook build",
+    "isRuntimeSpa": false,
+    "coldBuildMs": 168,
+    "totalFiles": 48,
+    "totalBytes": 7445408,
+    "htmlFiles": 11,
+    "htmlBytes": 274962,
+    "jsFiles": 12,
+    "jsBytes": 6242459,
+    "jsGzipBytes": 1773438,
+    "cssFiles": 10,
+    "cssBytes": 417935,
+    "cssGzipBytes": 277322,
+    "otherBytes": 510052,
+    "entryHtmlBytes": 23810,
+    "proseScriptCount": 17,
+    "hasOfflineSearch": true,
+    "offlineSearchKind": "Elasticlunr 静态索引",
+    "hasLlmsTxt": false,
+    "viewRender": {
+      "profile": "Headless Chromium · HTTP Gzip · 15ms RTT / 24Mbps (3轮中位数)",
+      "fcpMs": 440,
+      "proseReadyMs": 1158,
+      "warmNavMs": 440,
+      "diagramReadyMs": 1959,
+      "proseTransferBytes": 2330420,
+      "proseRequests": 28
+    }
+  }
+}

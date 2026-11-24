@@ -1,0 +1,170 @@
+{
+  "$schema": "https://page.2401.xyz/schemas/site-metadata-v1.json",
+  "id": "pelican",
+  "order": 25,
+  "name": "Pelican",
+  "versionNote": "v4.11 (Python)",
+  "mounted": true,
+  "sitePath": "sites/pelican",
+  "websiteUrl": "https://getpelican.com/",
+  "githubUrl": "https://github.com/getpelican/pelican",
+  "packageUrl": "https://pypi.org/project/pelican/",
+  "ecosystem": "python-classic",
+  "tags": [
+    "ssg",
+    "python",
+    "blog-engine",
+    "jinja2",
+    "markdown",
+    "rst",
+    "atom-rss",
+    "classic"
+  ],
+  "lifecycle": {
+    "startedAt": "2010-10-16",
+    "activePeriod": "2011–2018 为 Python 静态博客黄金期；现保持每年稳定维护更新",
+    "deprecatedAt": "核心持续维护，但在技术手册场景已被 MkDocs Material / Sphinx 全面分流",
+    "isEol": false,
+    "summary": "始于 2010-10 · Python 生态最老牌静态博客生成器，现低频稳健维护"
+  },
+  "libs": {
+    "runtime": "Python >= 3.9",
+    "bundler": "Pelican Static Generator",
+    "uiFramework": "Jinja2 模板引擎",
+    "markdownEngine": "Python-Markdown / Docutils (rST)",
+    "codeHighlight": "Pygments",
+    "searchEngine": "pelican-search (Stork / Tipue)",
+    "mathLib": "pelican-render-math (MathJax)",
+    "diagramLib": "markdown-mermaidjs 或主题脚本注入",
+    "coreLibs": [
+      "pelican",
+      "jinja2",
+      "markdown",
+      "pygments",
+      "feedgenerator"
+    ],
+    "pinnedPackages": {
+      "pelican": "4.12.0",
+      "jinja2": "3.1.6",
+      "markdown": "3.11.3",
+      "pymdown-extensions": "13.1.2",
+      "pygments": "2.19.2",
+      "docutils": "0.23",
+      "unidecode": "1.4.0"
+    }
+  },
+  "matrix": {
+    "tagline": "Python 社区最具代表性的静态博客引擎（类似 Python 界的 Hexo/Jekyll），原生支持 Markdown 与 rST 双格式文章流与 RSS 聚合",
+    "stack": "Python + Pelican + Jinja2 + Python-Markdown + Pygments",
+    "directoryModel": "content/（文章时间流）+ content/pages/（独立固定页面），按日期、分类与标签自动归档路由",
+    "calloutDialect": "依赖 Python-Markdown `admonition` 扩展（`!!! note` 缩进块）或 rST 指令",
+    "diagramAndMath": "pelican-render-math 插件 + 前端 Mermaid 脚本注入"
+  },
+  "github": {
+    "fetchedAt": "2026-11-23T11:47:11.123Z",
+    "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
+    "repo": "getpelican/pelican",
+    "url": "https://github.com/getpelican/pelican",
+    "role": "Pelican 官方源码仓库",
+    "description": "Static site generator that supports Markdown and reST syntax. Powered by Python.",
+    "primaryLanguage": "Python",
+    "license": "AGPL-3.0",
+    "defaultBranch": "main",
+    "isArchived": false,
+    "createdAt": "2010-10-16T18:57:40Z",
+    "createdYear": 2010,
+    "pushedAt": "2026-11-09T01:27:22Z",
+    "updatedAt": "2026-11-20T14:20:12Z",
+    "stars": 13378,
+    "forks": 1835,
+    "openIssues": 83,
+    "totalCommits": 4045,
+    "peakYear": 2012,
+    "peakCommits": 804,
+    "latestRelease": {
+      "tagName": "4.12.0",
+      "publishedAt": "2026-04-20T15:29:57Z",
+      "isPrerelease": false
+    },
+    "recentReleases": [
+      {
+        "tagName": "4.12.0",
+        "publishedAt": "2026-04-20T15:29:57Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "4.11.0",
+        "publishedAt": "2025-01-15T17:01:19Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "4.10.2",
+        "publishedAt": "2024-11-27T19:53:33Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "4.10.1",
+        "publishedAt": "2024-09-28T17:02:21Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "4.10.0",
+        "publishedAt": "2024-09-16T13:38:16Z",
+        "isPrerelease": false
+      }
+    ],
+    "yearlyCommits": {
+      "2008": 0,
+      "2009": 0,
+      "2010": 238,
+      "2011": 414,
+      "2012": 804,
+      "2013": 643,
+      "2014": 272,
+      "2015": 254,
+      "2016": 144,
+      "2017": 90,
+      "2018": 200,
+      "2019": 171,
+      "2020": 187,
+      "2021": 112,
+      "2022": 62,
+      "2023": 182,
+      "2024": 139,
+      "2025": 74,
+      "2026": 59
+    }
+  },
+  "subsiteRepoUrl": "https://github.com/page2401/pelican",
+  "benchmark": {
+    "measuredAt": "2026-11-24T08:11:01.558Z",
+    "buildCommand": "pelican content -o output -s pelicanconf.py",
+    "isRuntimeSpa": false,
+    "coldBuildMs": 1128,
+    "totalFiles": 74,
+    "totalBytes": 6997187,
+    "htmlFiles": 8,
+    "htmlBytes": 64500,
+    "jsFiles": 4,
+    "jsBytes": 5818542,
+    "jsGzipBytes": 1671752,
+    "cssFiles": 2,
+    "cssBytes": 37573,
+    "cssGzipBytes": 6446,
+    "otherBytes": 1076572,
+    "entryHtmlBytes": 9026,
+    "proseScriptCount": 4,
+    "hasOfflineSearch": false,
+    "offlineSearchKind": null,
+    "hasLlmsTxt": false,
+    "viewRender": {
+      "profile": "Headless Chromium · HTTP Gzip · 15ms RTT / 24Mbps (3轮中位数)",
+      "fcpMs": 464,
+      "proseReadyMs": 908,
+      "warmNavMs": 116,
+      "diagramReadyMs": 1722,
+      "proseTransferBytes": 1691160,
+      "proseRequests": 7
+    }
+  }
+}

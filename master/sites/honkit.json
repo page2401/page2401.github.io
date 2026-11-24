@@ -1,0 +1,164 @@
+{
+  "$schema": "https://page.2401.xyz/schemas/site-metadata-v1.json",
+  "id": "honkit",
+  "order": 23,
+  "name": "HonKit",
+  "versionNote": "v6.x (GitBook CLI Fork)",
+  "mounted": true,
+  "sitePath": "sites/honkit",
+  "websiteUrl": "https://honkit.netlify.app/",
+  "githubUrl": "https://github.com/honkit/honkit",
+  "packageUrl": "https://www.npmjs.com/package/honkit",
+  "ecosystem": "runtime",
+  "tags": [
+    "ssg",
+    "ebook",
+    "gitbook-fork",
+    "summary-md",
+    "epub-pdf",
+    "nodejs",
+    "markdown-it"
+  ],
+  "lifecycle": {
+    "startedAt": "2020-06-13",
+    "activePeriod": "2020–至今（日本开源社区主导维护，兼容现代 Node 20/22）",
+    "deprecatedAt": null,
+    "isEol": false,
+    "summary": "始于 2020-06 · 拯救存量 GitBook 电子书与 PDF/ePub 导出的社区正统续作"
+  },
+  "libs": {
+    "runtime": "Node.js >= 18",
+    "bundler": "HonKit Static & eBook Pipeline",
+    "uiFramework": "Nunjucks 模板 + 经典三栏电子书阅读器",
+    "markdownEngine": "honkit-markdown-legacy / markdown-it",
+    "codeHighlight": "highlight.js",
+    "searchEngine": "honkit-plugin-lunr / search-pro",
+    "mathLib": "honkit-plugin-katex",
+    "diagramLib": "honkit-plugin-mermaid",
+    "coreLibs": [
+      "honkit",
+      "nunjucks",
+      "highlight.js",
+      "juicer"
+    ],
+    "pinnedPackages": {
+      "honkit": "7.0.1",
+      "katex": "0.19.1",
+      "mermaid": "12.3.0"
+    }
+  },
+  "matrix": {
+    "tagline": "原版 GitBook CLI 停更后的社区正统继任者：零改动复活老 SUMMARY.md 仓库并支持直接导出 PDF / ePub 电子书",
+    "stack": "Node.js 18/20/22 + HonKit + Nunjucks + Calibre (PDF/ePub 导出)",
+    "directoryModel": "100% 兼容经典 README.md + SUMMARY.md + GLOSSARY.md 电子书目录规范",
+    "calloutDialect": "Nunjucks 块或 GitBook 插件语法（旧社区 gitbook-plugin-* 大多可直接无缝复用）",
+    "diagramAndMath": "通过官方维护的 @honkit/honkit-plugin-katex 等扩展接入公式与流程图"
+  },
+  "github": {
+    "fetchedAt": "2026-11-23T11:47:11.123Z",
+    "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
+    "repo": "honkit/honkit",
+    "url": "https://github.com/honkit/honkit",
+    "role": "HonKit 官方源码仓库",
+    "description": ":book: HonKit is building beautiful books using Markdown - Fork of GitBook",
+    "primaryLanguage": "TypeScript",
+    "license": "Apache-2.0",
+    "defaultBranch": "master",
+    "isArchived": false,
+    "createdAt": "2020-06-13T12:16:48Z",
+    "createdYear": 2020,
+    "pushedAt": "2026-11-21T02:09:05Z",
+    "updatedAt": "2026-11-21T01:30:01Z",
+    "stars": 3532,
+    "forks": 269,
+    "openIssues": 57,
+    "totalCommits": 3495,
+    "peakYear": 2014,
+    "peakCommits": 895,
+    "latestRelease": {
+      "tagName": "v7.0.1",
+      "publishedAt": "2026-11-21T02:09:06Z",
+      "isPrerelease": false
+    },
+    "recentReleases": [
+      {
+        "tagName": "v7.0.1",
+        "publishedAt": "2026-11-21T02:09:06Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v7.0.0",
+        "publishedAt": "2026-11-15T14:33:34Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v6.2.6",
+        "publishedAt": "2026-11-15T03:46:45Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v6.2.5",
+        "publishedAt": "2026-10-23T11:52:14Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v6.2.4",
+        "publishedAt": "2026-10-23T10:56:02Z",
+        "isPrerelease": false
+      }
+    ],
+    "yearlyCommits": {
+      "2008": 0,
+      "2009": 0,
+      "2010": 0,
+      "2011": 0,
+      "2012": 0,
+      "2013": 0,
+      "2014": 895,
+      "2015": 706,
+      "2016": 793,
+      "2017": 2,
+      "2018": 4,
+      "2019": 16,
+      "2020": 812,
+      "2021": 57,
+      "2022": 60,
+      "2023": 54,
+      "2024": 28,
+      "2025": 27,
+      "2026": 41
+    }
+  },
+  "subsiteRepoUrl": "https://github.com/page2401/honkit",
+  "benchmark": {
+    "measuredAt": "2026-11-24T08:11:01.558Z",
+    "buildCommand": "npm run build",
+    "isRuntimeSpa": false,
+    "coldBuildMs": 2526,
+    "totalFiles": 90,
+    "totalBytes": 7554882,
+    "htmlFiles": 8,
+    "htmlBytes": 201820,
+    "jsFiles": 10,
+    "jsBytes": 5690948,
+    "jsGzipBytes": 1646059,
+    "cssFiles": 7,
+    "cssBytes": 131276,
+    "cssGzipBytes": 21695,
+    "otherBytes": 1530838,
+    "entryHtmlBytes": 14419,
+    "proseScriptCount": 9,
+    "hasOfflineSearch": true,
+    "offlineSearchKind": "Lunr.js 静态索引",
+    "hasLlmsTxt": false,
+    "viewRender": {
+      "profile": "Headless Chromium · HTTP Gzip · 15ms RTT / 24Mbps (3轮中位数)",
+      "fcpMs": 444,
+      "proseReadyMs": 950,
+      "warmNavMs": 68,
+      "diagramReadyMs": 1871,
+      "proseTransferBytes": 1796848,
+      "proseRequests": 17
+    }
+  }
+}

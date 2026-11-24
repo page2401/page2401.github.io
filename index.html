@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>page.2401.xyz — 静态网站生成器 (SSG) 全景生态图谱与多版本实测对比台</title>
+    <meta
+      name="description"
+      content="基于标准 GFM 母版 (docs/*.md)、1:1 独立站点元数据 (docs/sites/*.json) 与 Git Submodule 双分支架构的可扩展静态网站生成器观测与实测对比平台。"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      ;(function () {
+        const saved = localStorage.getItem('page2401-theme')
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+        const theme = saved === 'dark' || saved === 'light' ? saved : prefersDark ? 'dark' : 'light'
+        document.documentElement.setAttribute('data-theme', theme)
+      })()
+    </script>
+    <script type="module" crossorigin src="/assets/home-Dcp93FDy.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/comparison-dataset-BjW27vi9.js">
+    <link rel="modulepreload" crossorigin href="/assets/shell-BbMck3AC.js">
+    <link rel="stylesheet" crossorigin href="/assets/shell-BWAWU88O.css">
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+</html>

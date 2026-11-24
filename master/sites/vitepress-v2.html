@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vitepress-v2 站点与生命周期档案 (VitePress 2.0 Alpha) — 本站母版 (Pure GFM)</title>
+    <link rel="stylesheet" href="../vendor/katex.min.css" />
+    <style>
+      :root, [data-theme="light"] {
+        --bg: #ffffff;
+        --bg-nav: #f6f8fa;
+        --text: #1f2328;
+        --muted: #59636e;
+        --border: #d1d9e0;
+        --code-bg: #f6f8fa;
+        --link: #0969da;
+      }
+      html.dark, [data-theme="dark"] {
+        --bg: #0d1117;
+        --bg-nav: #161b22;
+        --text: #e6edf3;
+        --muted: #8b949e;
+        --border: #30363d;
+        --code-bg: #161b22;
+        --link: #58a6ff;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", Helvetica, Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.65;
+        font-size: 15px;
+      }
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: var(--bg-nav);
+        border-bottom: 1px solid var(--border);
+        padding: 0.6rem 1.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        font-size: 13px;
+      }
+      .topbar-title { font-weight: 700; display: flex; align-items: center; gap: 0.5rem; }
+      .gfm-badge {
+        font-size: 11px;
+        padding: 0.1rem 0.45rem;
+        border-radius: 999px;
+        background: rgba(9, 105, 218, 0.12);
+        color: var(--link);
+        font-weight: 600;
+      }
+      .topbar-nav { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+      .topbar-nav a { color: var(--muted); text-decoration: none; font-weight: 500; }
+      .topbar-nav a:hover, .topbar-nav a.active { color: var(--link); }
+      main {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 1.75rem 1.5rem 3rem;
+      }
+      a { color: var(--link); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      h1, h2, h3 { line-height: 1.3; margin-top: 1.6em; margin-bottom: 0.6em; }
+      h1 { font-size: 1.75rem; margin-top: 0.2em; padding-bottom: 0.35em; border-bottom: 1px solid var(--border); }
+      h2 { font-size: 1.3rem; padding-bottom: 0.25em; border-bottom: 1px solid var(--border); }
+      code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 85%;
+        background: var(--code-bg);
+        padding: 0.18em 0.38em;
+        border-radius: 5px;
+      }
+      pre {
+        background: var(--code-bg);
+        border: 1px solid var(--border);
+        padding: 0.9rem 1rem;
+        border-radius: 6px;
+        overflow-x: auto;
+      }
+      pre code { background: none; padding: 0; font-size: 13px; }
+      .table-wrap { width: 100%; overflow-x: auto; margin: 1rem 0; }
+      table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+      th, td { border: 1px solid var(--border); padding: 0.45rem 0.65rem; text-align: left; white-space: normal; }
+      th { background: var(--bg-nav); white-space: nowrap; }
+      blockquote {
+        margin: 1rem 0;
+        padding: 0.2rem 1rem;
+        color: var(--muted);
+        border-left: 4px solid var(--border);
+      }
+      details {
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 0.65rem 0.95rem;
+        margin: 1rem 0;
+        background: var(--bg-nav);
+      }
+      summary { cursor: pointer; font-weight: 600; }
+      .gfm-alert {
+        margin: 1rem 0;
+        padding: 0.65rem 1rem;
+        border-left: 4px solid #0969da;
+        background: var(--bg-nav);
+        border-radius: 0 6px 6px 0;
+      }
+      .gfm-alert-title { font-weight: 700; font-size: 13.5px; margin-bottom: 0.25rem; }
+      .gfm-alert-note { border-left-color: #0969da; }
+      .gfm-alert-note .gfm-alert-title { color: #0969da; }
+      .gfm-alert-tip { border-left-color: #1a7f37; }
+      .gfm-alert-tip .gfm-alert-title { color: #1a7f37; }
+      .gfm-alert-important { border-left-color: #8250df; }
+      .gfm-alert-important .gfm-alert-title { color: #8250df; }
+      .gfm-alert-warning { border-left-color: #9a6700; }
+      .gfm-alert-warning .gfm-alert-title { color: #9a6700; }
+      .gfm-alert-caution { border-left-color: #d1242f; }
+      .gfm-alert-caution .gfm-alert-title { color: #d1242f; }
+      .gfm-alert p:last-child { margin-bottom: 0; }
+      .gfm-math-block { overflow-x: auto; padding: 0.5rem 0; text-align: center; }
+      .gfm-mermaid {
+        margin: 1.25rem 0;
+        padding: 1rem;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--bg-nav);
+        display: flex;
+        justify-content: center;
+        overflow-x: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-title">
+        <span>★ 本站母版 (docs/sites/vitepress-v2.md)</span>
+        <span class="gfm-badge">Pure GFM 参考基准</span>
+      </div>
+      <nav class="topbar-nav">
+        <a href="/master/">母版首页</a>
+        <a href="/master/00-dialects">方言谱系</a>
+        <a href="/master/sites/">站点档案与活跃度 (docs/sites/)</a>
+        <a href="/master/benchmark-spec">接入规范</a>
+        <a href="/master/01-annotations">01. 标注</a>
+        <a href="/master/02-diagrams">02. 流程图</a>
+        <a href="/master/03-math">03. 公式</a>
+        <a href="/master/04-directory/">04. 目录结构</a>
+        <a href="/master/05-code-blocks">05. 代码块</a>
+        <a href="https://github.com/page2401/page2401.github.io/blob/main/docs/sites/vitepress-v2.md" target="_blank" rel="noopener">GitHub 原文 ↗</a>
+      </nav>
+    </header>
+    <main><h1><code>vitepress-v2</code> 站点档案（VitePress 2.0 Alpha 预览版）</h1>
+<ul>
+<li><strong>本地子模块路径</strong>：<code>sites/vitepress-v2</code>（与本档案 <code>docs/sites/vitepress-v2.md</code> 严格 1:1 对应）</li>
+<li><strong>独立子站仓库</strong>：<a href="https://github.com/page2401/vitepress-v2"><code>page2401/vitepress-v2</code></a> · <strong>线上实测</strong>：<a href="/vitepress-v2/"><code>/vitepress-v2/</code></a></li>
+<li><strong>跨代对照子站</strong>：<a href="./vitepress-v1"><code>vitepress-v1</code> (1.6.4 稳定版)</a></li>
+<li><strong>锁定核心依赖</strong>：<code>vitepress@2.0.0-alpha.21</code> + <code>vue@3.6.0-beta.10</code> + <code>markdown-it-mathjax3@4.3.2</code> + <code>mermaid@12.3.0</code></li>
+</ul>
+<h2>1. 生命周期定位（开始 / 活跃 / 废弃时间）</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th align="left">指标</th>
+<th align="left">时间节点与演进状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>开始时间</strong></td>
+<td align="left">上游 <code>vuejs/vitepress</code> 始于 <code>2020-04-30</code>；<strong><code>2025</code> 年正式开启 <code>2.0.0-alpha</code> 下一代打包管线分支</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>活跃时间</strong></td>
+<td align="left"><strong><code>2025–至今</code> 高频推进中</strong>（<code>2026</code> 年已累计 <code>362</code> 次主分支提交，<code>2.0.0-alpha.21</code> 发布于 <code>2026-10-25</code>）</td>
+</tr>
+<tr>
+<td align="left"><strong>废弃 / 演进状态</strong></td>
+<td align="left"><strong>无（Vue 官方文档引擎下一代演进主线）</strong>；目前仍带 <code>alpha</code> 标签，适合技术预研与尝鲜</td>
+</tr>
+</tbody></table></div>
+<h2>2. 上游 GitHub API 实测数据与历年提交活跃度</h2>
+<!-- GITHUB_API_TABLE_START -->
+<blockquote><p>独立结构化元数据文件：<a href="./vitepress-v2.json"><code>docs/sites/vitepress-v2.json</code></a>（含完整元数据、Tag、依赖 Lib 与 <code>github</code> API 节点，采样日期：<code>2026-11-23</code>）</p>
+</blockquote><h3>站点元数据与底层依赖库（Libs）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th align="left">元数据属性</th>
+<th align="left">内容详情</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>官方网站 (Website)</strong></td>
+<td align="left"><a href="https://vitepress.dev/">https://vitepress.dev/</a></td>
+</tr>
+<tr>
+<td align="left"><strong>GitHub 源码仓库</strong></td>
+<td align="left"><a href="https://github.com/vuejs/vitepress">vuejs/vitepress</a></td>
+</tr>
+<tr>
+<td align="left"><strong>包管理仓库 (Registry)</strong></td>
+<td align="left"><a href="https://www.npmjs.com/package/vitepress">https://www.npmjs.com/package/vitepress</a></td>
+</tr>
+<tr>
+<td align="left"><strong>分类标签 (Tags)</strong></td>
+<td align="left"><code>#ssg</code> · <code>#vue3</code> · <code>#vite8</code> · <code>#rolldown</code> · <code>#rust-bundler</code> · <code>#markdown-it</code> · <code>#gfm-alerts</code> · <code>#mathjax3-svg</code> · <code>#mermaid12</code> · <code>#alpha</code></td>
+</tr>
+<tr>
+<td align="left"><strong>运行时与打包器</strong></td>
+<td align="left">Node.js &gt;= 20 · Vite 8 + Rolldown (Rust)</td>
+</tr>
+<tr>
+<td align="left"><strong>UI 与 Markdown 引擎</strong></td>
+<td align="left">Vue 3.6 Beta · <code>markdown-it</code></td>
+</tr>
+<tr>
+<td align="left"><strong>高亮与全文检索</strong></td>
+<td align="left">Shiki · MiniSearch（内置本地全文索引）</td>
+</tr>
+<tr>
+<td align="left"><strong>数学公式与流程图库</strong></td>
+<td align="left">markdown-it-mathjax3@^4（构建期输出内联 SVG） ； 原生主题组件 MermaidBlock.vue + <a href="mailto:mermaid@12.3">mermaid@12.3</a></td>
+</tr>
+<tr>
+<td align="left"><strong>核心依赖库 (Core Libs)</strong></td>
+<td align="left"><code>vite@8</code>、<code>rolldown</code>、<code>vue</code>、<code>markdown-it</code>、<code>shiki</code>、<code>minisearch</code></td>
+</tr>
+<tr>
+<td align="left"><strong>本子站实测锁定版本</strong></td>
+<td align="left"><code>vitepress@2.0.0-alpha.21</code> · <code>vue@3.5.13</code> · <code>markdown-it-mathjax3@4.3.2</code> · <code>mermaid@12.3.0</code></td>
+</tr>
+</tbody></table></div>
+<h3>⚡ 同源 6 章冷构建、浏览器查看渲染与产物体积实测（<code>benchmark</code> 节点）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th align="right">冷构建耗时</th>
+<th align="right">首屏正文就绪 (FCP)</th>
+<th align="right">站内切页 / 图表渲染</th>
+<th align="right">单页传输 (Gzip)</th>
+<th align="right">整站总体积</th>
+<th align="right">JS 原始 / Gzip</th>
+<th align="right">正文 <code>&lt;script&gt;</code></th>
+<th align="left">离线搜索 / AI</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right"><strong>11.74 s (11,737 ms)</strong></td>
+<td align="right"><strong>423 ms</strong> (372 ms)</td>
+<td align="right">68 ms / 4326 ms</td>
+<td align="right">290.8 KB (17 请求)</td>
+<td align="right">6903.5 KB (140 文件)</td>
+<td align="right">5603.6 KB / <strong>1600.1 KB</strong></td>
+<td align="right"><code>4</code> 个</td>
+<td align="left">MiniSearch 本地索引</td>
+</tr>
+</tbody></table></div>
+<h3>GitHub 仓库 API 指标快照</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th align="left">官方仓库</th>
+<th align="left">创建日期</th>
+<th align="left">最近推送</th>
+<th align="right">Stars</th>
+<th align="right">默认分支总提交</th>
+<th align="left">峰值年份 (提交数)</th>
+<th align="left">最新 Release</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><a href="https://github.com/vuejs/vitepress"><code>vuejs/vitepress</code></a></td>
+<td align="left"><code>2020-04-30</code></td>
+<td align="left"><code>2026-11-12</code></td>
+<td align="right">★ 18,521</td>
+<td align="right">2,958</td>
+<td align="left"><code>2023</code> (824)</td>
+<td align="left"><code>v2.0.0-alpha.21</code> (2026-10-25)</td>
+</tr>
+</tbody></table></div>
+<h3>GitHub 主分支历年提交活跃度表（<code>2020–2026</code>）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th align="left">年份</th>
+<th align="right">提交数 (Commits)</th>
+<th align="right">占峰值比</th>
+<th align="left">活跃度趋势条</th>
+<th align="left">阶段状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>2020</code></td>
+<td align="right"><strong>334</strong></td>
+<td align="right">40.5%</td>
+<td align="left"><code>██████░░░░░░░░░░</code></td>
+<td align="left">🔵 稳健迭代</td>
+</tr>
+<tr>
+<td align="left"><code>2021</code></td>
+<td align="right"><strong>260</strong></td>
+<td align="right">31.6%</td>
+<td align="left"><code>█████░░░░░░░░░░░</code></td>
+<td align="left">🔵 稳健迭代</td>
+</tr>
+<tr>
+<td align="left"><code>2022</code></td>
+<td align="right"><strong>554</strong></td>
+<td align="right">67.2%</td>
+<td align="left"><code>███████████░░░░░</code></td>
+<td align="left">🟢 高频活跃</td>
+</tr>
+<tr>
+<td align="left"><code>2023</code></td>
+<td align="right"><strong>824</strong></td>
+<td align="right">100.0%</td>
+<td align="left"><code>████████████████</code></td>
+<td align="left">🔥 历史最高峰</td>
+</tr>
+<tr>
+<td align="left"><code>2024</code></td>
+<td align="right"><strong>369</strong></td>
+<td align="right">44.8%</td>
+<td align="left"><code>███████░░░░░░░░░</code></td>
+<td align="left">🔵 稳健迭代</td>
+</tr>
+<tr>
+<td align="left"><code>2025</code></td>
+<td align="right"><strong>255</strong></td>
+<td align="right">30.9%</td>
+<td align="left"><code>█████░░░░░░░░░░░</code></td>
+<td align="left">🔵 稳健迭代</td>
+</tr>
+<tr>
+<td align="left"><code>2026</code></td>
+<td align="right"><strong>362</strong></td>
+<td align="right">43.9%</td>
+<td align="left"><code>███████░░░░░░░░░</code></td>
+<td align="left">🔵 稳健迭代</td>
+</tr>
+</tbody></table></div>
+<!-- GITHUB_API_TABLE_END --><h2>3. 本子站实测特色与工程取舍</h2>
+<ol>
+<li><strong>Vite 8 Rolldown 带来 3.4 倍编译提速</strong>：在完全一致的 5 章基准测试集下，构建耗时从 <code>vitepress-v1</code> 的 <strong>28.4 秒骤降至 8.2 秒</strong>。</li>
+<li><strong><code>srcDir: &#39;docs&#39;</code> + <code>rewrites</code> 目录隔离实测</strong>：无需再配 <code>srcExclude</code> 排除根 <code>README.md</code>，并可通过 <code>rewrites</code> 抹除本地排序前缀 <code>01-</code> 生成干净 URL；但暴露了两个真实副作用——<strong>静态目录被迫从根 <code>public/</code> 迁入 <code>docs/public/</code></strong>，且重写后的链接破坏了编辑器离线跳转。</li>
+<li><strong>抛弃旧三方插件直连 <code>mermaid@12.3.0</code></strong>：旧版 <code>vitepress-plugin-mermaid</code> 因 <code>peer vitepress@^1.0.0</code> 无法直接安装；本子站仅用 35 行原生主题扩展 <code>.vitepress/theme/MermaidBlock.vue</code> 即完美渲染最新 Mermaid 12 并支持深浅色实时重绘。</li>
+</ol>
+</main>
+    <script src="../vendor/mermaid.min.js"></script>
+    <script>
+      function decodeB64(b64) {
+        const bin = atob(b64)
+        return new TextDecoder().decode(Uint8Array.from(bin, (c) => c.charCodeAt(0)))
+      }
+      async function renderMermaid() {
+        const boxes = document.querySelectorAll('.gfm-mermaid[data-b64]')
+        if (!boxes.length || !window.mermaid) return
+        const isDark = document.documentElement.classList.contains('dark') || document.documentElement.getAttribute('data-theme') === 'dark'
+        window.mermaid.initialize({ startOnLoad: false, theme: isDark ? 'dark' : 'default', securityLevel: 'loose' })
+        let i = 0
+        for (const box of boxes) {
+          const src = decodeB64(box.getAttribute('data-b64'))
+          const { svg } = await window.mermaid.render('master-mmd-' + Date.now() + '-' + i++, src)
+          box.innerHTML = svg
+        }
+      }
+      renderMermaid()
+      new MutationObserver(() => renderMermaid()).observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-theme', 'class']
+      })
+    </script>
+  </body>
+</html>

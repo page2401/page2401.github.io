@@ -1,0 +1,168 @@
+{
+  "$schema": "https://page.2401.xyz/schemas/site-metadata-v1.json",
+  "id": "mkdocs-material",
+  "order": 10,
+  "name": "MkDocs Material",
+  "versionNote": "v9.x (Python)",
+  "mounted": true,
+  "sitePath": "sites/mkdocs-material",
+  "websiteUrl": "https://squidfunk.github.io/mkdocs-material/",
+  "githubUrl": "https://github.com/squidfunk/mkdocs-material",
+  "packageUrl": "https://pypi.org/project/mkdocs-material/",
+  "ecosystem": "python-classic",
+  "tags": [
+    "ssg",
+    "python",
+    "scientific-docs",
+    "pymdown-extensions",
+    "indent-admonitions",
+    "code-annotations",
+    "mkdocs-yml"
+  ],
+  "lifecycle": {
+    "startedAt": "2016-01-28",
+    "activePeriod": "2016–至今（v9.x 成熟稳定维护）",
+    "deprecatedAt": "v8 及更早大版本已停更",
+    "isEol": false,
+    "summary": "始于 2016-01 · v8 已停更，v9 稳定活跃"
+  },
+  "libs": {
+    "runtime": "Python >= 3.8",
+    "bundler": "MkDocs Static Builder",
+    "uiFramework": "Jinja2 Templates + Material Custom Elements",
+    "markdownEngine": "Python-Markdown + pymdown-extensions",
+    "codeHighlight": "Pygments + pymdownx.highlight",
+    "searchEngine": "内置多语言离线全文检索插件",
+    "mathLib": "pymdownx.arithmatex + KaTeX / MathJax",
+    "diagramLib": "pymdownx.superfences（原生暗色自适应 Mermaid）",
+    "coreLibs": [
+      "mkdocs",
+      "mkdocs-material",
+      "markdown",
+      "pymdown-extensions",
+      "pygments"
+    ],
+    "pinnedPackages": {
+      "mkdocs-material": "9.8.2",
+      "mkdocs": "1.6.1",
+      "pymdown-extensions": "13.1.2",
+      "markdown": "3.11.3",
+      "pygments": "2.21.0"
+    }
+  },
+  "matrix": {
+    "tagline": "Python 科研与硬件工程文档天花板，代码行内批注与学术排版顶配",
+    "stack": "Python + MkDocs + Material 主题 + pymdown-extensions",
+    "directoryModel": "docs/ 纯净目录 + 根 mkdocs.yml 集中编排 nav 树（或 awesome-pages 插件）",
+    "calloutDialect": "独树一帜的 !!! warning \"标题\" + 4 空格缩进块（免闭合标签，但跨生态迁移需重写缩进）",
+    "diagramAndMath": "pymdownx.superfences 原生暗色自适应 Mermaid + pymdownx.arithmatex (KaTeX/MathJax)"
+  },
+  "github": {
+    "fetchedAt": "2026-11-23T11:47:11.123Z",
+    "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
+    "repo": "squidfunk/mkdocs-material",
+    "url": "https://github.com/squidfunk/mkdocs-material",
+    "role": "Material for MkDocs (Python) 官方仓库",
+    "description": "Documentation that simply works",
+    "primaryLanguage": "Python",
+    "license": "MIT",
+    "defaultBranch": "master",
+    "isArchived": false,
+    "createdAt": "2016-01-28T22:09:23Z",
+    "createdYear": 2016,
+    "pushedAt": "2026-11-19T19:51:06Z",
+    "updatedAt": "2026-11-23T09:32:05Z",
+    "stars": 27643,
+    "forks": 4151,
+    "openIssues": 1,
+    "totalCommits": 6794,
+    "peakYear": 2020,
+    "peakCommits": 1321,
+    "latestRelease": {
+      "tagName": "9.8.2",
+      "publishedAt": "2026-11-19T19:51:06Z",
+      "isPrerelease": false
+    },
+    "recentReleases": [
+      {
+        "tagName": "9.8.2",
+        "publishedAt": "2026-11-19T19:51:06Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "9.8.1",
+        "publishedAt": "2026-11-07T13:04:28Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "9.8.0",
+        "publishedAt": "2026-10-24T09:49:34Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "9.7.7",
+        "publishedAt": "2026-07-17T16:20:51Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "9.7.6",
+        "publishedAt": "2026-03-19T15:41:17Z",
+        "isPrerelease": false
+      }
+    ],
+    "yearlyCommits": {
+      "2008": 0,
+      "2009": 0,
+      "2010": 0,
+      "2011": 0,
+      "2012": 0,
+      "2013": 0,
+      "2014": 0,
+      "2015": 0,
+      "2016": 240,
+      "2017": 656,
+      "2018": 195,
+      "2019": 502,
+      "2020": 1321,
+      "2021": 1004,
+      "2022": 882,
+      "2023": 1171,
+      "2024": 484,
+      "2025": 250,
+      "2026": 89
+    }
+  },
+  "subsiteRepoUrl": "https://github.com/page2401/mkdocs-material",
+  "previewUrl": "https://page.2401.xyz/mkdocs-material/",
+  "benchmark": {
+    "measuredAt": "2026-11-24T08:11:01.558Z",
+    "buildCommand": "mkdocs build",
+    "isRuntimeSpa": false,
+    "coldBuildMs": 2092,
+    "totalFiles": 120,
+    "totalBytes": 9677677,
+    "htmlFiles": 9,
+    "htmlBytes": 219714,
+    "jsFiles": 40,
+    "jsBytes": 6877836,
+    "jsGzipBytes": 1952902,
+    "cssFiles": 3,
+    "cssBytes": 174295,
+    "cssGzipBytes": 28253,
+    "otherBytes": 2405832,
+    "entryHtmlBytes": 25314,
+    "proseScriptCount": 8,
+    "hasOfflineSearch": true,
+    "offlineSearchKind": "Lunr.js 静态索引",
+    "hasLlmsTxt": false,
+    "viewRender": {
+      "profile": "Headless Chromium · HTTP Gzip · 15ms RTT / 24Mbps (3轮中位数)",
+      "fcpMs": 200,
+      "proseReadyMs": 924,
+      "warmNavMs": 316,
+      "diagramReadyMs": 1771,
+      "proseTransferBytes": 1775919,
+      "proseRequests": 13
+    }
+  }
+}

@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>基准测试与派生子模块接入规范 — 本站母版 (Pure GFM)</title>
+    <link rel="stylesheet" href="./vendor/katex.min.css" />
+    <style>
+      :root, [data-theme="light"] {
+        --bg: #ffffff;
+        --bg-nav: #f6f8fa;
+        --text: #1f2328;
+        --muted: #59636e;
+        --border: #d1d9e0;
+        --code-bg: #f6f8fa;
+        --link: #0969da;
+      }
+      html.dark, [data-theme="dark"] {
+        --bg: #0d1117;
+        --bg-nav: #161b22;
+        --text: #e6edf3;
+        --muted: #8b949e;
+        --border: #30363d;
+        --code-bg: #161b22;
+        --link: #58a6ff;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", Helvetica, Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.65;
+        font-size: 15px;
+      }
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: var(--bg-nav);
+        border-bottom: 1px solid var(--border);
+        padding: 0.6rem 1.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        font-size: 13px;
+      }
+      .topbar-title { font-weight: 700; display: flex; align-items: center; gap: 0.5rem; }
+      .gfm-badge {
+        font-size: 11px;
+        padding: 0.1rem 0.45rem;
+        border-radius: 999px;
+        background: rgba(9, 105, 218, 0.12);
+        color: var(--link);
+        font-weight: 600;
+      }
+      .topbar-nav { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+      .topbar-nav a { color: var(--muted); text-decoration: none; font-weight: 500; }
+      .topbar-nav a:hover, .topbar-nav a.active { color: var(--link); }
+      main {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 1.75rem 1.5rem 3rem;
+      }
+      a { color: var(--link); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      h1, h2, h3 { line-height: 1.3; margin-top: 1.6em; margin-bottom: 0.6em; }
+      h1 { font-size: 1.75rem; margin-top: 0.2em; padding-bottom: 0.35em; border-bottom: 1px solid var(--border); }
+      h2 { font-size: 1.3rem; padding-bottom: 0.25em; border-bottom: 1px solid var(--border); }
+      code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 85%;
+        background: var(--code-bg);
+        padding: 0.18em 0.38em;
+        border-radius: 5px;
+      }
+      pre {
+        background: var(--code-bg);
+        border: 1px solid var(--border);
+        padding: 0.9rem 1rem;
+        border-radius: 6px;
+        overflow-x: auto;
+      }
+      pre code { background: none; padding: 0; font-size: 13px; }
+      .table-wrap { width: 100%; overflow-x: auto; margin: 1rem 0; }
+      table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+      th, td { border: 1px solid var(--border); padding: 0.45rem 0.65rem; text-align: left; white-space: normal; }
+      th { background: var(--bg-nav); white-space: nowrap; }
+      blockquote {
+        margin: 1rem 0;
+        padding: 0.2rem 1rem;
+        color: var(--muted);
+        border-left: 4px solid var(--border);
+      }
+      details {
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 0.65rem 0.95rem;
+        margin: 1rem 0;
+        background: var(--bg-nav);
+      }
+      summary { cursor: pointer; font-weight: 600; }
+      .gfm-alert {
+        margin: 1rem 0;
+        padding: 0.65rem 1rem;
+        border-left: 4px solid #0969da;
+        background: var(--bg-nav);
+        border-radius: 0 6px 6px 0;
+      }
+      .gfm-alert-title { font-weight: 700; font-size: 13.5px; margin-bottom: 0.25rem; }
+      .gfm-alert-note { border-left-color: #0969da; }
+      .gfm-alert-note .gfm-alert-title { color: #0969da; }
+      .gfm-alert-tip { border-left-color: #1a7f37; }
+      .gfm-alert-tip .gfm-alert-title { color: #1a7f37; }
+      .gfm-alert-important { border-left-color: #8250df; }
+      .gfm-alert-important .gfm-alert-title { color: #8250df; }
+      .gfm-alert-warning { border-left-color: #9a6700; }
+      .gfm-alert-warning .gfm-alert-title { color: #9a6700; }
+      .gfm-alert-caution { border-left-color: #d1242f; }
+      .gfm-alert-caution .gfm-alert-title { color: #d1242f; }
+      .gfm-alert p:last-child { margin-bottom: 0; }
+      .gfm-math-block { overflow-x: auto; padding: 0.5rem 0; text-align: center; }
+      .gfm-mermaid {
+        margin: 1.25rem 0;
+        padding: 1rem;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--bg-nav);
+        display: flex;
+        justify-content: center;
+        overflow-x: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-title">
+        <span>★ 本站母版 (docs/benchmark-spec.md)</span>
+        <span class="gfm-badge">Pure GFM 参考基准</span>
+      </div>
+      <nav class="topbar-nav">
+        <a href="/master/">母版首页</a>
+        <a href="/master/00-dialects">方言谱系</a>
+        <a href="/master/sites/">站点档案与活跃度 (docs/sites/)</a>
+        <a href="/master/benchmark-spec">接入规范</a>
+        <a href="/master/01-annotations">01. 标注</a>
+        <a href="/master/02-diagrams">02. 流程图</a>
+        <a href="/master/03-math">03. 公式</a>
+        <a href="/master/04-directory/">04. 目录结构</a>
+        <a href="/master/05-code-blocks">05. 代码块</a>
+        <a href="https://github.com/page2401/page2401.github.io/blob/main/docs/benchmark-spec.md" target="_blank" rel="noopener">GitHub 原文 ↗</a>
+      </nav>
+    </header>
+    <main><h1>相似 <code>*.md</code> 多版本静态网站对比基准与接入规范</h1>
+<h2>1. 核心架构：母版（<code>docs/*.md</code>） ──派生适配──▶ 子模块（<code>sites/*</code>）</h2>
+<p>本仓库 <code>docs/</code> 目录维护全站唯一的<strong>标准 GitHub Flavored Markdown（GFM）原始母版</strong>。在真实文档工程中，不同静态网站生成器及不同大版本对元数据校验、提示块方言（<code>::: warning</code> vs <code>:::caution[标题]</code> vs <code>?&gt;</code> vs <code>!!!</code>）、目录约定（<code>index.md</code> vs <code>README.md</code> vs <code>_index.md</code> vs <code>_sidebar.md</code>）与插件边界各不相同（详见 <a href="./00-dialects"><code>00-dialects.md</code></a>）。</p>
+<p>因此，每个接入的子模块遵循以下黄金准则：</p>
+<ul>
+<li><strong>语义与测试算例 100% 与母版对齐</strong>；</li>
+<li><strong>仅在目标框架特定版本无法直通母版语法处，按该版本原生最佳实践做最小必要派生改写</strong>；</li>
+<li>主站在构建期自动将子模块派生文件与母版 <code>docs/*.md</code> 并排比对，直观量化方言锁定成本。</li>
+</ul>
+<hr>
+<h2>2. 标准六篇基准章节路由清单</h2>
+<p>每个接入的独立子模块均须提供以下 6 个标准章节（含 <code>04-directory/nested/</code> 嵌套子页）：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th align="left">章节 ID</th>
+<th align="left">对应母版文件</th>
+<th align="left">必测内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>index</code></td>
+<td align="left"><a href="./"><code>docs/index.md</code></a></td>
+<td align="left">框架与精确锁定版本清单、核心特性接入摘要、导航入口</td>
+</tr>
+<tr>
+<td align="left"><code>01-annotations</code></td>
+<td align="left"><a href="./01-annotations"><code>docs/01-annotations.md</code></a></td>
+<td align="left">Frontmatter 说明、四类标准提示块、折叠块、原始 <code>&gt; [!NOTE]</code> GFM Alert 直通兼容性实测</td>
+</tr>
+<tr>
+<td align="left"><code>02-diagrams</code></td>
+<td align="left"><a href="./02-diagrams"><code>docs/02-diagrams.md</code></a></td>
+<td align="left"><code>flowchart TD</code>（含 <code>subgraph</code> 与中文标签）、<code>sequenceDiagram</code>（含 <code>alt</code> 与激活框）、<code>stateDiagram-v2</code></td>
+</tr>
+<tr>
+<td align="left"><code>03-math</code></td>
+<td align="left"><a href="./03-math"><code>docs/03-math.md</code></a></td>
+<td align="left">行内公式中英文混排基线、<code>aligned</code> 多行高斯积分推导、<code>bmatrix</code> 矩阵、<code>cases</code> 分段函数、字面量 <code>\$</code> 转义</td>
+</tr>
+<tr>
+<td align="left"><code>04-directory</code></td>
+<td align="left"><a href="./04-directory/"><code>docs/04-directory/index.md</code></a></td>
+<td align="left">根目录隔离度 vs 目录深度、排序前缀 vs 干净 URL、<code>nested/</code> 多级子目录与侧边栏维护实测</td>
+</tr>
+<tr>
+<td align="left"><code>05-code-blocks</code></td>
+<td align="left"><a href="./05-code-blocks"><code>docs/05-code-blocks.md</code></a></td>
+<td align="left">代码块文件名标题栏、指定行高亮、带词法着色的行级增删 Diff、多语言运行时代码组（Tabs）</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2>3. 派生接入新版本子模块的标准 4 步流程</h2>
+<p>例如未来将图鉴中的 <code>hugo</code> 或 <code>docusaurus-v3</code> 升级为实测子模块：</p>
+<ol>
+<li><strong>创建带版本号的独立仓库</strong>：在 <code>page2401</code> 组织下创建公开仓库 <code>page2401/&lt;ssg-version&gt;</code>，补齐仓库 <code>Description</code> 与 <code>Website</code>（<code>https://page.2401.xyz/&lt;ssg-version&gt;/</code>）；<code>main</code> 分支仅存放纯工程源码、由 <code>docs/*.md</code> 派生适配的文档及 <code>.github/workflows/deploy-page.yml</code>（构建输出必须包含 <code>.nojekyll</code> 并推送到孤儿分支 <code>page</code>）。</li>
+<li><strong>启用子仓库 GitHub Pages</strong>：将 <code>page2401/&lt;ssg-version&gt;</code> 的 GitHub Pages 发布源设为 <code>page</code> 分支 <code>/</code>，即可自动通过 <code>https://page.2401.xyz/&lt;ssg-version&gt;/</code> 同源访问。</li>
+<li><strong>挂载 Git Submodule</strong>：在主仓库执行：<pre><code class="language-bash">git submodule add -b main https://github.com/page2401/&lt;ssg-version&gt;.git sites/&lt;ssg-version&gt;</code></pre></li>
+<li><strong>注册到 <code>sites.config.json</code> 并维护 <code>docs/sites/&lt;ssg-version&gt;.json</code></strong>：在主仓库 <code>sites.config.json</code> 的 <code>sites</code> 数组追加该子模块目录、精确跟踪包名与 5 篇文档路径，并在 <a href="./sites/"><code>docs/sites/</code></a> 维护同名 <code>&lt;ssg-version&gt;.json</code>（含 <code>websiteUrl</code>、<code>githubUrl</code>、<code>tags</code>、<code>libs</code> 及 <code>github</code> 节点，可执行 <code>npm run sync:github</code> 自动刷新 GitHub API 历年提交数据与 <code>&lt;ssg-version&gt;.md</code> 表格），推送主仓库 <code>main</code> 分支后工作台与活跃度矩阵即自动更新。</li>
+</ol>
+</main>
+    <script src="./vendor/mermaid.min.js"></script>
+    <script>
+      function decodeB64(b64) {
+        const bin = atob(b64)
+        return new TextDecoder().decode(Uint8Array.from(bin, (c) => c.charCodeAt(0)))
+      }
+      async function renderMermaid() {
+        const boxes = document.querySelectorAll('.gfm-mermaid[data-b64]')
+        if (!boxes.length || !window.mermaid) return
+        const isDark = document.documentElement.classList.contains('dark') || document.documentElement.getAttribute('data-theme') === 'dark'
+        window.mermaid.initialize({ startOnLoad: false, theme: isDark ? 'dark' : 'default', securityLevel: 'loose' })
+        let i = 0
+        for (const box of boxes) {
+          const src = decodeB64(box.getAttribute('data-b64'))
+          const { svg } = await window.mermaid.render('master-mmd-' + Date.now() + '-' + i++, src)
+          box.innerHTML = svg
+        }
+      }
+      renderMermaid()
+      new MutationObserver(() => renderMermaid()).observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-theme', 'class']
+      })
+    </script>
+  </body>
+</html>

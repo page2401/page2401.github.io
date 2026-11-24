@@ -1,0 +1,175 @@
+{
+  "$schema": "https://page.2401.xyz/schemas/site-metadata-v1.json",
+  "id": "fumadocs",
+  "order": 18,
+  "name": "Fumadocs",
+  "versionNote": "v15+ (Next.js App Router)",
+  "mounted": true,
+  "sitePath": "sites/fumadocs",
+  "websiteUrl": "https://fumadocs.dev/",
+  "githubUrl": "https://github.com/fuma-nama/fumadocs",
+  "packageUrl": "https://www.npmjs.com/package/fumadocs-ui",
+  "ecosystem": "react-astro",
+  "tags": [
+    "ssg-ssr",
+    "nextjs",
+    "app-router",
+    "rsc",
+    "shadcn-ui",
+    "tailwind",
+    "mdx",
+    "openapi",
+    "rising-star"
+  ],
+  "lifecycle": {
+    "startedAt": "2023-07-03",
+    "activePeriod": "2024–至今（React/Next.js 社区增速最快的现代文档框架）",
+    "deprecatedAt": null,
+    "isEol": false,
+    "summary": "始于 2023-07 · 2024–2026 爆发式增长（Nextra 强力替代者）"
+  },
+  "libs": {
+    "runtime": "Node.js >= 20 / Bun",
+    "bundler": "Next.js (Turbopack / Webpack) + Fumadocs MDX",
+    "uiFramework": "React 19 + Next.js RSC + Tailwind CSS + Radix/Shadcn",
+    "markdownEngine": "fumadocs-mdx (remark / rehype)",
+    "codeHighlight": "Shiki Twoslash（内置 TypeScript 类型悬浮提示！）",
+    "searchEngine": "Orama 内置搜索 / Algolia / Pagefind",
+    "mathLib": "remark-math + rehype-katex",
+    "diagramLib": "Mermaid MDX 组件或 remark 插件",
+    "coreLibs": [
+      "fumadocs-core",
+      "fumadocs-ui",
+      "fumadocs-mdx",
+      "next",
+      "shiki",
+      "@orama/orama"
+    ],
+    "pinnedPackages": {
+      "fumadocs-ui": "16.19.7",
+      "fumadocs-core": "16.19.7",
+      "fumadocs-mdx": "15.6.4",
+      "next": "16.4.6",
+      "tailwindcss": "4.3.5",
+      "react": "19.3.1",
+      "remark-math": "6.0.0",
+      "rehype-katex": "7.0.1",
+      "katex": "0.19.1",
+      "mermaid": "12.3.0"
+    }
+  },
+  "matrix": {
+    "tagline": "Shadcn UI 时代的 Next.js 新王：无黑盒可定制组件 + 原生 OpenAPI 交互演练场 + Twoslash 类型提示",
+    "stack": "Next.js App Router + React 19 RSC + Fumadocs MDX + Tailwind CSS + Orama",
+    "directoryModel": "content/docs/ + meta.json 控制侧栏顺序、分隔线与图标（支持多 Root 切换子产品文档）",
+    "calloutDialect": "原生兼容 GitHub > [!NOTE] 警报语法与 <Callout type=\"warn\"> MDX 组件",
+    "diagramAndMath": "标准 remark-math / rehype-katex 管线 + Shiki Twoslash 代码块高级批注"
+  },
+  "github": {
+    "fetchedAt": "2026-11-23T11:47:11.123Z",
+    "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
+    "repo": "fuma-nama/fumadocs",
+    "url": "https://github.com/fuma-nama/fumadocs",
+    "role": "Fumadocs 官方源码仓库",
+    "description": "The beautiful & flexible React.js docs framework.",
+    "primaryLanguage": "TypeScript",
+    "license": "MIT",
+    "defaultBranch": "dev",
+    "isArchived": false,
+    "createdAt": "2023-07-03T10:27:50Z",
+    "createdYear": 2023,
+    "pushedAt": "2026-11-22T16:41:22Z",
+    "updatedAt": "2026-11-23T11:29:02Z",
+    "stars": 13697,
+    "forks": 765,
+    "openIssues": 0,
+    "totalCommits": 6343,
+    "peakYear": 2024,
+    "peakCommits": 1927,
+    "latestRelease": {
+      "tagName": "fumadocs@16.19.7",
+      "publishedAt": "2026-11-22T11:39:31Z",
+      "isPrerelease": false
+    },
+    "recentReleases": [
+      {
+        "tagName": "fumadocs@16.19.7",
+        "publishedAt": "2026-11-22T11:39:31Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "cli@16.3.10",
+        "publishedAt": "2026-11-22T11:39:31Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "@fumadocs/cli@1.9.3",
+        "publishedAt": "2026-11-22T11:39:31Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "@fumadocs/story@1.5.5",
+        "publishedAt": "2026-11-21T12:59:30Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "fumadocs-preview@0.2.7",
+        "publishedAt": "2026-11-21T12:59:30Z",
+        "isPrerelease": false
+      }
+    ],
+    "yearlyCommits": {
+      "2008": 0,
+      "2009": 0,
+      "2010": 0,
+      "2011": 0,
+      "2012": 0,
+      "2013": 0,
+      "2014": 0,
+      "2015": 0,
+      "2016": 0,
+      "2017": 0,
+      "2018": 0,
+      "2019": 0,
+      "2020": 0,
+      "2021": 0,
+      "2022": 0,
+      "2023": 1223,
+      "2024": 1927,
+      "2025": 1729,
+      "2026": 1464
+    }
+  },
+  "subsiteRepoUrl": "https://github.com/page2401/fumadocs",
+  "benchmark": {
+    "measuredAt": "2026-11-24T08:11:01.558Z",
+    "buildCommand": "npm run build",
+    "isRuntimeSpa": false,
+    "coldBuildMs": 57502,
+    "totalFiles": 216,
+    "totalBytes": 9364144,
+    "htmlFiles": 11,
+    "htmlBytes": 759675,
+    "jsFiles": 108,
+    "jsBytes": 6496652,
+    "jsGzipBytes": 1875865,
+    "cssFiles": 1,
+    "cssBytes": 112185,
+    "cssGzipBytes": 18556,
+    "otherBytes": 1995632,
+    "entryHtmlBytes": 57949,
+    "proseScriptCount": 24,
+    "hasOfflineSearch": false,
+    "offlineSearchKind": null,
+    "hasLlmsTxt": false,
+    "viewRender": {
+      "profile": "Headless Chromium · HTTP Gzip · 15ms RTT / 24Mbps (3轮中位数)",
+      "fcpMs": 384,
+      "proseReadyMs": 446,
+      "warmNavMs": 211,
+      "diagramReadyMs": 665,
+      "proseTransferBytes": 431024,
+      "proseRequests": 31
+    }
+  }
+}

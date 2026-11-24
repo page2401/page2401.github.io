@@ -1,0 +1,173 @@
+{
+  "$schema": "https://page.2401.xyz/schemas/site-metadata-v1.json",
+  "id": "gatsby",
+  "order": 21,
+  "name": "Gatsby",
+  "versionNote": "v5.x (Legacy GraphQL)",
+  "mounted": true,
+  "sitePath": "sites/gatsby",
+  "websiteUrl": "https://www.gatsbyjs.com/",
+  "githubUrl": "https://github.com/gatsbyjs/gatsby",
+  "packageUrl": "https://www.npmjs.com/package/gatsby",
+  "ecosystem": "react-astro",
+  "tags": [
+    "ssg",
+    "react",
+    "graphql-data-layer",
+    "webpack",
+    "remark",
+    "heavy-plugins",
+    "declining"
+  ],
+  "lifecycle": {
+    "startedAt": "2015-05-21",
+    "activePeriod": "2017–2021 巅峰霸主（55.9k★）；2023 被 Netlify 收购后大幅缩减",
+    "deprecatedAt": "核心进入极低频维护态，现代文档站已被 Astro / Docusaurus / Next.js 全面替代",
+    "isEol": true,
+    "summary": "始于 2015-05 · 昔日 React SSG 霸主，2023 后显著衰退"
+  },
+  "libs": {
+    "runtime": "Node.js >= 18",
+    "bundler": "Webpack 5 + Babel",
+    "uiFramework": "React 18",
+    "markdownEngine": "gatsby-transformer-remark / gatsby-plugin-mdx",
+    "codeHighlight": "gatsby-remark-prismjs",
+    "searchEngine": "gatsby-plugin-local-search / Algolia",
+    "mathLib": "gatsby-remark-katex",
+    "diagramLib": "gatsby-remark-mermaid（依赖重型 Puppeteer 预渲染或旧插件）",
+    "coreLibs": [
+      "gatsby",
+      "graphql",
+      "react",
+      "gatsby-source-filesystem",
+      "gatsby-plugin-mdx"
+    ],
+    "pinnedPackages": {
+      "gatsby": "5.16.1",
+      "gatsby-source-filesystem": "5.16.0",
+      "gatsby-plugin-mdx": "5.16.0",
+      "@mdx-js/react": "2.3.0",
+      "react": "18.3.1",
+      "remark-gfm": "3.0.1",
+      "remark-math": "5.1.1",
+      "rehype-katex": "6.0.3",
+      "katex": "0.19.1",
+      "mermaid": "12.3.0",
+      "prism-react-renderer": "2.4.1"
+    }
+  },
+  "matrix": {
+    "tagline": "曾开创统一 GraphQL 数据层先河的 React 巨舰，因架构过度复杂与构建缓慢成为前端演进史经典教材",
+    "stack": "React + GraphQL Data Layer + Webpack + gatsby-source-filesystem",
+    "directoryModel": "任意本地目录 -> gatsby-source-filesystem 注入 GraphQL -> gatsby-node.js 编程式 createPages 生成路由",
+    "calloutDialect": "无统一标准；依赖 MDX 组件或年久失修的 gatsby-remark-* 社区插件",
+    "diagramAndMath": "gatsby-remark-katex + MDX 自定义 Mermaid 组件（旧插件链存在大量依赖冲突）"
+  },
+  "github": {
+    "fetchedAt": "2026-11-23T11:47:11.123Z",
+    "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
+    "repo": "gatsbyjs/gatsby",
+    "url": "https://github.com/gatsbyjs/gatsby",
+    "role": "Gatsby 官方源码仓库",
+    "description": "React-based framework with performance, scalability, and security built in.",
+    "primaryLanguage": "JavaScript",
+    "license": "MIT",
+    "defaultBranch": "master",
+    "isArchived": false,
+    "createdAt": "2015-05-21T22:43:05Z",
+    "createdYear": 2015,
+    "pushedAt": "2026-11-20T21:42:34Z",
+    "updatedAt": "2026-11-23T10:10:20Z",
+    "stars": 55915,
+    "forks": 10065,
+    "openIssues": 218,
+    "totalCommits": 21877,
+    "peakYear": 2019,
+    "peakCommits": 5698,
+    "latestRelease": {
+      "tagName": "gatsby@5.16.1",
+      "publishedAt": "2026-02-10T14:38:44Z",
+      "isPrerelease": false
+    },
+    "recentReleases": [
+      {
+        "tagName": "gatsby@5.16.1",
+        "publishedAt": "2026-02-10T14:38:44Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "gatsby@5.16.0",
+        "publishedAt": "2026-01-26T21:26:57Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "gatsby@5.15.0",
+        "publishedAt": "2025-08-27T17:53:08Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "gatsby@5.14.6",
+        "publishedAt": "2025-08-27T12:39:42Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "gatsby@5.14.5",
+        "publishedAt": "2025-08-27T12:34:32Z",
+        "isPrerelease": false
+      }
+    ],
+    "yearlyCommits": {
+      "2008": 0,
+      "2009": 0,
+      "2010": 0,
+      "2011": 0,
+      "2012": 0,
+      "2013": 0,
+      "2014": 0,
+      "2015": 217,
+      "2016": 689,
+      "2017": 2236,
+      "2018": 4404,
+      "2019": 5698,
+      "2020": 4289,
+      "2021": 2088,
+      "2022": 1354,
+      "2023": 624,
+      "2024": 115,
+      "2025": 48,
+      "2026": 115
+    }
+  },
+  "subsiteRepoUrl": "https://github.com/page2401/gatsby",
+  "benchmark": {
+    "measuredAt": "2026-11-24T08:11:01.558Z",
+    "buildCommand": "npm run build",
+    "isRuntimeSpa": false,
+    "coldBuildMs": 179289,
+    "totalFiles": 274,
+    "totalBytes": 31968192,
+    "htmlFiles": 11,
+    "htmlBytes": 1723727,
+    "jsFiles": 113,
+    "jsBytes": 7044485,
+    "jsGzipBytes": 2001786,
+    "cssFiles": 2,
+    "cssBytes": 305038,
+    "cssGzipBytes": 178456,
+    "otherBytes": 22894942,
+    "entryHtmlBytes": 164841,
+    "proseScriptCount": 6,
+    "hasOfflineSearch": false,
+    "offlineSearchKind": null,
+    "hasLlmsTxt": false,
+    "viewRender": {
+      "profile": "Headless Chromium · HTTP Gzip · 15ms RTT / 24Mbps (3轮中位数)",
+      "fcpMs": 296,
+      "proseReadyMs": 404,
+      "warmNavMs": 79,
+      "diagramReadyMs": 531,
+      "proseTransferBytes": 203984,
+      "proseRequests": 8
+    }
+  }
+}

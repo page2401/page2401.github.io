@@ -1,0 +1,168 @@
+{
+  "$schema": "https://page.2401.xyz/schemas/site-metadata-v1.json",
+  "id": "zola",
+  "order": 13,
+  "name": "Zola",
+  "versionNote": "v0.19+ (Rust)",
+  "mounted": true,
+  "sitePath": "sites/zola",
+  "websiteUrl": "https://www.getzola.org/",
+  "githubUrl": "https://github.com/getzola/zola",
+  "packageUrl": "https://crates.io/crates/zola",
+  "ecosystem": "native",
+  "tags": [
+    "ssg",
+    "rust",
+    "single-binary",
+    "zero-dependencies",
+    "tera-templates",
+    "jinja2-like",
+    "pulldown-cmark",
+    "builtin-sass"
+  ],
+  "lifecycle": {
+    "startedAt": "2016-12-06",
+    "activePeriod": "2017–至今（十年稳步活跃迭代）",
+    "deprecatedAt": null,
+    "isEol": false,
+    "summary": "始于 2016-12 · 2017–至今稳步活跃"
+  },
+  "libs": {
+    "runtime": "Rust 单二进制可执行文件",
+    "bundler": "Zola All-in-One Binary（内置 grass Sass 编译）",
+    "uiFramework": "Tera v2（v0.23 组件化模板引擎）",
+    "markdownEngine": "pulldown-cmark",
+    "codeHighlight": "syntect / Giallo",
+    "searchEngine": "内置 elasticlunr 离线索引",
+    "mathLib": "KaTeX / MathJax Shortcode 或前端脚本",
+    "diagramLib": "Mermaid Shortcode",
+    "coreLibs": [
+      "tera",
+      "pulldown-cmark",
+      "grass",
+      "syntect",
+      "elasticlunr-rs"
+    ],
+    "pinnedPackages": {
+      "zola": "0.23.6",
+      "tera": "builtin",
+      "katex": "0.19.1",
+      "mermaid": "12.3.0"
+    }
+  },
+  "matrix": {
+    "tagline": "Rust 单二进制全能静态生成器，采用人性化类 Jinja2 (Tera) 模板",
+    "stack": "Rust 单二进制（内置 Sass、代码高亮与搜索索引，零外部依赖）",
+    "directoryModel": "content/ + _index.md 分支章节模型（与 Hugo 类似但配置收拢于 config.toml）",
+    "calloutDialect": "Tera Shortcode 语法：{% callout(type=\"warning\") %} ... {% end %}",
+    "diagramAndMath": "通过 Shortcode 或前端脚本注入 KaTeX 与 Mermaid"
+  },
+  "github": {
+    "fetchedAt": "2026-11-23T11:47:11.123Z",
+    "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
+    "repo": "getzola/zola",
+    "url": "https://github.com/getzola/zola",
+    "role": "Zola (Rust 单二进制引擎) 官方仓库",
+    "description": "A fast static site generator in a single binary with everything built-in. https://www.getzola.org",
+    "primaryLanguage": "Rust",
+    "license": "EUPL-1.2",
+    "defaultBranch": "master",
+    "isArchived": false,
+    "createdAt": "2016-12-06T02:57:25Z",
+    "createdYear": 2016,
+    "pushedAt": "2026-11-23T07:46:28Z",
+    "updatedAt": "2026-11-23T08:57:25Z",
+    "stars": 17620,
+    "forks": 1242,
+    "openIssues": 191,
+    "totalCommits": 2625,
+    "peakYear": 2018,
+    "peakCommits": 521,
+    "latestRelease": {
+      "tagName": "v0.23.6",
+      "publishedAt": "2026-09-12T22:06:53Z",
+      "isPrerelease": false
+    },
+    "recentReleases": [
+      {
+        "tagName": "v0.23.6",
+        "publishedAt": "2026-09-12T22:06:53Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v0.23.5",
+        "publishedAt": "2026-09-11T22:02:23Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v0.23.4",
+        "publishedAt": "2026-08-20T16:35:44Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v0.23.3",
+        "publishedAt": "2026-08-11T13:37:38Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v0.23.2",
+        "publishedAt": "2026-08-07T09:49:31Z",
+        "isPrerelease": false
+      }
+    ],
+    "yearlyCommits": {
+      "2008": 0,
+      "2009": 0,
+      "2010": 0,
+      "2011": 0,
+      "2012": 0,
+      "2013": 0,
+      "2014": 0,
+      "2015": 0,
+      "2016": 11,
+      "2017": 366,
+      "2018": 521,
+      "2019": 286,
+      "2020": 296,
+      "2021": 271,
+      "2022": 170,
+      "2023": 204,
+      "2024": 120,
+      "2025": 154,
+      "2026": 226
+    }
+  },
+  "subsiteRepoUrl": "https://github.com/page2401/zola",
+  "previewUrl": "https://page.2401.xyz/zola/",
+  "benchmark": {
+    "measuredAt": "2026-11-24T08:11:01.558Z",
+    "buildCommand": "zola build --base-url /zola",
+    "isRuntimeSpa": false,
+    "coldBuildMs": 173,
+    "totalFiles": 78,
+    "totalBytes": 7016301,
+    "htmlFiles": 10,
+    "htmlBytes": 86565,
+    "jsFiles": 4,
+    "jsBytes": 5818726,
+    "jsGzipBytes": 1671937,
+    "cssFiles": 2,
+    "cssBytes": 33689,
+    "cssGzipBytes": 5831,
+    "otherBytes": 1077321,
+    "entryHtmlBytes": 7459,
+    "proseScriptCount": 4,
+    "hasOfflineSearch": false,
+    "offlineSearchKind": null,
+    "hasLlmsTxt": false,
+    "viewRender": {
+      "profile": "Headless Chromium · HTTP Gzip · 15ms RTT / 24Mbps (3轮中位数)",
+      "fcpMs": 436,
+      "proseReadyMs": 902,
+      "warmNavMs": 94,
+      "diagramReadyMs": 1772,
+      "proseTransferBytes": 1691111,
+      "proseRequests": 7
+    }
+  }
+}

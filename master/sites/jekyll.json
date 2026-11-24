@@ -1,0 +1,172 @@
+{
+  "$schema": "https://page.2401.xyz/schemas/site-metadata-v1.json",
+  "id": "jekyll",
+  "order": 16,
+  "name": "Jekyll",
+  "versionNote": "v4.x (Ruby)",
+  "mounted": true,
+  "sitePath": "sites/jekyll",
+  "websiteUrl": "https://jekyllrb.com/",
+  "githubUrl": "https://github.com/jekyll/jekyll",
+  "packageUrl": "https://rubygems.org/gems/jekyll",
+  "ecosystem": "python-classic",
+  "tags": [
+    "ssg",
+    "ruby",
+    "pioneer",
+    "github-pages-default",
+    "liquid-templates",
+    "kramdown",
+    "underscore-dirs",
+    "classic"
+  ],
+  "lifecycle": {
+    "startedAt": "2008-10-20",
+    "activePeriod": "2009–2017 全球统治黄金期；现低频保守维护",
+    "deprecatedAt": "现代技术文档站选型中已事实退场",
+    "isEol": true,
+    "summary": "始于 2008-10 · 2009–2017 黄金期，文档站已退场"
+  },
+  "libs": {
+    "runtime": "Ruby + Bundler (Gemfile)",
+    "bundler": "Jekyll Static Pipeline + jekyll-sass-converter",
+    "uiFramework": "Shopify Liquid 模板引擎",
+    "markdownEngine": "Kramdown",
+    "codeHighlight": "Rouge（Ruby 原生语法高亮）",
+    "searchEngine": "Simple-Jekyll-Search / Lunr.js",
+    "mathLib": "Kramdown MathJax 输出引擎",
+    "diagramLib": "jekyll-mermaid 或客户端脚本",
+    "coreLibs": [
+      "jekyll",
+      "liquid",
+      "kramdown",
+      "rouge",
+      "mercenary",
+      "safe_yaml"
+    ],
+    "pinnedPackages": {
+      "jekyll": "4.4.1",
+      "kramdown": "2.6.1",
+      "kramdown-parser-gfm": "1.1.0",
+      "rouge": "4.7.0",
+      "liquid": "4.0.4",
+      "jekyll-sass-converter": "3.1.0",
+      "csv": "3.3.7",
+      "webrick": "1.9.2"
+    }
+  },
+  "matrix": {
+    "tagline": "静态生成器开山鼻祖与 GitHub Pages 默认后台引擎（.nojekyll 的由来）",
+    "stack": "Ruby + Kramdown 解析器 + Liquid 模板",
+    "directoryModel": "_posts/、_layouts/ 下划线系统目录约定（导致其它框架在 Pages 必须加 .nojekyll）",
+    "calloutDialect": "Kramdown 属性列表 {: .warning } 或 Liquid {% include note.html %}",
+    "diagramAndMath": "Kramdown MathJax 输出 + 客户端脚本加载 Mermaid"
+  },
+  "github": {
+    "fetchedAt": "2026-11-23T11:47:11.123Z",
+    "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
+    "repo": "jekyll/jekyll",
+    "url": "https://github.com/jekyll/jekyll",
+    "role": "Jekyll (Ruby / GitHub Pages 鼻祖) 官方仓库",
+    "description": ":globe_with_meridians: Jekyll is a blog-aware static site generator in Ruby",
+    "primaryLanguage": "Ruby",
+    "license": "MIT",
+    "defaultBranch": "master",
+    "isArchived": false,
+    "createdAt": "2008-10-20T06:29:03Z",
+    "createdYear": 2008,
+    "pushedAt": "2026-10-13T18:44:40Z",
+    "updatedAt": "2026-11-23T08:24:21Z",
+    "stars": 51793,
+    "forks": 10305,
+    "openIssues": 132,
+    "totalCommits": 11881,
+    "peakYear": 2014,
+    "peakCommits": 2144,
+    "latestRelease": {
+      "tagName": "v4.4.1",
+      "publishedAt": "2025-01-29T12:47:41Z",
+      "isPrerelease": false
+    },
+    "recentReleases": [
+      {
+        "tagName": "v4.4.1",
+        "publishedAt": "2025-01-29T12:47:41Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v4.4.0",
+        "publishedAt": "2025-01-27T15:28:23Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v4.3.4",
+        "publishedAt": "2024-09-16T16:24:42Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v3.9.4",
+        "publishedAt": "2023-12-28T22:51:37Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v4.3.3",
+        "publishedAt": "2023-12-27T19:20:38Z",
+        "isPrerelease": false
+      }
+    ],
+    "yearlyCommits": {
+      "2008": 183,
+      "2009": 232,
+      "2010": 172,
+      "2011": 137,
+      "2012": 128,
+      "2013": 2126,
+      "2014": 2144,
+      "2015": 1247,
+      "2016": 2106,
+      "2017": 1044,
+      "2018": 743,
+      "2019": 452,
+      "2020": 517,
+      "2021": 202,
+      "2022": 163,
+      "2023": 109,
+      "2024": 97,
+      "2025": 55,
+      "2026": 24
+    }
+  },
+  "subsiteRepoUrl": "https://github.com/page2401/jekyll",
+  "benchmark": {
+    "measuredAt": "2026-11-24T08:11:01.558Z",
+    "buildCommand": "bundle exec jekyll build",
+    "isRuntimeSpa": false,
+    "coldBuildMs": 1588,
+    "totalFiles": 35,
+    "totalBytes": 6219019,
+    "htmlFiles": 8,
+    "htmlBytes": 87869,
+    "jsFiles": 4,
+    "jsBytes": 5819442,
+    "jsGzipBytes": 1672073,
+    "cssFiles": 2,
+    "cssBytes": 37867,
+    "cssGzipBytes": 6593,
+    "otherBytes": 273841,
+    "entryHtmlBytes": 16947,
+    "proseScriptCount": 5,
+    "hasOfflineSearch": false,
+    "offlineSearchKind": null,
+    "hasLlmsTxt": false,
+    "viewRender": {
+      "profile": "Headless Chromium · HTTP Gzip · 15ms RTT / 24Mbps (3轮中位数)",
+      "fcpMs": 400,
+      "proseReadyMs": 867,
+      "warmNavMs": 314,
+      "diagramReadyMs": 1780,
+      "proseTransferBytes": 1692375,
+      "proseRequests": 7
+    }
+  }
+}

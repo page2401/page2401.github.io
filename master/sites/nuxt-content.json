@@ -1,0 +1,171 @@
+{
+  "$schema": "https://page.2401.xyz/schemas/site-metadata-v1.json",
+  "id": "nuxt-content",
+  "order": 20,
+  "name": "Nuxt Content",
+  "versionNote": "v3 (SQLite / MDC)",
+  "mounted": true,
+  "sitePath": "sites/nuxt-content",
+  "websiteUrl": "https://content.nuxt.com/",
+  "githubUrl": "https://github.com/nuxt/content",
+  "packageUrl": "https://www.npmjs.com/package/@nuxt/content",
+  "ecosystem": "vue",
+  "tags": [
+    "ssg-ssr",
+    "vue3",
+    "nuxt",
+    "mdc-syntax",
+    "sqlite-query",
+    "zod-collections",
+    "full-stack"
+  ],
+  "lifecycle": {
+    "startedAt": "2020-03-31",
+    "activePeriod": "2020–至今（随 Nuxt 3/4 演进至 Content v3 持续活跃）",
+    "deprecatedAt": "v1 (Nuxt 2) 已废弃；v3 全面改用 SQLite 驱动的 Collections",
+    "isEol": false,
+    "summary": "始于 2020-03 · Vue 全栈 MDC 语法与 SQLite 内容层代表"
+  },
+  "libs": {
+    "runtime": "Node.js >= 18 / Cloudflare Workers / Edge",
+    "bundler": "Nuxt 3/4 (Vite + Nitro)",
+    "uiFramework": "Vue 3 + Nuxt UI Pro",
+    "markdownEngine": "@nuxtjs/mdc (remark + MDC AST)",
+    "codeHighlight": "Shiki",
+    "searchEngine": "内置全文分片搜索 API",
+    "mathLib": "remark-math + rehype-katex",
+    "diagramLib": "自定义 ProseCode / Mermaid Vue 组件",
+    "coreLibs": [
+      "nuxt",
+      "@nuxt/content",
+      "@nuxtjs/mdc",
+      "vue",
+      "shiki",
+      "better-sqlite3"
+    ],
+    "pinnedPackages": {
+      "@nuxt/content": "3.17.0",
+      "nuxt": "4.7.0",
+      "better-sqlite3": "13.2.0",
+      "remark-math": "6.0.0",
+      "rehype-katex": "7.0.1",
+      "katex": "0.19.1",
+      "mermaid": "12.3.0",
+      "vue": "3.5.46"
+    }
+  },
+  "matrix": {
+    "tagline": "Nuxt 官方内容引擎：独创 ::component 双冒号 MDC 语法 + SQL 数据库级内容检索查询",
+    "stack": "Nuxt 3/4 + Vue 3 + @nuxtjs/mdc + SQLite Content Layer",
+    "directoryModel": "content/ + 数字前缀 1.guide/1.intro.md（框架自动剥离序号前缀生成干净 URL 并按序排侧栏！）",
+    "calloutDialect": "独创 MDC 语法 ::callout{type=\"warning\"} ... ::（优雅传参且不像 MDX 那样因裸 {} 报错）",
+    "diagramAndMath": "通过 remark/rehype 插件链集成 KaTeX，代码块映射自定义 Vue Prose 组件渲染 Mermaid"
+  },
+  "github": {
+    "fetchedAt": "2026-11-23T11:47:11.123Z",
+    "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
+    "repo": "nuxt/content",
+    "url": "https://github.com/nuxt/content",
+    "role": "Nuxt Content 官方源码仓库",
+    "description": "The file-based CMS for your Nuxt application, powered by Markdown and Vue components.",
+    "primaryLanguage": "TypeScript",
+    "license": "MIT",
+    "defaultBranch": "main",
+    "isArchived": false,
+    "createdAt": "2020-03-31T13:09:51Z",
+    "createdYear": 2020,
+    "pushedAt": "2026-11-22T22:38:27Z",
+    "updatedAt": "2026-11-23T00:27:48Z",
+    "stars": 3682,
+    "forks": 749,
+    "openIssues": 37,
+    "totalCommits": 3538,
+    "peakYear": 2020,
+    "peakCommits": 873,
+    "latestRelease": {
+      "tagName": "v3.17.0",
+      "publishedAt": "2026-11-17T13:32:48Z",
+      "isPrerelease": false
+    },
+    "recentReleases": [
+      {
+        "tagName": "v3.17.0",
+        "publishedAt": "2026-11-17T13:32:48Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v3.16.2",
+        "publishedAt": "2026-10-12T14:46:03Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v3.16.1",
+        "publishedAt": "2026-09-21T16:09:53Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v3.16.0",
+        "publishedAt": "2026-08-27T13:25:43Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v3.15.2",
+        "publishedAt": "2026-07-23T13:38:38Z",
+        "isPrerelease": false
+      }
+    ],
+    "yearlyCommits": {
+      "2008": 0,
+      "2009": 0,
+      "2010": 0,
+      "2011": 0,
+      "2012": 0,
+      "2013": 0,
+      "2014": 0,
+      "2015": 0,
+      "2016": 0,
+      "2017": 0,
+      "2018": 0,
+      "2019": 0,
+      "2020": 873,
+      "2021": 362,
+      "2022": 713,
+      "2023": 344,
+      "2024": 523,
+      "2025": 562,
+      "2026": 161
+    }
+  },
+  "subsiteRepoUrl": "https://github.com/page2401/nuxt-content",
+  "benchmark": {
+    "measuredAt": "2026-11-24T08:11:01.558Z",
+    "buildCommand": "npm run build",
+    "isRuntimeSpa": false,
+    "coldBuildMs": 15216,
+    "totalFiles": 215,
+    "totalBytes": 8330602,
+    "htmlFiles": 10,
+    "htmlBytes": 217787,
+    "jsFiles": 131,
+    "jsBytes": 5904738,
+    "jsGzipBytes": 1723763,
+    "cssFiles": 3,
+    "cssBytes": 47162,
+    "cssGzipBytes": 12666,
+    "otherBytes": 2160915,
+    "entryHtmlBytes": 14042,
+    "proseScriptCount": 4,
+    "hasOfflineSearch": false,
+    "offlineSearchKind": null,
+    "hasLlmsTxt": false,
+    "viewRender": {
+      "profile": "Headless Chromium · HTTP Gzip · 15ms RTT / 24Mbps (3轮中位数)",
+      "fcpMs": 340,
+      "proseReadyMs": 399,
+      "warmNavMs": 76,
+      "diagramReadyMs": 4434,
+      "proseTransferBytes": 374319,
+      "proseRequests": 52
+    }
+  }
+}

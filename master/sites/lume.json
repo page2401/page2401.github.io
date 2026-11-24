@@ -1,0 +1,173 @@
+{
+  "$schema": "https://page.2401.xyz/schemas/site-metadata-v1.json",
+  "id": "lume",
+  "order": 26,
+  "name": "Lume",
+  "versionNote": "v2 / v3 (Deno)",
+  "mounted": true,
+  "sitePath": "sites/lume",
+  "websiteUrl": "https://lume.land/",
+  "githubUrl": "https://github.com/lumeland/lume",
+  "packageUrl": "https://deno.land/x/lume",
+  "ecosystem": "native",
+  "tags": [
+    "ssg",
+    "deno",
+    "zero-node-modules",
+    "vento-templates",
+    "typescript-native",
+    "markdown-it",
+    "modern"
+  ],
+  "lifecycle": {
+    "startedAt": "2020-09-07",
+    "activePeriod": "2021–至今（Deno 生态头牌静态站点生成器，持续高频活跃）",
+    "deprecatedAt": null,
+    "isEol": false,
+    "summary": "始于 2020-09 · Deno 生态零 node_modules 现代版 Eleventy"
+  },
+  "libs": {
+    "runtime": "Deno >= 2.0（原生 TypeScript 零配置执行）",
+    "bundler": "Lume Pipeline +內置 esbuild / LightningCSS",
+    "uiFramework": "Vento (.vto) / JSX / Nunjucks 多模板自由混用",
+    "markdownEngine": "markdown-it",
+    "codeHighlight": "Shiki / Highlight.js 插件",
+    "searchEngine": "内置 lume/plugins/pagefind.ts 一行启用 Pagefind！",
+    "mathLib": "lume/plugins/katex.ts 官方内置插件",
+    "diagramLib": "客户端 Mermaid 或自定义处理器",
+    "coreLibs": [
+      "deno",
+      "lume",
+      "vento",
+      "markdown-it",
+      "lightningcss",
+      "pagefind"
+    ],
+    "pinnedPackages": {
+      "lume": "3.3.3",
+      "deno": "2.9.8",
+      "vento": "2.4.2",
+      "markdown-it": "15.0.3",
+      "@mdit/plugin-alert": "2.2.0",
+      "@mdit/plugin-container": "2.2.0",
+      "@mdit/plugin-katex": "1.2.1",
+      "highlight.js": "11.12.0",
+      "katex": "0.19.1",
+      "mermaid": "12.3.0"
+    }
+  },
+  "matrix": {
+    "tagline": "受 Eleventy 启发的 Deno 原生静态生成器：彻底告别 node_modules 黑洞，一行 import 启用 KaTeX、Pagefind 与 LightningCSS",
+    "stack": "Deno 2 + Lume + Vento 模板 + markdown-it + 官方开箱插件库",
+    "directoryModel": "任意目录映射 + 每目录 `_data.yml` / `_data.ts` 数据级联（继承并升级了 Eleventy 的优雅设计）",
+    "calloutDialect": "支持加载任意 `npm:markdown-it-*` 容器/警报插件或使用 Vento `{{> callout }}` 管道标签",
+    "diagramAndMath": "官方标准库自带 `import katex from \"lume/plugins/katex.ts\"` 与 `pagefind()` 插件，体验极丝滑"
+  },
+  "github": {
+    "fetchedAt": "2026-11-23T11:47:11.123Z",
+    "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
+    "repo": "lumeland/lume",
+    "url": "https://github.com/lumeland/lume",
+    "role": "Lume 官方源码仓库",
+    "description": "🔥🪰 Static site generator for Deno",
+    "primaryLanguage": "TypeScript",
+    "license": "MIT",
+    "defaultBranch": "main",
+    "isArchived": false,
+    "createdAt": "2020-09-07T19:20:28Z",
+    "createdYear": 2020,
+    "pushedAt": "2026-11-22T22:38:56Z",
+    "updatedAt": "2026-11-23T04:50:21Z",
+    "stars": 2284,
+    "forks": 123,
+    "openIssues": 45,
+    "totalCommits": 4614,
+    "peakYear": 2021,
+    "peakCommits": 957,
+    "latestRelease": {
+      "tagName": "v3.3.3",
+      "publishedAt": "2026-10-20T13:49:11Z",
+      "isPrerelease": false
+    },
+    "recentReleases": [
+      {
+        "tagName": "v3.3.3",
+        "publishedAt": "2026-10-20T13:49:11Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v2.5.5",
+        "publishedAt": "2026-10-09T13:16:36Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v3.3.2",
+        "publishedAt": "2026-09-22T19:04:12Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v3.3.1",
+        "publishedAt": "2026-08-10T21:51:43Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v3.3.0",
+        "publishedAt": "2026-07-29T18:01:56Z",
+        "isPrerelease": false
+      }
+    ],
+    "yearlyCommits": {
+      "2008": 0,
+      "2009": 0,
+      "2010": 0,
+      "2011": 0,
+      "2012": 0,
+      "2013": 0,
+      "2014": 0,
+      "2015": 0,
+      "2016": 0,
+      "2017": 0,
+      "2018": 0,
+      "2019": 0,
+      "2020": 214,
+      "2021": 957,
+      "2022": 831,
+      "2023": 716,
+      "2024": 612,
+      "2025": 609,
+      "2026": 675
+    }
+  },
+  "subsiteRepoUrl": "https://github.com/page2401/lume",
+  "benchmark": {
+    "measuredAt": "2026-11-24T08:11:01.558Z",
+    "buildCommand": "deno task build",
+    "isRuntimeSpa": false,
+    "coldBuildMs": 1211,
+    "totalFiles": 71,
+    "totalBytes": 6816868,
+    "htmlFiles": 8,
+    "htmlBytes": 164344,
+    "jsFiles": 1,
+    "jsBytes": 5537838,
+    "jsGzipBytes": 1592717,
+    "cssFiles": 2,
+    "cssBytes": 38114,
+    "cssGzipBytes": 6604,
+    "otherBytes": 1076572,
+    "entryHtmlBytes": 11955,
+    "proseScriptCount": 0,
+    "hasOfflineSearch": false,
+    "offlineSearchKind": null,
+    "hasLlmsTxt": false,
+    "viewRender": {
+      "profile": "Headless Chromium · HTTP Gzip · 15ms RTT / 24Mbps (3轮中位数)",
+      "fcpMs": 244,
+      "proseReadyMs": 267,
+      "warmNavMs": 52,
+      "diagramReadyMs": 2117,
+      "proseTransferBytes": 12818,
+      "proseRequests": 3
+    }
+  }
+}

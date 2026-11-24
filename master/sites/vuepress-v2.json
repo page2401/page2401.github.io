@@ -1,0 +1,238 @@
+{
+  "$schema": "https://page.2401.xyz/schemas/site-metadata-v1.json",
+  "id": "vuepress-v2",
+  "order": 4,
+  "name": "VuePress",
+  "versionNote": "v2 RC (2.0.0-rc.32)",
+  "mounted": true,
+  "sitePath": "sites/vuepress-v2",
+  "subsiteRepoUrl": "https://github.com/page2401/vuepress-v2",
+  "previewUrl": "https://page.2401.xyz/vuepress-v2/",
+  "websiteUrl": "https://vuejs.press/",
+  "githubUrl": "https://github.com/vuepress/core",
+  "companionGithubUrls": [
+    "https://github.com/vuepress/ecosystem"
+  ],
+  "packageUrl": "https://www.npmjs.com/package/vuepress",
+  "ecosystem": "vue",
+  "tags": [
+    "ssg",
+    "vue3",
+    "vite",
+    "official-plugins",
+    "markdown-it",
+    "gfm-alerts",
+    "katex",
+    "mermaid12",
+    "readme-index",
+    "rc"
+  ],
+  "lifecycle": {
+    "startedAt": "2020-05-06",
+    "activePeriod": "2020–至今（core + ecosystem 双仓协同活跃）",
+    "deprecatedAt": null,
+    "isEol": false,
+    "summary": "始于 2020-05 · core+ecosystem 双仓活跃"
+  },
+  "libs": {
+    "runtime": "Node.js >= 18.19",
+    "bundler": "@vuepress/bundler-vite（可选 bundler-webpack）",
+    "uiFramework": "Vue 3 + Vue Router 4",
+    "markdownEngine": "markdown-it + @mdit/plugin-*",
+    "codeHighlight": "@vuepress/plugin-prismjs / shiki",
+    "searchEngine": "@vuepress/plugin-search / docsearch",
+    "mathLib": "@vuepress/plugin-markdown-math + katex",
+    "diagramLib": "@vuepress/plugin-markdown-chart + mermaid@12.3",
+    "coreLibs": [
+      "vue",
+      "vite",
+      "markdown-it",
+      "@vuepress/theme-default",
+      "@mdit/plugin-alert",
+      "@mdit/plugin-katex"
+    ],
+    "pinnedPackages": {
+      "vuepress": "2.0.0-rc.32",
+      "@vuepress/bundler-vite": "2.0.0-rc.32",
+      "@vuepress/theme-default": "2.0.0-rc.141",
+      "@vuepress/plugin-markdown-hint": "2.0.0-rc.141",
+      "@vuepress/plugin-markdown-math": "2.0.0-rc.139",
+      "@vuepress/plugin-markdown-chart": "2.0.0-rc.139",
+      "katex": "0.19.1",
+      "mermaid": "12.3.0"
+    }
+  },
+  "github": {
+    "fetchedAt": "2026-11-23T11:47:11.123Z",
+    "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
+    "repo": "vuepress/core",
+    "url": "https://github.com/vuepress/core",
+    "role": "VuePress v2 核心引擎仓库",
+    "description": "Vue-Powered Static Site Generator",
+    "primaryLanguage": "TypeScript",
+    "license": "MIT",
+    "defaultBranch": "main",
+    "isArchived": false,
+    "createdAt": "2020-05-06T13:00:22Z",
+    "createdYear": 2020,
+    "pushedAt": "2026-11-23T10:01:59Z",
+    "updatedAt": "2026-11-20T08:37:40Z",
+    "stars": 2833,
+    "forks": 884,
+    "openIssues": 11,
+    "totalCommits": 2071,
+    "peakYear": 2021,
+    "peakCommits": 705,
+    "latestRelease": null,
+    "recentReleases": [
+      {
+        "tagName": "v2.0.0-rc.32",
+        "publishedAt": "2026-11-12T03:59:44Z",
+        "isPrerelease": true
+      },
+      {
+        "tagName": "v2.0.0-rc.31",
+        "publishedAt": "2026-07-24T09:21:08Z",
+        "isPrerelease": true
+      },
+      {
+        "tagName": "v2.0.0-rc.30",
+        "publishedAt": "2026-05-14T08:47:33Z",
+        "isPrerelease": true
+      },
+      {
+        "tagName": "v2.0.0-rc.29",
+        "publishedAt": "2026-05-08T06:14:11Z",
+        "isPrerelease": true
+      },
+      {
+        "tagName": "v2.0.0-rc.28",
+        "publishedAt": "2026-04-01T06:14:00Z",
+        "isPrerelease": true
+      }
+    ],
+    "yearlyCommits": {
+      "2008": 0,
+      "2009": 0,
+      "2010": 0,
+      "2011": 0,
+      "2012": 0,
+      "2013": 0,
+      "2014": 0,
+      "2015": 0,
+      "2016": 0,
+      "2017": 0,
+      "2018": 0,
+      "2019": 0,
+      "2020": 510,
+      "2021": 705,
+      "2022": 375,
+      "2023": 150,
+      "2024": 217,
+      "2025": 47,
+      "2026": 67
+    },
+    "companionRepos": [
+      {
+        "repo": "vuepress/ecosystem",
+        "url": "https://github.com/vuepress/ecosystem",
+        "role": "VuePress v2 官方默认主题与插件矩阵仓库（2023-09 拆分独立）",
+        "description": "Official plugins and themes for VuePress2",
+        "primaryLanguage": "TypeScript",
+        "license": "MIT",
+        "defaultBranch": "main",
+        "isArchived": false,
+        "createdAt": "2023-09-05T16:57:31Z",
+        "createdYear": 2023,
+        "pushedAt": "2026-11-23T09:06:20Z",
+        "updatedAt": "2026-11-09T15:05:36Z",
+        "stars": 61,
+        "forks": 90,
+        "openIssues": 17,
+        "totalCommits": 1511,
+        "peakYear": 2024,
+        "peakCommits": 674,
+        "latestRelease": null,
+        "recentReleases": [
+          {
+            "tagName": "v2.0.0-rc.141",
+            "publishedAt": "2026-11-23T01:15:09Z",
+            "isPrerelease": true
+          },
+          {
+            "tagName": "v2.0.0-rc.140",
+            "publishedAt": "2026-11-22T02:35:09Z",
+            "isPrerelease": true
+          },
+          {
+            "tagName": "v2.0.0-rc.139",
+            "publishedAt": "2026-11-21T07:42:32Z",
+            "isPrerelease": true
+          },
+          {
+            "tagName": "v2.0.0-rc.138",
+            "publishedAt": "2026-11-13T08:03:00Z",
+            "isPrerelease": true
+          },
+          {
+            "tagName": "v2.0.0-rc.137",
+            "publishedAt": "2026-09-28T05:03:28Z",
+            "isPrerelease": true
+          }
+        ],
+        "yearlyCommits": {
+          "2008": 0,
+          "2009": 0,
+          "2010": 0,
+          "2011": 0,
+          "2012": 0,
+          "2013": 0,
+          "2014": 0,
+          "2015": 0,
+          "2016": 0,
+          "2017": 0,
+          "2018": 0,
+          "2019": 0,
+          "2020": 0,
+          "2021": 0,
+          "2022": 0,
+          "2023": 7,
+          "2024": 674,
+          "2025": 466,
+          "2026": 364
+        }
+      }
+    ]
+  },
+  "benchmark": {
+    "measuredAt": "2026-11-24T08:11:01.558Z",
+    "buildCommand": "npm run build",
+    "isRuntimeSpa": false,
+    "coldBuildMs": 11127,
+    "totalFiles": 184,
+    "totalBytes": 7849647,
+    "htmlFiles": 9,
+    "htmlBytes": 200942,
+    "jsFiles": 99,
+    "jsBytes": 5546195,
+    "jsGzipBytes": 1592387,
+    "cssFiles": 1,
+    "cssBytes": 161074,
+    "cssGzipBytes": 30806,
+    "otherBytes": 1941436,
+    "entryHtmlBytes": 8716,
+    "proseScriptCount": 2,
+    "hasOfflineSearch": false,
+    "offlineSearchKind": null,
+    "hasLlmsTxt": false,
+    "viewRender": {
+      "profile": "Headless Chromium · HTTP Gzip · 15ms RTT / 24Mbps (3轮中位数)",
+      "fcpMs": 372,
+      "proseReadyMs": 410,
+      "warmNavMs": 232,
+      "diagramReadyMs": 4462,
+      "proseTransferBytes": 134916,
+      "proseRequests": 6
+    }
+  }
+}

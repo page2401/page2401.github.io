@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>fumadocs 站点与生命周期档案 (Fumadocs) — 本站母版 (Pure GFM)</title>
+    <link rel="stylesheet" href="../vendor/katex.min.css" />
+    <style>
+      :root, [data-theme="light"] {
+        --bg: #ffffff;
+        --bg-nav: #f6f8fa;
+        --text: #1f2328;
+        --muted: #59636e;
+        --border: #d1d9e0;
+        --code-bg: #f6f8fa;
+        --link: #0969da;
+      }
+      html.dark, [data-theme="dark"] {
+        --bg: #0d1117;
+        --bg-nav: #161b22;
+        --text: #e6edf3;
+        --muted: #8b949e;
+        --border: #30363d;
+        --code-bg: #161b22;
+        --link: #58a6ff;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", Helvetica, Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.65;
+        font-size: 15px;
+      }
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: var(--bg-nav);
+        border-bottom: 1px solid var(--border);
+        padding: 0.6rem 1.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        font-size: 13px;
+      }
+      .topbar-title { font-weight: 700; display: flex; align-items: center; gap: 0.5rem; }
+      .gfm-badge {
+        font-size: 11px;
+        padding: 0.1rem 0.45rem;
+        border-radius: 999px;
+        background: rgba(9, 105, 218, 0.12);
+        color: var(--link);
+        font-weight: 600;
+      }
+      .topbar-nav { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+      .topbar-nav a { color: var(--muted); text-decoration: none; font-weight: 500; }
+      .topbar-nav a:hover, .topbar-nav a.active { color: var(--link); }
+      main {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 1.75rem 1.5rem 3rem;
+      }
+      a { color: var(--link); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      h1, h2, h3 { line-height: 1.3; margin-top: 1.6em; margin-bottom: 0.6em; }
+      h1 { font-size: 1.75rem; margin-top: 0.2em; padding-bottom: 0.35em; border-bottom: 1px solid var(--border); }
+      h2 { font-size: 1.3rem; padding-bottom: 0.25em; border-bottom: 1px solid var(--border); }
+      code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 85%;
+        background: var(--code-bg);
+        padding: 0.18em 0.38em;
+        border-radius: 5px;
+      }
+      pre {
+        background: var(--code-bg);
+        border: 1px solid var(--border);
+        padding: 0.9rem 1rem;
+        border-radius: 6px;
+        overflow-x: auto;
+      }
+      pre code { background: none; padding: 0; font-size: 13px; }
+      .table-wrap { width: 100%; overflow-x: auto; margin: 1rem 0; }
+      table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+      th, td { border: 1px solid var(--border); padding: 0.45rem 0.65rem; text-align: left; white-space: normal; }
+      th { background: var(--bg-nav); white-space: nowrap; }
+      blockquote {
+        margin: 1rem 0;
+        padding: 0.2rem 1rem;
+        color: var(--muted);
+        border-left: 4px solid var(--border);
+      }
+      details {
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 0.65rem 0.95rem;
+        margin: 1rem 0;
+        background: var(--bg-nav);
+      }
+      summary { cursor: pointer; font-weight: 600; }
+      .gfm-alert {
+        margin: 1rem 0;
+        padding: 0.65rem 1rem;
+        border-left: 4px solid #0969da;
+        background: var(--bg-nav);
+        border-radius: 0 6px 6px 0;
+      }
+      .gfm-alert-title { font-weight: 700; font-size: 13.5px; margin-bottom: 0.25rem; }
+      .gfm-alert-note { border-left-color: #0969da; }
+      .gfm-alert-note .gfm-alert-title { color: #0969da; }
+      .gfm-alert-tip { border-left-color: #1a7f37; }
+      .gfm-alert-tip .gfm-alert-title { color: #1a7f37; }
+      .gfm-alert-important { border-left-color: #8250df; }
+      .gfm-alert-important .gfm-alert-title { color: #8250df; }
+      .gfm-alert-warning { border-left-color: #9a6700; }
+      .gfm-alert-warning .gfm-alert-title { color: #9a6700; }
+      .gfm-alert-caution { border-left-color: #d1242f; }
+      .gfm-alert-caution .gfm-alert-title { color: #d1242f; }
+      .gfm-alert p:last-child { margin-bottom: 0; }
+      .gfm-math-block { overflow-x: auto; padding: 0.5rem 0; text-align: center; }
+      .gfm-mermaid {
+        margin: 1.25rem 0;
+        padding: 1rem;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--bg-nav);
+        display: flex;
+        justify-content: center;
+        overflow-x: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-title">
+        <span>★ 本站母版 (docs/sites/fumadocs.md)</span>
+        <span class="gfm-badge">Pure GFM 参考基准</span>
+      </div>
+      <nav class="topbar-nav">
+        <a href="/master/">母版首页</a>
+        <a href="/master/00-dialects">方言谱系</a>
+        <a href="/master/sites/">站点档案与活跃度 (docs/sites/)</a>
+        <a href="/master/benchmark-spec">接入规范</a>
+        <a href="/master/01-annotations">01. 标注</a>
+        <a href="/master/02-diagrams">02. 流程图</a>
+        <a href="/master/03-math">03. 公式</a>
+        <a href="/master/04-directory/">04. 目录结构</a>
+        <a href="/master/05-code-blocks">05. 代码块</a>
+        <a href="https://github.com/page2401/page2401.github.io/blob/main/docs/sites/fumadocs.md" target="_blank" rel="noopener">GitHub 原文 ↗</a>
+      </nav>
+    </header>
+    <main><h1><code>fumadocs</code> 站点档案（Fumadocs · 图鉴扩展位）</h1>
+<ul>
+<li><strong>预留子模块路径</strong>：<code>sites/fumadocs</code>（与本档案 <code>docs/sites/fumadocs.md</code> 及 <code>fumadocs.json</code> 严格 1:1 对应）</li>
+<li><strong>官方网站</strong>：<a href="https://fumadocs.dev/">https://fumadocs.dev/</a> · <strong>上游仓库</strong>：<a href="https://github.com/fuma-nama/fumadocs">https://github.com/fuma-nama/fumadocs</a></li>
+<li><strong>底层技术栈</strong>：Next.js App Router + React 19 RSC + Fumadocs MDX + Tailwind CSS + Orama</li>
+</ul>
+<h2>1. 生命周期定位（开始 / 活跃 / 废弃时间）</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th align="left">指标</th>
+<th align="left">时间节点与演进状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>开始时间</strong></td>
+<td align="left"><code>2023-07-03</code> 创立开源</td>
+</tr>
+<tr>
+<td align="left"><strong>活跃时间</strong></td>
+<td align="left">2024–至今（React/Next.js 社区增速最快的现代文档框架）</td>
+</tr>
+<tr>
+<td align="left"><strong>废弃 / 演进状态</strong></td>
+<td align="left"><strong>无（当前持续活跃维护中）</strong></td>
+</tr>
+</tbody></table></div>
+<h2>2. 独立 JSON 元数据与 GitHub 历年提交活跃度</h2>
+<!-- GITHUB_API_TABLE_START -->
+<blockquote><p>独立结构化元数据文件：<a href="./fumadocs.json"><code>docs/sites/fumadocs.json</code></a>（含完整元数据、Tag、依赖 Lib 与 <code>github</code> API 节点，采样日期：<code>2026-11-23</code>）</p>
+</blockquote><h3>站点元数据与底层依赖库（Libs）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th align="left">元数据属性</th>
+<th align="left">内容详情</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>官方网站 (Website)</strong></td>
+<td align="left"><a href="https://fumadocs.dev/">https://fumadocs.dev/</a></td>
+</tr>
+<tr>
+<td align="left"><strong>GitHub 源码仓库</strong></td>
+<td align="left"><a href="https://github.com/fuma-nama/fumadocs">fuma-nama/fumadocs</a></td>
+</tr>
+<tr>
+<td align="left"><strong>包管理仓库 (Registry)</strong></td>
+<td align="left"><a href="https://www.npmjs.com/package/fumadocs-ui">https://www.npmjs.com/package/fumadocs-ui</a></td>
+</tr>
+<tr>
+<td align="left"><strong>分类标签 (Tags)</strong></td>
+<td align="left"><code>#ssg-ssr</code> · <code>#nextjs</code> · <code>#app-router</code> · <code>#rsc</code> · <code>#shadcn-ui</code> · <code>#tailwind</code> · <code>#mdx</code> · <code>#openapi</code> · <code>#rising-star</code></td>
+</tr>
+<tr>
+<td align="left"><strong>运行时与打包器</strong></td>
+<td align="left">Node.js &gt;= 20 / Bun · Next.js (Turbopack / Webpack) + Fumadocs MDX</td>
+</tr>
+<tr>
+<td align="left"><strong>UI 与 Markdown 引擎</strong></td>
+<td align="left">React 19 + Next.js RSC + Tailwind CSS + Radix/Shadcn · <code>fumadocs-mdx (remark / rehype)</code></td>
+</tr>
+<tr>
+<td align="left"><strong>高亮与全文检索</strong></td>
+<td align="left">Shiki Twoslash（内置 TypeScript 类型悬浮提示！） · Orama 内置搜索 / Algolia / Pagefind</td>
+</tr>
+<tr>
+<td align="left"><strong>数学公式与流程图库</strong></td>
+<td align="left">remark-math + rehype-katex ； Mermaid MDX 组件或 remark 插件</td>
+</tr>
+<tr>
+<td align="left"><strong>核心依赖库 (Core Libs)</strong></td>
+<td align="left"><code>fumadocs-core</code>、<code>fumadocs-ui</code>、<code>fumadocs-mdx</code>、<code>next</code>、<code>shiki</code>、<code>@orama/orama</code></td>
+</tr>
+<tr>
+<td align="left"><strong>本子站实测锁定版本</strong></td>
+<td align="left"><code>fumadocs-ui@16.19.7</code> · <code>fumadocs-core@16.19.7</code> · <code>fumadocs-mdx@15.6.4</code> · <code>next@16.4.6</code> · <code>tailwindcss@4.3.5</code> · <code>react@19.3.1</code> · <code>remark-math@6.0.0</code> · <code>rehype-katex@7.0.1</code> · <code>katex@0.19.1</code> · <code>mermaid@12.3.0</code></td>
+</tr>
+</tbody></table></div>
+<h3>⚡ 同源 6 章冷构建、浏览器查看渲染与产物体积实测（<code>benchmark</code> 节点）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th align="right">冷构建耗时</th>
+<th align="right">首屏正文就绪 (FCP)</th>
+<th align="right">站内切页 / 图表渲染</th>
+<th align="right">单页传输 (Gzip)</th>
+<th align="right">整站总体积</th>
+<th align="right">JS 原始 / Gzip</th>
+<th align="right">正文 <code>&lt;script&gt;</code></th>
+<th align="left">离线搜索 / AI</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right"><strong>57.50 s (57,502 ms)</strong></td>
+<td align="right"><strong>446 ms</strong> (384 ms)</td>
+<td align="right">211 ms / 665 ms</td>
+<td align="right">420.9 KB (31 请求)</td>
+<td align="right">9144.7 KB (216 文件)</td>
+<td align="right">6344.4 KB / <strong>1831.9 KB</strong></td>
+<td align="right"><code>24</code> 个</td>
+<td align="left">无内置离线索引</td>
+</tr>
+</tbody></table></div>
+<h3>GitHub 仓库 API 指标快照</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th align="left">官方仓库</th>
+<th align="left">创建日期</th>
+<th align="left">最近推送</th>
+<th align="right">Stars</th>
+<th align="right">默认分支总提交</th>
+<th align="left">峰值年份 (提交数)</th>
+<th align="left">最新 Release</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><a href="https://github.com/fuma-nama/fumadocs"><code>fuma-nama/fumadocs</code></a></td>
+<td align="left"><code>2023-07-03</code></td>
+<td align="left"><code>2026-11-22</code></td>
+<td align="right">★ 13,697</td>
+<td align="right">6,343</td>
+<td align="left"><code>2024</code> (1,927)</td>
+<td align="left"><code>fumadocs@16.19.7</code> (2026-11-22)</td>
+</tr>
+</tbody></table></div>
+<h3>GitHub 主分支历年提交活跃度表（<code>2023–2026</code>）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th align="left">年份</th>
+<th align="right">提交数 (Commits)</th>
+<th align="right">占峰值比</th>
+<th align="left">活跃度趋势条</th>
+<th align="left">阶段状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>2023</code></td>
+<td align="right"><strong>1,223</strong></td>
+<td align="right">63.5%</td>
+<td align="left"><code>██████████░░░░░░</code></td>
+<td align="left">🟢 高频活跃</td>
+</tr>
+<tr>
+<td align="left"><code>2024</code></td>
+<td align="right"><strong>1,927</strong></td>
+<td align="right">100.0%</td>
+<td align="left"><code>████████████████</code></td>
+<td align="left">🔥 历史最高峰</td>
+</tr>
+<tr>
+<td align="left"><code>2025</code></td>
+<td align="right"><strong>1,729</strong></td>
+<td align="right">89.7%</td>
+<td align="left"><code>██████████████░░</code></td>
+<td align="left">🟢 高频活跃</td>
+</tr>
+<tr>
+<td align="left"><code>2026</code></td>
+<td align="right"><strong>1,464</strong></td>
+<td align="right">76.0%</td>
+<td align="left"><code>████████████░░░░</code></td>
+<td align="left">🟢 高频活跃</td>
+</tr>
+</tbody></table></div>
+<!-- GITHUB_API_TABLE_END --><h2>3. 核心差异化特色与选型边界</h2>
+<ol>
+<li><strong>为什么大量 Next.js 团队从 Nextra 转向 Fumadocs？</strong>：Fumadocs 彻底拥抱 Shadcn UI 的“代码归属开发者”理念，UI 层透明可定制，同时内置极其惊艳的 <strong>OpenAPI 接口在线调试页生成</strong> 与 <strong>TypeScript Twoslash 类型悬浮气泡</strong>。</li>
+<li><strong><code>meta.json</code> 根级文档切换（Root Toggle）</strong>：天然支持在同一个文档站内划分多个子产品线（如 <code>CLI</code> / <code>SDK</code> / <code>Cloud</code>），左侧顶部一键切换独立侧边栏树。</li>
+<li><strong>代价与边界</strong>：完整继承了 Next.js App Router 工程复杂度，纯静态写手上手门槛显著高于 VitePress 与 Docsify。</li>
+</ol>
+</main>
+    <script src="../vendor/mermaid.min.js"></script>
+    <script>
+      function decodeB64(b64) {
+        const bin = atob(b64)
+        return new TextDecoder().decode(Uint8Array.from(bin, (c) => c.charCodeAt(0)))
+      }
+      async function renderMermaid() {
+        const boxes = document.querySelectorAll('.gfm-mermaid[data-b64]')
+        if (!boxes.length || !window.mermaid) return
+        const isDark = document.documentElement.classList.contains('dark') || document.documentElement.getAttribute('data-theme') === 'dark'
+        window.mermaid.initialize({ startOnLoad: false, theme: isDark ? 'dark' : 'default', securityLevel: 'loose' })
+        let i = 0
+        for (const box of boxes) {
+          const src = decodeB64(box.getAttribute('data-b64'))
+          const { svg } = await window.mermaid.render('master-mmd-' + Date.now() + '-' + i++, src)
+          box.innerHTML = svg
+        }
+      }
+      renderMermaid()
+      new MutationObserver(() => renderMermaid()).observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-theme', 'class']
+      })
+    </script>
+  </body>
+</html>

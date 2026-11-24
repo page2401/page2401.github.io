@@ -1,0 +1,174 @@
+{
+  "$schema": "https://page.2401.xyz/schemas/site-metadata-v1.json",
+  "id": "docusaurus-v3",
+  "order": 8,
+  "name": "Docusaurus",
+  "versionNote": "v3 (MDX 3)",
+  "mounted": true,
+  "sitePath": "sites/docusaurus-v3",
+  "websiteUrl": "https://docusaurus.io/",
+  "githubUrl": "https://github.com/facebook/docusaurus",
+  "packageUrl": "https://www.npmjs.com/package/@docusaurus/core",
+  "ecosystem": "react-astro",
+  "tags": [
+    "ssg",
+    "react",
+    "mdx3",
+    "docs-versioning",
+    "i18n",
+    "webpack",
+    "rspack-faster",
+    "category-json",
+    "blog-included"
+  ],
+  "lifecycle": {
+    "startedAt": "2017-06-20",
+    "activePeriod": "2018–至今（v3 主力活跃维护）",
+    "deprecatedAt": "v1 于 2022 EOL，v2 已冻结特性",
+    "isEol": false,
+    "summary": "始于 2017-06 · v1/v2 已淘汰，v3 活跃"
+  },
+  "libs": {
+    "runtime": "Node.js >= 18",
+    "bundler": "Webpack 5 / Rspack (@docusaurus/faster)",
+    "uiFramework": "React 18 / 19",
+    "markdownEngine": "MDX 3 + remark / rehype",
+    "codeHighlight": "prism-react-renderer",
+    "searchEngine": "Algolia DocSearch / 本地搜索插件",
+    "mathLib": "remark-math + rehype-katex",
+    "diagramLib": "@docusaurus/theme-mermaid",
+    "coreLibs": [
+      "@docusaurus/core",
+      "@docusaurus/preset-classic",
+      "@mdx-js/react",
+      "react",
+      "prism-react-renderer"
+    ],
+    "pinnedPackages": {
+      "@docusaurus/core": "3.10.2",
+      "@docusaurus/preset-classic": "3.10.2",
+      "@docusaurus/theme-mermaid": "3.10.2",
+      "@mdx-js/react": "3.1.1",
+      "react": "19.3.1",
+      "remark-math": "6.0.0",
+      "rehype-katex": "7.0.1",
+      "katex": "0.19.1",
+      "mermaid": "12.3.0"
+    }
+  },
+  "matrix": {
+    "tagline": "Meta 开源 React 旗舰，原生多版本文档快照（Versioning）无可替代",
+    "stack": "React 18/19 + MDX 3 + Webpack / Rspack (@docusaurus/faster)",
+    "directoryModel": "docs/ + 子目录 _category_.json（优雅解决自动侧栏中文分组命名，但目录散落 JSON）",
+    "calloutDialect": ":::note / :::tip[标题] / :::warning / :::danger；MDX 3 严格拒绝裸 < 与 {}",
+    "diagramAndMath": "官方 @docusaurus/theme-mermaid + remark-math / rehype-katex"
+  },
+  "github": {
+    "fetchedAt": "2026-11-23T11:47:11.123Z",
+    "source": "GitHub GraphQL API v4 (Commit.history by calendar year UTC on defaultBranchRef)",
+    "repo": "meta/docusaurus",
+    "url": "https://github.com/meta/docusaurus",
+    "role": "Docusaurus 官方 Monorepo 仓库",
+    "description": "Easy to maintain open source documentation websites.",
+    "primaryLanguage": "TypeScript",
+    "license": "MIT",
+    "defaultBranch": "main",
+    "isArchived": false,
+    "createdAt": "2017-06-20T16:13:53Z",
+    "createdYear": 2017,
+    "pushedAt": "2026-11-20T20:40:55Z",
+    "updatedAt": "2026-11-23T09:28:50Z",
+    "stars": 66788,
+    "forks": 10130,
+    "openIssues": 269,
+    "totalCommits": 7118,
+    "peakYear": 2021,
+    "peakCommits": 1139,
+    "latestRelease": {
+      "tagName": "v3.10.2",
+      "publishedAt": "2026-07-10T18:31:27Z",
+      "isPrerelease": false
+    },
+    "recentReleases": [
+      {
+        "tagName": "v3.10.2",
+        "publishedAt": "2026-07-10T18:31:27Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v3.10.1",
+        "publishedAt": "2026-04-30T12:57:25Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v3.10.0",
+        "publishedAt": "2026-04-07T14:28:14Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v3.9.2",
+        "publishedAt": "2025-10-17T15:01:46Z",
+        "isPrerelease": false
+      },
+      {
+        "tagName": "v3.9.1",
+        "publishedAt": "2025-09-26T13:16:35Z",
+        "isPrerelease": false
+      }
+    ],
+    "yearlyCommits": {
+      "2008": 0,
+      "2009": 0,
+      "2010": 0,
+      "2011": 0,
+      "2012": 0,
+      "2013": 0,
+      "2014": 0,
+      "2015": 0,
+      "2016": 0,
+      "2017": 556,
+      "2018": 693,
+      "2019": 879,
+      "2020": 1084,
+      "2021": 1139,
+      "2022": 1085,
+      "2023": 350,
+      "2024": 400,
+      "2025": 290,
+      "2026": 642
+    }
+  },
+  "subsiteRepoUrl": "https://github.com/page2401/docusaurus-v3",
+  "previewUrl": "https://page.2401.xyz/docusaurus-v3/",
+  "benchmark": {
+    "measuredAt": "2026-11-24T08:11:01.558Z",
+    "buildCommand": "npm run build",
+    "isRuntimeSpa": false,
+    "coldBuildMs": 155719,
+    "totalFiles": 161,
+    "totalBytes": 7493804,
+    "htmlFiles": 9,
+    "htmlBytes": 252083,
+    "jsFiles": 85,
+    "jsBytes": 6057713,
+    "jsGzipBytes": 1697930,
+    "cssFiles": 2,
+    "cssBytes": 103462,
+    "cssGzipBytes": 19141,
+    "otherBytes": 1080546,
+    "entryHtmlBytes": 18609,
+    "proseScriptCount": 3,
+    "hasOfflineSearch": false,
+    "offlineSearchKind": null,
+    "hasLlmsTxt": false,
+    "viewRender": {
+      "profile": "Headless Chromium · HTTP Gzip · 15ms RTT / 24Mbps (3轮中位数)",
+      "fcpMs": 288,
+      "proseReadyMs": 405,
+      "warmNavMs": 72,
+      "diagramReadyMs": 694,
+      "proseTransferBytes": 369063,
+      "proseRequests": 13
+    }
+  }
+}
