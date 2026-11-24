@@ -38,11 +38,11 @@ description: "对应子模块 sites/vitepress-v2：Vite 8 Rolldown 3.4 倍提速
 | **核心依赖库 (Core Libs)** | `vite@8`、`rolldown`、`vue`、`markdown-it`、`shiki`、`minisearch` |
 | **本子站实测锁定版本** | `vitepress@2.0.0-alpha.21` · `vue@3.5.13` · `markdown-it-mathjax3@4.3.2` · `mermaid@12.3.0` |
 
-### ⚡ 同源 6 章基准冷构建耗时与产物体积实测（`benchmark` 节点）
+### ⚡ 同源 6 章冷构建、浏览器查看渲染与产物体积实测（`benchmark` 节点）
 
-| 冷构建耗时 | 产物文件数 | 总产物体积 | HTML 体积 | JS 原始 / Gzip | CSS 原始 / Gzip | 正文 `<script>` 数 | 离线搜索 / AI |
+| 冷构建耗时 | 首屏正文就绪 (FCP) | 站内切页 / 图表渲染 | 单页传输 (Gzip) | 整站总体积 | JS 原始 / Gzip | 正文 `<script>` | 离线搜索 / AI |
 | ---: | ---: | ---: | ---: | ---: | ---: | ---: | :--- |
-| **11.74 s (11,737 ms)** | 140 | 6903.5 KB | 346.4 KB | 5603.6 KB / **1600.1 KB** | 105.2 KB / 18.9 KB | `4` 个 | MiniSearch 本地索引 |
+| **11.74 s (11,737 ms)** | **423 ms** (372 ms) | 68 ms / 4326 ms | 290.8 KB (17 请求) | 6903.5 KB (140 文件) | 5603.6 KB / **1600.1 KB** | `4` 个 | MiniSearch 本地索引 |
 
 ### GitHub 仓库 API 指标快照
 

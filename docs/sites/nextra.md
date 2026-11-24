@@ -37,11 +37,11 @@ description: "预留扩展位 sites/nextra：Vercel 生态 Next.js 文档框架�
 | **核心依赖库 (Core Libs)** | `next`、`nextra`、`nextra-theme-docs`、`react`、`rehype-pretty-code`、`pagefind` |
 | **本子站实测锁定版本** | `nextra@4.6.1` · `nextra-theme-docs@4.6.1` · `next@15.5.29` · `react@19.3.1` · `zod@4.1.12` · `katex@0.16.47` · `mermaid@11.17.2` · `pagefind@1.6.0` |
 
-### ⚡ 同源 6 章基准冷构建耗时与产物体积实测（`benchmark` 节点）
+### ⚡ 同源 6 章冷构建、浏览器查看渲染与产物体积实测（`benchmark` 节点）
 
-| 冷构建耗时 | 产物文件数 | 总产物体积 | HTML 体积 | JS 原始 / Gzip | CSS 原始 / Gzip | 正文 `<script>` 数 | 离线搜索 / AI |
+| 冷构建耗时 | 首屏正文就绪 (FCP) | 站内切页 / 图表渲染 | 单页传输 (Gzip) | 整站总体积 | JS 原始 / Gzip | 正文 `<script>` | 离线搜索 / AI |
 | ---: | ---: | ---: | ---: | ---: | ---: | ---: | :--- |
-| **90.93 s (90,926 ms)** | 188 | 7547.8 KB | 946.1 KB | 4905.6 KB / **1391.4 KB** | 160.5 KB / 27.5 KB | `41` 个 | Pagefind (Wasm) |
+| **90.93 s (90,926 ms)** | **466 ms** (412 ms) | 148 ms / 738 ms | 260.4 KB (13 请求) | 7547.8 KB (188 文件) | 4905.6 KB / **1391.4 KB** | `41` 个 | Pagefind (Wasm) |
 
 ### GitHub 仓库 API 指标快照
 

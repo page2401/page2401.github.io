@@ -2,6 +2,7 @@ import http from 'node:http'
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import zlib from 'node:zlib'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const rootDir = path.resolve(__dirname, '..')
@@ -78,8 +79,20 @@ const server = http.createServer((req, res) => {
 
   const ext = path.extname(targetFile).toLowerCase()
   const contentType = MIME_TYPES[ext] || 'application/octet-stream'
-  res.writeHead(200, { 'Content-Type': contentType })
-  fs.createReadStream(targetFile).pipe(res)
+  const acceptEncoding = String(req.headers['accept-encoding'] || '')
+  const compressible = new Set(['.html', '.md', '.css', '.js', '.mjs', '.json', '.svg', '.txt'])
+
+  if (compressible.has(ext) && acceptEncoding.includes('gzip')) {
+    res.writeHead(200, {
+      'Content-Type': contentType,
+      'Content-Encoding': 'gzip',
+      Vary: 'Accept-Encoding'
+    })
+    fs.createReadStream(targetFile).pipe(zlib.createGzip({ level: 6 })).pipe(res)
+  } else {
+    res.writeHead(200, { 'Content-Type': contentType })
+    fs.createReadStream(targetFile).pipe(res)
+  }
 })
 
 server.listen(PORT, '0.0.0.0', () => {

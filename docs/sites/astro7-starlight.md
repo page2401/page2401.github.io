@@ -40,11 +40,11 @@ description: "对应子模块 sites/astro7-starlight：孤岛架构文档标杆�
 | **核心依赖库 (Core Libs)** | `astro`、`@astrojs/starlight`、`astro-expressive-code`、`pagefind`、`zod`、`remark-directive` |
 | **本子站实测锁定版本** | `astro@7.4.13` · `@astrojs/starlight@0.43.1` · `@astrojs/markdown-remark@7.3.10` · `remark-math@6.0.0` · `rehype-katex@7.0.1` · `katex@0.19.1` · `mermaid@12.3.0` |
 
-### ⚡ 同源 6 章基准冷构建耗时与产物体积实测（`benchmark` 节点）
+### ⚡ 同源 6 章冷构建、浏览器查看渲染与产物体积实测（`benchmark` 节点）
 
-| 冷构建耗时 | 产物文件数 | 总产物体积 | HTML 体积 | JS 原始 / Gzip | CSS 原始 / Gzip | 正文 `<script>` 数 | 离线搜索 / AI |
+| 冷构建耗时 | 首屏正文就绪 (FCP) | 站内切页 / 图表渲染 | 单页传输 (Gzip) | 整站总体积 | JS 原始 / Gzip | 正文 `<script>` | 离线搜索 / AI |
 | ---: | ---: | ---: | ---: | ---: | ---: | ---: | :--- |
-| **15.89 s (15,892 ms)** | 189 | 7319.4 KB | 389.4 KB | 5607.1 KB / **1590.8 KB** | 177.2 KB / 34.9 KB | `16` 个 | Pagefind (Wasm) |
+| **15.89 s (15,892 ms)** | **483 ms** (148 ms) | 247 ms / 6391 ms | 237.5 KB (26 请求) | 7319.4 KB (189 文件) | 5607.1 KB / **1590.8 KB** | `16` 个 | Pagefind (Wasm) |
 
 ### GitHub 仓库 API 指标快照
 

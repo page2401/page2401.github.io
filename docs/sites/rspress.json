@@ -157,6 +157,15 @@
     "proseScriptCount": 6,
     "hasOfflineSearch": true,
     "offlineSearchKind": "Rspress 内置静态索引",
-    "hasLlmsTxt": true
+    "hasLlmsTxt": true,
+    "viewRender": {
+      "profile": "Headless Chromium · HTTP Gzip · 15ms RTT / 24Mbps (3轮中位数)",
+      "fcpMs": 288,
+      "proseReadyMs": 349,
+      "warmNavMs": 94,
+      "diagramReadyMs": 480,
+      "proseTransferBytes": 231435,
+      "proseRequests": 9
+    }
   }
 }

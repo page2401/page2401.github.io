@@ -10,6 +10,7 @@ import {
   ECOSYSTEM_LABELS,
   formatBuildMs,
   formatBytes,
+  formatRenderMs,
   mountPageShell,
   openDrawer,
   syncIframeThemes
@@ -397,7 +398,6 @@ function renderPaneContent(
           class="iframe-stage"
           src="${escapeHtml(routeUrl)}"
           title="${escapeHtml(site.family)} ${escapeHtml(site.versionSeries)} Preview"
-          loading="lazy"
         ></iframe>
       </div>
     `
@@ -462,9 +462,20 @@ function renderPaneContent(
     ? `<button type="button" class="mini-btn mono" data-open-drawer="${escapeHtml(site.id)}">🔍 JSON</button>`
     : ''
 
-  const benchBadgeHtml = site.benchmark
-    ? `<a href="/observatory/?tab=benchmark" class="bench-pane-badge mono" title="空缓存冷构建 ${site.benchmark.coldBuildMs} ms | 总产物 ${formatBytes(site.benchmark.totalBytes)} (${site.benchmark.totalFiles} 文件) | 全站 JS Gzip ${formatBytes(site.benchmark.jsGzipBytes)} | 点击查看性能总榜">⚡ ${escapeHtml(formatBuildMs(site.benchmark.coldBuildMs, site.benchmark.isRuntimeSpa))} · ${escapeHtml(formatBytes(site.benchmark.totalBytes))}</a>`
+  const vr = site.benchmark?.viewRender
+  const compactBuild = site.benchmark
+    ? site.benchmark.isRuntimeSpa
+      ? '零编译'
+      : formatBuildMs(site.benchmark.coldBuildMs, false)
     : ''
+  const benchBadgeHtml = site.benchmark
+    ? `<a href="/observatory/?tab=benchmark&sort=render-asc" class="bench-pane-badge mono" title="冷构建 ${site.benchmark.coldBuildMs} ms | ${vr ? `首屏正文 ${vr.proseReadyMs} ms (FCP ${vr.fcpMs} ms) | 站内切页 ${vr.warmNavMs} ms | 图表 ${vr.diagramReadyMs} ms | 单页 Gzip ${formatBytes(vr.proseTransferBytes)} | ` : ''}整站产物 ${formatBytes(site.benchmark.totalBytes)} | 点击查看构建与浏览渲染双维总榜">⚡ ${escapeHtml(compactBuild)}${vr ? ` · 👁 ${escapeHtml(formatRenderMs(vr.proseReadyMs))}` : ''}</a>`
+    : ''
+
+  const liveTimerHtml =
+    state.mode === 'render'
+      ? `<span class="bench-live-timer mono" id="live-render-timer-${side}" title="当前浏览器实测本栏 iframe 页面加载与正文上屏耗时">⏱ 实测中…</span>`
+      : ''
 
   return `
     <div class="workbench-pane ${side}-pane">
@@ -473,6 +484,7 @@ function renderPaneContent(
           <span class="pane-dot ${side}"></span>
           <span class="pane-engine-badge">${escapeHtml(site.family)} <span class="mono" style="font-weight:500;opacity:0.8;">(${escapeHtml(site.primaryPackage)}@${escapeHtml(site.primaryVersion)})</span></span>
           ${benchBadgeHtml}
+          ${liveTimerHtml}
           <span class="pane-path mono" title="${escapeHtml(headerPath)}">${escapeHtml(headerPath)}</span>
         </div>
         <div class="pane-actions">
@@ -594,8 +606,49 @@ function updateWorkbenchDom(): void {
         bindSplitGutterDrag(splitGrid)
       }
 
+      const mountT0 = performance.now()
+      const attachLiveRenderTimer = (frame: HTMLIFrameElement, side: 'left' | 'right') => {
+        const badge = document.getElementById(`live-render-timer-${side}`)
+        if (!badge) return
+        let pollTimer = 0
+        const updateWhenContentReady = () => {
+          window.clearTimeout(pollTimer)
+          const deadline = performance.now() + 8000
+          const check = () => {
+            try {
+              const doc = frame.contentDocument
+              const win = frame.contentWindow
+              if (!doc || !win) return
+              const isHashSpa = frame.src.includes('#/')
+              const readySelector = isHashSpa ? '.markdown-section h1, .markdown-section h2' : 'h1, main, article'
+              const el = doc.querySelector(readySelector)
+              if ((el && (el.textContent || '').trim().length > 0) || performance.now() >= deadline) {
+                win.requestAnimationFrame(() => {
+                  const framePerfMs = Math.round(win.performance.now())
+                  const wallMs = Math.round(performance.now() - mountT0)
+                  const finalMs = framePerfMs > 2 && framePerfMs < 30000 ? framePerfMs : wallMs
+                  badge.textContent = `⏱ 本机实测 ${formatRenderMs(finalMs)}`
+                  badge.title = `当前浏览器实测本栏页面从发起导航到正文首屏渲染就绪耗时：${finalMs} ms`
+                })
+                return
+              }
+            } catch {
+              const wallMs = Math.round(performance.now() - mountT0)
+              badge.textContent = `⏱ 本机实测 ${formatRenderMs(wallMs)}`
+              return
+            }
+            pollTimer = window.setTimeout(check, 16)
+          }
+          check()
+        }
+        frame.addEventListener('load', updateWhenContentReady)
+      }
+
       const leftFrame = document.getElementById('iframe-left') as HTMLIFrameElement | null
       const rightFrame = document.getElementById('iframe-right') as HTMLIFrameElement | null
+      if (leftFrame) attachLiveRenderTimer(leftFrame, 'left')
+      if (rightFrame) attachLiveRenderTimer(rightFrame, 'right')
+
       if (leftFrame && rightFrame) {
         leftFrame.addEventListener('load', () => {
           syncIframeThemes()

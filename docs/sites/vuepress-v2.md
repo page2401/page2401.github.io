@@ -41,11 +41,11 @@ description: "对应子模块 sites/vuepress-v2：Vue 3 + Vite 重构版、官�
 | **核心依赖库 (Core Libs)** | `vue`、`vite`、`markdown-it`、`@vuepress/theme-default`、`@mdit/plugin-alert`、`@mdit/plugin-katex` |
 | **本子站实测锁定版本** | `vuepress@2.0.0-rc.32` · `@vuepress/bundler-vite@2.0.0-rc.32` · `@vuepress/theme-default@2.0.0-rc.141` · `@vuepress/plugin-markdown-hint@2.0.0-rc.141` · `@vuepress/plugin-markdown-math@2.0.0-rc.139` · `@vuepress/plugin-markdown-chart@2.0.0-rc.139` · `katex@0.19.1` · `mermaid@12.3.0` |
 
-### ⚡ 同源 6 章基准冷构建耗时与产物体积实测（`benchmark` 节点）
+### ⚡ 同源 6 章冷构建、浏览器查看渲染与产物体积实测（`benchmark` 节点）
 
-| 冷构建耗时 | 产物文件数 | 总产物体积 | HTML 体积 | JS 原始 / Gzip | CSS 原始 / Gzip | 正文 `<script>` 数 | 离线搜索 / AI |
+| 冷构建耗时 | 首屏正文就绪 (FCP) | 站内切页 / 图表渲染 | 单页传输 (Gzip) | 整站总体积 | JS 原始 / Gzip | 正文 `<script>` | 离线搜索 / AI |
 | ---: | ---: | ---: | ---: | ---: | ---: | ---: | :--- |
-| **11.13 s (11,127 ms)** | 184 | 7665.7 KB | 196.2 KB | 5416.2 KB / **1555.1 KB** | 157.3 KB / 30.1 KB | `2` 个 | 无内置离线索引 |
+| **11.13 s (11,127 ms)** | **410 ms** (372 ms) | 232 ms / 4462 ms | 131.8 KB (6 请求) | 7665.7 KB (184 文件) | 5416.2 KB / **1555.1 KB** | `2` 个 | 无内置离线索引 |
 
 ### GitHub 仓库 API 指标快照
 

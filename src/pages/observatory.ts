@@ -5,12 +5,32 @@ import {
   formatBuildMs,
   formatBytes,
   formatCompactNum,
+  formatRenderMs,
   mountPageShell,
   openDrawer
 } from '../shared/shell'
 
 type HeatmapSort = 'default' | 'commits2026' | 'total' | 'stars' | 'oldest'
-type BenchmarkSort = 'build-asc' | 'js-gzip-asc' | 'total-bytes-asc' | 'default'
+type BenchmarkSort =
+  | 'build-asc'
+  | 'render-asc'
+  | 'nav-asc'
+  | 'diagram-asc'
+  | 'transfer-asc'
+  | 'js-gzip-asc'
+  | 'total-bytes-asc'
+  | 'default'
+
+const VALID_BENCH_SORTS: BenchmarkSort[] = [
+  'build-asc',
+  'render-asc',
+  'nav-asc',
+  'diagram-asc',
+  'transfer-asc',
+  'js-gzip-asc',
+  'total-bytes-asc',
+  'default'
+]
 
 interface ObservatoryState {
   obsTab: ObservatoryTab
@@ -32,7 +52,7 @@ function loadObservatoryState(): ObservatoryState {
         ? (sortParam as HeatmapSort)
         : 'default',
     benchSort:
-      sortParam && ['build-asc', 'js-gzip-asc', 'total-bytes-asc', 'default'].includes(sortParam)
+      sortParam && VALID_BENCH_SORTS.includes(sortParam as BenchmarkSort)
         ? (sortParam as BenchmarkSort)
         : 'build-asc'
   }
@@ -89,6 +109,34 @@ function getSortedHeatmapRepos(): GitHubRepoActivity[] {
 function getSortedBenchRows(): LandscapeRow[] {
   const measured = dataset.landscapeRows.filter((r) => r.mounted && r.benchmark)
   switch (state.benchSort) {
+    case 'render-asc':
+      measured.sort(
+        (a, b) =>
+          (a.benchmark!.viewRender?.proseReadyMs ?? 999999) -
+          (b.benchmark!.viewRender?.proseReadyMs ?? 999999)
+      )
+      break
+    case 'nav-asc':
+      measured.sort(
+        (a, b) =>
+          (a.benchmark!.viewRender?.warmNavMs ?? 999999) -
+          (b.benchmark!.viewRender?.warmNavMs ?? 999999)
+      )
+      break
+    case 'diagram-asc':
+      measured.sort(
+        (a, b) =>
+          (a.benchmark!.viewRender?.diagramReadyMs ?? 999999) -
+          (b.benchmark!.viewRender?.diagramReadyMs ?? 999999)
+      )
+      break
+    case 'transfer-asc':
+      measured.sort(
+        (a, b) =>
+          (a.benchmark!.viewRender?.proseTransferBytes ?? 999999999) -
+          (b.benchmark!.viewRender?.proseTransferBytes ?? 999999999)
+      )
+      break
     case 'js-gzip-asc':
       measured.sort((a, b) => a.benchmark!.jsGzipBytes - b.benchmark!.jsGzipBytes)
       break
@@ -101,7 +149,6 @@ function getSortedBenchRows(): LandscapeRow[] {
     case 'build-asc':
     default:
       measured.sort((a, b) => {
-        // Group compiled SSGs by build speed first, place zero-compile runtime SPAs right after or compare fairly
         if (a.benchmark!.isRuntimeSpa !== b.benchmark!.isRuntimeSpa) {
           return a.benchmark!.isRuntimeSpa ? 1 : -1
         }
@@ -129,12 +176,25 @@ function renderBenchmarkTabHtml(): string {
   const slowestCompiled = [...compiledRows].sort(
     (a, b) => b.benchmark!.coldBuildMs - a.benchmark!.coldBuildMs
   )[0]
-  const lightestJs = [...compiledRows].sort(
-    (a, b) => a.benchmark!.jsGzipBytes - b.benchmark!.jsGzipBytes
+  const withRender = rows.filter((r) => r.benchmark?.viewRender)
+  const fastestProse = [...withRender].sort(
+    (a, b) => a.benchmark!.viewRender!.proseReadyMs - b.benchmark!.viewRender!.proseReadyMs
   )[0]
+  const fastestWarmNav = [...withRender].sort(
+    (a, b) => a.benchmark!.viewRender!.warmNavMs - b.benchmark!.viewRender!.warmNavMs
+  )[0]
+  const lightestTransfer = [...withRender].sort(
+    (a, b) =>
+      a.benchmark!.viewRender!.proseTransferBytes - b.benchmark!.viewRender!.proseTransferBytes
+  )[0]
+
   const searchCount = rows.filter((r) => r.benchmark!.hasOfflineSearch).length
   const llmsCount = rows.filter((r) => r.benchmark!.hasLlmsTxt).length
   const maxBuildMs = Math.max(100, ...rows.map((r) => r.benchmark!.coldBuildMs))
+  const maxProseMs = Math.max(
+    400,
+    ...withRender.map((r) => r.benchmark!.viewRender!.proseReadyMs)
+  )
   const maxTotalBytes = Math.max(1024, ...rows.map((r) => r.benchmark!.totalBytes))
   const speedRatio =
     fastestCompiled && slowestCompiled && fastestCompiled.benchmark!.coldBuildMs > 0
@@ -146,7 +206,8 @@ function renderBenchmarkTabHtml(): string {
   const trs = rows
     .map((row, idx) => {
       const b = row.benchmark!
-      // Log-scaled width so sub-100ms binaries and 20s bundlers are both legible on one chart
+      const vr = b.viewRender
+      // Log-scaled width so sub-200ms binaries and 179s bundlers are both legible on one chart
       const logMin = Math.log10(15)
       const logMax = Math.log10(Math.max(1000, maxBuildMs))
       const logCur = Math.log10(Math.max(15, b.coldBuildMs))
@@ -161,6 +222,47 @@ function renderBenchmarkTabHtml(): string {
           : b.coldBuildMs < 3500
             ? 'tier-fast'
             : 'tier-heavy'
+
+      let renderCellHtml = `<td class="bench-render-cell mono" style="color:var(--text-muted);font-size:0.76rem;">未采集</td>`
+      if (vr) {
+        const rLogMin = Math.log10(120)
+        const rLogMax = Math.log10(Math.max(1000, maxProseMs))
+        const rLogCur = Math.log10(Math.max(120, vr.proseReadyMs))
+        const renderPct = Math.max(
+          8,
+          Math.min(100, Math.round(((rLogCur - rLogMin) / (rLogMax - rLogMin)) * 100))
+        )
+        const renderTierCls =
+          vr.proseReadyMs <= 340
+            ? 'render-instant'
+            : vr.proseReadyMs <= 550
+              ? 'render-fast'
+              : vr.proseReadyMs <= 1150
+                ? 'render-moderate'
+                : 'render-heavy'
+
+        const navFastCls = vr.warmNavMs <= 85 ? ' spa-fast' : ''
+        renderCellHtml = `
+          <td class="bench-render-cell">
+            <div class="bench-render-primary">
+              <strong class="mono" style="font-size:0.89rem;color:${vr.proseReadyMs <= 340 ? 'var(--accent-teal)' : 'var(--text-primary)'};" title="冷启动打开 05-code-blocks 正文与代码高亮可视就绪耗时">
+                👁 ${escapeHtml(formatRenderMs(vr.proseReadyMs))}
+              </strong>
+              <span class="mono" style="font-size:0.7rem;color:var(--text-muted);" title="浏览器首次内容绘制 (First Contentful Paint)">
+                FCP ${escapeHtml(formatRenderMs(vr.fcpMs))}
+              </span>
+            </div>
+            <div class="bench-speed-track" title="首屏正文就绪对数条：${vr.proseReadyMs} ms（FCP ${vr.fcpMs} ms）">
+              <div class="bench-speed-fill ${renderTierCls}" style="width:${renderPct}%"></div>
+            </div>
+            <div class="bench-render-pills mono">
+              <span class="bench-mini-pill${navFastCls}" title="已打开页面后站内切页渲染耗时 (05-code-blocks → 01-annotations)">切页 ${escapeHtml(formatRenderMs(vr.warmNavMs))}</span>
+              <span class="bench-mini-pill" title="02-diagrams 首个 Mermaid 矢量流程图排布上屏耗时">图表 ${escapeHtml(formatRenderMs(vr.diagramReadyMs))}</span>
+              <span class="bench-mini-pill" title="浏览单篇文档浏览器实际下载的 Gzip 载荷与请求数">单页 ${escapeHtml(formatBytes(vr.proseTransferBytes))} (${vr.proseRequests})</span>
+            </div>
+          </td>
+        `
+      }
 
       const total = Math.max(1, b.totalBytes)
       const htmlPct = ((b.htmlBytes / total) * 100).toFixed(1)
@@ -196,7 +298,7 @@ function renderBenchmarkTabHtml(): string {
               <button type="button" class="card-act-btn mono" data-open-drawer="${escapeHtml(row.id)}">🔍 JSON</button>
             </div>
           </td>
-          <td style="min-width:210px;">
+          <td style="min-width:200px;">
             <div style="display:flex;align-items:baseline;justify-content:space-between;gap:0.5rem;">
               <strong class="mono" style="font-size:0.9rem;color:${b.coldBuildMs < 250 && !b.isRuntimeSpa ? 'var(--accent-teal)' : 'var(--text-primary)'};">
                 ${escapeHtml(formatBuildMs(b.coldBuildMs, b.isRuntimeSpa))}
@@ -207,7 +309,8 @@ function renderBenchmarkTabHtml(): string {
               <div class="bench-speed-fill ${speedTierCls}" style="width:${speedPct}%"></div>
             </div>
           </td>
-          <td style="min-width:240px;">
+          ${renderCellHtml}
+          <td style="min-width:225px;">
             <div style="display:flex;align-items:baseline;justify-content:space-between;gap:0.5rem;" class="mono">
               <strong style="font-size:0.86rem;">${escapeHtml(formatBytes(b.totalBytes))}</strong>
               <span style="font-size:0.72rem;color:var(--text-muted);">${b.totalFiles} 文件 · HTML ${escapeHtml(formatBytes(b.htmlBytes))}</span>
@@ -239,38 +342,47 @@ function renderBenchmarkTabHtml(): string {
     .join('')
 
   return `
-    <div class="bench-kpi-grid">
+    <div class="bench-kpi-grid five-col">
       <div class="telemetry-card">
         <div class="telemetry-val teal mono">${fastestCompiled ? escapeHtml(formatBuildMs(fastestCompiled.benchmark!.coldBuildMs)) : '—'}</div>
         <div class="telemetry-label">🚀 最快冷构建编译引擎</div>
         <div class="telemetry-sub mono">${fastestCompiled ? `${escapeHtml(fastestCompiled.name)} · 比最慢快约 ${speedRatio}×` : ''}</div>
       </div>
       <div class="telemetry-card">
-        <div class="telemetry-val mono">${lightestJs ? escapeHtml(formatBytes(lightestJs.benchmark!.jsGzipBytes)) : '—'}</div>
-        <div class="telemetry-label">🪶 最轻全站 JS Gzip 载荷</div>
-        <div class="telemetry-sub mono">${lightestJs ? `${escapeHtml(lightestJs.name)} (${lightestJs.benchmark!.jsFiles} JS 文件)` : ''}</div>
+        <div class="telemetry-val teal mono">${fastestProse ? escapeHtml(formatRenderMs(fastestProse.benchmark!.viewRender!.proseReadyMs)) : '—'}</div>
+        <div class="telemetry-label">👁 最快首屏正文就绪</div>
+        <div class="telemetry-sub mono">${fastestProse ? `${escapeHtml(fastestProse.name)} · FCP ${escapeHtml(formatRenderMs(fastestProse.benchmark!.viewRender!.fcpMs))}` : ''}</div>
+      </div>
+      <div class="telemetry-card">
+        <div class="telemetry-val mono">${fastestWarmNav ? escapeHtml(formatRenderMs(fastestWarmNav.benchmark!.viewRender!.warmNavMs)) : '—'}</div>
+        <div class="telemetry-label">⚡ 最快站内切页响应</div>
+        <div class="telemetry-sub mono">${fastestWarmNav ? `${escapeHtml(fastestWarmNav.name)} · 零全页刷新 / 极速切换` : ''}</div>
+      </div>
+      <div class="telemetry-card">
+        <div class="telemetry-val mono">${lightestTransfer ? escapeHtml(formatBytes(lightestTransfer.benchmark!.viewRender!.proseTransferBytes)) : '—'}</div>
+        <div class="telemetry-label">🪶 最轻单页网络传输 (Gzip)</div>
+        <div class="telemetry-sub mono">${lightestTransfer ? `${escapeHtml(lightestTransfer.name)} (${lightestTransfer.benchmark!.viewRender!.proseRequests} 个请求)` : ''}</div>
       </div>
       <div class="telemetry-card">
         <div class="telemetry-val mono">${rows.length} <span style="font-size:0.88rem;font-weight:600;">座子站</span></div>
-        <div class="telemetry-label">📏 同源 ${dataset.chapters.length} 章 + 2 嵌套页空缓存实测</div>
-        <div class="telemetry-sub mono">采样日期 ${escapeHtml(measuredDate)} · 同一 Linux x64 环境</div>
-      </div>
-      <div class="telemetry-card">
-        <div class="telemetry-val mono">${searchCount} / ${llmsCount}</div>
-        <div class="telemetry-label">🔍 内置离线搜索 / 原生 llms.txt</div>
-        <div class="telemetry-sub mono">${searchCount} 款自带离线检索索引 · ${llmsCount} 款直出 AI 语料</div>
+        <div class="telemetry-label">📏 6 章构建 + Chromium 渲染实测</div>
+        <div class="telemetry-sub mono">${searchCount} 款离线检索 · ${llmsCount} 款 llms.txt · ${escapeHtml(measuredDate)}</div>
       </div>
     </div>
 
     <div class="gh-heatmap-header" style="margin-bottom:0.75rem;">
       <p class="gh-heatmap-sub">
-        所有已挂载子站在同一机器清空构建缓存后编译相同 ${dataset.chapters.length + 2} 篇基准文档（含代码高亮、Mermaid 与 KaTeX/MathJax 本地资源），实测结果持久化在各站点独立的 <code>docs/sites/&lt;id&gt;.json</code> 的 <code>benchmark</code> 节点中。
+        <strong>编译构建 vs 读者浏览双维对照</strong>：左侧测同一 Linux 环境清空缓存全量编译耗时；右侧用 Headless Chromium（开启 HTTP Gzip，模拟 <code>15ms RTT / 24Mbps</code> 真实边缘网络，取 3 轮中位数）实测读者打开正文页可视就绪、站内切页与 Mermaid 图表上屏耗时 —— 揭示如 <strong>Docsify 虽在首屏动态拉取解析，但站内切页与图表渲染反而快于多款重型打包框架</strong>。
       </p>
       <div style="display:flex;align-items:center;gap:0.65rem;flex-wrap:wrap;">
         <select id="bench-sort-select" class="sort-select" aria-label="性能榜单排序">
           <option value="build-asc"${state.benchSort === 'build-asc' ? ' selected' : ''}>排序：冷构建耗时最快 ↑</option>
-          <option value="js-gzip-asc"${state.benchSort === 'js-gzip-asc' ? ' selected' : ''}>排序：JS Gzip 体积最小 ↑</option>
-          <option value="total-bytes-asc"${state.benchSort === 'total-bytes-asc' ? ' selected' : ''}>排序：产物总体积最小 ↑</option>
+          <option value="render-asc"${state.benchSort === 'render-asc' ? ' selected' : ''}>排序：首屏查看渲染最快 ↑ (含零编译 SPA)</option>
+          <option value="nav-asc"${state.benchSort === 'nav-asc' ? ' selected' : ''}>排序：站内切页响应最快 ↑</option>
+          <option value="diagram-asc"${state.benchSort === 'diagram-asc' ? ' selected' : ''}>排序：Mermaid 图表渲染最快 ↑</option>
+          <option value="transfer-asc"${state.benchSort === 'transfer-asc' ? ' selected' : ''}>排序：单页网络传输最轻 ↑</option>
+          <option value="js-gzip-asc"${state.benchSort === 'js-gzip-asc' ? ' selected' : ''}>排序：整站 JS Gzip 最小 ↑</option>
+          <option value="total-bytes-asc"${state.benchSort === 'total-bytes-asc' ? ' selected' : ''}>排序：整站产物总体积最小 ↑</option>
           <option value="default"${state.benchSort === 'default' ? ' selected' : ''}>排序：默认流派序</option>
         </select>
         <div class="gh-legend mono">
@@ -288,7 +400,8 @@ function renderBenchmarkTabHtml(): string {
           <tr>
             <th>实测子站 / 打包管线</th>
             <th>空缓存冷构建耗时 (对数尺度)</th>
-            <th>产物总体积与资源构成拆分</th>
+            <th>浏览器查看与渲染耗时 (对数尺度)</th>
+            <th>整站产物体积与构成拆分</th>
             <th style="text-align:right;">全站 JS (Gzip)</th>
             <th>水合脚本 / 离线检索 / AI</th>
           </tr>
@@ -532,12 +645,12 @@ function renderObservatoryPage(): void {
     <div class="page-hero-compact">
       <div>
         <span class="section-step-tag mono">03 · Cross-Generator Observatory (/observatory/)</span>
-        <h1 class="section-heading">全景演化、构建性能与方言横向观测台</h1>
-        <p class="section-sub" style="margin-bottom:0;">从时间维度（2008–2026 提交热力图）、工程维度（冷构建耗时与产物体积实测）、空间维度（26 款五维对照）与语法维度（六层方言分裂）全景审视。</p>
+        <h1 class="section-heading">全景演化、构建与浏览渲染性能观测台</h1>
+        <p class="section-sub" style="margin-bottom:0;">从时间维度（2008–2026 提交热力图）、工程维度（冷构建耗时 × 浏览器查看渲染 × 产物体积实测）、空间维度（26 款五维对照）与语法维度（六层方言分裂）全景审视。</p>
       </div>
       <div class="segmented-tabs" role="tablist" aria-label="观测台维度切换">
         <button type="button" class="seg-btn" data-obs-tab="heatmap" id="obs-tab-heatmap">📊 GitHub 历年提交热力表</button>
-        <button type="button" class="seg-btn" data-obs-tab="benchmark" id="obs-tab-benchmark">⚡ 构建性能与产物体积</button>
+        <button type="button" class="seg-btn" data-obs-tab="benchmark" id="obs-tab-benchmark">⚡ 构建与浏览渲染性能</button>
         <button type="button" class="seg-btn" data-obs-tab="matrix" id="obs-tab-matrix">🧬 五维架构与方言对照表</button>
         <button type="button" class="seg-btn" data-obs-tab="dialects" id="obs-tab-dialects">📜 Markdown 方言分裂谱系</button>
       </div>

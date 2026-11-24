@@ -149,6 +149,15 @@
     "proseScriptCount": 4,
     "hasOfflineSearch": true,
     "offlineSearchKind": "MiniSearch 本地索引",
-    "hasLlmsTxt": false
+    "hasLlmsTxt": false,
+    "viewRender": {
+      "profile": "Headless Chromium · HTTP Gzip · 15ms RTT / 24Mbps (3轮中位数)",
+      "fcpMs": 388,
+      "proseReadyMs": 395,
+      "warmNavMs": 198,
+      "diagramReadyMs": 8377,
+      "proseTransferBytes": 120377,
+      "proseRequests": 51
+    }
   }
 }

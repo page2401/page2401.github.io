@@ -231,6 +231,15 @@
     "proseScriptCount": 16,
     "hasOfflineSearch": true,
     "offlineSearchKind": "Pagefind (Wasm)",
-    "hasLlmsTxt": false
+    "hasLlmsTxt": false,
+    "viewRender": {
+      "profile": "Headless Chromium · HTTP Gzip · 15ms RTT / 24Mbps (3轮中位数)",
+      "fcpMs": 148,
+      "proseReadyMs": 483,
+      "warmNavMs": 247,
+      "diagramReadyMs": 6391,
+      "proseTransferBytes": 243221,
+      "proseRequests": 26
+    }
   }
 }

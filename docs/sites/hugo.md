@@ -37,11 +37,11 @@ description: "对应实测子模块 sites/hugo：Go 单二进制编译极速之�
 | **核心依赖库 (Core Libs)** | `yuin/goldmark`、`alecthomas/chroma`、`evanw/esbuild`、`tdewolff/minify`、`spf13/cobra` |
 | **本子站实测锁定版本** | `hugo@0.170.1` · `goldmark@builtin` · `katex@0.19.1` · `mermaid@12.3.0` |
 
-### ⚡ 同源 6 章基准冷构建耗时与产物体积实测（`benchmark` 节点）
+### ⚡ 同源 6 章冷构建、浏览器查看渲染与产物体积实测（`benchmark` 节点）
 
-| 冷构建耗时 | 产物文件数 | 总产物体积 | HTML 体积 | JS 原始 / Gzip | CSS 原始 / Gzip | 正文 `<script>` 数 | 离线搜索 / AI |
+| 冷构建耗时 | 首屏正文就绪 (FCP) | 站内切页 / 图表渲染 | 单页传输 (Gzip) | 整站总体积 | JS 原始 / Gzip | 正文 `<script>` | 离线搜索 / AI |
 | ---: | ---: | ---: | ---: | ---: | ---: | ---: | :--- |
-| **266 ms** | 73 | 6906.5 KB | 152.8 KB | 5678.1 KB / **1631.3 KB** | 24.2 KB / 3.4 KB | `5` 个 | 无内置离线索引 |
+| **266 ms** | **863 ms** (416 ms) | 166 ms / 1775 ms | 1650.2 KB (5 请求) | 6906.5 KB (73 文件) | 5678.1 KB / **1631.3 KB** | `5` 个 | 无内置离线索引 |
 
 ### GitHub 仓库 API 指标快照
 

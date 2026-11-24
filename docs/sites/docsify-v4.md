@@ -38,11 +38,11 @@ description: "对应子模块 sites/docsify-v4：零编译运行时经典版、2
 | **核心依赖库 (Core Libs)** | `marked@4`、`prismjs`、`docsify-plugin-flexible-alerts` |
 | **本子站实测锁定版本** | `docsify@4.13.1` · `docsify-plugin-flexible-alerts@1.3.0` · `katex@0.19.1` · `mermaid@10.9.8` |
 
-### ⚡ 同源 6 章基准冷构建耗时与产物体积实测（`benchmark` 节点）
+### ⚡ 同源 6 章冷构建、浏览器查看渲染与产物体积实测（`benchmark` 节点）
 
-| 冷构建耗时 | 产物文件数 | 总产物体积 | HTML 体积 | JS 原始 / Gzip | CSS 原始 / Gzip | 正文 `<script>` 数 | 离线搜索 / AI |
+| 冷构建耗时 | 首屏正文就绪 (FCP) | 站内切页 / 图表渲染 | 单页传输 (Gzip) | 整站总体积 | JS 原始 / Gzip | 正文 `<script>` | 离线搜索 / AI |
 | ---: | ---: | ---: | ---: | ---: | ---: | ---: | :--- |
-| **440 ms (零编译 SPA)** | 82 | 4829.5 KB | 4.4 KB | 3718.5 KB / **1109.6 KB** | 37.0 KB / 6.9 KB | `11` 个 | 客户端全文扫描 |
+| **440 ms (零编译 SPA)** | **1326 ms** (224 ms) | 69 ms / 1670 ms | 1141.5 KB (23 请求) | 4829.5 KB (82 文件) | 3718.5 KB / **1109.6 KB** | `11` 个 | 客户端全文扫描 |
 
 ### GitHub 仓库 API 指标快照
 

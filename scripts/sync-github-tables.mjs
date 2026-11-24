@@ -140,12 +140,13 @@ function renderSiteSection(doc) {
     ].join('\n')
   }
 
+  const vr = doc.benchmark?.viewRender
   const benchLines = doc.benchmark
     ? [
         '',
-        '### ⚡ 同源 6 章基准冷构建耗时与产物体积实测（`benchmark` 节点）',
+        '### ⚡ 同源 6 章冷构建、浏览器查看渲染与产物体积实测（`benchmark` 节点）',
         '',
-        '| 冷构建耗时 | 产物文件数 | 总产物体积 | HTML 体积 | JS 原始 / Gzip | CSS 原始 / Gzip | 正文 `<script>` 数 | 离线搜索 / AI |',
+        '| 冷构建耗时 | 首屏正文就绪 (FCP) | 站内切页 / 图表渲染 | 单页传输 (Gzip) | 整站总体积 | JS 原始 / Gzip | 正文 `<script>` | 离线搜索 / AI |',
         '| ---: | ---: | ---: | ---: | ---: | ---: | ---: | :--- |',
         `| **${
           doc.benchmark.isRuntimeSpa
@@ -153,7 +154,13 @@ function renderSiteSection(doc) {
             : doc.benchmark.coldBuildMs >= 1000
               ? `${(doc.benchmark.coldBuildMs / 1000).toFixed(2)} s (${fmtNum(doc.benchmark.coldBuildMs)} ms)`
               : `${doc.benchmark.coldBuildMs} ms`
-        }** | ${doc.benchmark.totalFiles} | ${(doc.benchmark.totalBytes / 1024).toFixed(1)} KB | ${(doc.benchmark.htmlBytes / 1024).toFixed(1)} KB | ${(doc.benchmark.jsBytes / 1024).toFixed(1)} KB / **${(doc.benchmark.jsGzipBytes / 1024).toFixed(1)} KB** | ${(doc.benchmark.cssBytes / 1024).toFixed(1)} KB / ${(doc.benchmark.cssGzipBytes / 1024).toFixed(1)} KB | \`${doc.benchmark.proseScriptCount}\` 个 | ${
+        }** | ${
+          vr ? `**${vr.proseReadyMs} ms** (${vr.fcpMs} ms)` : '—'
+        } | ${
+          vr ? `${vr.warmNavMs} ms / ${vr.diagramReadyMs} ms` : '—'
+        } | ${
+          vr ? `${(vr.proseTransferBytes / 1024).toFixed(1)} KB (${vr.proseRequests} 请求)` : '—'
+        } | ${(doc.benchmark.totalBytes / 1024).toFixed(1)} KB (${doc.benchmark.totalFiles} 文件) | ${(doc.benchmark.jsBytes / 1024).toFixed(1)} KB / **${(doc.benchmark.jsGzipBytes / 1024).toFixed(1)} KB** | \`${doc.benchmark.proseScriptCount}\` 个 | ${
           [
             doc.benchmark.hasOfflineSearch ? doc.benchmark.offlineSearchKind : '无内置离线索引',
             doc.benchmark.hasLlmsTxt ? '`llms.txt`' : null

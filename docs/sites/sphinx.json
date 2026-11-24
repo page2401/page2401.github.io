@@ -236,6 +236,15 @@
     "proseScriptCount": 9,
     "hasOfflineSearch": true,
     "offlineSearchKind": "Sphinx 静态分词索引",
-    "hasLlmsTxt": false
+    "hasLlmsTxt": false,
+    "viewRender": {
+      "profile": "Headless Chromium · HTTP Gzip · 15ms RTT / 24Mbps (3轮中位数)",
+      "fcpMs": 256,
+      "proseReadyMs": 274,
+      "warmNavMs": 232,
+      "diagramReadyMs": 1715,
+      "proseTransferBytes": 44171,
+      "proseRequests": 12
+    }
   }
 }

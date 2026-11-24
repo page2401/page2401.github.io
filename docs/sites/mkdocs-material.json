@@ -154,6 +154,15 @@
     "proseScriptCount": 8,
     "hasOfflineSearch": true,
     "offlineSearchKind": "Lunr.js 静态索引",
-    "hasLlmsTxt": false
+    "hasLlmsTxt": false,
+    "viewRender": {
+      "profile": "Headless Chromium · HTTP Gzip · 15ms RTT / 24Mbps (3轮中位数)",
+      "fcpMs": 200,
+      "proseReadyMs": 924,
+      "warmNavMs": 316,
+      "diagramReadyMs": 1771,
+      "proseTransferBytes": 1775919,
+      "proseRequests": 13
+    }
   }
 }

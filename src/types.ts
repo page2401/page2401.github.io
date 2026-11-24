@@ -54,6 +54,16 @@ export interface SiteHighlights {
   buildArtifact: string
 }
 
+export interface SiteViewRenderBenchmark {
+  profile: string
+  fcpMs: number
+  proseReadyMs: number
+  warmNavMs: number
+  diagramReadyMs: number
+  proseTransferBytes: number
+  proseRequests: number
+}
+
 export interface SiteBenchmark {
   measuredAt: string
   buildCommand: string
@@ -75,6 +85,7 @@ export interface SiteBenchmark {
   hasOfflineSearch: boolean
   offlineSearchKind: string | null
   hasLlmsTxt: boolean
+  viewRender?: SiteViewRenderBenchmark | null
 }
 
 export interface SiteEntry {

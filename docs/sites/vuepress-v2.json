@@ -224,6 +224,15 @@
     "proseScriptCount": 2,
     "hasOfflineSearch": false,
     "offlineSearchKind": null,
-    "hasLlmsTxt": false
+    "hasLlmsTxt": false,
+    "viewRender": {
+      "profile": "Headless Chromium · HTTP Gzip · 15ms RTT / 24Mbps (3轮中位数)",
+      "fcpMs": 372,
+      "proseReadyMs": 410,
+      "warmNavMs": 232,
+      "diagramReadyMs": 4462,
+      "proseTransferBytes": 134916,
+      "proseRequests": 6
+    }
   }
 }

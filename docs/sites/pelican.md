@@ -37,11 +37,11 @@ description: "预留扩展位 sites/pelican：Python 社区最具代表性的静
 | **核心依赖库 (Core Libs)** | `pelican`、`jinja2`、`markdown`、`pygments`、`feedgenerator` |
 | **本子站实测锁定版本** | `pelican@4.12.0` · `jinja2@3.1.6` · `markdown@3.11.3` · `pymdown-extensions@13.1.2` · `pygments@2.19.2` · `docutils@0.23` · `unidecode@1.4.0` |
 
-### ⚡ 同源 6 章基准冷构建耗时与产物体积实测（`benchmark` 节点）
+### ⚡ 同源 6 章冷构建、浏览器查看渲染与产物体积实测（`benchmark` 节点）
 
-| 冷构建耗时 | 产物文件数 | 总产物体积 | HTML 体积 | JS 原始 / Gzip | CSS 原始 / Gzip | 正文 `<script>` 数 | 离线搜索 / AI |
+| 冷构建耗时 | 首屏正文就绪 (FCP) | 站内切页 / 图表渲染 | 单页传输 (Gzip) | 整站总体积 | JS 原始 / Gzip | 正文 `<script>` | 离线搜索 / AI |
 | ---: | ---: | ---: | ---: | ---: | ---: | ---: | :--- |
-| **1.13 s (1,128 ms)** | 74 | 6833.2 KB | 63.0 KB | 5682.2 KB / **1632.6 KB** | 36.7 KB / 6.3 KB | `4` 个 | 无内置离线索引 |
+| **1.13 s (1,128 ms)** | **908 ms** (464 ms) | 116 ms / 1722 ms | 1651.5 KB (7 请求) | 6833.2 KB (74 文件) | 5682.2 KB / **1632.6 KB** | `4` 个 | 无内置离线索引 |
 
 ### GitHub 仓库 API 指标快照
 

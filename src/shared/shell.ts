@@ -33,6 +33,11 @@ export function formatBuildMs(ms: number, isRuntimeSpa?: boolean): string {
   return `${ms} ms`
 }
 
+export function formatRenderMs(ms: number): string {
+  if (ms >= 1000) return `${(ms / 1000).toFixed(2)} s`
+  return `${ms} ms`
+}
+
 export function renderSparklineSvg(row: LandscapeRow): string {
   const years = [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026]
   const values = years.map((y) => (y < row.createdYear ? 0 : row.yearlyCommits[String(y)] ?? 0))
@@ -199,11 +204,17 @@ function renderInspectorDrawerContent(
       ${
         row.benchmark
           ? `<div>
-               <h4 class="drawer-sec-title">⚡ 实测冷构建耗时与产物体积 (benchmark 节点)</h4>
+               <h4 class="drawer-sec-title">⚡ 实测冷构建、浏览器查看渲染与产物体积 (benchmark 节点)</h4>
                <table class="drawer-kv-table">
                  <tbody>
                    <tr><th>冷构建耗时</th><td class="mono"><strong style="color:var(--accent-teal);">${escapeHtml(formatBuildMs(row.benchmark.coldBuildMs, row.benchmark.isRuntimeSpa))}</strong> · <code>${escapeHtml(row.benchmark.buildCommand)}</code></td></tr>
-                   <tr><th>产物总体积</th><td class="mono">${escapeHtml(formatBytes(row.benchmark.totalBytes))}（共 ${row.benchmark.totalFiles} 个文件）</td></tr>
+                   ${
+                     row.benchmark.viewRender
+                       ? `<tr><th>首屏与切页耗时</th><td class="mono"><strong style="color:#2f7ac7;">首屏正文就绪 ${escapeHtml(formatRenderMs(row.benchmark.viewRender.proseReadyMs))}</strong>（FCP ${escapeHtml(formatRenderMs(row.benchmark.viewRender.fcpMs))}）· <strong>站内切页 ${escapeHtml(formatRenderMs(row.benchmark.viewRender.warmNavMs))}</strong> · Mermaid 图表 ${escapeHtml(formatRenderMs(row.benchmark.viewRender.diagramReadyMs))}</td></tr>
+                          <tr><th>单页网络传输</th><td class="mono">${escapeHtml(formatBytes(row.benchmark.viewRender.proseTransferBytes))} Gzip（${row.benchmark.viewRender.proseRequests} 个请求 · ${escapeHtml(row.benchmark.viewRender.profile)}）</td></tr>`
+                       : ''
+                   }
+                   <tr><th>整站产物总体积</th><td class="mono">${escapeHtml(formatBytes(row.benchmark.totalBytes))}（共 ${row.benchmark.totalFiles} 个文件）</td></tr>
                    <tr><th>资源结构拆分</th><td class="mono">HTML ${escapeHtml(formatBytes(row.benchmark.htmlBytes))} · JS ${escapeHtml(formatBytes(row.benchmark.jsBytes))} (Gzip <strong>${escapeHtml(formatBytes(row.benchmark.jsGzipBytes))}</strong>) · CSS ${escapeHtml(formatBytes(row.benchmark.cssBytes))} (Gzip ${escapeHtml(formatBytes(row.benchmark.cssGzipBytes))}) · 字体/索引 ${escapeHtml(formatBytes(row.benchmark.otherBytes))}</td></tr>
                    <tr><th>运行时特性</th><td class="mono">正文页 <code>&lt;script&gt;</code> ${row.benchmark.proseScriptCount} 个 · ${row.benchmark.hasOfflineSearch ? escapeHtml(row.benchmark.offlineSearchKind || '内置搜索') : '无内置离线索引'}${row.benchmark.hasLlmsTxt ? ' · 自动产出 llms.txt' : ''}</td></tr>
                  </tbody>

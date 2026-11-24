@@ -14,7 +14,9 @@
     "build:all": "node scripts/build-all.mjs",
     "preview:all": "node scripts/preview-all.mjs",
     "measure:benchmarks": "node scripts/measure-benchmarks.mjs",
+    "measure:render": "python3 scripts/measure-render-benchmarks.py",
     "sync:benchmarks": "node scripts/measure-benchmarks.mjs && node scripts/sync-github-tables.mjs",
+    "sync:render": "python3 scripts/measure-render-benchmarks.py && node scripts/sync-github-tables.mjs",
     "sync:github": "node scripts/fetch-github-activity.mjs && node scripts/sync-github-tables.mjs"
   },
   "devDependencies": {

@@ -577,9 +577,10 @@ select {
 .pane-title-group {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.42rem;
   flex: 1;
   min-width: 0;
+  overflow: hidden;
 }
 
 .pane-engine-badge {
@@ -2746,3 +2747,93 @@ select {
   padding-top: 0.55rem;
   border-top: 1px dashed var(--border-subtle);
 }
+
+/* ==========================================================================
+   Browser View & Render Telemetry (Observatory & Workbench Live Timer)
+   ========================================================================== */
+
+.bench-kpi-grid.five-col {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+@media (max-width: 1180px) {
+  .bench-kpi-grid.five-col {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 780px) {
+  .bench-kpi-grid.five-col {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.bench-render-cell {
+  min-width: 245px;
+}
+
+.bench-render-primary {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.45rem;
+}
+
+.bench-speed-fill.render-instant {
+  background-color: var(--accent-teal);
+}
+
+.bench-speed-fill.render-fast {
+  background-color: #2f7ac7;
+}
+
+.bench-speed-fill.render-moderate {
+  background-color: #7c58d6;
+}
+
+.bench-speed-fill.render-heavy {
+  background-color: var(--accent-copper);
+}
+
+.bench-render-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.28rem;
+  margin-top: 0.32rem;
+}
+
+.bench-mini-pill {
+  font-size: 0.68rem;
+  padding: 0.08rem 0.38rem;
+  border-radius: 4px;
+  border: 1px solid var(--border-subtle);
+  background-color: var(--bg-canvas);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.bench-mini-pill.spa-fast {
+  border-color: rgba(15, 118, 110, 0.35);
+  color: var(--accent-teal);
+  font-weight: 600;
+}
+
+.bench-live-timer {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.22rem;
+  padding: 0.12rem 0.46rem;
+  border-radius: 999px;
+  font-size: 0.69rem;
+  font-weight: 600;
+  background-color: rgba(47, 122, 199, 0.12);
+  color: #2f7ac7;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+[data-theme='dark'] .bench-live-timer {
+  background-color: rgba(116, 176, 245, 0.15);
+  color: #74b0f5;
+}
+

@@ -232,7 +232,8 @@ for (const site of config.sites) {
     proseScriptCount: stats.proseScriptCount,
     hasOfflineSearch: stats.hasOfflineSearch,
     offlineSearchKind: stats.offlineSearchKind,
-    hasLlmsTxt: stats.hasLlmsTxt
+    hasLlmsTxt: stats.hasLlmsTxt,
+    ...(existingDoc.benchmark?.viewRender ? { viewRender: existingDoc.benchmark.viewRender } : {})
   }
 
   fs.writeFileSync(jsonPath, JSON.stringify(existingDoc, null, 2) + '\n', 'utf-8')

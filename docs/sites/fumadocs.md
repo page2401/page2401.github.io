@@ -37,11 +37,11 @@ description: "预留扩展位 sites/fumadocs：Shadcn UI 时代的 Next.js 新�
 | **核心依赖库 (Core Libs)** | `fumadocs-core`、`fumadocs-ui`、`fumadocs-mdx`、`next`、`shiki`、`@orama/orama` |
 | **本子站实测锁定版本** | `fumadocs-ui@16.19.7` · `fumadocs-core@16.19.7` · `fumadocs-mdx@15.6.4` · `next@16.4.6` · `tailwindcss@4.3.5` · `react@19.3.1` · `remark-math@6.0.0` · `rehype-katex@7.0.1` · `katex@0.19.1` · `mermaid@12.3.0` |
 
-### ⚡ 同源 6 章基准冷构建耗时与产物体积实测（`benchmark` 节点）
+### ⚡ 同源 6 章冷构建、浏览器查看渲染与产物体积实测（`benchmark` 节点）
 
-| 冷构建耗时 | 产物文件数 | 总产物体积 | HTML 体积 | JS 原始 / Gzip | CSS 原始 / Gzip | 正文 `<script>` 数 | 离线搜索 / AI |
+| 冷构建耗时 | 首屏正文就绪 (FCP) | 站内切页 / 图表渲染 | 单页传输 (Gzip) | 整站总体积 | JS 原始 / Gzip | 正文 `<script>` | 离线搜索 / AI |
 | ---: | ---: | ---: | ---: | ---: | ---: | ---: | :--- |
-| **57.50 s (57,502 ms)** | 216 | 9144.7 KB | 741.9 KB | 6344.4 KB / **1831.9 KB** | 109.6 KB / 18.1 KB | `24` 个 | 无内置离线索引 |
+| **57.50 s (57,502 ms)** | **446 ms** (384 ms) | 211 ms / 665 ms | 420.9 KB (31 请求) | 9144.7 KB (216 文件) | 6344.4 KB / **1831.9 KB** | `24` 个 | 无内置离线索引 |
 
 ### GitHub 仓库 API 指标快照
 
