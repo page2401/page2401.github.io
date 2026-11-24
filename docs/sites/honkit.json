@@ -4,7 +4,7 @@
   "order": 23,
   "name": "HonKit",
   "versionNote": "v6.x (GitBook CLI Fork)",
-  "mounted": false,
+  "mounted": true,
   "sitePath": "sites/honkit",
   "websiteUrl": "https://honkit.netlify.app/",
   "githubUrl": "https://github.com/honkit/honkit",
@@ -40,7 +40,12 @@
       "nunjucks",
       "highlight.js",
       "juicer"
-    ]
+    ],
+    "pinnedPackages": {
+      "honkit": "7.0.1",
+      "katex": "0.19.1",
+      "mermaid": "12.3.0"
+    }
   },
   "matrix": {
     "tagline": "原版 GitBook CLI 停更后的社区正统继任者：零改动复活老 SUMMARY.md 仓库并支持直接导出 PDF / ePub 电子书",
@@ -123,5 +128,28 @@
       "2025": 27,
       "2026": 41
     }
+  },
+  "subsiteRepoUrl": "https://github.com/page2401/honkit",
+  "benchmark": {
+    "measuredAt": "2026-11-24T08:11:01.558Z",
+    "buildCommand": "npm run build",
+    "isRuntimeSpa": false,
+    "coldBuildMs": 2526,
+    "totalFiles": 90,
+    "totalBytes": 7554882,
+    "htmlFiles": 8,
+    "htmlBytes": 201820,
+    "jsFiles": 10,
+    "jsBytes": 5690948,
+    "jsGzipBytes": 1646059,
+    "cssFiles": 7,
+    "cssBytes": 131276,
+    "cssGzipBytes": 21695,
+    "otherBytes": 1530838,
+    "entryHtmlBytes": 14419,
+    "proseScriptCount": 9,
+    "hasOfflineSearch": true,
+    "offlineSearchKind": "Lunr.js 静态索引",
+    "hasLlmsTxt": false
   }
 }

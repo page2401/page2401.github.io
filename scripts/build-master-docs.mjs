@@ -263,6 +263,7 @@ function buildHtmlShell(title, relDepthPrefix, contentHtml, activeRel) {
         <a href="/master/02-diagrams">02. 流程图</a>
         <a href="/master/03-math">03. 公式</a>
         <a href="/master/04-directory/">04. 目录结构</a>
+        <a href="/master/05-code-blocks">05. 代码块</a>
         <a href="https://github.com/page2401/page2401.github.io/blob/main/docs/${escapeHtml(activeRel)}" target="_blank" rel="noopener">GitHub 原文 ↗</a>
       </nav>
     </header>

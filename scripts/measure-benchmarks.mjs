@@ -31,7 +31,12 @@ const CACHE_DIRS = [
   '.docusaurus',
   '.next/cache',
   '.quartz-cache',
-  '_build/doctrees'
+  '_build/doctrees',
+  '.jekyll-cache',
+  '.sass-cache',
+  'db.json',
+  'cache',
+  '.cache'
 ]
 
 function removeIfExists(targetAbs) {

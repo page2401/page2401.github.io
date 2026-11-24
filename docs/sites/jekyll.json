@@ -4,7 +4,7 @@
   "order": 16,
   "name": "Jekyll",
   "versionNote": "v4.x (Ruby)",
-  "mounted": false,
+  "mounted": true,
   "sitePath": "sites/jekyll",
   "websiteUrl": "https://jekyllrb.com/",
   "githubUrl": "https://github.com/jekyll/jekyll",
@@ -43,7 +43,17 @@
       "rouge",
       "mercenary",
       "safe_yaml"
-    ]
+    ],
+    "pinnedPackages": {
+      "jekyll": "4.4.1",
+      "kramdown": "2.6.1",
+      "kramdown-parser-gfm": "1.1.0",
+      "rouge": "4.7.0",
+      "liquid": "4.0.4",
+      "jekyll-sass-converter": "3.1.0",
+      "csv": "3.3.7",
+      "webrick": "1.9.2"
+    }
   },
   "matrix": {
     "tagline": "静态生成器开山鼻祖与 GitHub Pages 默认后台引擎（.nojekyll 的由来）",
@@ -126,5 +136,28 @@
       "2025": 55,
       "2026": 24
     }
+  },
+  "subsiteRepoUrl": "https://github.com/page2401/jekyll",
+  "benchmark": {
+    "measuredAt": "2026-11-24T08:11:01.558Z",
+    "buildCommand": "bundle exec jekyll build",
+    "isRuntimeSpa": false,
+    "coldBuildMs": 1588,
+    "totalFiles": 35,
+    "totalBytes": 6219019,
+    "htmlFiles": 8,
+    "htmlBytes": 87869,
+    "jsFiles": 4,
+    "jsBytes": 5819442,
+    "jsGzipBytes": 1672073,
+    "cssFiles": 2,
+    "cssBytes": 37867,
+    "cssGzipBytes": 6593,
+    "otherBytes": 273841,
+    "entryHtmlBytes": 16947,
+    "proseScriptCount": 5,
+    "hasOfflineSearch": false,
+    "offlineSearchKind": null,
+    "hasLlmsTxt": false
   }
 }

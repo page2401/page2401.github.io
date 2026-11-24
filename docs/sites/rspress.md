@@ -37,11 +37,11 @@ description: "对应实测子模块 sites/rspress：字节跳动 Rust Rspack 超
 | **核心依赖库 (Core Libs)** | `@rspress/core`、`@rspack/core`、`@rspress/mdx-rs`、`react`、`shiki` |
 | **本子站实测锁定版本** | `@rspress/core@2.1.4` · `rspress-plugin-katex@1.0.1` · `rspress-plugin-mermaid@2.0.0` · `react@19.3.1` · `katex@0.19.1` · `mermaid@12.3.0` |
 
-### ⚡ 同源 5 章基准冷构建耗时与产物体积实测（`benchmark` 节点）
+### ⚡ 同源 6 章基准冷构建耗时与产物体积实测（`benchmark` 节点）
 
 | 冷构建耗时 | 产物文件数 | 总产物体积 | HTML 体积 | JS 原始 / Gzip | CSS 原始 / Gzip | 正文 `<script>` 数 | 离线搜索 / AI |
 | ---: | ---: | ---: | ---: | ---: | ---: | ---: | :--- |
-| **11.80 s (11,805 ms)** | 164 | 7197.1 KB | 204.5 KB | 5790.8 KB / **1642.5 KB** | 99.2 KB / 21.1 KB | `6` 个 | Rspress 内置静态索引 · `llms.txt` |
+| **11.80 s (11,805 ms)** | 167 | 7297.8 KB | 254.9 KB | 5825.3 KB / **1647.3 KB** | 99.2 KB / 21.1 KB | `6` 个 | Rspress 内置静态索引 · `llms.txt` |
 
 ### GitHub 仓库 API 指标快照
 

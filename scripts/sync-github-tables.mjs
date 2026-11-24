@@ -143,7 +143,7 @@ function renderSiteSection(doc) {
   const benchLines = doc.benchmark
     ? [
         '',
-        '### ⚡ 同源 5 章基准冷构建耗时与产物体积实测（`benchmark` 节点）',
+        '### ⚡ 同源 6 章基准冷构建耗时与产物体积实测（`benchmark` 节点）',
         '',
         '| 冷构建耗时 | 产物文件数 | 总产物体积 | HTML 体积 | JS 原始 / Gzip | CSS 原始 / Gzip | 正文 `<script>` 数 | 离线搜索 / AI |',
         '| ---: | ---: | ---: | ---: | ---: | ---: | ---: | :--- |',

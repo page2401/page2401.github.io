@@ -37,11 +37,11 @@ description: "对应实测子模块 sites/docusaurus-v3：Meta 开源 React 旗�
 | **核心依赖库 (Core Libs)** | `@docusaurus/core`、`@docusaurus/preset-classic`、`@mdx-js/react`、`react`、`prism-react-renderer` |
 | **本子站实测锁定版本** | `@docusaurus/core@3.10.2` · `@docusaurus/preset-classic@3.10.2` · `@docusaurus/theme-mermaid@3.10.2` · `@mdx-js/react@3.1.1` · `react@19.3.1` · `remark-math@6.0.0` · `rehype-katex@7.0.1` · `katex@0.19.1` · `mermaid@12.3.0` |
 
-### ⚡ 同源 5 章基准冷构建耗时与产物体积实测（`benchmark` 节点）
+### ⚡ 同源 6 章基准冷构建耗时与产物体积实测（`benchmark` 节点）
 
 | 冷构建耗时 | 产物文件数 | 总产物体积 | HTML 体积 | JS 原始 / Gzip | CSS 原始 / Gzip | 正文 `<script>` 数 | 离线搜索 / AI |
 | ---: | ---: | ---: | ---: | ---: | ---: | ---: | :--- |
-| **155.72 s (155,719 ms)** | 157 | 7249.6 KB | 200.9 KB | 5892.6 KB / **1650.6 KB** | 101.0 KB / 18.7 KB | `3` 个 | 无内置离线索引 |
+| **155.72 s (155,719 ms)** | 161 | 7318.2 KB | 246.2 KB | 5915.7 KB / **1658.1 KB** | 101.0 KB / 18.7 KB | `3` 个 | 无内置离线索引 |
 
 ### GitHub 仓库 API 指标快照
 

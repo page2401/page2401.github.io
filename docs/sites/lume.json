@@ -4,7 +4,7 @@
   "order": 26,
   "name": "Lume",
   "versionNote": "v2 / v3 (Deno)",
-  "mounted": false,
+  "mounted": true,
   "sitePath": "sites/lume",
   "websiteUrl": "https://lume.land/",
   "githubUrl": "https://github.com/lumeland/lume",
@@ -42,7 +42,19 @@
       "markdown-it",
       "lightningcss",
       "pagefind"
-    ]
+    ],
+    "pinnedPackages": {
+      "lume": "3.3.3",
+      "deno": "2.9.8",
+      "vento": "2.4.2",
+      "markdown-it": "15.0.3",
+      "@mdit/plugin-alert": "2.2.0",
+      "@mdit/plugin-container": "2.2.0",
+      "@mdit/plugin-katex": "1.2.1",
+      "highlight.js": "11.12.0",
+      "katex": "0.19.1",
+      "mermaid": "12.3.0"
+    }
   },
   "matrix": {
     "tagline": "受 Eleventy 启发的 Deno 原生静态生成器：彻底告别 node_modules 黑洞，一行 import 启用 KaTeX、Pagefind 与 LightningCSS",
@@ -125,5 +137,28 @@
       "2025": 609,
       "2026": 675
     }
+  },
+  "subsiteRepoUrl": "https://github.com/page2401/lume",
+  "benchmark": {
+    "measuredAt": "2026-11-24T08:11:01.558Z",
+    "buildCommand": "deno task build",
+    "isRuntimeSpa": false,
+    "coldBuildMs": 1211,
+    "totalFiles": 71,
+    "totalBytes": 6816868,
+    "htmlFiles": 8,
+    "htmlBytes": 164344,
+    "jsFiles": 1,
+    "jsBytes": 5537838,
+    "jsGzipBytes": 1592717,
+    "cssFiles": 2,
+    "cssBytes": 38114,
+    "cssGzipBytes": 6604,
+    "otherBytes": 1076572,
+    "entryHtmlBytes": 11955,
+    "proseScriptCount": 0,
+    "hasOfflineSearch": false,
+    "offlineSearchKind": null,
+    "hasLlmsTxt": false
   }
 }

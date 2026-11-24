@@ -19,4 +19,5 @@ description: "page2401.github.io 静态网站对比平台的标准 CommonMark / 
 | [`01-annotations.md`](./01-annotations.md) | 专属标注与元数据 | 基础 YAML `title`/`description`、GFM `> [!NOTE]` 五类警报、原生 `<details>` | VitePress / VuePress 派生出 `::: tip` 容器与 `<Badge>`；Starlight 被迫改为 `:::caution[标题]` 与强类型 `tableOfContents`；Docsify 派生出 `?>` / `!>` |
 | [`02-diagrams.md`](./02-diagrams.md) | 流程图与时序图 | 标准围栏代码块 ```` ```mermaid ````（含 `flowchart`、`sequenceDiagram`、`stateDiagram-v2`） | Markdown 原文几乎无需改动，差异集中体现在工程配置文件与 Mermaid 大版本锁死（v10 / v11 / v12） |
 | [`03-math.md`](./03-math.md) | 数学公式排版 | 标准行内 `$...$`、块级 `$$...$$`（含 `aligned`、`bmatrix`、`cases`）及字面量 `\$` 转义 | 原文高度一致，检验各引擎构建期 SVG（MathJax 3）、HTML+Webfont（KaTeX）或客户端钩子防 `\\` 吞噬的表现 |
-| [`04-directory/`](./04-directory/index.md) | 目录结构与路由取舍 | `04-directory/index.md` + `nested/` 两篇子文档 | VuePress 派生为 `README.md`；Starlight 迁入 3 层深的 `src/content/docs/` 并去掉数字前缀改用 `order`；Docsify 增加 `_sidebar.md` |
+| [`04-directory/`](./04-directory/index.md) | 目录结构与路由取舍 | `04-directory/index.md` + `nested/` 两篇子文档 | VuePress/HonKit 派生为 `README.md`；Starlight 迁入 3 层深 `src/content/docs/`；Docsify 增加 `_sidebar.md` |
+| [`05-code-blocks.md`](./05-code-blocks.md) | 高阶代码块与语法高亮 | 标准围栏 ```` ```ts ```` / ```` ```diff ```` 与顺序命令组 | VitePress 派生为 `[title]` + `[!code ++]` + `::: code-group`；MDX 派系用 `title="..."` + `<Tabs>`；Python/Go/Rust 派用 `hl_lines` / `{tab-set}` |

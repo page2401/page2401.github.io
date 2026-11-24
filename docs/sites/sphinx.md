@@ -37,11 +37,11 @@ description: "预留扩展位 sites/sphinx：Python 官方与 Linux 内核同款
 | **核心依赖库 (Core Libs)** | `sphinx`、`docutils`、`myst-parser`、`markdown-it-py`、`pygments`、`jinja2` |
 | **本子站实测锁定版本** | `sphinx@9.1.1` · `myst-parser@5.2.0` · `furo@2025.12.19` · `sphinx-design@0.8.0` · `sphinxcontrib-mermaid@2.1.1` · `docutils@0.22.4` · `markdown-it-py@4.3.0` · `mdit-py-plugins@0.7.0` · `pygments@2.21.0` |
 
-### ⚡ 同源 5 章基准冷构建耗时与产物体积实测（`benchmark` 节点）
+### ⚡ 同源 6 章基准冷构建耗时与产物体积实测（`benchmark` 节点）
 
 | 冷构建耗时 | 产物文件数 | 总产物体积 | HTML 体积 | JS 原始 / Gzip | CSS 原始 / Gzip | 正文 `<script>` 数 | 离线搜索 / AI |
 | ---: | ---: | ---: | ---: | ---: | ---: | ---: | :--- |
-| **3.34 s (3,341 ms)** | 49 | 8410.0 KB | 247.2 KB | 7740.6 KB / **2280.1 KB** | 150.0 KB / 26.3 KB | `9` 个 | Sphinx 静态分词索引 |
+| **3.34 s (3,341 ms)** | 51 | 8488.9 KB | 286.0 KB | 7742.8 KB / **2280.9 KB** | 150.0 KB / 26.3 KB | `9` 个 | Sphinx 静态分词索引 |
 
 ### GitHub 仓库 API 指标快照
 

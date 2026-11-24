@@ -4,7 +4,7 @@
   "order": 15,
   "name": "Hexo",
   "versionNote": "v7.x (Node.js)",
-  "mounted": false,
+  "mounted": true,
   "sitePath": "sites/hexo",
   "websiteUrl": "https://hexo.io/",
   "githubUrl": "https://github.com/hexojs/hexo",
@@ -43,7 +43,14 @@
       "hexo-renderer-ejs",
       "nunjucks",
       "highlight.js"
-    ]
+    ],
+    "pinnedPackages": {
+      "hexo": "8.1.2",
+      "hexo-renderer-ejs": "2.0.0",
+      "hexo-renderer-marked": "7.0.1",
+      "katex": "0.19.1",
+      "mermaid": "12.3.0"
+    }
   },
   "matrix": {
     "tagline": "中文独立技术博客启蒙神器，拥有极其丰富的个性化博客主题生态",
@@ -126,5 +133,28 @@
       "2025": 51,
       "2026": 44
     }
+  },
+  "subsiteRepoUrl": "https://github.com/page2401/hexo",
+  "benchmark": {
+    "measuredAt": "2026-11-24T08:11:01.558Z",
+    "buildCommand": "npm run build",
+    "isRuntimeSpa": false,
+    "coldBuildMs": 2008,
+    "totalFiles": 71,
+    "totalBytes": 6807153,
+    "htmlFiles": 8,
+    "htmlBytes": 156339,
+    "jsFiles": 1,
+    "jsBytes": 5537838,
+    "jsGzipBytes": 1592717,
+    "cssFiles": 2,
+    "cssBytes": 36404,
+    "cssGzipBytes": 6390,
+    "otherBytes": 1076572,
+    "entryHtmlBytes": 9473,
+    "proseScriptCount": 0,
+    "hasOfflineSearch": false,
+    "offlineSearchKind": null,
+    "hasLlmsTxt": false
   }
 }

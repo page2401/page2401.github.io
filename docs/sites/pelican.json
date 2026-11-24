@@ -4,7 +4,7 @@
   "order": 25,
   "name": "Pelican",
   "versionNote": "v4.11 (Python)",
-  "mounted": false,
+  "mounted": true,
   "sitePath": "sites/pelican",
   "websiteUrl": "https://getpelican.com/",
   "githubUrl": "https://github.com/getpelican/pelican",
@@ -42,7 +42,16 @@
       "markdown",
       "pygments",
       "feedgenerator"
-    ]
+    ],
+    "pinnedPackages": {
+      "pelican": "4.12.0",
+      "jinja2": "3.1.6",
+      "markdown": "3.11.3",
+      "pymdown-extensions": "13.1.2",
+      "pygments": "2.19.2",
+      "docutils": "0.23",
+      "unidecode": "1.4.0"
+    }
   },
   "matrix": {
     "tagline": "Python 社区最具代表性的静态博客引擎（类似 Python 界的 Hexo/Jekyll），原生支持 Markdown 与 rST 双格式文章流与 RSS 聚合",
@@ -125,5 +134,28 @@
       "2025": 74,
       "2026": 59
     }
+  },
+  "subsiteRepoUrl": "https://github.com/page2401/pelican",
+  "benchmark": {
+    "measuredAt": "2026-11-24T08:11:01.558Z",
+    "buildCommand": "pelican content -o output -s pelicanconf.py",
+    "isRuntimeSpa": false,
+    "coldBuildMs": 1128,
+    "totalFiles": 74,
+    "totalBytes": 6997187,
+    "htmlFiles": 8,
+    "htmlBytes": 64500,
+    "jsFiles": 4,
+    "jsBytes": 5818542,
+    "jsGzipBytes": 1671752,
+    "cssFiles": 2,
+    "cssBytes": 37573,
+    "cssGzipBytes": 6446,
+    "otherBytes": 1076572,
+    "entryHtmlBytes": 9026,
+    "proseScriptCount": 4,
+    "hasOfflineSearch": false,
+    "offlineSearchKind": null,
+    "hasLlmsTxt": false
   }
 }

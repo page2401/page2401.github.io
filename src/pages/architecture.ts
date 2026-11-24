@@ -44,11 +44,11 @@ function renderArchitecturePage(): void {
     <section style="padding-bottom:2rem;">
       <div class="arch-grid">
         <div class="arch-card">
-          <h3>阶梯一：轻量接入生态图鉴（仅需独立 JSON + MD）</h3>
-          <p>无需立即创建子仓库，在 <code>docs/sites/</code> 下放入成对的 <code>&lt;id&gt;.json</code> 与 <code>&lt;id&gt;.md</code>，运行同步脚本即可自动拉取 GitHub 2008–2026 历年提交并注册至生态目录与热力台。</p>
-          <pre class="arch-pre mono">docs/sites/&lt;new-id&gt;.json   # 官网 / Tags / Libs
+          <h3>阶梯一：轻量接入与定时保鲜（JSON + Cron）</h3>
+          <p>在 <code>docs/sites/</code> 下放入成对的 <code>&lt;id&gt;.json</code> 与 <code>&lt;id&gt;.md</code>；每周一定时流水线 <code>sync-github-activity.yml</code> 会自动拉取最新 Stars、Release 与历年提交并触发重部署。</p>
+          <pre class="arch-pre mono">docs/sites/&lt;new-id&gt;.json   # 官网 / Tags / Libs / benchmark
 docs/sites/&lt;new-id&gt;.md     # 特色与架构痛点剖析
-npm run sync:github        # 自动刷新 github 节点</pre>
+npm run sync:github        # 每周 Cron 自动保鲜</pre>
         </div>
 
         <div class="arch-card">
@@ -57,13 +57,14 @@ npm run sync:github        # 自动刷新 github 节点</pre>
           <pre class="arch-pre mono">git submodule add -b main \\
   https://github.com/page2401/&lt;new-id&gt;.git \\
   sites/&lt;new-id&gt;
-# 在 sites.config.json 注册 manifestType 与 5 篇文档</pre>
+# 在 sites.config.json 注册 manifestType 与基准章节</pre>
         </div>
 
         <div class="arch-card">
-          <h3>阶梯三：多语言工程清单统一适配（Polyglot Manifest）</h3>
-          <p>主仓数据抽取器 <code>generate-comparison-data.mjs</code> 支持四大类跨语言依赖清单，使主站构建只需读取纯文本清单，20 秒内极速完成打包。</p>
+          <h3>阶梯三：五大运行时清单统一适配（Polyglot Manifest）</h3>
+          <p>主仓数据抽取器 <code>generate-comparison-data.mjs</code> 支持五大类跨语言依赖清单，使主站构建只需读取纯文本清单，极速完成打包。</p>
           <pre class="arch-pre mono">manifestType: "npm"     -&gt; package.json      (Node)
+manifestType: "deno"    -&gt; deno.json         (Deno 2)
 manifestType: "python"  -&gt; requirements.txt  (Python)
 manifestType: "binary"  -&gt; ssg-lock.json     (Go/Rust)
 manifestType: "ruby"    -&gt; Gemfile           (Ruby)</pre>

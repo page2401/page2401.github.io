@@ -6,16 +6,24 @@ export function escapeHtml(str: string): string {
     .replace(/"/g, '&quot;')
 }
 
-function highlightMarkdownLine(rawLine: string): string {
+export function highlightMarkdownLine(rawLine: string): string {
   const escaped = escapeHtml(rawLine)
   const trimmed = rawLine.trim()
 
-  if (trimmed === '---' || trimmed.startsWith('```')) {
+  if (trimmed === '---' || trimmed === '+++' || trimmed.startsWith('```')) {
     return `<span class="tok-fence">${escaped}</span>`
   }
   if (
     trimmed.startsWith(':::') ||
+    trimmed.startsWith('::') ||
     trimmed.startsWith('> [!') ||
+    trimmed.startsWith('!!! ') ||
+    trimmed.startsWith('??? ') ||
+    trimmed.startsWith('<Callout') ||
+    trimmed.startsWith('</Callout') ||
+    trimmed.startsWith('{% ') ||
+    trimmed.startsWith('{{< ') ||
+    trimmed.startsWith('{: .') ||
     trimmed.startsWith('<details') ||
     trimmed.startsWith('</details') ||
     trimmed.startsWith('<summary')
@@ -67,5 +75,87 @@ export function renderCodeTableHtml(
   return {
     html: `<table class="code-table"><tbody>${rowsHtml}</tbody></table>`,
     diffCount
+  }
+}
+
+export interface UnifiedDiffResult {
+  html: string
+  addedCount: number
+  removedCount: number
+}
+
+export function renderUnifiedDiffHtml(leftText: string, rightText: string): UnifiedDiffResult {
+  const a = leftText.split('\n')
+  const b = rightText.split('\n')
+  const m = a.length
+  const n = b.length
+
+  // LCS DP over lines (benchmark chapters are ~40–140 lines, so O(m*n) runs in <1ms)
+  const dp: Uint16Array[] = Array.from({ length: m + 1 }, () => new Uint16Array(n + 1))
+  for (let i = m - 1; i >= 0; i--) {
+    for (let j = n - 1; j >= 0; j--) {
+      if (a[i] === b[j]) {
+        dp[i][j] = dp[i + 1][j + 1] + 1
+      } else {
+        const down = dp[i + 1][j]
+        const right = dp[i][j + 1]
+        dp[i][j] = down >= right ? down : right
+      }
+    }
+  }
+
+  let i = 0
+  let j = 0
+  let addedCount = 0
+  let removedCount = 0
+  const rows: string[] = []
+
+  while (i < m && j < n) {
+    if (a[i] === b[j]) {
+      const code = highlightMarkdownLine(a[i]) || ' '
+      rows.push(
+        `<tr class="code-row udiff-ctx"><td class="line-num mono">${i + 1}</td><td class="line-num mono">${j + 1}</td><td class="udiff-sign mono"> </td><td class="line-code mono">${code}</td></tr>`
+      )
+      i++
+      j++
+    } else if (dp[i + 1][j] >= dp[i][j + 1]) {
+      removedCount++
+      const code = highlightMarkdownLine(a[i]) || ' '
+      rows.push(
+        `<tr class="code-row udiff-del"><td class="line-num mono">${i + 1}</td><td class="line-num mono"></td><td class="udiff-sign mono">−</td><td class="line-code mono">${code}</td></tr>`
+      )
+      i++
+    } else {
+      addedCount++
+      const code = highlightMarkdownLine(b[j]) || ' '
+      rows.push(
+        `<tr class="code-row udiff-add"><td class="line-num mono"></td><td class="line-num mono">${j + 1}</td><td class="udiff-sign mono">+</td><td class="line-code mono">${code}</td></tr>`
+      )
+      j++
+    }
+  }
+
+  while (i < m) {
+    removedCount++
+    const code = highlightMarkdownLine(a[i]) || ' '
+    rows.push(
+      `<tr class="code-row udiff-del"><td class="line-num mono">${i + 1}</td><td class="line-num mono"></td><td class="udiff-sign mono">−</td><td class="line-code mono">${code}</td></tr>`
+    )
+    i++
+  }
+
+  while (j < n) {
+    addedCount++
+    const code = highlightMarkdownLine(b[j]) || ' '
+    rows.push(
+      `<tr class="code-row udiff-add"><td class="line-num mono"></td><td class="line-num mono">${j + 1}</td><td class="udiff-sign mono">+</td><td class="line-code mono">${code}</td></tr>`
+    )
+    j++
+  }
+
+  return {
+    html: `<table class="code-table udiff-table"><tbody>${rows.join('')}</tbody></table>`,
+    addedCount,
+    removedCount
   }
 }

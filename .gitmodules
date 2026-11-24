@@ -74,3 +74,27 @@
 	path = sites/sphinx
 	url = https://github.com/page2401/sphinx.git
 	branch = main
+[submodule "sites/lume"]
+	path = sites/lume
+	url = https://github.com/page2401/lume.git
+	branch = main
+[submodule "sites/jekyll"]
+	path = sites/jekyll
+	url = https://github.com/page2401/jekyll.git
+	branch = main
+[submodule "sites/honkit"]
+	path = sites/honkit
+	url = https://github.com/page2401/honkit.git
+	branch = main
+[submodule "sites/hexo"]
+	path = sites/hexo
+	url = https://github.com/page2401/hexo.git
+	branch = main
+[submodule "sites/pelican"]
+	path = sites/pelican
+	url = https://github.com/page2401/pelican.git
+	branch = main
+[submodule "sites/gatsby"]
+	path = sites/gatsby
+	url = https://github.com/page2401/gatsby.git
+	branch = main

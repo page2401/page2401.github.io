@@ -32,9 +32,9 @@
 
 ---
 
-## 由母版派生的 19 个跨语言独立版本子模块（全景图谱共收录 26 款）
+## 由母版派生的 25 个跨语言独立版本子模块（全景图谱共收录 26 款）
 
-统一命名约定：每个子模块标识 `<id>` 同时对应本地子模块目录 `sites/<id>`、独立元数据 [`docs/sites/<id>.json`](./docs/sites/index.md)、独立仓库 `page2401/<id>` 以及线上访问路径 `https://page.2401.xyz/<id>/`（各自独立拥有 `main` 源码分支与 `page` 产物分支）。另有 7 款主流生成器（Lume、GitBook、HonKit、Gatsby、Pelican、Hexo、Jekyll）收录于 `docs/sites/*.json` 图谱中。
+统一命名约定：每个子模块标识 `<id>` 同时对应本地子模块目录 `sites/<id>`、独立元数据 [`docs/sites/<id>.json`](./docs/sites/index.md)、独立仓库 `page2401/<id>` 以及线上访问路径 `https://page.2401.xyz/<id>/`（各自独立拥有 `main` 源码分支与 `page` 产物分支）。另有已转为闭源云端 SaaS 的 `gitbook` 保留在 `docs/sites/gitbook.json` 作为历史对照档案。
 
 | 子模块（点击直达线上预览） | 语言 / 架构派系 | 核心精确锁定版本 | 相对母版的典型派生特征与实测边界 |
 | :--- | :--- | :--- | :--- |
@@ -44,8 +44,8 @@
 | [**`vuepress-v2`**](https://page.2401.xyz/vuepress-v2/)（[源码](https://github.com/page2401/vuepress-v2)） | Node · Vue 3 + Vite | `vuepress@2.0.0-rc.32` · `katex@0.19.1` · `mermaid@12.3.0` | 官方一等公民维护 Hint / Math / Chart 插件；延续 `README.md` 即目录首页与 `.html` 路由约定 |
 | [**`docsify-v4`**](https://page.2401.xyz/docsify-v4/)（[源码](https://github.com/page2401/docsify-v4)） | Browser · 零编译 SPA | `docsify@4.13.1` · `flexible-alerts@1.3.0` | 派生新增 `_sidebar.md`（强绑 `.nojekyll`）与 `?>`/`!>`；旧插件无法识别母版 `[!IMPORTANT]` 与 `[!CAUTION]` |
 | [**`docsify-v5`**](https://page.2401.xyz/docsify-v5/)（[源码](https://github.com/page2401/docsify-v5)） | Browser · 新一代 SPA | `docsify@5.1.0` · `katex@0.19.1` · `mermaid@12.3.0` | **零插件直接渲染母版全部 GFM Callouts**；重构 `core-dark` 主题，破坏性变更 `renderer.code` 签名 |
-| [**`astro7-starlight`**](https://page.2401.xyz/astro7-starlight/)（[源码](https://github.com/page2401/astro7-starlight)） | Node · Astro 7 Islands | `astro@7.4.13` · `starlight@0.43.1` · `mermaid@12.3.0` | 迁入 3 层深 `src/content/docs/`、改写为 `:::caution[标题]`，内置 Pagefind 离线中文索引 |
-| [**`docusaurus-v3`**](https://page.2401.xyz/docusaurus-v3/)（[源码](https://github.com/page2401/docusaurus-v3)） | Node · React 19 + MDX 3 | `@docusaurus/core@3.10.2` · `katex@0.19.1` · `mermaid@12.3.0` | 子目录 `_category_.json` 优雅指定中文分组名；MDX 3 严拒裸 `<` 与 `{}`；Webpack 双端编译最重 |
+| [**`astro7-starlight`**](https://page.2401.xyz/astro7-starlight/)（[源码](https://github.com/page2401/astro7-starlight)） | Node · Astro 7 Islands | `astro@7.4.13` · `starlight@0.43.1` · `mermaid@12.3.0` | 迁入 3 层深 `src/content/docs/`、改写为 `:::caution[标题]`，内置 Expressive Code 与 Pagefind 离线索引 |
+| [**`docusaurus-v3`**](https://page.2401.xyz/docusaurus-v3/)（[源码](https://github.com/page2401/docusaurus-v3)） | Node · React 19 + MDX 3 | `@docusaurus/core@3.10.2` · `katex@0.19.1` · `mermaid@12.3.0` | 子目录 `_category_.json` 优雅指定中文分组名；MDX 3 严拒裸 `<` 与 `{}`；Webpack 双端编译较重 |
 | [**`rspress`**](https://page.2401.xyz/rspress/)（[源码](https://github.com/page2401/rspress)） | Rust Rspack + React | `@rspress/core@2.1.4` · `katex@0.19.1` · `mermaid@12.3.0` | 空缓存构建仅 `11.8s`（比 Docusaurus 快 **13×**）；`_meta.json` 编排目录；自动产出 `llms.txt` |
 | [**`hugo`**](https://page.2401.xyz/hugo/)（[源码](https://github.com/page2401/hugo)） | Go 单二进制 + Goldmark | `hugo@0.170.1` · `katex@0.19.1` · `mermaid@12.3.0` | `266ms` 毫秒级构建；区分 `_index.md`（分支章节）与 `index.md`；Goldmark 渲染钩子原生接管 GFM Alert |
 | [**`mkdocs-material`**](https://page.2401.xyz/mkdocs-material/)（[源码](https://github.com/page2401/mkdocs-material)） | Python + `pymdownx` | `mkdocs-material==9.8.2` · `pymdown-extensions==10.21.2` | 单文件 `mkdocs.yml` 总控导航；独创 `!!!` / `???` + **4 空格缩进**警示与折叠语法 |
@@ -57,6 +57,12 @@
 | [**`nuxt-content`**](https://page.2401.xyz/nuxt-content/)（[源码](https://github.com/page2401/nuxt-content)） | Node · Nuxt 4 + SQLite | `@nuxt/content@3.17.0` · `nuxt@4.7.0` · `vue@3.5.46` | 独创双冒号 `::callout` MDC 组件语法；Frontmatter 编译为 SQLite 强类型表 + `.navigation.yml` 中文分组 |
 | [**`eleventy`**](https://page.2401.xyz/eleventy/)（[源码](https://github.com/page2401/eleventy)） | Node · 11ty v3 零 JS | `@11ty/eleventy@3.1.8` · `markdown-it@15.0.3` · `katex@0.19.1` | `1.2s` 全量构建；**正文页 `0` 个 `<script>` 纯静态 HTML**；`*.11tydata.json` 数据级联 + 自动重写 `.md` 相对链接 |
 | [**`sphinx`**](https://page.2401.xyz/sphinx/)（[源码](https://github.com/page2401/sphinx)） | Python · Sphinx 9 + MyST | `sphinx==9.1.1` · `myst-parser==5.2.0` · `furo==2025.12.19` | 分布式 `{toctree}` 零孤岛强契约 + `{eq}` 自动公式编号交叉引用；MyST 5.2 原生支持 GFM Alerts |
+| [**`lume`**](https://page.2401.xyz/lume/)（[源码](https://github.com/page2401/lume)） | Deno 2 · TS + Vento | `lume@3.3.3` · `deno@2.9.8` · `vento@2.4.2` | 零 `node_modules` 权限沙箱构建；原生 YAML `_data.yml` 级联 + **正文页 `0` 个 `<script>`** |
+| [**`jekyll`**](https://page.2401.xyz/jekyll/)（[源码](https://github.com/page2401/jekyll)） | Ruby · Liquid + Kramdown | `jekyll@4.4.1` · `kramdown@2.6.1` · `rouge@4.7.0` | `.nojekyll` 历史渊源本尊；Kramdown `{: .class}` 属性修饰 + `{% link %}` 死链强校验 |
+| [**`honkit`**](https://page.2401.xyz/honkit/)（[源码](https://github.com/page2401/honkit)） | Node · GitBook 接力版 | `honkit@7.0.1` · `katex@0.19.1` · `mermaid@12.3.0` | `README.md` 强制充当扉页 + `SUMMARY.md` 唯一目录源；内置三态电子书阅读器与 Lunr 离线索引 |
+| [**`hexo`**](https://page.2401.xyz/hexo/)（[源码](https://github.com/page2401/hexo)） | Node · EJS + Warehouse | `hexo@8.1.2` · `hexo-renderer-marked@7.0.1` | `{% note %}` 标签插件 + Warehouse 内存库；正文页 **0 客户端 JS**，需配 `<slug>/index.md` 保干净路由 |
+| [**`pelican`**](https://page.2401.xyz/pelican/)（[源码](https://github.com/page2401/pelican)） | Python · Jinja2 经典派 | `pelican==4.12.0` · `markdown==3.11.3` | `1.1s` 极速编译；MultiMarkdown 无引号键值头 + `{filename}` 编译期路由重写 |
+| [**`gatsby`**](https://page.2401.xyz/gatsby/)（[源码](https://github.com/page2401/gatsby)） | Node · React 18 + GraphQL | `gatsby@5.16.1` · `gatsby-plugin-mdx@5.16.0` | GraphQL `allMdx` 统一节点图谱；空缓存构建 `179.3s`（26.4 MB），直观印证重型打包器时代更迭 |
 
 ---
 

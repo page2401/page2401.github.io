@@ -35,6 +35,13 @@ description: "预留扩展位 sites/honkit：原版 GitBook CLI 停更后的社�
 | **高亮与全文检索** | highlight.js · honkit-plugin-lunr / search-pro |
 | **数学公式与流程图库** | honkit-plugin-katex ； honkit-plugin-mermaid |
 | **核心依赖库 (Core Libs)** | `honkit`、`nunjucks`、`highlight.js`、`juicer` |
+| **本子站实测锁定版本** | `honkit@7.0.1` · `katex@0.19.1` · `mermaid@12.3.0` |
+
+### ⚡ 同源 6 章基准冷构建耗时与产物体积实测（`benchmark` 节点）
+
+| 冷构建耗时 | 产物文件数 | 总产物体积 | HTML 体积 | JS 原始 / Gzip | CSS 原始 / Gzip | 正文 `<script>` 数 | 离线搜索 / AI |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: | :--- |
+| **2.53 s (2,526 ms)** | 90 | 7377.8 KB | 197.1 KB | 5557.6 KB / **1607.5 KB** | 128.2 KB / 21.2 KB | `9` 个 | Lunr.js 静态索引 |
 
 ### GitHub 仓库 API 指标快照
 

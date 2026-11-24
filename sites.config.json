@@ -34,6 +34,13 @@
       "title": "目录结构与路由取舍",
       "shortTitle": "04. 目录结构",
       "summary": "五大目录流派均无银弹：平铺根需 srcExclude (VP v1) vs srcDir 导致 public 搬家 (VP v2) vs 3 层深目录 + 英文分组名暴露 (Starlight) vs README 即首页 + .html 后缀 (VuePress) vs _sidebar.md 强绑 .nojekyll + Hash 路由 (Docsify)。"
+    },
+    {
+      "id": "05-code-blocks",
+      "code": "05",
+      "title": "高阶代码块与语法高亮",
+      "shortTitle": "05. 代码块",
+      "summary": "四大高亮流派实测：Shiki / Expressive Code 原生支持 [title] 与 // [!code ++] 保留词法着色的 Diff；Prism 依赖行号区间 {3,7-9}；Pygments / Chroma / Giallo 采用 hl_lines / :emphasize-lines:；代码组分化为 ::: code-group、<Tabs>、=== 缩进与 {tab-set}。"
     }
   ],
   "sites": [
@@ -86,11 +93,30 @@
         "buildArtifact": "由 scripts/build-master-docs.mjs 编译至 /master/ 作为中立参考视图"
       },
       "docs": {
-        "index": { "route": "", "file": "docs/index.md" },
-        "01-annotations": { "route": "01-annotations", "file": "docs/01-annotations.md" },
-        "02-diagrams": { "route": "02-diagrams", "file": "docs/02-diagrams.md" },
-        "03-math": { "route": "03-math", "file": "docs/03-math.md" },
-        "04-directory": { "route": "04-directory/", "file": "docs/04-directory/index.md" }
+        "index": {
+          "route": "",
+          "file": "docs/index.md"
+        },
+        "01-annotations": {
+          "route": "01-annotations",
+          "file": "docs/01-annotations.md"
+        },
+        "02-diagrams": {
+          "route": "02-diagrams",
+          "file": "docs/02-diagrams.md"
+        },
+        "03-math": {
+          "route": "03-math",
+          "file": "docs/03-math.md"
+        },
+        "04-directory": {
+          "route": "04-directory/",
+          "file": "docs/04-directory/index.md"
+        },
+        "05-code-blocks": {
+          "route": "05-code-blocks",
+          "file": "docs/05-code-blocks.md"
+        }
       }
     },
     {
@@ -116,7 +142,9 @@
       "directoryProfile": {
         "contentRoot": "/ (仓库根目录直接平铺)",
         "contentPrefix": "",
-        "excludedContentFiles": ["README.md"],
+        "excludedContentFiles": [
+          "README.md"
+        ],
         "orderingMechanism": "文件名前缀排序 (01-xxx.md)",
         "sidebarMechanism": "全手写 .vitepress/config.mts 嵌套数组",
         "pros": [
@@ -142,11 +170,30 @@
         "buildArtifact": "Rollup 构建约 28s；HTML 内嵌矢量 SVG 公式"
       },
       "docs": {
-        "index": { "route": "", "file": "index.md" },
-        "01-annotations": { "route": "01-annotations", "file": "01-annotations.md" },
-        "02-diagrams": { "route": "02-diagrams", "file": "02-diagrams.md" },
-        "03-math": { "route": "03-math", "file": "03-math.md" },
-        "04-directory": { "route": "04-directory/", "file": "04-directory/index.md" }
+        "index": {
+          "route": "",
+          "file": "index.md"
+        },
+        "01-annotations": {
+          "route": "01-annotations",
+          "file": "01-annotations.md"
+        },
+        "02-diagrams": {
+          "route": "02-diagrams",
+          "file": "02-diagrams.md"
+        },
+        "03-math": {
+          "route": "03-math",
+          "file": "03-math.md"
+        },
+        "04-directory": {
+          "route": "04-directory/",
+          "file": "04-directory/index.md"
+        },
+        "05-code-blocks": {
+          "route": "05-code-blocks",
+          "file": "05-code-blocks.md"
+        }
       }
     },
     {
@@ -204,11 +251,30 @@
         "buildArtifact": "基于 Vite 8 Rolldown 构建仅需 8.2s（比 v1 快 3.4 倍）"
       },
       "docs": {
-        "index": { "route": "", "file": "docs/index.md" },
-        "01-annotations": { "route": "01-annotations", "file": "docs/01-annotations.md" },
-        "02-diagrams": { "route": "02-diagrams", "file": "docs/02-diagrams.md" },
-        "03-math": { "route": "03-math", "file": "docs/03-math.md" },
-        "04-directory": { "route": "04-directory/", "file": "docs/04-directory/index.md" }
+        "index": {
+          "route": "",
+          "file": "docs/index.md"
+        },
+        "01-annotations": {
+          "route": "01-annotations",
+          "file": "docs/01-annotations.md"
+        },
+        "02-diagrams": {
+          "route": "02-diagrams",
+          "file": "docs/02-diagrams.md"
+        },
+        "03-math": {
+          "route": "03-math",
+          "file": "docs/03-math.md"
+        },
+        "04-directory": {
+          "route": "04-directory/",
+          "file": "docs/04-directory/index.md"
+        },
+        "05-code-blocks": {
+          "route": "05-code-blocks",
+          "file": "docs/05-code-blocks.md"
+        }
       }
     },
     {
@@ -261,11 +327,30 @@
         "buildArtifact": "1,507 个 npm 子包；Node 22 必须开启 --openssl-legacy-provider"
       },
       "docs": {
-        "index": { "route": "", "file": "docs/README.md" },
-        "01-annotations": { "route": "01-annotations.html", "file": "docs/01-annotations.md" },
-        "02-diagrams": { "route": "02-diagrams.html", "file": "docs/02-diagrams.md" },
-        "03-math": { "route": "03-math.html", "file": "docs/03-math.md" },
-        "04-directory": { "route": "04-directory/", "file": "docs/04-directory/README.md" }
+        "index": {
+          "route": "",
+          "file": "docs/README.md"
+        },
+        "01-annotations": {
+          "route": "01-annotations.html",
+          "file": "docs/01-annotations.md"
+        },
+        "02-diagrams": {
+          "route": "02-diagrams.html",
+          "file": "docs/02-diagrams.md"
+        },
+        "03-math": {
+          "route": "03-math.html",
+          "file": "docs/03-math.md"
+        },
+        "04-directory": {
+          "route": "04-directory/",
+          "file": "docs/04-directory/README.md"
+        },
+        "05-code-blocks": {
+          "route": "05-code-blocks.html",
+          "file": "docs/05-code-blocks.md"
+        }
       }
     },
     {
@@ -321,11 +406,30 @@
         "buildArtifact": "426 个包（0 漏洞），Vite 编译耗时 9.8s，彻底告别 OpenSSL 旧版限制"
       },
       "docs": {
-        "index": { "route": "", "file": "docs/README.md" },
-        "01-annotations": { "route": "01-annotations.html", "file": "docs/01-annotations.md" },
-        "02-diagrams": { "route": "02-diagrams.html", "file": "docs/02-diagrams.md" },
-        "03-math": { "route": "03-math.html", "file": "docs/03-math.md" },
-        "04-directory": { "route": "04-directory/", "file": "docs/04-directory/README.md" }
+        "index": {
+          "route": "",
+          "file": "docs/README.md"
+        },
+        "01-annotations": {
+          "route": "01-annotations.html",
+          "file": "docs/01-annotations.md"
+        },
+        "02-diagrams": {
+          "route": "02-diagrams.html",
+          "file": "docs/02-diagrams.md"
+        },
+        "03-math": {
+          "route": "03-math.html",
+          "file": "docs/03-math.md"
+        },
+        "04-directory": {
+          "route": "04-directory/",
+          "file": "docs/04-directory/README.md"
+        },
+        "05-code-blocks": {
+          "route": "05-code-blocks.html",
+          "file": "docs/05-code-blocks.md"
+        }
       }
     },
     {
@@ -379,11 +483,30 @@
         "buildArtifact": "零 HTML 预编译；采用旧版单体 vue.css，无官方原生暗黑变量体系"
       },
       "docs": {
-        "index": { "route": "#/", "file": "docs/README.md" },
-        "01-annotations": { "route": "#/01-annotations", "file": "docs/01-annotations.md" },
-        "02-diagrams": { "route": "#/02-diagrams", "file": "docs/02-diagrams.md" },
-        "03-math": { "route": "#/03-math", "file": "docs/03-math.md" },
-        "04-directory": { "route": "#/04-directory/", "file": "docs/04-directory/README.md" }
+        "index": {
+          "route": "#/",
+          "file": "docs/README.md"
+        },
+        "01-annotations": {
+          "route": "#/01-annotations",
+          "file": "docs/01-annotations.md"
+        },
+        "02-diagrams": {
+          "route": "#/02-diagrams",
+          "file": "docs/02-diagrams.md"
+        },
+        "03-math": {
+          "route": "#/03-math",
+          "file": "docs/03-math.md"
+        },
+        "04-directory": {
+          "route": "#/04-directory/",
+          "file": "docs/04-directory/README.md"
+        },
+        "05-code-blocks": {
+          "route": "#/05-code-blocks",
+          "file": "docs/05-code-blocks.md"
+        }
       }
     },
     {
@@ -436,11 +559,30 @@
         "buildArtifact": "全新 core.min.css + addons/core-dark.min.css 原生支持深浅色主题切换（0 漏洞）"
       },
       "docs": {
-        "index": { "route": "#/", "file": "docs/README.md" },
-        "01-annotations": { "route": "#/01-annotations", "file": "docs/01-annotations.md" },
-        "02-diagrams": { "route": "#/02-diagrams", "file": "docs/02-diagrams.md" },
-        "03-math": { "route": "#/03-math", "file": "docs/03-math.md" },
-        "04-directory": { "route": "#/04-directory/", "file": "docs/04-directory/README.md" }
+        "index": {
+          "route": "#/",
+          "file": "docs/README.md"
+        },
+        "01-annotations": {
+          "route": "#/01-annotations",
+          "file": "docs/01-annotations.md"
+        },
+        "02-diagrams": {
+          "route": "#/02-diagrams",
+          "file": "docs/02-diagrams.md"
+        },
+        "03-math": {
+          "route": "#/03-math",
+          "file": "docs/03-math.md"
+        },
+        "04-directory": {
+          "route": "#/04-directory/",
+          "file": "docs/04-directory/README.md"
+        },
+        "05-code-blocks": {
+          "route": "#/05-code-blocks",
+          "file": "docs/05-code-blocks.md"
+        }
       }
     },
     {
@@ -498,11 +640,30 @@
         "buildArtifact": "自带 Pagefind 中文全文检索索引；必须携带 .nojekyll 防拦截 /_astro/"
       },
       "docs": {
-        "index": { "route": "", "file": "src/content/docs/index.mdx" },
-        "01-annotations": { "route": "01-annotations", "file": "src/content/docs/01-annotations.md" },
-        "02-diagrams": { "route": "02-diagrams", "file": "src/content/docs/02-diagrams.md" },
-        "03-math": { "route": "03-math", "file": "src/content/docs/03-math.md" },
-        "04-directory": { "route": "04-directory", "file": "src/content/docs/04-directory/index.md" }
+        "index": {
+          "route": "",
+          "file": "src/content/docs/index.mdx"
+        },
+        "01-annotations": {
+          "route": "01-annotations",
+          "file": "src/content/docs/01-annotations.md"
+        },
+        "02-diagrams": {
+          "route": "02-diagrams",
+          "file": "src/content/docs/02-diagrams.md"
+        },
+        "03-math": {
+          "route": "03-math",
+          "file": "src/content/docs/03-math.md"
+        },
+        "04-directory": {
+          "route": "04-directory",
+          "file": "src/content/docs/04-directory/index.md"
+        },
+        "05-code-blocks": {
+          "route": "05-code-blocks",
+          "file": "src/content/docs/05-code-blocks.mdx"
+        }
       }
     },
     {
@@ -563,11 +724,30 @@
         "buildArtifact": "Webpack 5 静态编译；严禁在 package.json 写 type: module 防破坏内部 registry"
       },
       "docs": {
-        "index": { "route": "", "file": "docs/index.md" },
-        "01-annotations": { "route": "01-annotations", "file": "docs/01-annotations.md" },
-        "02-diagrams": { "route": "02-diagrams", "file": "docs/02-diagrams.md" },
-        "03-math": { "route": "03-math", "file": "docs/03-math.md" },
-        "04-directory": { "route": "04-directory/", "file": "docs/04-directory/index.md" }
+        "index": {
+          "route": "",
+          "file": "docs/index.md"
+        },
+        "01-annotations": {
+          "route": "01-annotations",
+          "file": "docs/01-annotations.md"
+        },
+        "02-diagrams": {
+          "route": "02-diagrams",
+          "file": "docs/02-diagrams.md"
+        },
+        "03-math": {
+          "route": "03-math",
+          "file": "docs/03-math.md"
+        },
+        "04-directory": {
+          "route": "04-directory/",
+          "file": "docs/04-directory/index.md"
+        },
+        "05-code-blocks": {
+          "route": "05-code-blocks",
+          "file": "docs/05-code-blocks.mdx"
+        }
       }
     },
     {
@@ -626,11 +806,30 @@
         "buildArtifact": "输出至 doc_build/；自动附带 AI 友好的 llms.txt 与原始 .md 镜像"
       },
       "docs": {
-        "index": { "route": "", "file": "docs/index.md" },
-        "01-annotations": { "route": "01-annotations", "file": "docs/01-annotations.md" },
-        "02-diagrams": { "route": "02-diagrams", "file": "docs/02-diagrams.md" },
-        "03-math": { "route": "03-math", "file": "docs/03-math.md" },
-        "04-directory": { "route": "04-directory/", "file": "docs/04-directory/index.md" }
+        "index": {
+          "route": "",
+          "file": "docs/index.md"
+        },
+        "01-annotations": {
+          "route": "01-annotations",
+          "file": "docs/01-annotations.md"
+        },
+        "02-diagrams": {
+          "route": "02-diagrams",
+          "file": "docs/02-diagrams.md"
+        },
+        "03-math": {
+          "route": "03-math",
+          "file": "docs/03-math.md"
+        },
+        "04-directory": {
+          "route": "04-directory/",
+          "file": "docs/04-directory/index.md"
+        },
+        "05-code-blocks": {
+          "route": "05-code-blocks",
+          "file": "docs/05-code-blocks.mdx"
+        }
       }
     },
     {
@@ -688,11 +887,30 @@
         "buildArtifact": "单二进制约 50ms 完成全站 --minify 构建，零 npm 供应链依赖"
       },
       "docs": {
-        "index": { "route": "", "file": "content/_index.md" },
-        "01-annotations": { "route": "01-annotations/", "file": "content/01-annotations.md" },
-        "02-diagrams": { "route": "02-diagrams/", "file": "content/02-diagrams.md" },
-        "03-math": { "route": "03-math/", "file": "content/03-math.md" },
-        "04-directory": { "route": "04-directory/", "file": "content/04-directory/_index.md" }
+        "index": {
+          "route": "",
+          "file": "content/_index.md"
+        },
+        "01-annotations": {
+          "route": "01-annotations/",
+          "file": "content/01-annotations.md"
+        },
+        "02-diagrams": {
+          "route": "02-diagrams/",
+          "file": "content/02-diagrams.md"
+        },
+        "03-math": {
+          "route": "03-math/",
+          "file": "content/03-math.md"
+        },
+        "04-directory": {
+          "route": "04-directory/",
+          "file": "content/04-directory/_index.md"
+        },
+        "05-code-blocks": {
+          "route": "05-code-blocks/",
+          "file": "content/05-code-blocks.md"
+        }
       }
     },
     {
@@ -748,11 +966,30 @@
         "buildArtifact": "Python 纯静态输出至 site/（内置离线搜索索引，零 Node 依赖）"
       },
       "docs": {
-        "index": { "route": "", "file": "docs/index.md" },
-        "01-annotations": { "route": "01-annotations/", "file": "docs/01-annotations.md" },
-        "02-diagrams": { "route": "02-diagrams/", "file": "docs/02-diagrams.md" },
-        "03-math": { "route": "03-math/", "file": "docs/03-math.md" },
-        "04-directory": { "route": "04-directory/", "file": "docs/04-directory/index.md" }
+        "index": {
+          "route": "",
+          "file": "docs/index.md"
+        },
+        "01-annotations": {
+          "route": "01-annotations/",
+          "file": "docs/01-annotations.md"
+        },
+        "02-diagrams": {
+          "route": "02-diagrams/",
+          "file": "docs/02-diagrams.md"
+        },
+        "03-math": {
+          "route": "03-math/",
+          "file": "docs/03-math.md"
+        },
+        "04-directory": {
+          "route": "04-directory/",
+          "file": "docs/04-directory/index.md"
+        },
+        "05-code-blocks": {
+          "route": "05-code-blocks/",
+          "file": "docs/05-code-blocks.md"
+        }
       }
     },
     {
@@ -809,11 +1046,30 @@
         "buildArtifact": "Rust 单二进制约 30ms 输出至 book/，内嵌字体实现零外部 CDN 请求"
       },
       "docs": {
-        "index": { "route": "", "file": "src/index.md" },
-        "01-annotations": { "route": "01-annotations.html", "file": "src/01-annotations.md" },
-        "02-diagrams": { "route": "02-diagrams.html", "file": "src/02-diagrams.md" },
-        "03-math": { "route": "03-math.html", "file": "src/03-math.md" },
-        "04-directory": { "route": "04-directory/", "file": "src/04-directory/index.md" }
+        "index": {
+          "route": "",
+          "file": "src/index.md"
+        },
+        "01-annotations": {
+          "route": "01-annotations.html",
+          "file": "src/01-annotations.md"
+        },
+        "02-diagrams": {
+          "route": "02-diagrams.html",
+          "file": "src/02-diagrams.md"
+        },
+        "03-math": {
+          "route": "03-math.html",
+          "file": "src/03-math.md"
+        },
+        "04-directory": {
+          "route": "04-directory/",
+          "file": "src/04-directory/index.md"
+        },
+        "05-code-blocks": {
+          "route": "05-code-blocks.html",
+          "file": "src/05-code-blocks.md"
+        }
       }
     },
     {
@@ -870,11 +1126,30 @@
         "buildArtifact": "Rust 单二进制约 29ms 极速生成至 public/（v0.22+ 改用内置 Giallo 语法高亮）"
       },
       "docs": {
-        "index": { "route": "", "file": "content/_index.md" },
-        "01-annotations": { "route": "01-annotations/", "file": "content/01-annotations.md" },
-        "02-diagrams": { "route": "02-diagrams/", "file": "content/02-diagrams.md" },
-        "03-math": { "route": "03-math/", "file": "content/03-math.md" },
-        "04-directory": { "route": "04-directory/", "file": "content/04-directory/_index.md" }
+        "index": {
+          "route": "",
+          "file": "content/_index.md"
+        },
+        "01-annotations": {
+          "route": "01-annotations/",
+          "file": "content/01-annotations.md"
+        },
+        "02-diagrams": {
+          "route": "02-diagrams/",
+          "file": "content/02-diagrams.md"
+        },
+        "03-math": {
+          "route": "03-math/",
+          "file": "content/03-math.md"
+        },
+        "04-directory": {
+          "route": "04-directory/",
+          "file": "content/04-directory/_index.md"
+        },
+        "05-code-blocks": {
+          "route": "05-code-blocks/",
+          "file": "content/05-code-blocks.md"
+        }
       }
     },
     {
@@ -942,11 +1217,30 @@
         "buildArtifact": "Next.js 16 Turbopack 静态导出至 out/（零外部 CDN 请求）"
       },
       "docs": {
-        "index": { "route": "", "file": "content/docs/index.mdx" },
-        "01-annotations": { "route": "01-annotations/", "file": "content/docs/01-annotations.mdx" },
-        "02-diagrams": { "route": "02-diagrams/", "file": "content/docs/02-diagrams.mdx" },
-        "03-math": { "route": "03-math/", "file": "content/docs/03-math.mdx" },
-        "04-directory": { "route": "04-directory/", "file": "content/docs/04-directory/index.mdx" }
+        "index": {
+          "route": "",
+          "file": "content/docs/index.mdx"
+        },
+        "01-annotations": {
+          "route": "01-annotations/",
+          "file": "content/docs/01-annotations.mdx"
+        },
+        "02-diagrams": {
+          "route": "02-diagrams/",
+          "file": "content/docs/02-diagrams.mdx"
+        },
+        "03-math": {
+          "route": "03-math/",
+          "file": "content/docs/03-math.mdx"
+        },
+        "04-directory": {
+          "route": "04-directory/",
+          "file": "content/docs/04-directory/index.mdx"
+        },
+        "05-code-blocks": {
+          "route": "05-code-blocks/",
+          "file": "content/docs/05-code-blocks.mdx"
+        }
       }
     },
     {
@@ -1010,11 +1304,30 @@
         "buildArtifact": "Next.js 15.5 output: 'export' 输出至 out/ + Pagefind 生成 out/_pagefind/ 中文离线检索索引"
       },
       "docs": {
-        "index": { "route": "", "file": "content/index.md" },
-        "01-annotations": { "route": "01-annotations/", "file": "content/01-annotations.mdx" },
-        "02-diagrams": { "route": "02-diagrams/", "file": "content/02-diagrams.md" },
-        "03-math": { "route": "03-math/", "file": "content/03-math.md" },
-        "04-directory": { "route": "04-directory/", "file": "content/04-directory/index.md" }
+        "index": {
+          "route": "",
+          "file": "content/index.md"
+        },
+        "01-annotations": {
+          "route": "01-annotations/",
+          "file": "content/01-annotations.mdx"
+        },
+        "02-diagrams": {
+          "route": "02-diagrams/",
+          "file": "content/02-diagrams.md"
+        },
+        "03-math": {
+          "route": "03-math/",
+          "file": "content/03-math.md"
+        },
+        "04-directory": {
+          "route": "04-directory/",
+          "file": "content/04-directory/index.md"
+        },
+        "05-code-blocks": {
+          "route": "05-code-blocks/",
+          "file": "content/05-code-blocks.mdx"
+        }
       }
     },
     {
@@ -1079,11 +1392,30 @@
         "buildArtifact": "esbuild + Preact SSR 极速编译生成含全文索引 contentIndex.json 的 Micromorph 静态站"
       },
       "docs": {
-        "index": { "route": "", "file": "content/index.md" },
-        "01-annotations": { "route": "01-annotations", "file": "content/01-annotations.md" },
-        "02-diagrams": { "route": "02-diagrams", "file": "content/02-diagrams.md" },
-        "03-math": { "route": "03-math", "file": "content/03-math.md" },
-        "04-directory": { "route": "04-directory/", "file": "content/04-directory/index.md" }
+        "index": {
+          "route": "",
+          "file": "content/index.md"
+        },
+        "01-annotations": {
+          "route": "01-annotations",
+          "file": "content/01-annotations.md"
+        },
+        "02-diagrams": {
+          "route": "02-diagrams",
+          "file": "content/02-diagrams.md"
+        },
+        "03-math": {
+          "route": "03-math",
+          "file": "content/03-math.md"
+        },
+        "04-directory": {
+          "route": "04-directory/",
+          "file": "content/04-directory/index.md"
+        },
+        "05-code-blocks": {
+          "route": "05-code-blocks",
+          "file": "content/05-code-blocks.md"
+        }
       }
     },
     {
@@ -1148,11 +1480,30 @@
         "buildArtifact": "Nuxt 4 + Vite 8 + Nitro 静态预渲染输出至 .output/public（含 sqlite-wasm 兜底转储）"
       },
       "docs": {
-        "index": { "route": "", "file": "content/index.md" },
-        "01-annotations": { "route": "01-annotations", "file": "content/01-annotations.md" },
-        "02-diagrams": { "route": "02-diagrams", "file": "content/02-diagrams.md" },
-        "03-math": { "route": "03-math", "file": "content/03-math.md" },
-        "04-directory": { "route": "04-directory/", "file": "content/04-directory/index.md" }
+        "index": {
+          "route": "",
+          "file": "content/index.md"
+        },
+        "01-annotations": {
+          "route": "01-annotations",
+          "file": "content/01-annotations.md"
+        },
+        "02-diagrams": {
+          "route": "02-diagrams",
+          "file": "content/02-diagrams.md"
+        },
+        "03-math": {
+          "route": "03-math",
+          "file": "content/03-math.md"
+        },
+        "04-directory": {
+          "route": "04-directory/",
+          "file": "content/04-directory/index.md"
+        },
+        "05-code-blocks": {
+          "route": "05-code-blocks",
+          "file": "content/05-code-blocks.md"
+        }
       }
     },
     {
@@ -1214,11 +1565,30 @@
         "buildArtifact": "Node 22 原生 ESM 极速全量构建 7 页，正文页 scripts=0，零外部 CDN 请求"
       },
       "docs": {
-        "index": { "route": "", "file": "src/index.md" },
-        "01-annotations": { "route": "01-annotations/", "file": "src/01-annotations.md" },
-        "02-diagrams": { "route": "02-diagrams/", "file": "src/02-diagrams.md" },
-        "03-math": { "route": "03-math/", "file": "src/03-math.md" },
-        "04-directory": { "route": "04-directory/", "file": "src/04-directory/index.md" }
+        "index": {
+          "route": "",
+          "file": "src/index.md"
+        },
+        "01-annotations": {
+          "route": "01-annotations/",
+          "file": "src/01-annotations.md"
+        },
+        "02-diagrams": {
+          "route": "02-diagrams/",
+          "file": "src/02-diagrams.md"
+        },
+        "03-math": {
+          "route": "03-math/",
+          "file": "src/03-math.md"
+        },
+        "04-directory": {
+          "route": "04-directory/",
+          "file": "src/04-directory/index.md"
+        },
+        "05-code-blocks": {
+          "route": "05-code-blocks/",
+          "file": "src/05-code-blocks.md"
+        }
       }
     },
     {
@@ -1251,7 +1621,9 @@
       "directoryProfile": {
         "contentRoot": "/ (根 conf.py + 分布式 {toctree} 显式整书树)",
         "contentPrefix": "",
-        "excludedContentFiles": ["README.md"],
+        "excludedContentFiles": [
+          "README.md"
+        ],
         "orderingMechanism": "父级 ```{toctree} 指令内显式书写顺序",
         "sidebarMechanism": "分布式 {toctree} 组合树（未入树文档触发构建期告警）",
         "pros": [
@@ -1277,11 +1649,548 @@
         "buildArtifact": "Python 3.12 极速编译至 _build/dirhtml（内置中文全文检索索引，零外部 CDN 请求）"
       },
       "docs": {
-        "index": { "route": "", "file": "index.md" },
-        "01-annotations": { "route": "01-annotations/", "file": "01-annotations.md" },
-        "02-diagrams": { "route": "02-diagrams/", "file": "02-diagrams.md" },
-        "03-math": { "route": "03-math/", "file": "03-math.md" },
-        "04-directory": { "route": "04-directory/", "file": "04-directory/index.md" }
+        "index": {
+          "route": "",
+          "file": "index.md"
+        },
+        "01-annotations": {
+          "route": "01-annotations/",
+          "file": "01-annotations.md"
+        },
+        "02-diagrams": {
+          "route": "02-diagrams/",
+          "file": "02-diagrams.md"
+        },
+        "03-math": {
+          "route": "03-math/",
+          "file": "03-math.md"
+        },
+        "04-directory": {
+          "route": "04-directory/",
+          "file": "04-directory/index.md"
+        },
+        "05-code-blocks": {
+          "route": "05-code-blocks/",
+          "file": "05-code-blocks.md"
+        }
+      }
+    },
+    {
+      "id": "lume",
+      "family": "Lume",
+      "versionSeries": "v3.3 (Deno 2 + Vento)",
+      "tagline": "Deno 2 原生 TypeScript 极速生成器 + Vento 管道模板 + 原生 YAML _data.yml 级联",
+      "repo": "page2401/lume",
+      "basePath": "/lume/",
+      "submoduleDir": "sites/lume",
+      "distDir": "sites/lume/_site",
+      "manifestType": "deno",
+      "buildCommand": "/home/antigravity/.local/bin/deno task build",
+      "routeStyle": "clean",
+      "primaryPackage": "lume",
+      "trackedPackages": [
+        "lume",
+        "deno",
+        "vento",
+        "markdown-it",
+        "@mdit/plugin-alert",
+        "@mdit/plugin-container",
+        "@mdit/plugin-katex",
+        "highlight.js",
+        "katex",
+        "mermaid"
+      ],
+      "configFiles": [
+        "_config.ts",
+        "ssg-lock.json",
+        "src/_data.yml",
+        "src/04-directory/_data.yml",
+        "src/04-directory/nested/_data.yml",
+        "src/_includes/layouts/base.vto",
+        "src/_components/nav_node.vto",
+        "src/_components/cascade_badge.vto"
+      ],
+      "directoryProfile": {
+        "contentRoot": "src/ (1:1 透明目录映射 + 原生 YAML _data.yml 数据级联)",
+        "contentPrefix": "src/",
+        "excludedContentFiles": [],
+        "orderingMechanism": "Frontmatter order 权重 + lume/plugins/nav.ts (order=asc basename=asc-locale)",
+        "sidebarMechanism": "lume/plugins/nav.ts 自动物理路径建树 + nested/_data.yml 虚拟目录中文赋名 + Vento 递归组件",
+        "pros": [
+          "破解无主页子目录命名痛点：nav.menu() 自动读取 nested/_data.yml 的 navGroupTitle，免建冗余入口页即可赋予英文子目录中文组名",
+          "升级版 YAML 数据级联：任意目录放 _data.yml 即可向下自动合并 layout 与标签（无需像 11ty 重复目录名写 *.11tydata.json）",
+          "零 node_modules + 离线链接完好：Deno 2 权限沙箱约 0.52s 极速编译，resolveUrls + basePath 自动重写 ./nested/*.md 离线相对互链"
+        ],
+        "cons": [
+          "分发渠道重大迁移：deno.land/x/lume 已停更于 v2.5.5（访问 v3.3.3 直接 404），v3 必须改从 cdn.jsdelivr.net/gh/lumeland/lume@3.3.3/ 导入",
+          "Deno 2 混合 Monorepo 陷阱：子目录位于含 package.json 的父仓库下时，必须在 deno.json 显式配置 nodeModulesDir: 'none' 防向上回溯报错",
+          "内置 katex 插件存在后处理缺陷：官方 lume/plugins/katex.ts 默认拉取 jsdelivr 字体且在 Markdown 吞噬反斜杠后才做 DOM 渲染，须改挂词法级 @mdit/plugin-katex"
+        ]
+      },
+      "highlights": {
+        "dirIsolation": "src: './src' 干净隔离根 README.md、_config.ts 与 deno.json，产物输出至 _site/",
+        "dirRoutingSidebar": "保留标准 index.md + resolveUrls 重写离线 .md 链接 + nav 插件联动 _data.yml 自动生成多级树与上下翻页",
+        "frontmatter": "自由 YAML Frontmatter + 分层级 _data.yml 原生级联（单页无需重复声明 key 或 parent）",
+        "callouts": "site.hooks.markdownIt 挂载 @mdit/plugin-container 支持 ::: info / tip / warning / danger（零花括号冲突）",
+        "details": "内置 markdown-it (默认含 attrs + deflist) 直通原生 <details><summary> 及内部公式与 .vto 代码高亮",
+        "gfmAlerts": "挂载 @mdit/plugin-alert@2.2.0 零改造原生渲染 > [!NOTE] 至 > [!CAUTION] 全部 5 类警报",
+        "mermaid": "markdown-it fence 钩子转换为 .mermaid 容器，base.vto 按需引入本地 mermaid@12.3.0（其余页面 0 脚本）",
+        "math": "绕过内置 DOM 后处理插件，词法层直挂 @mdit/plugin-katex@1.2.1 + 本地 katex@0.19.1 字体构建期 SSR 直出 HTML",
+        "buildArtifact": "Deno 2.9.8 (-P=lume 权限沙箱) 极速生成，正文页 0 客户端 JS、全站 0 外部 CDN 请求"
+      },
+      "docs": {
+        "index": {
+          "route": "",
+          "file": "src/index.md"
+        },
+        "01-annotations": {
+          "route": "01-annotations/",
+          "file": "src/01-annotations.md"
+        },
+        "02-diagrams": {
+          "route": "02-diagrams/",
+          "file": "src/02-diagrams.md"
+        },
+        "03-math": {
+          "route": "03-math/",
+          "file": "src/03-math.md"
+        },
+        "04-directory": {
+          "route": "04-directory/",
+          "file": "src/04-directory/index.md"
+        },
+        "05-code-blocks": {
+          "route": "05-code-blocks/",
+          "file": "src/05-code-blocks.md"
+        }
+      }
+    },
+    {
+      "id": "jekyll",
+      "family": "Jekyll",
+      "versionSeries": "v4.4 (Ruby + Kramdown)",
+      "tagline": "静态网站生成器开山鼻祖与 GitHub Pages 默认引擎（.nojekyll 的历史由来）+ Kramdown {: .class} + Liquid",
+      "repo": "page2401/jekyll",
+      "basePath": "/jekyll/",
+      "submoduleDir": "sites/jekyll",
+      "distDir": "sites/jekyll/_site",
+      "manifestType": "ruby",
+      "buildCommand": "bundle exec jekyll build",
+      "routeStyle": "clean",
+      "primaryPackage": "jekyll",
+      "trackedPackages": [
+        "jekyll",
+        "kramdown",
+        "kramdown-parser-gfm",
+        "rouge",
+        "liquid",
+        "jekyll-sass-converter",
+        "csv",
+        "webrick"
+      ],
+      "configFiles": [
+        "_config.yml",
+        "_data/nav.yml",
+        "_layouts/default.html",
+        "_includes/callout.html",
+        "assets/css/style.scss",
+        "assets/js/site.js"
+      ],
+      "directoryProfile": {
+        "contentRoot": "/ (根目录扫描 + _layouts / _includes / _data 下划线系统目录模型)",
+        "contentPrefix": "",
+        "excludedContentFiles": [
+          "README.md"
+        ],
+        "orderingMechanism": "01- 文件名前缀保持本地有序 + _data/nav.yml 声明侧边栏顺序",
+        "sidebarMechanism": "_data/nav.yml 结构化 YAML 数据文件 + Liquid site.data.nav 循环渲染",
+        "pros": [
+          "开创行业范式的元老架构：首创 YAML Frontmatter、_layouts/ 模板继承与 _data/*.yml 数据驱动视图，构建仅需约 0.6s",
+          "内链编译期强校验：Jekyll 4 内置 {% link path/to/doc.md %} 标签自动拼接 baseurl 与 pretty 路由，目标改名立即阻断构建",
+          "子目录零控制文件侵入：侧边栏统一收敛在 _data/nav.yml，04-directory/nested/ 内无需散落 _index.md 或 _category_.json"
+        ],
+        "cons": [
+          ".nojekyll 历史包袱的源头：默认吞噬一切下划线 _ 开头路径，且根级混居必须在 _config.yml exclude 中手动屏蔽 README.md、Gemfile 与 vendor",
+          "{% link %} 牺牲离线可点击性：原生 Kramdown 不重写相对 .md 链接，改用 Liquid {% link %} 后在编辑器中无法直接跳转",
+          "Ruby 上游依赖版本断层：liquid 与 rouge 已升至 v5，而 jekyll@4.4.1 仍锁死 liquid ~> 4.0 与 rouge < 5.0，且 Ruby 3.2+ 须显式补齐 csv/webrick"
+        ]
+      },
+      "highlights": {
+        "dirIsolation": "根目录平铺 + 下划线系统目录（_layouts/_includes/_data/_site），靠 _config.yml exclude 隔离 README.md、Gemfile 与 vendor",
+        "dirRoutingSidebar": "permalink: pretty 干净目录路由 + 经典 _data/nav.yml 数据驱动侧边栏 + {% link %} 编译期死链校验",
+        "frontmatter": "YAML Frontmatter 鼻祖；通过 _config.yml defaults 作用域全局注入 layout: default",
+        "callouts": "双轨经典方言：Kramdown 行内属性列表 {: .callout .callout-tip} 修饰 + Liquid {% include callout.html %} 组件",
+        "details": "Kramdown 默认跳过块级 HTML 内部语法，须显式标注 <details markdown=\"1\"> 方能解析内部 Rouge 代码块与公式",
+        "gfmAlerts": "kramdown-parser-gfm@1.1.0 停更于 2019 年（早于 2023 GitHub Alerts），原始 > [!NOTE] 退化为普通引用块",
+        "mermaid": "母版 ```mermaid 围栏零改动，Kramdown 输出 code.language-mermaid 并由本地 mermaid@12.3.0 随主题重绘",
+        "math": "Kramdown math_engine 原生将块级 $$...$$ 保护为 \\[...\\]（免双写 \\\\），配合本地 KaTeX 0.19.1",
+        "buildArtifact": "Ruby 3.2 + jekyll-sass-converter@3.1 极速编译至 _site/（约 0.64s），零外部 CDN 请求"
+      },
+      "docs": {
+        "index": {
+          "route": "",
+          "file": "index.md"
+        },
+        "01-annotations": {
+          "route": "01-annotations/",
+          "file": "01-annotations.md"
+        },
+        "02-diagrams": {
+          "route": "02-diagrams/",
+          "file": "02-diagrams.md"
+        },
+        "03-math": {
+          "route": "03-math/",
+          "file": "03-math.md"
+        },
+        "04-directory": {
+          "route": "04-directory/",
+          "file": "04-directory/index.md"
+        },
+        "05-code-blocks": {
+          "route": "05-code-blocks/",
+          "file": "05-code-blocks.md"
+        }
+      }
+    },
+    {
+      "id": "honkit",
+      "family": "HonKit",
+      "versionSeries": "v7.0 (GitBook Successor)",
+      "tagline": "经典开源 GitBook 社区接力版 · SUMMARY.md 唯一目录源 + Nunjucks {% hint %} + 内置三态电子书壳",
+      "repo": "page2401/honkit",
+      "basePath": "/honkit/",
+      "submoduleDir": "sites/honkit",
+      "distDir": "sites/honkit/_book",
+      "manifestType": "npm",
+      "buildCommand": "npm run build",
+      "routeStyle": "html",
+      "primaryPackage": "honkit",
+      "trackedPackages": [
+        "honkit",
+        "katex",
+        "mermaid"
+      ],
+      "configFiles": [
+        "book.json",
+        "SUMMARY.md",
+        ".bookignore",
+        "plugins/honkit-plugin-local-bench/index.js",
+        "plugins/honkit-plugin-local-bench/assets/bench.js",
+        "plugins/honkit-plugin-local-bench/assets/bench.css"
+      ],
+      "directoryProfile": {
+        "contentRoot": "/ (根 README.md 强制充当全书扉页 + SUMMARY.md 唯一目录白名单)",
+        "contentPrefix": "",
+        "excludedContentFiles": [],
+        "orderingMechanism": "根级 SUMMARY.md 缩进列表全权决定章节顺序、自动编号与线性翻页",
+        "sidebarMechanism": "单一 SUMMARY.md 白名单驱动（未列入文件不编译为书页，但须配 .bookignore 防静态拷贝）",
+        "pros": [
+          "子路径零配置自洽：编译产物全部采用 gitbook/... 纯相对路径寻址，无需配置 basePath 即可直接挂载至 /honkit/",
+          "GitHub 原生导读友好：根 README.md 与子目录 04-directory/README.md 既是仓库说明，又自动映射为 index.html 目录入口",
+          "电子书体验完整：开箱自带 Lunr 离线全文索引（search_index.json）、PJAX 无刷新换页与日间 / 护眼棕 / 夜间三态阅读器"
+        ],
+        "cons": [
+          "README.md 强制绑定扉页：缺失根 README.md 会直接触发 FileNotFoundError 中断构建，无法将工程说明与正文首页分离",
+          "静态资源全量拷贝陷阱：listAssets 默认将根目录下所有非书页文件原样拷入 _book/，必须手写 .bookignore 屏蔽 package.json",
+          "底层 kramed@0.5.6 停留在早期规范：默认不解析 <details> 内部代码块且合并相邻 > 引用块，需本地插件钩子补救"
+        ]
+      },
+      "highlights": {
+        "dirIsolation": "根平铺 README.md + SUMMARY.md + book.json，须依赖 .bookignore 阻止工程文件泄漏至 _book/",
+        "dirRoutingSidebar": "SUMMARY.md 单文件缩进列表控场 + README.md 自动转目录页 + 显式 .html 路由与 PJAX 无刷新跳转",
+        "frontmatter": "内置 front-matter 剥离 YAML（但 SUMMARY.md 链接文本会无条件覆盖 page.title！）",
+        "callouts": "经典 GitBook Nunjucks 成对标签块 {% hint style=\"info|tip|warning|danger\", title=\"...\" %} ... {% endhint %}",
+        "details": "底层 kramed@0.5.6 将 <details> 视为原始 HTML 不解析内部 Markdown，经插件 page 钩子补跑编译",
+        "gfmAlerts": "默认 kramed@0.5.6 不识 [!NOTE] 且合并相邻引用块；经本地插件 cheerio 钩子切分升级",
+        "mermaid": "page 钩子先于内置 highlight.js 拦截 lang-mermaid（防未知语言报错），联动 PJAX 与 Night 主题重绘",
+        "math": "page:before 前置提取标准 $...$ / $$...$$ 交由本地 katex@0.19.1 构建期 SSR 直出 HTML",
+        "buildArtifact": "Node 22 极速构建至 _book/（HonKit 7 移除全部内联脚本满足严格 CSP，内含 search_index.json）"
+      },
+      "docs": {
+        "index": {
+          "route": "",
+          "file": "README.md"
+        },
+        "01-annotations": {
+          "route": "01-annotations.html",
+          "file": "01-annotations.md"
+        },
+        "02-diagrams": {
+          "route": "02-diagrams.html",
+          "file": "02-diagrams.md"
+        },
+        "03-math": {
+          "route": "03-math.html",
+          "file": "03-math.md"
+        },
+        "04-directory": {
+          "route": "04-directory/",
+          "file": "04-directory/README.md"
+        },
+        "05-code-blocks": {
+          "route": "05-code-blocks.html",
+          "file": "05-code-blocks.md"
+        }
+      }
+    },
+    {
+      "id": "hexo",
+      "family": "Hexo",
+      "versionSeries": "v8.1 (CJS)",
+      "tagline": "Node.js 中文博客开山鼻祖 · Nunjucks 标签插件 + Warehouse 内存库 + 四维扩展管线",
+      "repo": "page2401/hexo",
+      "basePath": "/hexo/",
+      "submoduleDir": "sites/hexo",
+      "distDir": "sites/hexo/public",
+      "manifestType": "npm",
+      "buildCommand": "npm run build",
+      "routeStyle": "clean",
+      "primaryPackage": "hexo",
+      "trackedPackages": [
+        "hexo",
+        "hexo-renderer-ejs",
+        "hexo-renderer-marked",
+        "katex",
+        "mermaid"
+      ],
+      "configFiles": [
+        "_config.yml",
+        "source/_data/bench.yml",
+        "scripts/tags.js",
+        "scripts/markdown-enhancements.js",
+        "scripts/vendor-assets.js",
+        "themes/bench/layout/layout.ejs",
+        "themes/bench/layout/index.ejs",
+        "themes/bench/layout/page.ejs"
+      ],
+      "directoryProfile": {
+        "contentRoot": "source/ (_posts 博文流与独立 Page 双轨隔离 + <slug>/index.md 目录化单页)",
+        "contentPrefix": "source/",
+        "excludedContentFiles": [],
+        "orderingMechanism": "Frontmatter order 数值排序 + parent 父节点声明（存入 Warehouse site.pages）",
+        "sidebarMechanism": "自定义 Helper 查询 Warehouse site.pages 动态组装多级树 + source/_data/bench.yml",
+        "pros": [
+          "source/ 与 scripts/ + themes/ 职责清晰隔离：根目录 README.md 零误编译风险，scripts/*.js 启动自动挂载",
+          "四维插件钩子表现力极强：仅靠轻量本地 Tag / Filter / Helper / Generator 脚本即可实现 0 客户端 JS 公式与高亮",
+          "内置 Warehouse 内存数据库：任意单页 YAML 自定义字段自动入表，可在 EJS 模板中自由排序聚合多级文档树"
+        ],
+        "cons": [
+          "博客基因双轨割裂：全局 permalink 仅对 _posts/ 生效，独立文档页须展开为 <slug>/index.md 目录才能产出干净 index.html",
+          "pretty_urls 假干净链接陷阱：开启 trailing_html: false 仅裁剪 url_for() 字符串而不改磁盘 .html 落盘路径，纯静态托管会 404",
+          "Nunjucks 预处理器全局侵入：标题或正文出现字面量 {% ... %} 须包裹 {% raw %}，且默认 headerlink 重复展开占位符易触发断言异常"
+        ]
+      },
+      "highlights": {
+        "dirIsolation": "source_dir: 'source' 隔离根工程文件 + Generator 构建期从 node_modules 直出 /hexo/vendor/ 静态资源",
+        "dirRoutingSidebar": "遵循 hexo new page <slug>/index.md 产出干净目录路由 + after_post_render 自动重写离线 .md 相对链接",
+        "frontmatter": "hexo-front-matter 宽松无 Schema 校验（自动注入 date/updated，支持单页 disableNunjucks: true）",
+        "callouts": "招牌 Nunjucks 成对标签插件 {% note info|tip|warning|danger 标题 %} ... {% endnote %} 直出静态 HTML",
+        "details": "同时支持生态经典的 {% folding 标题 %} ... {% endfolding %} 标签插件与原生 HTML <details><summary>",
+        "gfmAlerts": "hexo-renderer-marked@7.0.1 默认未内置；通过 marked:renderer 覆写 blockquote 实现 5 类警报直通",
+        "mermaid": "以优先级 5 注册 before_post_render 抢在内置 backtick_code_block (优先级 10) 高亮前封装图表，按需加载本地 mermaid@12.3",
+        "math": "marked:extensions 自定义词法分词器 + katex@0.19.1 构建期 SSR（0 客户端 JS）",
+        "buildArtifact": "全站静态文件构建极速完成，非图表页 0 个 <script> 标签，零外部 CDN 请求"
+      },
+      "docs": {
+        "index": {
+          "route": "",
+          "file": "source/index.md"
+        },
+        "01-annotations": {
+          "route": "01-annotations/",
+          "file": "source/01-annotations/index.md"
+        },
+        "02-diagrams": {
+          "route": "02-diagrams/",
+          "file": "source/02-diagrams/index.md"
+        },
+        "03-math": {
+          "route": "03-math/",
+          "file": "source/03-math/index.md"
+        },
+        "04-directory": {
+          "route": "04-directory/",
+          "file": "source/04-directory/index.md"
+        },
+        "05-code-blocks": {
+          "route": "05-code-blocks/",
+          "file": "source/05-code-blocks/index.md"
+        }
+      }
+    },
+    {
+      "id": "pelican",
+      "family": "Pelican",
+      "versionSeries": "v4.12 (Python / Jinja2)",
+      "tagline": "Python 经典博客派静态生成器 + 可执行 pelicanconf.py + {filename} 路由指令",
+      "repo": "page2401/pelican",
+      "basePath": "/pelican/",
+      "submoduleDir": "sites/pelican",
+      "distDir": "sites/pelican/output",
+      "manifestType": "python",
+      "buildCommand": "/home/antigravity/.venvs/pelican/bin/pelican content -o output -s pelicanconf.py",
+      "routeStyle": "clean",
+      "primaryPackage": "pelican",
+      "trackedPackages": [
+        "pelican",
+        "jinja2",
+        "markdown",
+        "pymdown-extensions",
+        "pygments",
+        "docutils",
+        "unidecode"
+      ],
+      "configFiles": [
+        "pelicanconf.py",
+        "theme/templates/base.html",
+        "theme/templates/page.html",
+        "theme/static/css/style.css",
+        "theme/static/js/init.js"
+      ],
+      "directoryProfile": {
+        "contentRoot": "content/ (需置空 ARTICLE_PATHS 反转博客文章模型)",
+        "contentPrefix": "content/",
+        "excludedContentFiles": [],
+        "orderingMechanism": "MultiMarkdown Order + Parent 键值头 + PAGE_ORDER_BY",
+        "sidebarMechanism": "Jinja2 模板对扁平 pages 列表执行 selectattr 树形重组",
+        "pros": [
+          "纯 Python 可执行配置：pelicanconf.py 直接导入并传递 fence_code_format 函数引用，免写 YAML !!python/name: 标签",
+          "物理文件与线上 URL 彻底解耦：支持 PATH_METADATA 正则推导叠加单页 URL / Save_as 元数据精确覆写",
+          "构建期 {filename} 链接寻址：内链写作 {filename}./nested/... 编译期校验目标存在性并自动拼接 SITEURL"
+        ],
+        "cons": [
+          "强烈的时间流博客预设：默认要求 Date 字段、将中文 Title 经 Unidecode 转写为汉语拼音路由并用文章流覆盖首页，须多重反转配置",
+          "MultiMarkdown 元数据非 YAML：markdown.extensions.meta 不剥离外层引号，写 title: \"...\" 会把双引号直接带进标题",
+          "无内置文档树模型：PagesGenerator 将多级子目录拍平为一维 pages 列表，多级侧栏须靠模板手写聚合"
+        ]
+      },
+      "highlights": {
+        "dirIsolation": "content/ + theme/ 清晰分离，根 README.md 天然隔离且 output/ 0.16s 极速生成",
+        "dirRoutingSidebar": "反转 ARTICLE_PATHS=[] + PATH_METADATA 正则 + 目录 index.md 显式 URL/Save_as 覆盖",
+        "frontmatter": "MultiMarkdown Key: Value 无引号键值头（直传 Slug / URL / Save_as / Order / Parent）",
+        "callouts": "Python-Markdown 标准 !!! note / tip / warning / danger + 严格 4 空格缩进块",
+        "details": "pymdownx.details ??? 折叠块（原生支持嵌套 Pygments 代码高亮与行内公式）",
+        "gfmAlerts": "原生不解析 > [!NOTE]，且遵循早期 Gruber 规则将连续三段 > 引用合并为单一 <blockquote>！",
+        "mermaid": "pelicanconf.py 直接注入 superfences fence_code_format + 本地 mermaid@12.3.0 随主题重绘",
+        "math": "pymdownx.arithmatex (generic: True) 保护矩阵双反斜杠 + 本地 KaTeX 0.19.1 零 CDN 排版",
+        "buildArtifact": "Python 3.12 约 0.16s 纯静态编译至 output/（pelican 4.12 锁死 pygments<2.20 至 2.19.2）"
+      },
+      "docs": {
+        "index": {
+          "route": "",
+          "file": "content/index.md"
+        },
+        "01-annotations": {
+          "route": "01-annotations/",
+          "file": "content/01-annotations.md"
+        },
+        "02-diagrams": {
+          "route": "02-diagrams/",
+          "file": "content/02-diagrams.md"
+        },
+        "03-math": {
+          "route": "03-math/",
+          "file": "content/03-math.md"
+        },
+        "04-directory": {
+          "route": "04-directory/",
+          "file": "content/04-directory/index.md"
+        },
+        "05-code-blocks": {
+          "route": "05-code-blocks/",
+          "file": "content/05-code-blocks.md"
+        }
+      }
+    },
+    {
+      "id": "gatsby",
+      "family": "Gatsby",
+      "versionSeries": "v5.16 (GraphQL + React 18)",
+      "tagline": "React 静态生成黄金时代历史坐标 · GraphQL 统一数据图谱 + createPages 编程式路由",
+      "repo": "page2401/gatsby",
+      "basePath": "/gatsby/",
+      "submoduleDir": "sites/gatsby",
+      "distDir": "sites/gatsby/public",
+      "manifestType": "npm",
+      "buildCommand": "npm run build",
+      "routeStyle": "clean",
+      "primaryPackage": "gatsby",
+      "trackedPackages": [
+        "gatsby",
+        "gatsby-source-filesystem",
+        "gatsby-plugin-mdx",
+        "@mdx-js/react",
+        "react",
+        "remark-gfm",
+        "remark-math",
+        "rehype-katex",
+        "katex",
+        "mermaid",
+        "prism-react-renderer"
+      ],
+      "configFiles": [
+        "gatsby-config.js",
+        "gatsby-node.js",
+        "gatsby-browser.js",
+        "gatsby-ssr.js",
+        "src/templates/doc-page.jsx",
+        "src/components/MdxComponents.jsx",
+        "src/components/MermaidBlock.jsx"
+      ],
+      "directoryProfile": {
+        "contentRoot": "content/ (gatsby-source-filesystem 节点采集隔离)",
+        "contentPrefix": "content/",
+        "excludedContentFiles": [],
+        "orderingMechanism": "Frontmatter order 数值排序 + GraphQL allMdx sort 查询",
+        "sidebarMechanism": "gatsby-node.js createPages + 页面模板 GraphQL allMdx 动态聚合并映射中文组名",
+        "pros": [
+          "招牌 GraphQL 统一数据层：将文件系统、YAML Frontmatter 与目录大纲统一抽象为强类型 Mdx 节点图谱",
+          "文档目录零元数据文件污染：无需 _category_.json 或 _meta.js，由 GraphQL 查询与模板映射集中赋予 nested 中文分组名",
+          "gatsby-source-filesystem 显式绑定 content/ 目录，与工程根 README.md 及 src/pages/ 彻底物理隔离"
+        ],
+        "cons": [
+          "工程样板较重：无内置开箱文档壳层，需自行维护 gatsby-node.js、createSchemaCustomization、页面模板与相对链接解析器",
+          "Webpack 5 SplitChunks 哈希碰撞陷阱：内置 shared 缓存组遇到 mermaid@12 匿名异步块会重名报错，须覆写 name: false",
+          "庞大陈旧的依赖树：安装多达 1,648 个子包，因实验性 react-server-dom-webpack 锁死 React 18 且混入 eslint@7"
+        ]
+      },
+      "highlights": {
+        "dirIsolation": "content/ 单层数据源目录（由 gatsby-source-filesystem 独立采集，根 README 零冲突）",
+        "dirRoutingSidebar": "trailingSlash: 'always' 干净目录路由 + onCreateNode(createFilePath) + GraphQL allMdx 编程式中文侧栏",
+        "frontmatter": "需通过 createSchemaCustomization 显式声明 GraphQL SDL，防可选字段缺失导致查询报错",
+        "callouts": "通过 @mdx-js/react <MDXProvider> 全局注入一等公民 <Callout type=\"note|tip|warning|danger\" title=\"...\"> 组件",
+        "details": "MDX v2 原生支持空行分隔的标准 HTML <details><summary> 及内部公式混排",
+        "gfmAlerts": "gatsby-plugin-mdx 锁定 Unified v10 (remark-gfm@3)，默认不解析 > [!NOTE]，直通段落退化为普通引用块",
+        "mermaid": "MDX pre 组件拦截 mermaid 代码块 + 本地打包 mermaid@12.3.0（需屏蔽 @mermaid-js/layout-elk 并修复 SplitChunks）",
+        "math": "Node 22 require(esm) 挂载 remark-math@5.1.1 + rehype-katex@6.0.3 构建期预渲染 + 本地 katex@0.19.1 字体",
+        "buildArtifact": "Webpack 5 + LMDB 构建输出至 public/（含每页 page-data.json 预取载荷，零外部 CDN 请求）"
+      },
+      "docs": {
+        "index": {
+          "route": "",
+          "file": "content/index.md"
+        },
+        "01-annotations": {
+          "route": "01-annotations/",
+          "file": "content/01-annotations.mdx"
+        },
+        "02-diagrams": {
+          "route": "02-diagrams/",
+          "file": "content/02-diagrams.md"
+        },
+        "03-math": {
+          "route": "03-math/",
+          "file": "content/03-math.md"
+        },
+        "04-directory": {
+          "route": "04-directory/",
+          "file": "content/04-directory/index.md"
+        },
+        "05-code-blocks": {
+          "route": "05-code-blocks/",
+          "file": "content/05-code-blocks.mdx"
+        }
       }
     }
   ]

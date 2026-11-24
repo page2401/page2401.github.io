@@ -37,11 +37,11 @@ description: "预留扩展位 sites/eleventy：前端纯粹主义者的最爱：
 | **核心依赖库 (Core Libs)** | `@11ty/eleventy`、`markdown-it`、`liquidjs`、`nunjucks`、`@11ty/webc` |
 | **本子站实测锁定版本** | `@11ty/eleventy@3.1.8` · `@11ty/eleventy-navigation@1.0.5` · `@11ty/eleventy-plugin-syntaxhighlight@5.0.2` · `markdown-it@15.0.3` · `@mdit/plugin-alert@2.2.0` · `@mdit/plugin-katex@1.2.1` · `katex@0.19.1` · `mermaid@12.3.0` |
 
-### ⚡ 同源 5 章基准冷构建耗时与产物体积实测（`benchmark` 节点）
+### ⚡ 同源 6 章基准冷构建耗时与产物体积实测（`benchmark` 节点）
 
 | 冷构建耗时 | 产物文件数 | 总产物体积 | HTML 体积 | JS 原始 / Gzip | CSS 原始 / Gzip | 正文 `<script>` 数 | 离线搜索 / AI |
 | ---: | ---: | ---: | ---: | ---: | ---: | ---: | :--- |
-| **1.20 s (1,198 ms)** | 70 | 6624.2 KB | 131.0 KB | 5408.0 KB / **1555.4 KB** | 33.8 KB / 5.9 KB | `0` 个 | 无内置离线索引 |
+| **1.20 s (1,198 ms)** | 71 | 6651.0 KB | 154.8 KB | 5408.0 KB / **1555.4 KB** | 36.8 KB / 6.4 KB | `0` 个 | 无内置离线索引 |
 
 ### GitHub 仓库 API 指标快照
 

@@ -37,11 +37,11 @@ description: "预留扩展位 sites/nextra：Vercel 生态 Next.js 文档框架�
 | **核心依赖库 (Core Libs)** | `next`、`nextra`、`nextra-theme-docs`、`react`、`rehype-pretty-code`、`pagefind` |
 | **本子站实测锁定版本** | `nextra@4.6.1` · `nextra-theme-docs@4.6.1` · `next@15.5.29` · `react@19.3.1` · `zod@4.1.12` · `katex@0.16.47` · `mermaid@11.17.2` · `pagefind@1.6.0` |
 
-### ⚡ 同源 5 章基准冷构建耗时与产物体积实测（`benchmark` 节点）
+### ⚡ 同源 6 章基准冷构建耗时与产物体积实测（`benchmark` 节点）
 
 | 冷构建耗时 | 产物文件数 | 总产物体积 | HTML 体积 | JS 原始 / Gzip | CSS 原始 / Gzip | 正文 `<script>` 数 | 离线搜索 / AI |
 | ---: | ---: | ---: | ---: | ---: | ---: | ---: | :--- |
-| **90.93 s (90,926 ms)** | 185 | 7298.0 KB | 783.3 KB | 4894.6 KB / **1387.3 KB** | 160.5 KB / 27.5 KB | `41` 个 | Pagefind (Wasm) |
+| **90.93 s (90,926 ms)** | 188 | 7547.8 KB | 946.1 KB | 4905.6 KB / **1391.4 KB** | 160.5 KB / 27.5 KB | `41` 个 | Pagefind (Wasm) |
 
 ### GitHub 仓库 API 指标快照
 

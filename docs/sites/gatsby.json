@@ -4,7 +4,7 @@
   "order": 21,
   "name": "Gatsby",
   "versionNote": "v5.x (Legacy GraphQL)",
-  "mounted": false,
+  "mounted": true,
   "sitePath": "sites/gatsby",
   "websiteUrl": "https://www.gatsbyjs.com/",
   "githubUrl": "https://github.com/gatsbyjs/gatsby",
@@ -41,7 +41,20 @@
       "react",
       "gatsby-source-filesystem",
       "gatsby-plugin-mdx"
-    ]
+    ],
+    "pinnedPackages": {
+      "gatsby": "5.16.1",
+      "gatsby-source-filesystem": "5.16.0",
+      "gatsby-plugin-mdx": "5.16.0",
+      "@mdx-js/react": "2.3.0",
+      "react": "18.3.1",
+      "remark-gfm": "3.0.1",
+      "remark-math": "5.1.1",
+      "rehype-katex": "6.0.3",
+      "katex": "0.19.1",
+      "mermaid": "12.3.0",
+      "prism-react-renderer": "2.4.1"
+    }
   },
   "matrix": {
     "tagline": "曾开创统一 GraphQL 数据层先河的 React 巨舰，因架构过度复杂与构建缓慢成为前端演进史经典教材",
@@ -124,5 +137,28 @@
       "2025": 48,
       "2026": 115
     }
+  },
+  "subsiteRepoUrl": "https://github.com/page2401/gatsby",
+  "benchmark": {
+    "measuredAt": "2026-11-24T08:11:01.558Z",
+    "buildCommand": "npm run build",
+    "isRuntimeSpa": false,
+    "coldBuildMs": 179289,
+    "totalFiles": 274,
+    "totalBytes": 31968192,
+    "htmlFiles": 11,
+    "htmlBytes": 1723727,
+    "jsFiles": 113,
+    "jsBytes": 7044485,
+    "jsGzipBytes": 2001786,
+    "cssFiles": 2,
+    "cssBytes": 305038,
+    "cssGzipBytes": 178456,
+    "otherBytes": 22894942,
+    "entryHtmlBytes": 164841,
+    "proseScriptCount": 6,
+    "hasOfflineSearch": false,
+    "offlineSearchKind": null,
+    "hasLlmsTxt": false
   }
 }

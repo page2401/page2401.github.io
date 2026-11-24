@@ -37,11 +37,11 @@ description: "预留扩展位 sites/nuxt-content：Nuxt 官方内容引擎：独
 | **核心依赖库 (Core Libs)** | `nuxt`、`@nuxt/content`、`@nuxtjs/mdc`、`vue`、`shiki`、`better-sqlite3` |
 | **本子站实测锁定版本** | `@nuxt/content@3.17.0` · `nuxt@4.7.0` · `better-sqlite3@13.2.0` · `remark-math@6.0.0` · `rehype-katex@7.0.1` · `katex@0.19.1` · `mermaid@12.3.0` · `vue@3.5.46` |
 
-### ⚡ 同源 5 章基准冷构建耗时与产物体积实测（`benchmark` 节点）
+### ⚡ 同源 6 章基准冷构建耗时与产物体积实测（`benchmark` 节点）
 
 | 冷构建耗时 | 产物文件数 | 总产物体积 | HTML 体积 | JS 原始 / Gzip | CSS 原始 / Gzip | 正文 `<script>` 数 | 离线搜索 / AI |
 | ---: | ---: | ---: | ---: | ---: | ---: | ---: | :--- |
-| **15.22 s (15,216 ms)** | 212 | 8070.3 KB | 180.8 KB | 5765.4 KB / **1683.0 KB** | 44.8 KB / 12.1 KB | `4` 个 | 无内置离线索引 |
+| **15.22 s (15,216 ms)** | 215 | 8135.4 KB | 212.7 KB | 5766.3 KB / **1683.4 KB** | 46.1 KB / 12.4 KB | `4` 个 | 无内置离线索引 |
 
 ### GitHub 仓库 API 指标快照
 

@@ -2469,3 +2469,280 @@ select {
   filter: brightness(0.95);
   text-decoration: underline;
 }
+
+/* ==========================================================================
+   Workbench Pro Upgrades: Resizable Split Gutter & Unified Inline Diff
+   ========================================================================== */
+
+.split-grid[data-focus='both']:not([data-unified='true']) {
+  grid-template-columns: minmax(240px, var(--left-fr, 50fr)) 10px minmax(240px, var(--right-fr, 50fr));
+}
+
+.split-grid[data-unified='true'] {
+  grid-template-columns: 1fr;
+}
+
+.split-grid.is-dragging {
+  user-select: none;
+  cursor: col-resize;
+}
+
+.split-grid.is-dragging .iframe-stage {
+  pointer-events: none;
+}
+
+.split-gutter {
+  background-color: var(--bg-canvas);
+  border-left: 1px solid var(--border-subtle);
+  border-right: 1px solid var(--border-subtle);
+  cursor: col-resize;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease;
+  touch-action: none;
+}
+
+.split-gutter:hover,
+.split-grid.is-dragging .split-gutter {
+  background-color: var(--accent-teal-soft);
+}
+
+.split-gutter-grip {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  user-select: none;
+  line-height: 1;
+}
+
+@media (max-width: 980px) {
+  .split-grid[data-focus='both']:not([data-unified='true']) {
+    grid-template-columns: 1fr;
+  }
+
+  .split-gutter {
+    display: none;
+  }
+}
+
+.udiff-sign {
+  width: 22px;
+  text-align: center;
+  user-select: none;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.code-row.udiff-del {
+  background-color: rgba(196, 86, 48, 0.1);
+}
+
+.code-row.udiff-del .udiff-sign {
+  color: var(--accent-copper);
+}
+
+.code-row.udiff-add {
+  background-color: rgba(15, 118, 110, 0.11);
+}
+
+.code-row.udiff-add .udiff-sign {
+  color: var(--accent-teal);
+}
+
+.udiff-stat {
+  padding: 0.12rem 0.5rem;
+  border-radius: 5px;
+  font-weight: 600;
+}
+
+.udiff-stat.del {
+  background-color: var(--accent-copper-soft);
+  color: var(--accent-copper);
+}
+
+.udiff-stat.add {
+  background-color: var(--accent-teal-soft);
+  color: var(--accent-teal);
+}
+
+/* ==========================================================================
+   Interactive SSG Selector Wizard (/directory/)
+   ========================================================================== */
+
+.wizard-panel {
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--accent-teal);
+  border-radius: 12px;
+  margin-bottom: 1.15rem;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.wizard-summary {
+  padding: 0.85rem 1.2rem;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.wizard-summary::-webkit-details-marker {
+  display: none;
+}
+
+.wizard-summary > div {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+}
+
+.wizard-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.14rem 0.48rem;
+  border-radius: 999px;
+  background-color: var(--accent-teal-soft);
+  color: var(--accent-teal);
+}
+
+.wizard-summary-sub {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+.wizard-body {
+  border-top: 1px solid var(--border-subtle);
+  padding: 1rem 1.2rem 1.2rem;
+  background-color: var(--bg-canvas);
+}
+
+.wizard-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.wiz-question-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.wiz-q-label {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  min-width: 135px;
+}
+
+.wiz-pills {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.wizard-results-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-block: 0.85rem 0.75rem;
+}
+
+.wizard-rec-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+@media (max-width: 960px) {
+  .wizard-rec-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.wiz-rec-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 0.95rem 1.05rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.wiz-rec-card.is-top1 {
+  border-color: var(--accent-teal);
+  box-shadow: var(--shadow-sm);
+}
+
+.wiz-rec-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+
+.wiz-rank {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--accent-teal);
+}
+
+.wiz-score {
+  font-size: 0.72rem;
+  padding: 0.1rem 0.42rem;
+  border-radius: 4px;
+  background-color: var(--accent-teal-soft);
+  color: var(--accent-teal);
+  font-weight: 700;
+}
+
+.wiz-rec-name {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.35rem;
+  font-size: 1rem;
+}
+
+.wiz-rec-desc {
+  margin: 0.35rem 0 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.wiz-reasons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.wiz-reason-chip {
+  font-size: 0.69rem;
+  padding: 0.12rem 0.42rem;
+  border-radius: 4px;
+  background-color: var(--bg-canvas);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+}
+
+.wiz-rec-foot {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.35rem;
+  padding-top: 0.55rem;
+  border-top: 1px dashed var(--border-subtle);
+}

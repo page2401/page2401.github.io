@@ -252,7 +252,7 @@ function renderBenchmarkTabHtml(): string {
       </div>
       <div class="telemetry-card">
         <div class="telemetry-val mono">${rows.length} <span style="font-size:0.88rem;font-weight:600;">座子站</span></div>
-        <div class="telemetry-label">📏 同源 5 章 + 2 嵌套页空缓存实测</div>
+        <div class="telemetry-label">📏 同源 ${dataset.chapters.length} 章 + 2 嵌套页空缓存实测</div>
         <div class="telemetry-sub mono">采样日期 ${escapeHtml(measuredDate)} · 同一 Linux x64 环境</div>
       </div>
       <div class="telemetry-card">
@@ -264,7 +264,7 @@ function renderBenchmarkTabHtml(): string {
 
     <div class="gh-heatmap-header" style="margin-bottom:0.75rem;">
       <p class="gh-heatmap-sub">
-        所有已挂载子站在同一机器清空构建缓存后编译相同 7 篇基准文档（含 Mermaid 与 KaTeX/MathJax 本地资源），实测结果持久化在各站点独立的 <code>docs/sites/&lt;id&gt;.json</code> 的 <code>benchmark</code> 节点中。
+        所有已挂载子站在同一机器清空构建缓存后编译相同 ${dataset.chapters.length + 2} 篇基准文档（含代码高亮、Mermaid 与 KaTeX/MathJax 本地资源），实测结果持久化在各站点独立的 <code>docs/sites/&lt;id&gt;.json</code> 的 <code>benchmark</code> 节点中。
       </p>
       <div style="display:flex;align-items:center;gap:0.65rem;flex-wrap:wrap;">
         <select id="bench-sort-select" class="sort-select" aria-label="性能榜单排序">

@@ -35,6 +35,13 @@ description: "预留扩展位 sites/gatsby：曾开创统一 GraphQL 数据层�
 | **高亮与全文检索** | gatsby-remark-prismjs · gatsby-plugin-local-search / Algolia |
 | **数学公式与流程图库** | gatsby-remark-katex ； gatsby-remark-mermaid（依赖重型 Puppeteer 预渲染或旧插件） |
 | **核心依赖库 (Core Libs)** | `gatsby`、`graphql`、`react`、`gatsby-source-filesystem`、`gatsby-plugin-mdx` |
+| **本子站实测锁定版本** | `gatsby@5.16.1` · `gatsby-source-filesystem@5.16.0` · `gatsby-plugin-mdx@5.16.0` · `@mdx-js/react@2.3.0` · `react@18.3.1` · `remark-gfm@3.0.1` · `remark-math@5.1.1` · `rehype-katex@6.0.3` · `katex@0.19.1` · `mermaid@12.3.0` · `prism-react-renderer@2.4.1` |
+
+### ⚡ 同源 6 章基准冷构建耗时与产物体积实测（`benchmark` 节点）
+
+| 冷构建耗时 | 产物文件数 | 总产物体积 | HTML 体积 | JS 原始 / Gzip | CSS 原始 / Gzip | 正文 `<script>` 数 | 离线搜索 / AI |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: | :--- |
+| **179.29 s (179,289 ms)** | 274 | 31218.9 KB | 1683.3 KB | 6879.4 KB / **1954.9 KB** | 297.9 KB / 174.3 KB | `6` 个 | 无内置离线索引 |
 
 ### GitHub 仓库 API 指标快照
 

@@ -16,9 +16,9 @@ description: "从主仓 docs/*.md 母版派生适配新静态网站生成器子�
 
 ---
 
-## 2. 标准五篇基准章节路由清单
+## 2. 标准六篇基准章节路由清单
 
-每个接入的独立子模块均须提供以下 5 个标准章节（含 `04-directory/nested/` 嵌套子页）：
+每个接入的独立子模块均须提供以下 6 个标准章节（含 `04-directory/nested/` 嵌套子页）：
 
 | 章节 ID | 对应母版文件 | 必测内容 |
 | :--- | :--- | :--- |
@@ -27,6 +27,7 @@ description: "从主仓 docs/*.md 母版派生适配新静态网站生成器子�
 | `02-diagrams` | [`docs/02-diagrams.md`](./02-diagrams.md) | `flowchart TD`（含 `subgraph` 与中文标签）、`sequenceDiagram`（含 `alt` 与激活框）、`stateDiagram-v2` |
 | `03-math` | [`docs/03-math.md`](./03-math.md) | 行内公式中英文混排基线、`aligned` 多行高斯积分推导、`bmatrix` 矩阵、`cases` 分段函数、字面量 `\$` 转义 |
 | `04-directory` | [`docs/04-directory/index.md`](./04-directory/index.md) | 根目录隔离度 vs 目录深度、排序前缀 vs 干净 URL、`nested/` 多级子目录与侧边栏维护实测 |
+| `05-code-blocks` | [`docs/05-code-blocks.md`](./05-code-blocks.md) | 代码块文件名标题栏、指定行高亮、带词法着色的行级增删 Diff、多语言运行时代码组（Tabs） |
 
 ---
 

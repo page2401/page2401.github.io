@@ -33,6 +33,15 @@ const IGNORED_NAMES = new Set([
   '.quartz-cache',
   '_site',
   '_build',
+  '_book',
+  'output',
+  'vendor',
+  '.bundle',
+  '.jekyll-cache',
+  '.sass-cache',
+  'db.json',
+  'Gemfile.lock',
+  'deno.lock',
   'cache',
   '.temp',
   '.cache',
@@ -41,9 +50,32 @@ const IGNORED_NAMES = new Set([
   '.hugo_build.lock'
 ])
 
-// Polyglot manifest reader supporting npm (package.json), python (requirements.txt), ruby (Gemfile), and binary (ssg-lock.json)
+// Polyglot manifest reader supporting npm (package.json), python (requirements.txt), ruby (Gemfile), deno (deno.json), and binary (ssg-lock.json)
 function readSubmoduleManifest(submoduleAbs, site) {
   const manifestType = site.manifestType || 'npm'
+
+  if (manifestType === 'deno') {
+    const denoPath = path.join(submoduleAbs, 'deno.json')
+    const raw = fs.readFileSync(denoPath, 'utf-8')
+    const parsed = JSON.parse(raw)
+    const deps = {}
+    for (const [k, val] of Object.entries(parsed.imports || {})) {
+      const strVal = String(val)
+      const cleanKey = k.replace(/\/$/, '')
+      const verMatch = strVal.match(/@v?(\d+\.\d+\.\d+[^\s/]*)/)
+      if (verMatch) deps[cleanKey] = verMatch[1]
+    }
+    const lockPath = path.join(submoduleAbs, 'ssg-lock.json')
+    if (fs.existsSync(lockPath)) {
+      const lockParsed = JSON.parse(fs.readFileSync(lockPath, 'utf-8'))
+      Object.assign(deps, lockParsed.packages || {})
+    }
+    return {
+      allDeps: deps,
+      manifestShortPath: 'deno.json',
+      manifestRaw: raw
+    }
+  }
 
   if (manifestType === 'python') {
     const reqPath = path.join(submoduleAbs, 'requirements.txt')

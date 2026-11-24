@@ -1,4 +1,9 @@
-import { computeDiffLineFlags, escapeHtml, renderCodeTableHtml } from '../components/source-diff'
+import {
+  computeDiffLineFlags,
+  escapeHtml,
+  renderCodeTableHtml,
+  renderUnifiedDiffHtml
+} from '../components/source-diff'
 import type { FocusedPane, SiteEntry, ViewportPreset, WorkbenchMode } from '../types'
 import {
   dataset,
@@ -10,13 +15,18 @@ import {
   syncIframeThemes
 } from '../shared/shell'
 
+type SourceDiffLayout = 'split' | 'unified'
+
 interface WorkbenchState {
   leftSiteId: string
   rightSiteId: string
   chapterId: string
   mode: WorkbenchMode
+  sourceLayout: SourceDiffLayout
   viewport: ViewportPreset
   focus: FocusedPane
+  splitRatio: number
+  syncScroll: boolean
   leftConfigIndex: number
   rightConfigIndex: number
   highlightDiff: boolean
@@ -38,6 +48,7 @@ function loadWorkbenchState(): WorkbenchState {
   const rightParam = params.get('right')
   const docParam = params.get('doc')
   const modeParam = params.get('mode') as WorkbenchMode | null
+  const diffParam = params.get('diff')
 
   return {
     leftSiteId: dataset.sites.some((s) => s.id === leftParam) ? leftParam! : defaultLeft,
@@ -47,8 +58,11 @@ function loadWorkbenchState(): WorkbenchState {
       modeParam && ['render', 'tree', 'source', 'config'].includes(modeParam)
         ? modeParam
         : 'render',
+    sourceLayout: diffParam === 'unified' ? 'unified' : 'split',
     viewport: 'fluid',
     focus: 'both',
+    splitRatio: 50,
+    syncScroll: true,
     leftConfigIndex: 0,
     rightConfigIndex: 0,
     highlightDiff: true,
@@ -58,6 +72,7 @@ function loadWorkbenchState(): WorkbenchState {
 }
 
 const state = loadWorkbenchState()
+let syncScrollLock = false
 
 function syncWorkbenchUrl(): void {
   const params = new URLSearchParams()
@@ -65,6 +80,9 @@ function syncWorkbenchUrl(): void {
   params.set('right', state.rightSiteId)
   params.set('doc', state.chapterId)
   params.set('mode', state.mode)
+  if (state.mode === 'source' && state.sourceLayout === 'unified') {
+    params.set('diff', 'unified')
+  }
   window.history.replaceState(null, '', `${window.location.pathname}?${params.toString()}`)
 }
 
@@ -73,6 +91,157 @@ function buildSubsiteRouteUrl(site: SiteEntry, chapterId: string): string {
   const base = site.basePath.endsWith('/') ? site.basePath : `${site.basePath}/`
   if (!doc || !doc.route) return base
   return `${base}${doc.route.replace(/^\/+/, '')}`
+}
+
+function findPrimaryIframeScroller(doc: Document): Element | null {
+  const rootScroller = doc.scrollingElement || doc.documentElement
+  if (rootScroller && rootScroller.scrollHeight > rootScroller.clientHeight + 8) {
+    return rootScroller
+  }
+  const candidates = doc.querySelectorAll<HTMLElement>(
+    '#page-wrapper, .page-inner, .book-body, .body-inner, main, .content, article'
+  )
+  let best: HTMLElement | null = null
+  let bestDelta = 8
+  candidates.forEach((el) => {
+    const delta = el.scrollHeight - el.clientHeight
+    if (delta > bestDelta) {
+      bestDelta = delta
+      best = el
+    }
+  })
+  return best || rootScroller
+}
+
+function bindIframeSyncScroll(sourceFrame: HTMLIFrameElement, peerFrame: HTMLIFrameElement): void {
+  try {
+    const srcWin = sourceFrame.contentWindow
+    const srcDoc = sourceFrame.contentDocument
+    if (!srcWin || !srcDoc) return
+
+    srcWin.addEventListener(
+      'scroll',
+      (evt) => {
+        if (!state.syncScroll || syncScrollLock) return
+        const rawTarget = evt.target
+        const scroller =
+          rawTarget === srcDoc || rawTarget === srcWin
+            ? srcDoc.scrollingElement || srcDoc.documentElement
+            : rawTarget instanceof Element
+              ? rawTarget
+              : findPrimaryIframeScroller(srcDoc)
+        if (!scroller) return
+        // Ignore tiny sidebar nav scrolls (<260px wide) so sidebar scrolling doesn't yank main content
+        if (scroller instanceof HTMLElement && scroller.clientWidth > 0 && scroller.clientWidth < 260) {
+          return
+        }
+        const maxSrc = scroller.scrollHeight - scroller.clientHeight
+        if (maxSrc <= 4) return
+        const ratio = scroller.scrollTop / maxSrc
+
+        const peerDoc = peerFrame.contentDocument
+        if (!peerDoc) return
+        const peerScroller = findPrimaryIframeScroller(peerDoc)
+        if (!peerScroller) return
+        const maxPeer = peerScroller.scrollHeight - peerScroller.clientHeight
+        if (maxPeer <= 4) return
+
+        syncScrollLock = true
+        peerScroller.scrollTop = Math.round(ratio * maxPeer)
+        window.setTimeout(() => {
+          syncScrollLock = false
+        }, 40)
+      },
+      { passive: true, capture: true }
+    )
+  } catch {
+    // Ignore cross-origin frame access if any
+  }
+}
+
+function bindSplitContainersSyncScroll(splitGrid: HTMLElement): void {
+  const scrollBoxes = splitGrid.querySelectorAll<HTMLElement>('.code-viewer, .tree-inspector')
+  if (scrollBoxes.length !== 2) return
+  const [boxA, boxB] = [scrollBoxes[0], scrollBoxes[1]]
+
+  const syncPair = (from: HTMLElement, to: HTMLElement) => {
+    from.addEventListener(
+      'scroll',
+      () => {
+        if (!state.syncScroll || syncScrollLock) return
+        const maxFrom = from.scrollHeight - from.clientHeight
+        const maxTo = to.scrollHeight - to.clientHeight
+        if (maxFrom <= 4 || maxTo <= 4) return
+        syncScrollLock = true
+        to.scrollTop = Math.round((from.scrollTop / maxFrom) * maxTo)
+        window.setTimeout(() => {
+          syncScrollLock = false
+        }, 35)
+      },
+      { passive: true }
+    )
+  }
+
+  syncPair(boxA, boxB)
+  syncPair(boxB, boxA)
+}
+
+function bindSplitGutterDrag(splitGrid: HTMLElement): void {
+  const gutter = document.getElementById('workbench-split-gutter')
+  if (!gutter) return
+
+  gutter.addEventListener('dblclick', () => {
+    state.splitRatio = 50
+    applySplitRatioCss(splitGrid)
+    updateRatioResetButton()
+  })
+
+  gutter.addEventListener('pointerdown', (e: PointerEvent) => {
+    e.preventDefault()
+    gutter.setPointerCapture(e.pointerId)
+    splitGrid.classList.add('is-dragging')
+
+    const onMove = (ev: PointerEvent) => {
+      const rect = splitGrid.getBoundingClientRect()
+      if (rect.width <= 0) return
+      const rawPct = ((ev.clientX - rect.left) / rect.width) * 100
+      state.splitRatio = Math.round(Math.max(24, Math.min(76, rawPct)))
+      applySplitRatioCss(splitGrid)
+      updateRatioResetButton()
+    }
+
+    const onUp = (ev: PointerEvent) => {
+      splitGrid.classList.remove('is-dragging')
+      try {
+        gutter.releasePointerCapture(ev.pointerId)
+      } catch {
+        // Ignore if already released
+      }
+      gutter.removeEventListener('pointermove', onMove)
+      gutter.removeEventListener('pointerup', onUp)
+      gutter.removeEventListener('pointercancel', onUp)
+    }
+
+    gutter.addEventListener('pointermove', onMove)
+    gutter.addEventListener('pointerup', onUp)
+    gutter.addEventListener('pointercancel', onUp)
+  })
+}
+
+function applySplitRatioCss(splitGrid: HTMLElement): void {
+  splitGrid.style.setProperty('--left-fr', `${state.splitRatio}fr`)
+  splitGrid.style.setProperty('--right-fr', `${100 - state.splitRatio}fr`)
+}
+
+function updateRatioResetButton(): void {
+  const btn = document.getElementById('reset-ratio-btn')
+  if (!btn) return
+  if (state.splitRatio === 50) {
+    btn.style.display = 'none'
+  } else {
+    btn.style.display = 'inline-flex'
+    btn.textContent = `⇄ 比例 ${state.splitRatio}:${100 - state.splitRatio} (重置)`
+  }
 }
 
 function renderTreeInspectorHtml(side: 'left' | 'right', site: SiteEntry): string {
@@ -166,6 +335,33 @@ function renderTreeInspectorHtml(side: 'left' | 'right', site: SiteEntry): strin
         <span>${contentCount} 篇路由文档 · 点击带路由行可预览</span>
       </div>
       <div class="tree-list">${treeRowsHtml}</div>
+    </div>
+  `
+}
+
+function renderUnifiedSourcePaneHtml(leftSite: SiteEntry, rightSite: SiteEntry): string {
+  const leftDoc = leftSite.docs[state.chapterId]
+  const rightDoc = rightSite.docs[state.chapterId]
+  const udiff = renderUnifiedDiffHtml(leftDoc?.content || '', rightDoc?.content || '')
+
+  return `
+    <div class="workbench-pane unified-pane">
+      <div class="pane-header">
+        <div class="pane-title-group">
+          <span class="pane-dot left"></span>
+          <span class="pane-engine-badge">${escapeHtml(leftSite.family)} <span class="mono" style="opacity:0.75;">(${escapeHtml(leftDoc?.file || '')})</span></span>
+          <span class="mono" style="color:var(--text-muted);">──▶</span>
+          <span class="pane-dot right"></span>
+          <span class="pane-engine-badge">${escapeHtml(rightSite.family)} <span class="mono" style="opacity:0.75;">(${escapeHtml(rightDoc?.file || '')})</span></span>
+        </div>
+        <div class="pane-actions mono" style="font-size:0.75rem;">
+          <span class="udiff-stat del">−${udiff.removedCount} 行移除</span>
+          <span class="udiff-stat add">+${udiff.addedCount} 行新增/派生改写</span>
+        </div>
+      </div>
+      <div class="code-viewer">
+        ${udiff.html}
+      </div>
     </div>
   `
 }
@@ -321,25 +517,49 @@ function updateWorkbenchDom(): void {
     lockMasterBtn.classList.toggle('active', state.leftSiteId === 'master')
   }
 
+  const syncScrollCommonBtn = `<button type="button" class="mini-btn${state.syncScroll ? ' active' : ''}" id="toggle-sync-scroll-btn" title="滚动一侧网页或代码框时另一侧按比例自动跟随">${state.syncScroll ? '⇅ 同步滚动: 开' : '⇅ 同步滚动: 关'}</button>`
+  const ratioResetCommonBtn = `<button type="button" class="mini-btn mono" id="reset-ratio-btn" style="display:${state.splitRatio === 50 ? 'none' : 'inline-flex'};">⇄ 比例 ${state.splitRatio}:${100 - state.splitRatio} (重置)</button>`
+  const copyLinkCommonBtn = `<button type="button" class="mini-btn" id="copy-permalink-btn" title="复制当前双栏对比状态固定链接">🔗 复制对比链接</button>`
+
   const extraControls = document.getElementById('workbench-extra-controls')
   if (extraControls) {
     if (state.mode === 'render') {
       extraControls.innerHTML = `
+        ${syncScrollCommonBtn}
+        ${ratioResetCommonBtn}
         <button type="button" class="mini-btn${state.viewport === 'fluid' ? ' active' : ''}" data-viewport-btn="fluid" id="vp-fluid-btn">双栏自适应</button>
         <button type="button" class="mini-btn${state.viewport === 'tablet' ? ' active' : ''}" data-viewport-btn="tablet" id="vp-tablet-btn">平板 768px</button>
         <button type="button" class="mini-btn${state.viewport === 'mobile' ? ' active' : ''}" data-viewport-btn="mobile" id="vp-mobile-btn">手机 390px</button>
-        <button type="button" class="mini-btn" id="reload-iframes-btn">↻ 刷新分屏</button>
+        <button type="button" class="mini-btn" id="reload-iframes-btn">↻ 刷新</button>
+        ${copyLinkCommonBtn}
       `
     } else if (state.mode === 'tree') {
-      extraControls.innerHTML = `<span class="mono" style="font-size:0.75rem;color:var(--text-muted);">真实扫描自各子模块物理目录树 · 揭示不同目录约定的两难取舍</span>`
+      extraControls.innerHTML = `
+        ${syncScrollCommonBtn}
+        ${ratioResetCommonBtn}
+        ${copyLinkCommonBtn}
+      `
     } else if (state.mode === 'source') {
       extraControls.innerHTML = `
-        <button type="button" class="mini-btn${state.highlightDiff ? ' active' : ''}" id="toggle-diff-btn">
-          ${state.highlightDiff ? '✓ 已开启语法差异行高亮' : '开启语法差异行高亮'}
-        </button>
+        <button type="button" class="mini-btn${state.sourceLayout === 'split' ? ' active' : ''}" data-source-layout="split" id="src-split-btn">⇄ 双栏源码</button>
+        <button type="button" class="mini-btn${state.sourceLayout === 'unified' ? ' active' : ''}" data-source-layout="unified" id="src-unified-btn">± 行内 Unified Diff</button>
+        ${
+          state.sourceLayout === 'split'
+            ? `${syncScrollCommonBtn}
+               ${ratioResetCommonBtn}
+               <button type="button" class="mini-btn${state.highlightDiff ? ' active' : ''}" id="toggle-diff-btn">
+                 ${state.highlightDiff ? '✓ 差异行高亮' : '开启差异高亮'}
+               </button>`
+            : ''
+        }
+        ${copyLinkCommonBtn}
       `
     } else {
-      extraControls.innerHTML = `<span class="mono" style="font-size:0.75rem;color:var(--text-muted);">支持跨语言清单：package.json / requirements.txt / ssg-lock.json</span>`
+      extraControls.innerHTML = `
+        ${syncScrollCommonBtn}
+        ${ratioResetCommonBtn}
+        ${copyLinkCommonBtn}
+      `
     }
   }
 
@@ -347,19 +567,52 @@ function updateWorkbenchDom(): void {
   if (takeawayEl) {
     takeawayEl.textContent =
       state.mode === 'tree'
-        ? '工程目录不可能三角：VitePress 平铺易混 README；Starlight 强制 3 层深目录；Docusaurus/Rspress 散落 _category_.json/_meta.json；Hugo/Zola 强分 _index.md 与 index.md；mdBook 靠单一 SUMMARY.md 接管。'
+        ? '工程目录不可能三角：VitePress 平铺易混 README；Starlight 强制 3 层深目录；Docusaurus/Rspress/Nextra 依赖目录内 _category_.json/_meta.js；Hugo/Zola 强分 _index.md 与 index.md；mdBook/HonKit 靠单一 SUMMARY.md 接管。'
         : activeChapter.summary
   }
 
   const splitGrid = document.getElementById('workbench-split-grid')
   if (splitGrid) {
+    const isUnified = state.mode === 'source' && state.sourceLayout === 'unified'
     splitGrid.setAttribute('data-focus', state.focus)
-    splitGrid.innerHTML =
-      renderPaneContent('left', leftSite, rightSite) +
-      renderPaneContent('right', rightSite, leftSite)
-    splitGrid.querySelectorAll<HTMLIFrameElement>('.iframe-stage').forEach((frame) => {
-      frame.addEventListener('load', () => syncIframeThemes())
-    })
+    splitGrid.setAttribute('data-unified', isUnified ? 'true' : 'false')
+    applySplitRatioCss(splitGrid)
+
+    if (isUnified) {
+      splitGrid.innerHTML = renderUnifiedSourcePaneHtml(leftSite, rightSite)
+    } else {
+      const gutterHtml =
+        state.focus === 'both'
+          ? `<div class="split-gutter" id="workbench-split-gutter" role="separator" aria-orientation="vertical" title="拖动自由调整左右分屏宽度比例（双击恢复 50:50）"><span class="split-gutter-grip">⋮</span></div>`
+          : ''
+      splitGrid.innerHTML =
+        renderPaneContent('left', leftSite, rightSite) +
+        gutterHtml +
+        renderPaneContent('right', rightSite, leftSite)
+
+      if (state.focus === 'both') {
+        bindSplitGutterDrag(splitGrid)
+      }
+
+      const leftFrame = document.getElementById('iframe-left') as HTMLIFrameElement | null
+      const rightFrame = document.getElementById('iframe-right') as HTMLIFrameElement | null
+      if (leftFrame && rightFrame) {
+        leftFrame.addEventListener('load', () => {
+          syncIframeThemes()
+          bindIframeSyncScroll(leftFrame, rightFrame)
+        })
+        rightFrame.addEventListener('load', () => {
+          syncIframeThemes()
+          bindIframeSyncScroll(rightFrame, leftFrame)
+        })
+      } else {
+        splitGrid.querySelectorAll<HTMLIFrameElement>('.iframe-stage').forEach((frame) => {
+          frame.addEventListener('load', () => syncIframeThemes())
+        })
+      }
+
+      bindSplitContainersSyncScroll(splitGrid)
+    }
   }
 
   syncWorkbenchUrl()
@@ -426,7 +679,7 @@ function renderWorkbenchPage(): void {
       <div>
         <span class="section-step-tag mono">02 · Side-by-Side Live Benchmark Workbench (/workbench/)</span>
         <h1 class="section-heading">跨语言双栏同源实测对比工作台</h1>
-        <p class="section-sub" style="margin-bottom:0;">在独立页面专注并排检验 Pure GFM 母版与 ${mountedCount} 座跨语言实测子站（Node / Go / Rust / Python / SPA）的网页渲染、目录树、相似 <code>*.md</code> 差异与工程配置。</p>
+        <p class="section-sub" style="margin-bottom:0;">支持<strong>双栏同源网页/代码同步滚动</strong>、<strong>可拖拽分屏比例分隔条</strong>与<strong>行内 Unified Diff</strong>，并排检验 Pure GFM 母版与 ${mountedCount} 座跨语言实测子站。</p>
       </div>
       <a class="open-subsite-btn mono" href="/directory/">← 返回 01 生态目录挑选站点</a>
     </div>
@@ -463,11 +716,15 @@ function renderWorkbenchPage(): void {
           ${[
             ['fumadocs', 'nextra', 'Fumadocs ↔ Nextra'],
             ['docusaurus-v3', 'rspress', 'Docusaurus ↔ Rspress'],
+            ['gatsby', 'docusaurus-v3', 'Gatsby (GraphQL) ↔ Docusaurus'],
             ['nuxt-content', 'vitepress-v2', 'Nuxt MDC ↔ VitePress v2'],
             ['quartz', 'hugo', 'Quartz (双链) ↔ Hugo'],
             ['hugo', 'zola', 'Hugo (Go) ↔ Zola (Rust)'],
+            ['lume', 'eleventy', 'Lume (Deno) ↔ 11ty (Node)'],
+            ['jekyll', 'hexo', 'Jekyll (Ruby) ↔ Hexo'],
+            ['honkit', 'mdbook', 'HonKit ↔ mdBook'],
             ['sphinx', 'mkdocs-material', 'Sphinx (MyST) ↔ MkDocs'],
-            ['eleventy', 'astro7-starlight', '11ty v3 ↔ Starlight']
+            ['pelican', 'sphinx', 'Pelican ↔ Sphinx']
           ]
             .filter(
               ([l, r]) =>
@@ -492,7 +749,7 @@ function renderWorkbenchPage(): void {
           <span id="chapter-takeaway-text"></span>
         </div>
 
-        <div class="split-grid" id="workbench-split-grid" data-focus="both"></div>
+        <div class="split-grid" id="workbench-split-grid" data-focus="both" data-unified="false"></div>
       </div>
     </section>
   `
@@ -600,6 +857,40 @@ function renderWorkbenchPage(): void {
     if (target.dataset.viewportBtn) {
       state.viewport = target.dataset.viewportBtn as ViewportPreset
       updateWorkbenchDom()
+      return
+    }
+
+    if (target.dataset.sourceLayout) {
+      state.sourceLayout = target.dataset.sourceLayout as SourceDiffLayout
+      updateWorkbenchDom()
+      return
+    }
+
+    if (target.id === 'toggle-sync-scroll-btn') {
+      state.syncScroll = !state.syncScroll
+      target.classList.toggle('active', state.syncScroll)
+      target.textContent = state.syncScroll ? '⇅ 同步滚动: 开' : '⇅ 同步滚动: 关'
+      return
+    }
+
+    if (target.id === 'reset-ratio-btn') {
+      state.splitRatio = 50
+      const splitGrid = document.getElementById('workbench-split-grid')
+      if (splitGrid) applySplitRatioCss(splitGrid)
+      updateRatioResetButton()
+      return
+    }
+
+    if (target.id === 'copy-permalink-btn') {
+      syncWorkbenchUrl()
+      const urlText = window.location.href
+      navigator.clipboard?.writeText(urlText).catch(() => {})
+      target.textContent = '✓ 已复制对比链接'
+      target.classList.add('active')
+      window.setTimeout(() => {
+        target.textContent = '🔗 复制对比链接'
+        target.classList.remove('active')
+      }, 1600)
       return
     }
 

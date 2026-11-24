@@ -1,0 +1,70 @@
+name: Scheduled Sync GitHub Activity & Rebuild Portal
+
+on:
+  schedule:
+    # Run every Monday at 02:00 UTC to refresh Stars, Releases, and Yearly Commit counts
+    - cron: '0 2 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages-main-portal
+  cancel-in-progress: false
+
+jobs:
+  sync-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main branch with submodules
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          submodules: recursive
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install exact dependencies
+        run: npm ci
+
+      - name: Fetch latest GitHub GraphQL telemetry & sync Markdown tables
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run sync:github
+
+      - name: Commit updated docs/sites/*.{json,md} to main if changed
+        id: commit_check
+        run: |
+          if [ -n "$(git status --porcelain docs/sites/)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add docs/sites/
+            git commit -m "chore(telemetry): auto-sync GitHub activity & release snapshots"
+            git push origin HEAD:main
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No telemetry changes detected."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build portal & canonical master docs
+        if: steps.commit_check.outputs.changed == 'true' || github.event_name == 'workflow_dispatch'
+        run: |
+          npm run build
+          test -f dist/CNAME
+          touch dist/.nojekyll
+
+      - name: Publish refreshed static output to orphan page branch
+        if: steps.commit_check.outputs.changed == 'true' || github.event_name == 'workflow_dispatch'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: dist
+          publish_branch: page
+          force_orphan: true
+          commit_message: "deploy(page): scheduled telemetry sync from ${{ github.sha }}"
